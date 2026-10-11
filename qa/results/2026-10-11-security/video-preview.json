@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "durationSeconds": 60,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "peakDb": -1.5,
+  "bytes": 25097214,
+  "sha256": "8750cf4588dd5c00735bd519abdcf3085987059b327aa0cfdd0ebbdc3332f164",
+  "originalMusic": true,
+  "ordinaryAssessmentControls": true,
+  "expertAutofillInVideo": false,
+  "scenes": [
+    "registration",
+    "profile",
+    "vacancies",
+    "assessment answer and save",
+    "candidate selection",
+    "comparison",
+    "invitation and consent",
+    "chat"
+  ],
+  "visualFramesReviewed": [
+    2,
+    7,
+    12.5,
+    17.5,
+    25,
+    33.5,
+    38.5,
+    44,
+    53.5,
+    57.5
+  ]
+}

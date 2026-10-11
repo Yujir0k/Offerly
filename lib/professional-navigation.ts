@@ -5,6 +5,7 @@ import type {
 export type EditableAssessmentSession = AssessmentSession & {
   retakePolicy?: typeof import("./assessment-retakes").retakePolicy;
   interactionRevision?: number;
+  navigationVersion?: number;
   reviewCursor?: { item: number; step: number };
   answerRevisions?: {
     at: string;
@@ -23,10 +24,6 @@ export function assessmentNavigation(session: EditableAssessmentSession) {
         session.state === "active" &&
         (session.reviewCursor ?? session.cursor).item === itemIndex &&
         (session.reviewCursor ?? session.cursor).step === stepIndex;
-      const independent =
-        item.stage === "anchors" &&
-        item.variant.steps.length === 1 &&
-        session.items[session.cursor.item]?.stage === "anchors";
       return {
         itemId: item.variant.id,
         stepId: step.id,
@@ -34,13 +31,7 @@ export function assessmentNavigation(session: EditableAssessmentSession) {
         label: `Задание ${stepIndex + 1}`,
         selected: current,
         status: answered ? "answered" : current ? "current" : "pending",
-        available:
-          session.state === "active" &&
-          (answered ||
-            current ||
-            (session.cursor.item === itemIndex &&
-              session.cursor.step === stepIndex) ||
-            independent),
+        available: session.state === "active",
       };
     }),
   );
@@ -55,7 +46,7 @@ export function navigateIndependent(
     (n) => n.itemId === itemId && n.stepId === stepId,
   );
   if (!target?.available)
-    throw new Error("Этот шаг откроется после предыдущего");
+    throw new Error("Этот шаг недоступен");
   const item = session.items.findIndex((i) => i.variant.id === itemId);
   const cursor = {
     item,
@@ -96,6 +87,8 @@ export function restorePendingAnchor(
   }
 }
 export type NavigableSessionView = SessionView & {
+  demonstration?: boolean;
+  demoAnswer?: {itemId:string;stepId:string;optionId:string;execution:import("../vendor/fsp-assessment/src/domain").Plan};
   result: (NonNullable<SessionView["result"]> & {timeoutSummary?: import("./assessment-timeout").TimeoutSummary}) | null;
   navigation?: ReturnType<typeof assessmentNavigation>;
   interactionRevision?: number;
@@ -108,9 +101,7 @@ export type NavigableSessionView = SessionView & {
   scoringVersion?: string;
 };
 
-/** Withdraw before editing, so progress and scoring have a single source of truth.
- * Linked later steps are invalidated; observed evidence and elapsed time are never erased.
- */
+/** Reopen only the chosen response. Frozen tasks, later answers and evidence stay intact. */
 export function reopenAnswer(
   session: EditableAssessmentSession,
   itemId: string,
@@ -131,22 +122,7 @@ export function reopenAnswer(
     !session.responses.some((r) => r.itemId === itemId && r.stepId === stepId)
   )
     throw new Error("Сохранённый ответ не найден");
-  const onlyAnchor =
-    session.items[itemIndex]!.stage === "anchors" &&
-    session.items[session.cursor.item]?.stage === "anchors";
-  const invalidated = new Set(
-    session.items.flatMap((item, i) =>
-      item.variant.steps.flatMap((step, j) =>
-        (
-          onlyAnchor
-            ? i === itemIndex && j === stepIndex
-            : i > itemIndex || (i === itemIndex && j >= stepIndex)
-        )
-          ? [`${item.variant.id}/${step.id}`]
-          : [],
-      ),
-    ),
-  );
+  const invalidated = new Set([`${itemId}/${stepId}`]);
   const removed = session.responses.filter((r) =>
     invalidated.has(`${r.itemId}/${r.stepId}`),
   );
@@ -163,10 +139,6 @@ export function reopenAnswer(
     (r) => !invalidated.has(`${r.itemId}/${r.stepId}`),
   );
   session.contributions = session.responses.flatMap((r) => r.contributions);
-  // Previously exposed boundary questions stay in exposure history, but selection is recalculated natively.
-  session.items = session.items.filter(
-    (item, i) => item.stage !== "boundary" || i <= itemIndex,
-  );
   session.cursor = { item: itemIndex, step: stepIndex };
   session.stepStartedAt = new Date(now).toISOString();
   delete session.reviewCursor;
@@ -180,4 +152,28 @@ export function revisionResetCount(
   clone.answerRevisions = [];
   reopenAnswer(clone, itemId, stepId, Date.parse(session.startedAt));
   return session.responses.length - clone.responses.length;
+}
+
+/** Recover later answers withdrawn by the former cascading-edit policy, once per active attempt. */
+export function restoreLegacyRevisions(session: EditableAssessmentSession) {
+  if (session.state !== "active" || session.navigationVersion === 2) return false;
+  const valid = new Set(session.items.flatMap(item => item.variant.steps.map(step => `${item.variant.id}/${step.id}`)));
+  const recovered = new Map<string, AssessmentSession["responses"][number]>();
+  for (const revision of session.answerRevisions || []) {
+    recovered.delete(`${revision.itemId}/${revision.stepId}`);
+    for (const response of revision.removed) {
+    const key = `${response.itemId}/${response.stepId}`;
+    if (key !== `${revision.itemId}/${revision.stepId}` && valid.has(key)) recovered.set(key, response);
+  }
+  }
+  for (const response of session.responses) recovered.delete(`${response.itemId}/${response.stepId}`);
+  session.responses.push(...[...recovered.values()].map(response => structuredClone(response)));
+  session.contributions = session.responses.flatMap(response => response.contributions);
+  session.navigationVersion = 2;
+  const cursor = session.items[session.cursor.item];
+  if (cursor && session.responses.some(response => response.itemId === cursor.variant.id && response.stepId === cursor.variant.steps[session.cursor.step]?.id)) {
+    const pending = session.items.flatMap((item, i) => item.variant.steps.map((step, j) => ({item:i,step:j,itemId:item.variant.id,stepId:step.id}))).find(position => !session.responses.some(response => response.itemId === position.itemId && response.stepId === position.stepId));
+    if (pending) session.cursor = {item:pending.item,step:pending.step};
+  }
+  return true;
 }

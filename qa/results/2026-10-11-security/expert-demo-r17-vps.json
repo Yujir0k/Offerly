@@ -1,0 +1,16 @@
+{
+  "origin": "https://opherly.ru",
+  "errors": [],
+  "checks": [
+    "first entry opens large expert introduction over real assessment",
+    "mobile introduction fits without horizontal overflow",
+    "future section answers survive earlier edit, UI confirmation works",
+    "completed demo report with grade decision persists in Results and reopens",
+    "real results unchanged; history reveals no rubrics or accepted plans",
+    "dismissed introduction does not repeatedly interrupt navigation"
+  ],
+  "passed": true,
+  "release": "20261011-demo-r17",
+  "genericTourOverlap": false,
+  "databaseRestarted": false
+}

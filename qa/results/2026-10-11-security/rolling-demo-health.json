@@ -1,0 +1,425 @@
+{
+  "samples": [
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 94
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 110
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 84
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 98
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 88
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 108
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 114
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 91
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 101
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 108
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 86
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 95
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 115
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 117
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 87
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 105
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 116
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 111
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 109
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 103
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 97
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 94
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 102
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 169
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 119
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 121
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 105
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 217
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 106
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 120
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 123
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 91
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 86
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 121
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 1111
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 100
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 112
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 90
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 95
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 89
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 91
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 113
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 104
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 128
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 112
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 106
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 113
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 144
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 114
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 102
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 109
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 97
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 209
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 96
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 100
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 154
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 113
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 113
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 113
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "ms": 115
+    }
+  ],
+  "errors": 0
+}

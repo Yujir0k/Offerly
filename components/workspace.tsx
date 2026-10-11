@@ -572,7 +572,7 @@ export function Workspace({
           )}
         </main>
       </SidebarInset>
-      {tutorialEnabled && (
+      {tutorialEnabled && !(role === "candidate" && section === "assessment") && (
         <WorkspaceTour
           key={`${s.auth?.userId}:${role}`}
           role={role}

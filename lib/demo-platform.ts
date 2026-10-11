@@ -112,11 +112,26 @@ export async function seedDemo(account: Account, seed = initialState()) {
           JSON.stringify({ ...n, id: id + "-" + n.id }),
         ],
       );
+    // Incoming invitations need a distinct synthetic employer. The candidate's
+    // own company cannot start a conversation with its owner.
+    let incomingCompanyId = company.id;
+    if (seed.invitations.some(i => i.candidateId === seed.profile.id)) {
+      const employerId = crypto.randomUUID();
+      incomingCompanyId = crypto.randomUUID();
+      const name = seed.invitations.find(i => i.candidateId === seed.profile.id)!.company;
+      await db.query("INSERT INTO users(id,email,name,scope,demo) VALUES($1,$2,$3,$4,true)",
+        [employerId, `demo-${employerId}@example.test`, name, id]);
+      await db.query("INSERT INTO companies(id,owner_id,scope,payload) VALUES($1,$2,$3,$4)",
+        [incomingCompanyId, employerId, id, JSON.stringify({id: incomingCompanyId,
+          name, description: "Демонстрационная команда", email: "team@example.test", website: ""})]);
+      await db.query("INSERT INTO company_memberships(company_id,user_id,role) VALUES($1,$2,'owner')",
+        [incomingCompanyId, employerId]);
+    }
     for (const i of seed.invitations) {
       const value = {
         ...i,
         id: crypto.randomUUID(),
-        companyId: company.id,
+        companyId: i.candidateId === seed.profile.id ? incomingCompanyId : company.id,
         candidateId: remap.get(i.candidateId),
       };
       await db.query(

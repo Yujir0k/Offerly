@@ -57,6 +57,18 @@ export default function OfferlyApp() {
       (path.startsWith("/demo/") || path.startsWith("/welcome"))
     )
       path = `/verify-email?role=${nextRole}${path.startsWith("/welcome") ? "&ready=1" : ""}`;
+    if (!isWorkspace && path.startsWith("/demo/") && !currentState.current) {
+      // Keep the current page visible while resolving authentication; never mount a
+      // workspace loader for an anonymous visitor entering from the public menu.
+      switching.current = true;
+      try {
+        const {response,body} = await readWorkspace(nextRole);
+        if (response.status === 401) path = `/register?role=${nextRole}&returnTo=${encodeURIComponent(path)}`;
+        else if (!response.ok) throw new Error(body.error || "Не удалось открыть кабинет");
+        else { preparedRole.current = nextRole; stateGeneration.current++; commitState(body as State); }
+      } catch (failure) { setActionError((failure as Error).message); switching.current = false; return; }
+      switching.current = false;
+    }
     if (pendingLogin.current && path.startsWith("/demo/")) {
       pendingLogin.current = false;
       switching.current = true;
@@ -72,9 +84,9 @@ export default function OfferlyApp() {
       await new Promise<void>((resolve) =>
         requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
       );
-      await new Promise((resolve) => setTimeout(resolve, reduced ? 0 : 2400));
+      await new Promise((resolve) => setTimeout(resolve, reduced ? 0 : 180));
       setLoginTransition("reveal");
-      await new Promise((resolve) => setTimeout(resolve, reduced ? 0 : 550));
+      await new Promise((resolve) => setTimeout(resolve, reduced ? 0 : 300));
       setLoginTransition(null);
       switching.current = false;
       return;
@@ -129,6 +141,7 @@ export default function OfferlyApp() {
     window.history.pushState({}, "", path);
     setRoute(path);
     window.scrollTo({ top: 0, behavior: "instant" });
+    switching.current = false;
   }
   useEffect(() => {
     function pop() {
@@ -272,12 +285,13 @@ export default function OfferlyApp() {
         ? "assessment"
         : requestedSection;
   useEffect(() => {
-    if (requestedSection === "hiring") nav(`/demo/${role}/messages`);
-    if (role === "candidate" && requestedSection === "survey")
-      nav("/demo/candidate/assessment");
+    if (requestedSection !== "hiring" && !(role === "candidate" && requestedSection === "survey")) return;
+    const frame = requestAnimationFrame(() => void nav(requestedSection === "hiring" ? `/demo/${role}/messages` : "/demo/candidate/assessment"));
+    return () => cancelAnimationFrame(frame);
   }, [requestedSection, role]);
   return (
     <>
+      <div className="route-surface">
       {route === "/" || route.startsWith("/#") ? (
         <Landing nav={nav} />
       ) : route.startsWith("/register") || route.startsWith("/login") ? (
@@ -327,7 +341,7 @@ export default function OfferlyApp() {
           )
         ) : (
           <div className="app-loading">
-            <LogoMotion size={64} />
+            <LogoMotion mode="static" size={64} />
             <span>Готовим ваш профиль…</span>
             {error && <p role="alert">{error}</p>}
           </div>
@@ -410,13 +424,14 @@ export default function OfferlyApp() {
           />
         ) : (
           <div className="app-loading">
-            <LogoMotion size={64} />
+            <LogoMotion mode="static" size={64} />
             <span>Готовим ваше пространство…</span>
           </div>
         )
       ) : (
         <InfoPage type={route} nav={nav} />
       )}
+      </div>
       {transition && (
         <div
           className={`role-transition role-transition-${transition}`}
@@ -424,7 +439,7 @@ export default function OfferlyApp() {
           aria-label="Переключаем рабочее пространство"
         >
           <div className="role-transition-mark">
-            <LogoMotion mode="assemble" size={128} />
+            <span className="transition-progress" />
           </div>
         </div>
       )}
@@ -434,7 +449,7 @@ export default function OfferlyApp() {
           role="status"
           aria-label="Открываем рабочее пространство"
         >
-          <LogoMotion mode="assemble" size={176} />
+          <span className="transition-progress" />
         </div>
       )}
       <FeedbackDialog

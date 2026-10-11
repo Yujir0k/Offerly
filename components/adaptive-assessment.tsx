@@ -142,12 +142,16 @@ import { AssessmentArtifact, AssessmentScenario } from "./assessment-artifacts";
 export function AdaptiveEntry({
   initialGrade,
   initialSpecialization = "backend",
+  demonstration = false,
   nav,
 }: {
+  demonstration?: boolean;
   initialGrade: TargetGrade;
   initialSpecialization?: string;
   nav: Navigate;
 }) {
+  const api = demonstration ? "/demo-sessions" : "/adaptive-sessions";
+  const demoQuery = demonstration ? "&presentation=expert" : "";
   const [grade, setGrade] = useState<TargetGrade>(() => {
     const requested =
       typeof window === "undefined"
@@ -185,6 +189,7 @@ export function AdaptiveEntry({
   if (previousEligibility !== eligibilitySignature) { setPreviousEligibility(eligibilitySignature); setRetakeBusy(true); setEligibility(null); }
   useEffect(() => {
     let cancelled = false;
+    if (demonstration) return;
     platform<RetakeEligibility>(
       `/eligibility?specialization=${encodeURIComponent(specialization || "backend")}&targetGrade=${grade}`,
     )
@@ -200,13 +205,13 @@ export function AdaptiveEntry({
     return () => {
       cancelled = true;
     };
-  }, [specialization, grade]);
+  }, [specialization, grade, demonstration]);
   useEffect(() => {
     let cancelled = false;
     async function load() {
       try {
         const [sessions, packs] = await Promise.all([
-          platform<SessionView[]>("/adaptive-sessions"),
+          platform<SessionView[]>(api),
           platform<PublicPack[]>("/generative-packs"),
         ]);
         if (!cancelled) {
@@ -230,7 +235,7 @@ export function AdaptiveEntry({
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [api]);
   const active = sessions.find((s) => s.state === "active");
   const selectedPack = packs.find((pack) => pack.id === specialization);
   const profile = selectedPack?.presentation;
@@ -239,7 +244,7 @@ export function AdaptiveEntry({
     setError("");
     try {
       const session = await platform<SessionView>(
-        "/adaptive-sessions",
+        api,
         "POST",
         {
           specialization,
@@ -247,7 +252,7 @@ export function AdaptiveEntry({
         },
       );
       if (mounted.current)
-        nav(`/demo/candidate/assessment?session=${session.id}`);
+        nav(`/demo/candidate/assessment?session=${session.id}${demoQuery}`);
     } catch (failure) {
       setError((failure as Error).message);
     } finally {
@@ -269,7 +274,7 @@ export function AdaptiveEntry({
         <div className="assessment-facts-row">
           <span>
             <Clock3 size={18} />
-            До 20 минут
+            {demonstration ? "Без ограничения времени" : "До 20 минут"}
           </span>
           <span>
             <FileSearch size={18} />
@@ -327,8 +332,7 @@ export function AdaptiveEntry({
           этот уровень.
         </p>
         <p className="muted">
-          Таймер идёт с начала проверки. Ответы сохраняются; дополнительные
-          задания появятся при необходимости.
+          {demonstration ? "На каждом шаге доступно заполнение правильного ответа. Сохранение и переход дальше остаются под вашим управлением." : "Таймер идёт с начала проверки. Ответы сохраняются; дополнительные задания появятся при необходимости."}
         </p>
         <details className="assessment-rules">
           <summary>Общие правила сценариев</summary>
@@ -413,11 +417,11 @@ export function AdaptiveEntry({
           <button
             className="btn primary"
             disabled={
-              busy || (!active && (retakeBusy || !eligibility?.allowed))
+              busy || (!demonstration && !active && (retakeBusy || !eligibility?.allowed))
             }
             onClick={() =>
               active
-                ? nav(`/demo/candidate/assessment?session=${active.id}`)
+                ? nav(`/demo/candidate/assessment?session=${active.id}${demoQuery}`)
                 : void start()
             }
           >
@@ -429,7 +433,7 @@ export function AdaptiveEntry({
             <ArrowRight size={18} />
           </button>
           <p className="muted">
-            {eligibility?.nextEligibleAt && !active
+            {demonstration ? "Можно повторять демонстрацию без ожидания. Ответы и результат отделены от обычных проверок." : eligibility?.nextEligibleAt && !active
               ? `${eligibility.reason === "confirmed" ? "После подтверждения уровня действует интервал 90 дней." : "Повтор того же уровня доступен через 7 дней после неудачной попытки."} Следующая попытка: ${new Date(eligibility.nextEligibleAt).toLocaleString("ru-RU", { timeZone: "Europe/Moscow" })} (МСК).`
               : "После подтверждения уровня — 90 дней до следующей проверки в этом направлении. После неудачи — 7 дней до повтора того же уровня. Другой уровень без подтверждённой категории и другое направление доступны отдельно."}
           </p>
@@ -453,7 +457,7 @@ export function AdaptiveEntry({
               <button
                 className="btn outline"
                 onClick={() =>
-                  nav(`/demo/candidate/assessment?session=${s.id}`)
+                  nav(`/demo/candidate/assessment?session=${s.id}${demoQuery}`)
                 }
               >
                 {s.result ? "Открыть отчёт" : "Продолжить"}
@@ -487,13 +491,18 @@ function initialDraft(sessionId: string): {
 /** Render only the server-selected step and decision; this client never scores responses. */
 export function AdaptiveSessionPage({
   sessionId,
+  demonstration = false,
   nav,
   act,
 }: {
   sessionId: string;
+  demonstration?: boolean;
   nav: Navigate;
   act: Action;
 }) {
+  const api = demonstration ? "/demo-sessions" : "/adaptive-sessions";
+  const entryPath = `/demo/candidate/assessment${demonstration ? "?presentation=expert" : ""}`;
+  const [fillStatus, setFillStatus] = useState("");
   const [session, setSession] = useState<SessionView | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -543,7 +552,7 @@ export function AdaptiveSessionPage({
     async function load() {
       try {
         const s = await platform<SessionView>(
-          `/adaptive-sessions/${sessionId}`,
+          `${api}/${sessionId}`,
         );
         if (!cancelled) update(s);
       } catch (failure) {
@@ -554,7 +563,7 @@ export function AdaptiveSessionPage({
     return () => {
       cancelled = true;
     };
-  }, [sessionId]);
+  }, [sessionId, api]);
   useEffect(() => {
     const timer = setInterval(() => setClock(Date.now()), 1000);
     return () => clearInterval(timer);
@@ -568,7 +577,7 @@ export function AdaptiveSessionPage({
       const version = mutationVersion.current;
       try {
         const next = await platform<SessionView>(
-          `/adaptive-sessions/${sessionId}`,
+          `${api}/${sessionId}`,
         );
         if (
           !cancelled &&
@@ -588,7 +597,7 @@ export function AdaptiveSessionPage({
       cancelled = true;
       clearInterval(timer);
     };
-  }, [session?.state, sessionId]);
+  }, [session?.state, sessionId, api]);
   const stepKey = `${session?.current?.itemId}/${session?.current?.step.id}`;
   const choice = session?.savedAnswer
     ? session.savedAnswer.optionId
@@ -618,11 +627,11 @@ export function AdaptiveSessionPage({
     }
   }, [act, sessionId]);
   useEffect(() => {
-    if (session?.result && !syncStarted.current) {
+    if (!demonstration && session?.result && !syncStarted.current) {
       syncStarted.current = true;
       void sync();
     }
-  }, [session?.result, sync]);
+  }, [session?.result, sync, demonstration]);
   async function operation(
     action: "answer" | "evidence" | "navigate" | "revise",
     data: Record<string, unknown>,
@@ -633,7 +642,7 @@ export function AdaptiveSessionPage({
     mutationVersion.current++;
     try {
       const next = await platform<SessionView>(
-        `/adaptive-sessions/${sessionId}/${action}`,
+        `${api}/${sessionId}/${action}`,
         "POST",
         {
           interactionRevision: session.interactionRevision || 0,
@@ -643,16 +652,6 @@ export function AdaptiveSessionPage({
         },
       );
       if (action === "revise") {
-        setAnswers((previous) =>
-          Object.fromEntries(
-            Object.entries(previous).filter(([key]) =>
-              next.navigation?.some(
-                (n) =>
-                  `${n.itemId}/${n.stepId}` === key && n.status === "answered",
-              ),
-            ),
-          ),
-        );
         setSelectedChoice({
           key: stepKey,
           value: session.savedAnswer?.optionId || "",
@@ -681,6 +680,24 @@ export function AdaptiveSessionPage({
       requestPending.current = false;
     }
   }
+  async function fillDemo() {
+    if (!demonstration || busy || requestPending.current || !session?.current) return;
+    setBusy(true); requestPending.current = true; mutationVersion.current++;
+    try {
+      const next = await platform<SessionView>(`${api}/${sessionId}/fill`, "POST", {
+        itemId:session.current.itemId, stepId:session.current.step.id, interactionRevision:session.interactionRevision || 0,
+      });
+      const answer = next.demoAnswer;
+      if (answer && `${answer.itemId}/${answer.stepId}` === stepKey) {
+        setSelectedChoice({key:stepKey,value:answer.optionId});
+        setSelectedExecution({key:stepKey,value:answer.execution});
+        setAnswers(previous => ({...previous,[stepKey]:{choice:answer.optionId,execution:answer.execution}}));
+        setFillStatus(next.current?.step.exploration ? "Нужные источники открыты. Продолжите, когда будете готовы." : "Ответ заполнен. Проверьте его и нажмите «Сохранить и продолжить».");
+      }
+      update(next); setError("");
+    } catch (failure) {setError((failure as Error).message);}
+    finally {setBusy(false);requestPending.current=false;}
+  }
   if (!session)
     return (
       <section className="panel results-empty">
@@ -690,7 +707,7 @@ export function AdaptiveSessionPage({
             <p role="alert">{error}</p>
             <button
               className="btn primary"
-              onClick={() => nav("/demo/candidate/assessment")}
+              onClick={() => nav(entryPath)}
             >
               К проверкам
             </button>
@@ -703,7 +720,7 @@ export function AdaptiveSessionPage({
         )}
       </section>
     );
-  const seconds = Math.max(
+  const seconds = demonstration ? 1200 : Math.max(
     0,
     Math.ceil((Date.parse(session.deadlineAt) - clock - offset) / 1000),
   );
@@ -741,10 +758,9 @@ export function AdaptiveSessionPage({
         >
           <DialogTitle>Изменить сохранённый ответ?</DialogTitle>
           <DialogDescription>
-            {session.revisionResetCount && session.revisionResetCount > 1
-              ? `Этот ответ и последующие шаги (${session.revisionResetCount}) будут сняты с подтверждения. Их нужно будет заполнить снова, чтобы оценка соответствовала новому решению.`
-              : "Ответ будет снят с подтверждения. Измените его и сохраните снова — прогресс обновится автоматически."}{" "}
-            Общий таймер продолжит идти, открытые источники сохранятся.
+            Изменится только выбранный ответ. Ответы в других заданиях, открытые
+            источники и черновики сохранятся.{" "}
+            {demonstration ? "Демонстрация проходит без таймера." : "Общий таймер продолжит идти."}
           </DialogDescription>
           <button
             className="btn primary"
@@ -767,13 +783,18 @@ export function AdaptiveSessionPage({
       >
         <button
           className="text-link assessment-back"
-          onClick={() => nav("/demo/candidate/assessment")}
+          onClick={() => nav(entryPath)}
         >
           <ArrowLeft size={16} /> К проверкам
         </button>
         <h2>
           {session.specializationName} <span>· {session.targetGrade}</span>
         </h2>
+        {demonstration && !result && <div className="expert-demo-tools">
+          <span className="eyebrow">ДЛЯ ЭКСПЕРТОВ</span>
+          <button className="btn primary" disabled={busy || !!session.savedAnswer} onClick={() => void fillDemo()}>{busy ? "Подготавливаем…" : "Заполнить правильный ответ"}</button>
+          <p role="status" key={stepKey}>{selectedChoice.key === stepKey ? fillStatus : "Заполните текущий шаг, затем сохраните ответ обычной кнопкой."}</p>
+        </div>}
         {!result && (
           <>
             <div
@@ -782,9 +803,9 @@ export function AdaptiveSessionPage({
               aria-label="Осталось времени"
             >
               <span>
-                <Clock3 size={18} /> Осталось времени
+                <Clock3 size={18} /> {demonstration ? "Демонстрация" : "Осталось времени"}
               </span>
-              <strong>{remaining}</strong>
+              <strong>{demonstration ? "Без таймера" : remaining}</strong>
             </div>
             <div className="assessment-completion">
               <strong>
@@ -885,7 +906,7 @@ export function AdaptiveSessionPage({
             </nav>
             <p className="muted assessment-navigation-help">
               Сохранённые ответы можно открыть и изменить до завершения
-              проверки. Связанные шаги открываются последовательно.
+              проверки. Переходите между разделами в любом удобном порядке.
             </p>
           </>
         )}
@@ -917,7 +938,7 @@ export function AdaptiveSessionPage({
                 </span>
                 <div className="assessment-report-status">
                   <ShieldCheck size={24} />{" "}
-                  {result.decision === "CONFIRMED"
+                  {demonstration ? `Демонстрация · ${result.decision === "CONFIRMED" ? "уровень подтверждён" : "уровень не подтверждён"}` : result.decision === "CONFIRMED"
                     ? "Уровень подтверждён"
                     : "Уровень пока не подтверждён"}
                 </div>
@@ -1006,7 +1027,7 @@ export function AdaptiveSessionPage({
               </p>
               {result.timeoutSummary && <p>Ответов: {result.timeoutSummary.answered} из {result.timeoutSummary.total}. Без ответа: {result.timeoutSummary.unanswered} — 0 баллов. Итог: {result.timeoutSummary.score} из 100.</p>}
               <p role="status">
-                {syncStatus === "saved"
+                {demonstration ? "Демонстрационный отчёт сохранён в разделе «Результаты». Он не меняет реальный грейд и не участвует в поиске кандидатов." : syncStatus === "saved"
                   ? "Результат сохранён в профиле."
                   : syncStatus === "failed"
                     ? "Отчёт сохранён на сервере. Не удалось обновить профиль."
@@ -1030,7 +1051,7 @@ export function AdaptiveSessionPage({
             <div className="adaptive-actions">
               <button
                 className="btn outline"
-                onClick={() => nav("/demo/candidate/assessment")}
+                onClick={() => nav(entryPath)}
               >
                 К проверкам
               </button>
@@ -1039,7 +1060,7 @@ export function AdaptiveSessionPage({
                   className="btn primary"
                   onClick={() =>
                     nav(
-                      `/demo/candidate/assessment?grade=${result.recommendation}&specialization=${session.specialization}`,
+                      `/demo/candidate/assessment?grade=${result.recommendation}&specialization=${session.specialization}${demonstration ? "&presentation=expert" : ""}`,
                     )
                   }
                 >
@@ -1050,7 +1071,7 @@ export function AdaptiveSessionPage({
                 </button>
               )}
             </div>
-            {result.decision === "CONFIRMED" && result.recommendation && (
+            {!demonstration && result.decision === "CONFIRMED" && result.recommendation && (
               <p className="muted">
                 Рекомендация не меняет грейд. Новая проверка этого направления
                 доступна через 90 дней после подтверждения уровня; точная дата
@@ -1359,8 +1380,7 @@ export function AdaptiveSessionPage({
                       </section>
                     )}
                   <p className="muted">
-                    Все сохранённые ответы останутся после перезагрузки. Таймер
-                    общий для всей проверки.
+                    Все сохранённые ответы останутся после перезагрузки. Можно свободно переключаться между разделами.
                   </p>
                 </aside>
               )}

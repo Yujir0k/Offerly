@@ -6,6 +6,7 @@ import {
   professionalOperation,
   professionalPacks,
   professionalEligibility,
+  professionalDemoOperation,
 } from "@/lib/professional-assessment";
 export const runtime = "nodejs";
 async function handle(
@@ -38,6 +39,15 @@ async function handle(
         throw new AssessmentHttpError("Некорректный запрос");
     }
     let data;
+    if (path[0] === "demo-sessions") {
+      if (request.method === "POST") await throttle("professional-demo:" + account.id, 120, 60);
+      if (path.length === 1) data = await professionalDemoOperation(account, request.method === "GET" ? "list" : "start", input);
+      else if (path.length === 2 && request.method === "GET") data = await professionalDemoOperation(account, "get", {id:path[1]});
+      else if (path.length === 3 && request.method === "POST" && ["answer","evidence","navigate","revise","fill"].includes(path[2]))
+        data = await professionalDemoOperation(account, path[2] as "answer" | "evidence" | "navigate" | "revise" | "fill", {...input,id:path[1]});
+      else throw new AssessmentHttpError("Раздел недоступен",404);
+      return Response.json(data,{headers:{"Cache-Control":"no-store"}});
+    }
     if (
       path.length === 1 &&
       path[0] === "generative-packs" &&

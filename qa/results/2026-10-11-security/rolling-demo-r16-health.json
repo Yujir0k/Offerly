@@ -1,0 +1,109 @@
+{
+  "release": "20261011-demo-r16",
+  "phase": "after rolling deployment",
+  "tlsVerification": true,
+  "samples": [
+    {
+      "status": 200,
+      "ms": 81,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 84,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 81,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 77,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 84,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 88,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 79,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 80,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 84,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 80,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 74,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 81,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 76,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 83,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 82,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 81,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 80,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 84,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 74,
+      "exitCode": 0
+    },
+    {
+      "status": 200,
+      "ms": 77,
+      "exitCode": 0
+    }
+  ],
+  "errors": 0,
+  "discardedProbe": "Initial Python urllib probe could not validate the local certificate store; it produced no HTTP observations and is excluded."
+}

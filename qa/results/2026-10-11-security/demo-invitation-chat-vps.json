@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "origin": "https://opherly.ru",
+  "release": "20261011-demo-r15",
+  "freshSyntheticAccount": true,
+  "invitationAccepted": true,
+  "conversationOpened": true,
+  "syntheticMessageSent": true,
+  "jsErrors": [],
+  "externalEmailsSent": 0,
+  "relatedRegressionTestsPassed": 78,
+  "databaseRestarted": false
+}

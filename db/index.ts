@@ -48,10 +48,17 @@ async function connect(): Promise<Database> {
   const pg = new PGlite(dataPath);
   await pg.waitReady;
   const migrationDir = path.join(process.cwd(), "db/migrations");
+  await pg.exec("CREATE TABLE IF NOT EXISTS schema_migrations(id text PRIMARY KEY, applied_at timestamptz NOT NULL DEFAULT now())");
   for (const file of (await readdir(migrationDir))
     .filter((f) => /^\d{3}_[a-z0-9_]+\.sql$/.test(f))
-    .sort())
-    await pg.exec(await readFile(path.join(migrationDir, file), "utf8"));
+    .sort()) {
+    const id = file.replace(/\.sql$/, "");
+    if ((await pg.query("SELECT id FROM schema_migrations WHERE id=$1", [id])).rows.length) continue;
+    await pg.transaction(async tx => {
+      await tx.exec(await readFile(path.join(migrationDir, file), "utf8"));
+      await tx.query("INSERT INTO schema_migrations(id) VALUES($1)", [id]);
+    });
+  }
   const wrap = (client: Pick<typeof pg, "query">): Database => ({
     query: <T extends QueryResultRow>(sql: string, params: unknown[] = []) => client.query<T>(sql, params),
     transaction: (fn) => pg.transaction((tx) => fn(wrap(tx))),

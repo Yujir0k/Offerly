@@ -490,3 +490,26 @@ test("hard task deadline locks answers, preserves partial draft, persists expiry
   assert.equal(reviewed.instructions, "");
   assert.equal(reviewed.feedback, "Проверен частичный результат");
 });
+
+test("fresh demo invitation belongs to a separate employer and opens a usable isolated chat", async () => {
+  const {seedDemo} = await import('../lib/demo-platform');
+  const {changeConversation,readConversation} = await import('../lib/conversations');
+  const a = {...account('demo-chat-owner'),scope:'demo-chat-owner'};
+  await seedDemo(a);
+  const s = await loadPlatform(a);
+  const i = s.invitations.find(i=>i.candidateId===s.profile.id)!;
+  assert.ok(i);
+  assert.notEqual(i.companyId,s.company.id);
+  const company = (await db.query('SELECT owner_id,scope FROM companies WHERE id=$1',[i.companyId])).rows[0];
+  assert.notEqual(company.owner_id,a.id);
+  assert.equal(company.scope,a.scope);
+  Object.assign(i,{status:'accepted',readAt:new Date().toISOString(),respondedAt:new Date().toISOString()});
+  await savePlatform(a.id,s);
+  const room = (await db.query('SELECT id FROM conversations WHERE company_id=$1 AND candidate_id=$2',[i.companyId,s.profile.id])).rows[0].id;
+  const text='Здравствуйте! Обсудим задачи команды.';
+  await changeConversation(a,'candidate',room,{type:'message',clientId:crypto.randomUUID(),body:text});
+  const thread = await readConversation(a,'candidate',room,null);
+  assert.equal(thread.messages.at(-1)?.body,text);
+  await assert.rejects(readConversation(other,'candidate',room,null),/недоступен/);
+  assert.equal((await loadPlatform(a)).invitations.find(x=>x.id===i.id)?.status,'accepted');
+});

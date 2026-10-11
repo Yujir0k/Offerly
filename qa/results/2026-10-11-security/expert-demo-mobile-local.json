@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "origin": "http://127.0.0.1:5174",
+  "width": 390,
+  "checks": {
+    "panelHeight": 434.765625,
+    "clockBottom": 603.359375,
+    "panelBottom": 755.15625,
+    "overflow": false,
+    "sticky": "relative",
+    "toolsHeight": 188.171875
+  }
+}

@@ -10256,3 +10256,46 @@ input[type="number"]::-webkit-outer-spin-button {
 .survey-workspace .editor-aside { display: flex; flex-direction: column; align-self: start; gap: 24px; }
 .survey-workspace .journey-field [data-slot="select-trigger"] { background: #fff; border: 1px solid #dcd7e7; color: #36313e; border-radius: 10px; }
 .offerly-choice-menu { width: var(--radix-select-trigger-width); min-width: 0; }
+
+/* Calm auth navigation: no assembling or fragmenting brand mark. */
+.route-surface { opacity:1; transition:opacity 180ms ease; }
+.route-surface-leaving { opacity:0; pointer-events:none; }
+.registration-page { animation:auth-page-enter 240ms ease-out both; }
+@keyframes auth-page-enter { from { opacity:0; } to { opacity:1; } }
+.login-transition, .role-transition { animation:auth-cover-enter 180ms ease both; }
+.login-transition-reveal, .role-transition-reveal { animation:auth-cover-exit 300ms ease both; }
+.transition-progress { width:48px; height:3px; border-radius:3px; background:#402FFF; }
+@keyframes auth-cover-enter { from {opacity:0} to {opacity:1} }
+@keyframes auth-cover-exit { from {opacity:1} to {opacity:0} }
+.expert-demo-banner { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:22px 26px; background:#efecff; border:1px solid #ddd6ff; border-radius:16px; margin-bottom:24px; }
+.expert-demo-banner strong { color:#3223c4; font-size:17px; }
+.expert-demo-banner p { color:#625d74; font-size:14px; margin:6px 0 0; max-width:680px; }
+.expert-demo-banner .btn { flex-shrink:0; }
+.expert-demo-tools { border-top:1px solid #e4def4; padding:18px 0; display:grid; gap:12px; flex-shrink:0; }
+.expert-demo-tools .btn { white-space:normal; height:auto; min-height:44px; text-align:left; }
+.expert-demo-tools p { color:#6c657e; font-size:12px; line-height:1.6; margin:0; }
+.formal-assessment .assessment-controller:has(.expert-demo-tools) .assessment-clock > strong { font-size:24px; white-space:nowrap; }
+@media (max-width:800px) {
+ .formal-assessment .has-active-session > .assessment-controller:has(.expert-demo-tools) { position:relative; top:auto; max-height:none; overflow:visible; }
+ .formal-assessment .assessment-controller:has(.expert-demo-tools) .assessment-clock { flex-wrap:wrap; gap:8px; }
+}
+@media (max-width:680px) { .expert-demo-banner { flex-direction:column; align-items:flex-start; padding:18px; gap:16px; } }
+@media (prefers-reduced-motion:reduce) {
+ .route-surface { transition:none; }
+ .registration-page,.login-transition,.role-transition { animation:none; transform:none; }
+ .login-transition-reveal,.role-transition-reveal { opacity:0; }
+}
+
+/* Expert introduction keeps the ordinary assessment visible underneath. */
+.expert-intro-dialog { width:min(1120px,calc(100vw - 48px));max-width:none!important;max-height:calc(100dvh - 48px);overflow-y:auto;display:grid;grid-template-columns:1.35fr 1fr;gap:48px;padding:56px;border-radius:24px;background:#fff;color:#1b1c21;font-family:Manrope,Arial,sans-serif; }
+.expert-intro-copy [data-slot="dialog-title"] {font-size:clamp(28px,3.2vw,44px);line-height:1.13;letter-spacing:-1.5px;margin:20px 0;}
+.expert-intro-copy [data-slot="dialog-description"] {font-size:17px;line-height:1.6;color:#75717f;}
+.expert-intro-copy ul {padding:0;list-style:none;display:grid;gap:18px;margin:28px 0;}
+.expert-intro-copy li {display:flex;gap:12px;align-items:center;}
+.expert-intro-copy li svg {color:#402fff;flex-shrink:0;}
+.expert-intro-note {padding:20px;background:#f3f1f8;border-radius:12px;font-size:13px;line-height:1.7;color:#615c6d;}
+.expert-intro-setup {align-self:center;display:grid;gap:20px;background:#f7f6fa;border:1px solid #e8e4f0;border-radius:18px;padding:28px;min-width:0;}
+.expert-intro-setup h3 {font-size:22px;margin:0;}
+.expert-intro-setup .field {display:grid;gap:10px;}
+.demo-result-label {display:inline-block!important;margin:8px 0 0;padding:4px 10px;border-radius:6px;background:#f2efff;color:#402fff!important;font-size:12px!important;font-weight:700;}
+@media(max-width:800px) {.expert-intro-dialog {grid-template-columns:1fr;gap:24px;width:calc(100vw - 24px);max-height:calc(100dvh - 24px);padding:32px 22px;}.expert-intro-setup {padding:20px;}.expert-intro-copy [data-slot="dialog-title"] {letter-spacing:-.8px;}}

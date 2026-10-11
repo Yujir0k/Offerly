@@ -220,7 +220,22 @@ function RoleMenu({
               <a
                 href={path}
                 onClick={(e) => {
-                  if (!path.includes("#")) {
+                  if (path.includes("#") && window.location.pathname === "/") {
+                    e.preventDefault();
+                    const target = document.getElementById(path.split("#")[1]);
+                    if (!target) return;
+                    const from = window.scrollY;
+                    const to = from + target.getBoundingClientRect().top - 88;
+                    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                    const started = performance.now();
+                    const move = (now: number) => {
+                      const t = reduced ? 1 : Math.min(1, (now-started)/280);
+                      window.scrollTo({top:from+(to-from)*(1-Math.pow(1-t,3)),behavior:"instant"});
+                      if(t<1) requestAnimationFrame(move);
+                    };
+                    requestAnimationFrame(move);
+                    window.history.replaceState({}, "", path);
+                  } else if (!path.includes("#")) {
                     e.preventDefault();
                     nav(path);
                   }

@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "navigationMatrix": {
+    "tracks": 12,
+    "grades": 3,
+    "cases": 36,
+    "legacyRecoveryCases": 1
+  },
+  "regressionTests": 85,
+  "upstreamAdaptiveTests": 17,
+  "expertApiQuick": {
+    "track": "backend",
+    "grades": 3,
+    "steps": 33,
+    "verifiedOrdinaryOwnerCompletedDemo": true,
+    "ordinaryActiveAttemptUnchanged": true,
+    "profileUnchanged": true,
+    "noQualificationProjection": true
+  },
+  "typeCheck": true,
+  "targetedEslintErrors": 0,
+  "openapi": {
+    "paths": 41,
+    "references": 269,
+    "directRouteMethods": 44
+  },
+  "externalMailSent": false,
+  "genericTourOnAssessment": false,
+  "finalRelease": "20261011-demo-r17"
+}

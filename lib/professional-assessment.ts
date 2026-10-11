@@ -12,8 +12,8 @@ import "server-only";
 import {
   assessmentNavigation,
   navigateIndependent,
-  restorePendingAnchor,
   reopenAnswer,
+  restoreLegacyRevisions,
   revisionResetCount,
   type EditableAssessmentSession,
 } from "./professional-navigation";
@@ -44,9 +44,11 @@ export class TransactionAssessmentStore {
   readonly records = new Map<string, RecordRow>();
   readonly dirty = new Set<string>();
   readonly removed = new Set<string>();
-  constructor(rows: RecordRow[]) {
-    for (const row of rows)
+  constructor(rows: RecordRow[], private readonly demonstration = false) {
+    for (const original of rows) {
+      const row = demonstration && original.collection === "expert-sessions" ? {...original,collection:"adaptive-sessions"} : original;
       this.records.set(this.key(row.collection, row.id), row);
+    }
   }
   private key(collection: string, id: string) {
     return `${collection}\0${id}`;
@@ -78,14 +80,14 @@ export class TransactionAssessmentStore {
       const [collection, id] = key.split("\0");
       await db.query(
         "DELETE FROM professional_assessment_records WHERE scope=$1 AND collection=$2 AND id=$3",
-        [scope, collection, id],
+        [scope, this.demonstration && collection === "adaptive-sessions" ? "expert-sessions" : collection, id],
       );
     }
     for (const key of this.dirty) {
       const r = this.records.get(key)!;
       await db.query(
         "INSERT INTO professional_assessment_records(scope,collection,id,user_id,body) VALUES ($1,$2,$3,$4,$5) ON CONFLICT(scope,collection,id) DO UPDATE SET body=excluded.body,updated_at=now()",
-        [scope, r.collection, r.id, r.user_id, JSON.stringify(r.body)],
+        [scope, this.demonstration && r.collection === "adaptive-sessions" ? "expert-sessions" : r.collection, r.id, r.user_id, JSON.stringify(r.body)],
       );
     }
   }
@@ -250,10 +252,13 @@ async function projectCompleted(
 export async function professionalOperation(
   account: Account,
   operation:
-    "list" | "get" | "start" | "answer" | "evidence" | "navigate" | "revise",
+    "list" | "get" | "start" | "answer" | "evidence" | "navigate" | "revise" | "fill",
   input: Record<string, unknown> = {},
   now?: number,
+  demonstration = false,
 ): Promise<ReturnType<typeof publicSession> | ReturnType<typeof publicSession>[] | null> {
+  if (operation === "fill" && !demonstration) throw new AssessmentHttpError("Раздел недоступен", 404);
+  const sessionCollection = demonstration ? "expert-sessions" : "adaptive-sessions";
   // History returns the same public views, but fetches one immutable snapshot at a time.
   // A candidate can accumulate many large generated programs; materializing all private
   // snapshots in a single pg response caused excessive transient heap under concurrency.
@@ -263,14 +268,14 @@ export async function professionalOperation(
        FROM professional_assessment_records source LEFT JOIN professional_assessment_records cached
        ON cached.scope=source.scope AND cached.user_id=source.user_id AND cached.id=source.id
          AND cached.collection='public-session-views'
-       WHERE source.scope=$1 AND source.user_id=$2 AND source.collection='adaptive-sessions'
+       WHERE source.scope=$1 AND source.user_id=$2 AND source.collection='${sessionCollection}'
        ORDER BY source.body->>'startedAt' DESC`,
       [account.scope, account.id],
     );
     const views = [];
     for (const row of history) {
       if (row.view) { views.push({...row.view, serverNow: new Date(now ?? Date.now()).toISOString()}); continue; }
-      try { const view = await professionalOperation(account, "get", {id: row.id}, now); if (view && !Array.isArray(view)) views.push(view); }
+      try { const view = await professionalOperation(account, "get", {id: row.id}, now, demonstration); if (view && !Array.isArray(view)) views.push(view); }
       catch (error) {
         // Account deletion between independent reads must not expose somebody else's data.
         if (!(error instanceof AssessmentHttpError && error.status === 404)) throw error;
@@ -301,12 +306,12 @@ export async function professionalOperation(
       operation === "answer" ||
       operation === "evidence" ||
       operation === "navigate" ||
-      operation === "revise"
+      operation === "revise" || operation === "fill"
     ) {
       const {
         rows: [r],
       } = await db.query(
-        "SELECT body FROM professional_assessment_records WHERE scope=$1 AND collection='adaptive-sessions' AND id=$2 AND user_id=$3",
+        `SELECT body FROM professional_assessment_records WHERE scope=$1 AND collection='${sessionCollection}' AND id=$2 AND user_id=$3`,
         [account.scope, id, account.id],
       );
       if (!r) throw new AssessmentHttpError("Проверка не найдена", 404);
@@ -324,8 +329,8 @@ export async function professionalOperation(
       specialization: string;
       grade: string;
     }>(
-      "SELECT body->>'specialization' AS specialization,body->>'targetGrade' AS grade FROM professional_assessment_records WHERE user_id=$1 AND collection='adaptive-sessions' AND body->>'state'='active'",
-      [account.id],
+      `SELECT body->>'specialization' AS specialization,body->>'targetGrade' AS grade FROM professional_assessment_records WHERE user_id=$1 AND scope=$2 AND collection='${sessionCollection}' AND body->>'state'='active'`,
+      [account.id, account.scope],
     );
     // Sweep may finish the owner's previous track. Hold that track too, in stable order,
     // so another worker cannot write a different timeout snapshot over the frozen result.
@@ -349,8 +354,8 @@ export async function professionalOperation(
     }
     const { rows } = await db.query<RecordRow>(
       `SELECT collection,id,user_id,body FROM professional_assessment_records WHERE scope=$1 AND (
-       (collection='adaptive-sessions' AND user_id=$2 AND (body->>'state'='active' OR id=$5 OR $6))
-       OR (body->>'specialization'=$3 AND body->>'targetGrade'=$4 AND (collection NOT IN ('adaptive-sessions','public-session-views') OR (collection='adaptive-sessions' AND body->>'state'='active')))
+       (collection='${sessionCollection}' AND user_id=$2 AND (body->>'state'='active' OR id=$5 OR $6))
+       OR (body->>'specialization'=$3 AND body->>'targetGrade'=$4 AND (collection NOT IN ('${sessionCollection}','public-session-views') OR (collection='${sessionCollection}' AND body->>'state'='active')))
     )`,
       [
         account.scope,
@@ -361,8 +366,15 @@ export async function professionalOperation(
         false,
       ],
     );
-    now ??= Date.now(); // Check the deadline after transaction locks, never at request arrival.
-    const store = new TransactionAssessmentStore(rows),
+    now ??= Date.now(); // Check the real deadline after transaction locks.
+    if (demonstration) {
+      // Demo time advances only with activity, never with wall time or a client clock.
+      const running = rows.find(r => r.collection === sessionCollection &&
+        (r.id === id || (r.body as AssessmentSession).state === "active"))?.body as AssessmentSession | undefined;
+      if (running) now = Date.parse(running.startedAt) + Math.min(600000,
+        (running.responses.length + running.evidenceSelections.length) * 1000);
+    }
+    const store = new TransactionAssessmentStore(rows, demonstration),
       service = new AdaptiveService(store as unknown as Store);
     for (const session of store.list<AssessmentSession>("adaptive-sessions")) {
       if (
@@ -375,6 +387,7 @@ export async function professionalOperation(
         );
     }
     for(const session of store.list<AssessmentSession>("adaptive-sessions")) {
+      if(restoreLegacyRevisions(session as EditableAssessmentSession))service.save(session);
       if(settleAssessmentTimeout(session,now))service.save(session);
     }
     service.sweep(now);
@@ -398,10 +411,10 @@ export async function professionalOperation(
           grade,
           now,
         );
-        if (!eligibility.allowed) {
+        if (!demonstration && !eligibility.allowed) {
           // Commit timeout sweep/reservation release even when the new start is denied.
           await store.flush(db, account.scope);
-          await projectCompleted(db, store, account.id);
+          if (!demonstration) await projectCompleted(db, store, account.id);
           return new AssessmentHttpError(
             `Следующая проверка доступна ${new Date(eligibility.nextEligibleAt!).toLocaleString("ru-RU", { timeZone: "Europe/Moscow" })} (МСК).`,
             429,
@@ -430,7 +443,7 @@ export async function professionalOperation(
       )! as EditableAssessmentSession;
       if(session.state==='completed'&&session.result?.stopReason==='timeout') {
         await store.flush(db,account.scope);
-        await projectCompleted(db,store,account.id);
+        if (!demonstration) await projectCompleted(db,store,account.id);
         return new AssessmentHttpError('Время проверки истекло. Выполнение закрыто, результат сохранён.',409);
       }
       if (operation === "revise" && session.state !== "active")
@@ -467,7 +480,22 @@ export async function professionalOperation(
       const replayEvidence = session.evidenceSelections.some(
         (r) => r.itemId === itemId && r.artifactId === input.artifactId,
       );
-      if (operation === "revise") {
+      if (operation === "fill") {
+        if (session.state !== "active" || session.reviewCursor)
+          throw new AssessmentHttpError("Откройте несохранённый шаг демонстрации", 409);
+        const item = session.items[session.cursor.item].variant;
+        const step = item.steps[session.cursor.step];
+        if (item.id !== itemId || step.id !== stepId || input.interactionRevision !== (session.interactionRevision || 0))
+          throw new AssessmentHttpError("Шаг изменился. Повторите заполнение", 409);
+        if (step.exploration) {
+          for (const artifact of [...item.artifacts].sort((a,b) => b.usefulness-a.usefulness).slice(0, step.requiredEvidenceSources || 2))
+            service.mutate(id, account.id, "evidence", {itemId, stepId, artifactId:artifact.id}, now);
+        }
+        const optionId = step.exploration ? "continue" : Object.entries(step.rubric.scores).sort((a,b) => b[1]-a[1])[0][0];
+        result = publicSession(session, now);
+        Object.assign(result, {demoAnswer:{itemId, stepId, optionId,
+          execution: structuredClone(item.generated?.responseChecks?.[step.id]?.accepted[0] || {})}});
+      } else if (operation === "revise") {
         reopenAnswer(session, itemId, stepId, now);
         service.save(session);
         result = publicSession(session, now);
@@ -497,9 +525,6 @@ export async function professionalOperation(
             "Сначала нажмите «Изменить ответ»",
             409,
           );
-        const wasAnchor =
-          operation === "answer" &&
-          session.items[session.cursor.item]?.stage === "anchors";
         result = service.mutate(
           id,
           account.id,
@@ -521,12 +546,7 @@ export async function professionalOperation(
           },
           now,
         );
-        if (wasAnchor && session.state === "active") {
-          restorePendingAnchor(session, true, now);
-          service.save(session);
-          service.recordExposure(session, now);
-          result = publicSession(session, now);
-        }
+
       }
     }
     if (!Array.isArray(result) && result) {
@@ -552,6 +572,7 @@ export async function professionalOperation(
       );
       if (snapshot) {
         Object.assign(view, {
+          ...(demonstration ? {demonstration:true} : {}),
           navigation: assessmentNavigation(snapshot),
           interactionRevision: snapshot.interactionRevision || 0,
           methodVersion:
@@ -591,13 +612,13 @@ export async function professionalOperation(
       }
     }
     await store.flush(db, account.scope);
-    await projectCompleted(db, store, account.id);
+    if (!demonstration) await projectCompleted(db, store, account.id);
     // Freeze the public report too: later presentation code must not reinterpret old scores.
     const views = Array.isArray(result) ? result : [result];
     const completed = views
       .filter((v) => v?.state === "completed")
       .map((v) => v!.id);
-    if (completed.length) {
+    if (completed.length && !demonstration) {
       const { rows: reports } = await db.query<{ id: string; result: unknown }>(
         "SELECT id,payload->'result' AS result FROM assessments WHERE user_id=$1 AND id=ANY($2::text[])",
         [account.id, completed],
@@ -631,4 +652,10 @@ function canonical(value: unknown): string {
       ),
     );
   return JSON.stringify(value);
+}
+
+/** Demonstrations belong to the current authenticated owner in a separate namespace. */
+export async function professionalDemoOperation(account: Account, operation: Parameters<typeof professionalOperation>[1], input: Record<string, unknown> = {}) {
+  if (!account.demo && !account.verified_at) throw new AssessmentHttpError("Подтвердите почту перед демонстрацией", 403);
+  return professionalOperation({...account, scope: `${account.scope}:expert`}, operation, input, undefined, true);
 }

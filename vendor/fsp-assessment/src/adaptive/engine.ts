@@ -557,14 +557,16 @@ export function openEvidence(
   });
 }
 function advance(session: AssessmentSession, now: number) {
-  const item = session.items[session.cursor.item]!;
-  session.cursor.step++;
-  if (session.cursor.step >= item.variant.steps.length) {
-    session.cursor.item++;
-    session.cursor.step = 0;
-  }
+  // Navigation may visit any issued task. Never score early or repeat a saved response.
+  const positions = session.items.flatMap((entry, itemIndex) =>
+    entry.variant.steps.map((step, stepIndex) => ({ item: itemIndex, step: stepIndex, itemId: entry.variant.id, stepId: step.id })),
+  );
+  const currentIndex = positions.findIndex((p) => p.item === session.cursor.item && p.step === session.cursor.step);
+  const ordered = [...positions.slice(currentIndex + 1), ...positions.slice(0, currentIndex + 1)];
+  const pending = ordered.find((p) => !session.responses.some((r) => r.itemId === p.itemId && r.stepId === p.stepId));
   session.stepStartedAt = iso(now);
-  if (session.cursor.item < session.items.length) return;
+  if (pending) { session.cursor = { item: pending.item, step: pending.step }; return; }
+  session.cursor = { item: session.items.length, step: 0 };
   if (!coreCompleted(session)) throw new Error('Обязательная часть не завершена');
   const evaluation = evaluateEvidence(session);
   const sufficient = evaluation.dimensions.every(

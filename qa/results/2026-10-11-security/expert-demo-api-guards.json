@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "origin": "https://opherly.ru",
+  "checks": [
+    {
+      "name": "unauthenticated demo access",
+      "status": 401
+    },
+    {
+      "name": "cross-origin mutation",
+      "status": 403
+    },
+    {
+      "name": "demo authentication",
+      "status": 200
+    },
+    {
+      "name": "wrong role",
+      "status": 403
+    },
+    {
+      "name": "own demo list",
+      "status": 200
+    },
+    {
+      "name": "foreign demo owner",
+      "status": 404
+    },
+    {
+      "name": "real API isolation",
+      "status": 404
+    }
+  ],
+  "externalMailSent": false
+}

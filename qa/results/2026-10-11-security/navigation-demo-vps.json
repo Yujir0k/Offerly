@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "origin": "https://opherly.ru",
+  "checks": [
+    {
+      "role": "candidate",
+      "link": "Проверка навыков",
+      "registration": true,
+      "loader": false
+    },
+    {
+      "role": "candidate",
+      "link": "Предложения",
+      "registration": true,
+      "loader": false
+    },
+    {
+      "role": "candidate",
+      "link": "Профиль",
+      "registration": true,
+      "loader": false
+    },
+    {
+      "role": "candidate",
+      "link": "Вакансии",
+      "registration": true,
+      "loader": false
+    },
+    {
+      "role": "employer",
+      "link": "Кандидаты",
+      "registration": true,
+      "loader": false
+    },
+    {
+      "role": "employer",
+      "link": "Приглашения",
+      "registration": true,
+      "loader": false
+    },
+    {
+      "role": "employer",
+      "link": "Подборки",
+      "registration": true,
+      "loader": false
+    },
+    {
+      "role": "employer",
+      "link": "Компания",
+      "registration": true,
+      "loader": false
+    },
+    {
+      "anchor": "how-it-works",
+      "settledWithinMs": 360,
+      "top": 88.171875
+    }
+  ],
+  "jsErrors": []
+}
