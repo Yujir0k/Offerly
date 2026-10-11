@@ -45,7 +45,9 @@ export function EmailChangeDialog({
   );
   const [resendAt, setResendAt] = useState(0),
     [remaining, setRemaining] = useState(0);
-  useEffect(() => {
+  const [previousOpen, setPreviousOpen] = useState(open);
+  if (previousOpen !== open) {
+    setPreviousOpen(open);
     if (open) {
       setStep("address");
       setEmail("");
@@ -57,7 +59,7 @@ export function EmailChangeDialog({
       setResendAt(0);
       setRemaining(0);
     } else setPassword("");
-  }, [open]);
+  }
   useEffect(() => {
     if (!open || !resendAt) return;
     const tick = () =>

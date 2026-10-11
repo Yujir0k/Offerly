@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 export function ExperienceInput({
   value,
   onChange,
@@ -9,9 +9,11 @@ export function ExperienceInput({
 }) {
   const [text, setText] = useState(String(value));
   const [limited, setLimited] = useState(false);
-  useEffect(() => {
-    setText((current) => (Number(current) === value ? current : String(value)));
-  }, [value]);
+  const [previousValue, setPreviousValue] = useState(value);
+  if (previousValue !== value) {
+    setPreviousValue(value);
+    if (Number(text) !== value) setText(String(value));
+  }
   return (
     <>
       <input

@@ -1,8 +1,8 @@
-import { Pool, type PoolClient } from "pg";
+import { Pool, type PoolClient, type QueryResultRow } from "pg";
 import { readFile, mkdir, readdir } from "node:fs/promises";
 import path from "node:path";
 export interface Database {
-  query<T = any>(sql: string, params?: any[]): Promise<{ rows: T[] }>;
+  query<T extends QueryResultRow = QueryResultRow>(sql: string, params?: unknown[]): Promise<{ rows: T[] }>;
   transaction<T>(fn: (db: Database) => Promise<T>): Promise<T>;
 }
 const globals = globalThis as typeof globalThis & {
@@ -19,7 +19,7 @@ async function connect(): Promise<Database> {
       connectionTimeoutMillis: 5000,
     });
     const wrap = (client: Pool | PoolClient): Database => ({
-      query: (sql, params) => client.query(sql, params) as any,
+      query: async <T extends QueryResultRow>(sql: string, params?: unknown[]) => client.query<T>(sql, params),
       async transaction(fn) {
         const c = await pool.connect();
         try {
@@ -52,8 +52,8 @@ async function connect(): Promise<Database> {
     .filter((f) => /^\d{3}_[a-z0-9_]+\.sql$/.test(f))
     .sort())
     await pg.exec(await readFile(path.join(migrationDir, file), "utf8"));
-  const wrap = (client: any): Database => ({
-    query: (sql, params = []) => client.query(sql, params),
+  const wrap = (client: Pick<typeof pg, "query">): Database => ({
+    query: <T extends QueryResultRow>(sql: string, params: unknown[] = []) => client.query<T>(sql, params),
     transaction: (fn) => pg.transaction((tx) => fn(wrap(tx))),
   });
   return wrap(pg);
@@ -64,6 +64,6 @@ export async function getDb() {
     throw error;
   }));
 }
-export async function query<T = any>(sql: string, params: any[] = []) {
+export async function query<T extends QueryResultRow = QueryResultRow>(sql: string, params: unknown[] = []) {
   return (await getDb()).query<T>(sql, params);
 }

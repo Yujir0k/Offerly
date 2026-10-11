@@ -23,7 +23,7 @@ export async function chatRequest<T>(
       "Нет связи с сервером. Ваш текст сохранён; повторите отправку после восстановления соединения.",
     );
   }
-  let value: any;
+  let value: unknown;
   try {
     value = await r.json();
   } catch {
@@ -31,6 +31,9 @@ export async function chatRequest<T>(
       "Сервер временно недоступен. Ваш текст сохранён; повторите отправку.",
     );
   }
-  if (!r.ok) throw new Error(value.error || "Не удалось загрузить переписку");
-  return value;
+  if (!r.ok) {
+    const error = value && typeof value === "object" && "error" in value ? value.error : undefined;
+    throw new Error(typeof error === "string" ? error : "Не удалось загрузить переписку");
+  }
+  return value as T;
 }

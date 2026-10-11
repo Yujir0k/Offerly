@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { registrationDestination } from "@/lib/registration-flow";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import {
@@ -70,11 +71,15 @@ export function CompanySetup({
   const [busy, setBusy] = useState(false),
     [error, setError] = useState("");
   const websiteIssue = companyWebsiteError(d.website);
+  const [previousIndex, setPreviousIndex] = useState(index);
+  if (previousIndex !== index) {
+    setPreviousIndex(index);
+    setError("");
+  }
   useEffect(() => {
     heading.current?.focus({ preventScroll: true });
-    setError("");
   }, [index]);
-  const put = (key: keyof typeof d, value: any) => {
+  const put = <K extends keyof typeof d>(key: K, value: (typeof d)[K]) => {
     setD((current) => ({ ...current, [key]: value }));
     setError("");
   };
@@ -169,7 +174,7 @@ export function CompanySetup({
   return (
     <div className="registration-page auth-refresh candidate-setup employer-setup">
       <header className="registration-header">
-        <a
+        <Link
           href="/"
           onClick={(e) => {
             e.preventDefault();
@@ -177,7 +182,7 @@ export function CompanySetup({
           }}
         >
           <Brand />
-        </a>
+        </Link>
         <button className="back-home" onClick={() => nav("/")}>
           <ArrowLeft />
           На главную

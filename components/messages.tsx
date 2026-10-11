@@ -1,4 +1,5 @@
 "use client";
+import { useSessionDraft } from "@/hooks/use-session-draft";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
@@ -50,8 +51,7 @@ export function Messages({ s, nav }: { s: State; nav: Navigate }) {
     [listError, setListError] = useState("");
   const [thread, setThread] = useState<ChatThread | null>(null),
     [loading, setLoading] = useState(false),
-    [loadError, setLoadError] = useState(""),
-    [draftState, setDraftState] = useState({ key: "", text: "" });
+    [loadError, setLoadError] = useState("");
   const [busy, setBusy] = useState(false),
     [olderBusy, setOlderBusy] = useState(false),
     [sendError, setSendError] = useState("");
@@ -73,8 +73,17 @@ export function Messages({ s, nav }: { s: State; nav: Navigate }) {
     return()=>{cancelled=true;};
   },[role,nav]);
   const draftKey = `offerly-chat:${uid}:${selected}`;
-  const draft = draftState.key === draftKey ? draftState.text : "";
-  const setDraft = (text: string) => setDraftState({ key: draftKey, text });
+  const [draft, setDraft] = useSessionDraft(draftKey);
+  const identity = `${uid}:${role}`;
+  const [previousIdentity, setPreviousIdentity] = useState(identity);
+  if (previousIdentity !== identity) {
+    setPreviousIdentity(identity); setRooms([]); setNext(null); setListLoading(true); setListError("");
+  }
+  const threadIdentity = `${identity}:${selected}`;
+  const [previousThread, setPreviousThread] = useState(threadIdentity);
+  if (previousThread !== threadIdentity) {
+    setPreviousThread(threadIdentity); setThread(null); setLoadError(""); setSendError(""); setLoading(!!selected);
+  }
   const refreshRooms = useCallback(
     async (before?: string, signal?: AbortSignal) => {
       try {
@@ -118,10 +127,7 @@ export function Messages({ s, nav }: { s: State; nav: Navigate }) {
     [role],
   );
   useEffect(() => {
-    setRooms([]);
     olderRoomsLoaded.current = false;
-    setNext(null);
-    setListLoading(true);
     const abort = new AbortController();
     let pending = false;
     const refresh = async () => {
@@ -171,24 +177,14 @@ export function Messages({ s, nav }: { s: State; nav: Navigate }) {
   useEffect(() => {
     generation.current++;
     const epoch = generation.current;
-    setThread(null);
-    setLoadError("");
-    setSendError("");
     first.current = true;
     nearBottom.current = true;
     lastRead.current = "0";
     pendingSend.current = null;
-    try {
-      setDraft(sessionStorage.getItem(draftKey) || "");
-    } catch {
-      setDraft("");
-    }
     if (!selected) {
-      setLoading(false);
       return;
     }
     const abort = new AbortController();
-    setLoading(true);
     let pending = false;
     const refresh = async () => {
       if (document.hidden || pending) return;
@@ -238,13 +234,6 @@ export function Messages({ s, nav }: { s: State; nav: Navigate }) {
       window.removeEventListener("focus", refresh);
     };
   }, [selected, role, uid, draftKey]);
-  useEffect(() => {
-    if (draftState.key !== draftKey) return;
-    try {
-      if (draft) sessionStorage.setItem(draftKey, draft);
-      else sessionStorage.removeItem(draftKey);
-    } catch {}
-  }, [draftKey, draft, draftState.key]);
   useEffect(() => {
     if (!thread) return;
     if (first.current || nearBottom.current) {

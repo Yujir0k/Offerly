@@ -49,6 +49,6 @@ test("images are decoded and normalized: SVG, corrupt header and decompression b
 test("deep or prototype-polluting request structures are rejected, ordinary code text is preserved", () => {
   assert.throws(()=>parseRequestJson('{"__proto__":{"polluted":true}}'), status(400));
   assert.throws(()=>parseRequestJson('{"value":'+ '{"x":'.repeat(100)+'0'+'}'.repeat(100)+'}'), status(400));
-  assert.equal(({} as any).polluted,undefined);
+  assert.equal(({} as { polluted?: unknown }).polluted,undefined);
   assert.equal(parseRequestJson('{"answer":"class C { constructor() {} }"}').answer,"class C { constructor() {} }");
 });

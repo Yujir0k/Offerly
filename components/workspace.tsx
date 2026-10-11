@@ -134,7 +134,7 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
-const roleLinks = {
+const roleLinks: Record<Role, [string, string, typeof Mail][]> = {
   candidate: [
     ["overview", "Обзор", Home],
     ["assessment", "Проверка уровня", ShieldCheck],
@@ -228,7 +228,7 @@ function Empty({
   desc,
   action,
 }: {
-  icon?: any;
+  icon?: typeof Mail;
   title: string;
   desc: string;
   action?: React.ReactNode;
@@ -319,7 +319,7 @@ export function Workspace({
             <SidebarGroupLabel>РАБОЧЕЕ ПРОСТРАНСТВО</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {roleLinks[role].map(([id, label, Icon]: any) => (
+                {roleLinks[role].map(([id, label, Icon]) => (
                   <SidebarMenuItem key={id}>
                     <SidebarMenuButton
                       data-tour-tab={id}
@@ -741,7 +741,8 @@ function Candidates({ s, act, nav }: { s: State; act: Action; nav: Navigate }) {
   const catalogStart = useRef<HTMLDivElement>(null);
   const [catalogPage, setCatalogPage] = useState(1);
   const filterSignature = JSON.stringify(f);
-  useEffect(() => setCatalogPage(1), [filterSignature]);
+  const [previousFilters, setPreviousFilters] = useState(filterSignature);
+  if (previousFilters !== filterSignature) { setPreviousFilters(filterSignature); setCatalogPage(1); }
   const catalog = useCatalog<Profile>(
     "candidates",
     f,
@@ -750,18 +751,13 @@ function Candidates({ s, act, nav }: { s: State; act: Action; nav: Navigate }) {
     "market",
     s,
   );
-  const openedLinkedCandidate = useRef(false);
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("view") === "card") return;
-    const id = params.get("candidate");
-    if (openedLinkedCandidate.current || !id || f.query !== id || !catalog.isCurrentData) return;
-    const profile = catalog.data?.items.find((item) => item.id === Number(id));
-    if (!profile) return;
-    openedLinkedCandidate.current = true;
-    setView(profile);
-    setProfileOpen(true);
-  }, [catalog.data, catalog.isCurrentData, f.query]);
+  const [openedLinkedCandidate, setOpenedLinkedCandidate] = useState(false);
+  const linkedParams = new URLSearchParams(typeof window === "undefined" ? "" : window.location.search);
+  const linkedId = linkedParams.get("candidate");
+  if (!openedLinkedCandidate && linkedParams.get("view") !== "card" && linkedId && f.query === linkedId && catalog.isCurrentData) {
+    const profile = catalog.data?.items.find(item => item.id === Number(linkedId));
+    if (profile) { setOpenedLinkedCandidate(true); setView(profile); setProfileOpen(true); }
+  }
   const rows = catalog.data?.items || [];
   const total = catalog.data?.total || 0;
   const filterError = candidateFilterError(f);

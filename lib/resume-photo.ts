@@ -56,7 +56,7 @@ export async function extractResumePhotos(
       const image =
         op === OPS.paintInlineImageXObject
           ? args[0]
-          : await new Promise<any>((resolve) =>
+          : await new Promise<{ data: Uint8Array; width: number; height: number }>((resolve) =>
               (key.startsWith("g_") ? page.commonObjs : page.objs).get(
                 key,
                 resolve,

@@ -180,10 +180,11 @@ export function AdaptiveEntry({
     null,
   );
   const [retakeBusy, setRetakeBusy] = useState(true);
+  const eligibilitySignature = `${specialization}:${grade}`;
+  const [previousEligibility, setPreviousEligibility] = useState(eligibilitySignature);
+  if (previousEligibility !== eligibilitySignature) { setPreviousEligibility(eligibilitySignature); setRetakeBusy(true); setEligibility(null); }
   useEffect(() => {
     let cancelled = false;
-    setRetakeBusy(true);
-    setEligibility(null);
     platform<RetakeEligibility>(
       `/eligibility?specialization=${encodeURIComponent(specialization || "backend")}&targetGrade=${grade}`,
     )

@@ -73,7 +73,7 @@ export function companyWebsiteError(value: unknown) {
   }
 }
 export function cleanCompany(
-  b: Record<string, any>,
+  b: Record<string, unknown>,
   current: CompanyProfile,
 ): CompanyProfile {
   const name = text(b.name, 150),
@@ -118,7 +118,7 @@ export function cleanCompany(
     updatedAt: new Date().toISOString(),
   };
 }
-export function cleanJob(b: Record<string, any>, s: State, current?: Job): Job {
+export function cleanJob(b: Record<string, unknown>, s: State, current?: Job): Job {
   const status = b.status === "draft" ? "draft" : "published";
   const title = text(b.title, 200),
     description = text(b.description, 6000);
@@ -130,12 +130,13 @@ export function cleanJob(b: Record<string, any>, s: State, current?: Job): Job {
     const error = salaryRangeError(b.min, b.max);
     if (error) throw new Error(error);
   }
-  b = {...b, specialty: specialtyName(String(b.specialty || ""))};
-  if (!specialties.includes(b.specialty) || !profileGrades.includes(b.grade))
+  const specialty = specialtyName(String(b.specialty || "")),
+    grade = text(b.grade, 40), format = text(b.format, 100);
+  if (!specialties.includes(specialty) || !profileGrades.includes(grade))
     throw new Error("Выберите направление и уровень вакансии.");
-  if (!formatOptions.filter((v) => v !== "Любой").includes(b.format))
+  if (!formatOptions.filter((v) => v !== "Любой").includes(format))
     throw new Error("Выберите формат работы.");
-  const employment = b.employment || "Полная занятость";
+  const employment = text(b.employment, 100) || "Полная занятость";
   const city = text(b.city, 160);
   if (status === "published" && b.format !== "Удалённо" && !city)
     throw new Error("Укажите город для офисного или гибридного формата.");
@@ -149,7 +150,7 @@ export function cleanJob(b: Record<string, any>, s: State, current?: Job): Job {
   const skills = lines(skillInput, 40);
   if (status === "published" && !skills.length)
     throw new Error("Укажите хотя бы один профессиональный навык.");
-  const number = (v: any) =>
+  const number = (v: unknown) =>
     Number.isFinite(Number(v)) ? Math.max(0, Math.min(10000000, Number(v))) : 0;
   const experienceMin = Number(b.experienceMin) || 0,
     experienceMax =
@@ -176,9 +177,9 @@ export function cleanJob(b: Record<string, any>, s: State, current?: Job): Job {
     id: current?.id || crypto.randomUUID(),
     title: title || "Новая вакансия",
     description,
-    specialty: b.specialty,
-    grade: b.grade,
-    format: b.format,
+    specialty,
+    grade,
+    format,
     employment,
     skills,
     min: number(b.min),

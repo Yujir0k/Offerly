@@ -193,7 +193,7 @@ export function CompanyEditor({
     logoKey: s.company.logoKey,
     coverKey: s.company.coverKey,
   };
-  const set = (key: keyof typeof draft, value: any) => {
+  const set = <K extends keyof typeof draft>(key: K, value: (typeof draft)[K]) => {
     setDraft((current) => ({ ...current, [key]: value }));
     setNotice("");
     setError("");

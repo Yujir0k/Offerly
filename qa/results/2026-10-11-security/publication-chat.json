@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-11T11:01:48.366Z",
+  "checks": [
+    "Draft persists after reload",
+    "Offline edits persist after reconnect and reload",
+    "Returning to chat restores its own draft",
+    "Failed send preserves draft",
+    "Retry delivers exactly one message and clears draft",
+    "No React/browser exceptions"
+  ],
+  "errors": []
+}

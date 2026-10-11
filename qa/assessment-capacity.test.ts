@@ -5,7 +5,7 @@ test('only two heavy snapshots run at once, excess work is bounded and failure r
  let active=0,peak=0;const release:Array<()=>void>=[];
  const work=()=>withAssessmentCapacity(async()=>{active++;peak=Math.max(peak,active);await new Promise<void>(resolve=>release.push(resolve));active--;return true;});
  const jobs=Array.from({length:18},()=>work());await new Promise(r=>setImmediate(r));
- assert.equal(active,2);await assert.rejects(work(),e=>(e as any).status===429);
+ assert.equal(active,2);await assert.rejects(work(),e=>(e as { status?: number }).status===429);
  for(let i=0;i<18;i++){release.shift()!();await new Promise(r=>setImmediate(r));}
  await Promise.all(jobs);assert.equal(peak,2);assert.equal(active,0);
  await assert.rejects(withAssessmentCapacity(async()=>{throw Error('failure')}));

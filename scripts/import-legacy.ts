@@ -6,7 +6,7 @@ import { normalizeState } from "../lib/model";
 import type { Account } from "../lib/platform";
 const input = process.argv[2];
 if (!input) throw new Error("Usage: tsx scripts/import-legacy.ts export.json");
-const legacy = JSON.parse(await readFile(input, "utf8"));
+const legacy = JSON.parse(await readFile(input, "utf8")) as { workspaces: { owner: string; state: unknown }[]; drafts: { owner: string; id: string; payload: unknown; updated_at: string }[] };
 const db = await getDb();
 let imported = 0;
 for (const row of legacy.workspaces) {
@@ -36,7 +36,7 @@ for (const row of legacy.workspaces) {
     id,
     JSON.stringify(preferences),
   ]);
-  for (const draft of legacy.drafts.filter((d: any) => d.owner === id))
+  for (const draft of legacy.drafts.filter((d) => d.owner === id))
     await db.query(
       "INSERT INTO drafts(user_id,id,payload,updated_at) VALUES ($1,$2,$3,$4) ON CONFLICT DO NOTHING",
       [id, draft.id, JSON.stringify(draft.payload), draft.updated_at],

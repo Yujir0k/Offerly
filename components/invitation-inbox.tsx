@@ -96,24 +96,22 @@ export function InvitationInbox({
         )
       : candidateFilters;
   const [query, setQuery] = useState("");
-  useEffect(() => {
-    setFilter("all");
-    setExpanded(null);
-    setQuery("");
-    openedLink.current = null;
-  }, [role]);
   const [filter, setFilter] = useState<InvitationFilter>("all");
   const [expanded, setExpanded] = useState<string | null>(null);
-  const openedLink = useRef<string | null>(null);
+  const [previousRole, setPreviousRole] = useState(role);
+  const [openedLink, setOpenedLink] = useState<string | null>(null);
+  if (previousRole !== role) {
+    setPreviousRole(role); setFilter("all"); setExpanded(null); setQuery(""); setOpenedLink(null);
+  }
+  if (role === "candidate" && requestedInvitationId && openedLink !== requestedInvitationId &&
+      s.invitations.some(i => i.id === requestedInvitationId && i.candidateId === s.profile.id)) {
+    setOpenedLink(requestedInvitationId); setExpanded(requestedInvitationId); setFilter("all"); setQuery("");
+  }
   useEffect(() => {
-    if (role !== "candidate" || !requestedInvitationId || openedLink.current === requestedInvitationId) return;
-    if (!s.invitations.some(i => i.id === requestedInvitationId && i.candidateId === s.profile.id)) return;
-    openedLink.current = requestedInvitationId;
-    setExpanded(requestedInvitationId);
-    setFilter("all"); setQuery("");
-    const timer = setTimeout(() => document.getElementById(`invitation-${requestedInvitationId}`)?.scrollIntoView({block:"center",behavior:"smooth"}), 100);
+    if (role !== "candidate" || expanded !== requestedInvitationId || !expanded) return;
+    const timer = setTimeout(() => document.getElementById(`invitation-${expanded}`)?.scrollIntoView({ block: "center", behavior: "smooth" }), 100);
     return () => clearTimeout(timer);
-  }, [requestedInvitationId, role, s.invitations, s.profile.id]);
+  }, [expanded, requestedInvitationId, role]);
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [editing, setEditing] = useState<Invitation | null>(null);
@@ -122,7 +120,7 @@ export function InvitationInbox({
   const [examples, setExamples] = useState(() =>
     exampleInvitations(s.profile.id),
   );
-  const [decision, setDecision] = useState<{
+  const [decision, setDecisionValue] = useState<{
     invitation: Invitation;
     status: "accepted" | "declined";
   } | null>(null);
@@ -149,7 +147,7 @@ export function InvitationInbox({
     )
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   const [declineReason, setDeclineReason] = useState("");
-  useEffect(() => setDeclineReason(""), [decision?.invitation.id]);
+  function setDecision(value: typeof decision) { setDeclineReason(""); setDecisionValue(value); }
   async function respond(
     invitation: Invitation,
     status: "viewed" | "accepted" | "declined",

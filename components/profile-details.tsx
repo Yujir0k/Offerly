@@ -650,7 +650,7 @@ export function ProfileDetails({
           </div>
           <div className="resume-review-fields">
             {Object.entries(labels).map(([key, label]) => {
-              const v = (parsed as any)?.[key],
+              const v = parsed?.[key as keyof typeof parsed],
                 found = v !== undefined;
               return (
                 <label key={key} className={!found ? "not-found" : ""}>

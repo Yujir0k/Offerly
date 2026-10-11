@@ -2,7 +2,7 @@ import {
   expireSession,
   evaluateEvidence,
 } from "../vendor/fsp-assessment/dist/src/adaptive/engine.js";
-import type { AssessmentSession } from "../vendor/fsp-assessment/src/adaptive/model";
+import type { AssessmentSession, ScoreContribution } from "../vendor/fsp-assessment/src/adaptive/model";
 export type TimeoutSummary = {
   policy: "unanswered-zero-v1";
   answered: number;
@@ -54,12 +54,12 @@ export function settleAssessmentTimeout(
       familyId: item.variant.id,
       source: step.exploration ? ("evidence" as const) : ("answer" as const),
     };
-    const cs = [c];
+    const cs: ScoreContribution[] = [c];
     if (step.responseTask && session.config.enhancements?.separateExecution)
       cs.push({
         ...c,
         dimension: step.rubric.executionDimension || step.rubric.dimension,
-        source: "execution" as any,
+        source: "execution",
         observation: `${c.observation}#execution`,
       });
     scoring.contributions.push(...cs);

@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { withPersonalName, editPersonalName } from "@/lib/personal-name";
 import { workspaceReturnTo } from "@/lib/login-return";
 import { FspConnect } from "./fsp-connect";
@@ -60,7 +61,11 @@ export function Registration({
   const person = withPersonalName(d);
   // A role chosen through a landing CTA takes precedence over a restored draft.
   const [role, setSelectedRole] = useState<Role>(initialRole);
-  useEffect(() => setSelectedRole(initialRole), [initialRole]);
+  const [previousInitialRole, setPreviousInitialRole] = useState(initialRole);
+  if (previousInitialRole !== initialRole) {
+    setPreviousInitialRole(initialRole);
+    setSelectedRole(initialRole);
+  }
   const setRole = (v: Role) => {
     setSelectedRole(v);
     setD({ ...d, role: v });
@@ -70,10 +75,12 @@ export function Registration({
     setConsent = (v: boolean) => setD({ ...d, role, consent: v });
   const [busy, setBusy] = useState(false);
   const [password, setPassword] = useState("");
-  const [duplicateOpen, setDuplicateOpen] = useState(false);
-  useEffect(() => {
+  const [duplicateOpen, setDuplicateOpen] = useState(!!feedback);
+  const [previousFeedback, setPreviousFeedback] = useState(feedback);
+  if (previousFeedback !== feedback) {
+    setPreviousFeedback(feedback);
     setDuplicateOpen(!!feedback);
-  }, [feedback]);
+  }
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
@@ -113,7 +120,7 @@ export function Registration({
       className={`registration-page auth-refresh ${login ? "auth-login" : "auth-register"}`}
     >
       <header className="registration-header">
-        <a
+        <Link
           href="/"
           onClick={(e) => {
             e.preventDefault();
@@ -121,7 +128,7 @@ export function Registration({
           }}
         >
           <Brand />
-        </a>
+        </Link>
         <button className="back-home" onClick={() => nav("/")}>
           <ArrowLeft size={17} />
           На главную

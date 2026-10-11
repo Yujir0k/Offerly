@@ -1,0 +1,48 @@
+{
+  "at": "2026-10-11T11:00:36.591Z",
+  "passed": true,
+  "accounts": 8,
+  "durationSeconds": 180,
+  "thinkTimeMs": 700,
+  "requests": 2146,
+  "failures": [],
+  "routes": {
+    "state": {
+      "requests": 362,
+      "p50ms": 124,
+      "p95ms": 183,
+      "maxMs": 387
+    },
+    "catalogue": {
+      "requests": 359,
+      "p50ms": 54,
+      "p95ms": 102,
+      "maxMs": 278
+    },
+    "search": {
+      "requests": 358,
+      "p50ms": 48,
+      "p95ms": 296,
+      "maxMs": 926
+    },
+    "chat-list": {
+      "requests": 357,
+      "p50ms": 7,
+      "p95ms": 20,
+      "maxMs": 98
+    },
+    "draft-write": {
+      "requests": 355,
+      "p50ms": 123,
+      "p95ms": 297,
+      "maxMs": 826
+    },
+    "draft-read": {
+      "requests": 355,
+      "p50ms": 114,
+      "p95ms": 220,
+      "maxMs": 738
+    }
+  },
+  "scope": "Local production Docker, 8 separate synthetic demo accounts, catalogue/search/state/chat-list and draft writes. No external mail. No PDF/assessment stress, VPS capacity or maximum-user claim."
+}

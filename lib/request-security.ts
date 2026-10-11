@@ -2,6 +2,9 @@
 export class RequestSecurityError extends Error {
   constructor(message: string, readonly status: number) { super(message); }
 }
+export function isOneOf<const T extends string>(value: unknown, options: readonly T[]): value is T {
+  return typeof value === "string" && options.some(option => option === value);
+}
 export async function readRequestBytes(request: Request, max: number): Promise<Uint8Array> {
   const length = request.headers.get("content-length");
   if (length && (!/^\d+$/.test(length) || Number(length) > max))
@@ -30,8 +33,8 @@ export async function readRequestBytes(request: Request, max: number): Promise<U
 export async function readRequestText(request: Request, max: number) {
   return new TextDecoder().decode(await readRequestBytes(request, max));
 }
-export function parseRequestJson(text: string): Record<string, any> {
-  let value: any;
+export function parseRequestJson(text: string): Record<string, unknown> {
+  let value: unknown;
   try { value = JSON.parse(text); } catch { throw new RequestSecurityError("Проверьте запрос", 400); }
   if (!value || typeof value !== "object" || Array.isArray(value)) throw new RequestSecurityError("Проверьте запрос", 400);
   const stack = [{value, depth: 0}]; let count = 0;
@@ -43,9 +46,9 @@ export function parseRequestJson(text: string): Record<string, any> {
       stack.push({value: child, depth: next.depth + 1});
     }
   }
-  return value;
+  return value as Record<string, unknown>;
 }
-export async function readRequestJson(request: Request, max: number): Promise<Record<string, any>> {
+export async function readRequestJson(request: Request, max: number): Promise<Record<string, unknown>> {
   return parseRequestJson(await readRequestText(request, max));
 }
 export async function readRequestForm(request: Request, max: number) {

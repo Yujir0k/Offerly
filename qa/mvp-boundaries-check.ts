@@ -15,8 +15,8 @@ Object.assign(as.profile,{consent:true,available:true});await savePlatform(a.id,
 await db.query("DELETE FROM company_memberships WHERE user_id=$1",[v.id]);
 await db.query("INSERT INTO company_memberships(company_id,user_id,role) VALUES($1,$2,'viewer')",[es.company.id,v.id]);
 const pid=crypto.randomUUID();await db.query("INSERT INTO hiring_processes(id,company_id,candidate_id,context_key,title) VALUES($1,$2,$3,'general','QA')",[pid,es.company.id,as.profile.id]);
-const h=(u:any,type:string,data:any={})=>hiringOperation(u,'employer',{type,...data});
-assert((await h(v,'processes')).items.some((p:any)=>p.id===pid));checks++;
+const h=(u:import("../lib/platform").Account,type:string,data:Record<string,unknown>={})=>hiringOperation(u,'employer',{type,...data});
+assert((await h(v,'processes')).items.some((p)=>p.id===pid));checks++;
 await assert.rejects(h(v,'process-update',{id:pid,revision:0,stage:'offer'}),/прав/);checks++;
 await db.query("UPDATE company_memberships SET role='recruiter' WHERE user_id=$1",[v.id]);
 await h(v,'process-update',{id:pid,revision:0,stage:'talking',note:'Recruiter note'});checks++;

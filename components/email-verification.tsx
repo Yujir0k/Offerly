@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, CheckCircle2, Mail, ExternalLink } from "lucide-react";
 import { VerificationCode } from "./verification-code";
@@ -77,10 +78,16 @@ export function EmailVerification({
   }
   useEffect(() => {
     if (!s || verified || entered.current) return;
-    entered.current = true;
-    if (s.emailSent) received(s);
-    else if (s.emailDeliveryError) setFailure(s.emailDeliveryError);
-    else void send(true);
+    let cancelled = false;
+    // The externally loaded account owns delivery initialization; cancel obsolete mounts.
+    void Promise.resolve().then(() => {
+      if (cancelled || entered.current) return;
+      entered.current = true;
+      if (s.emailSent) received(s);
+      else if (s.emailDeliveryError) setFailure(s.emailDeliveryError);
+      else void send(true);
+    });
+    return () => { cancelled = true; };
   }, [s?.auth?.userId, verified]);
   useEffect(() => {
     if (!resendAt) return;
@@ -129,7 +136,7 @@ export function EmailVerification({
   return (
     <div className="registration-page auth-refresh auth-email">
       <header className="registration-header">
-        <a
+        <Link
           href="/"
           aria-label="Офферли — главная"
           onClick={(e) => {
@@ -138,7 +145,7 @@ export function EmailVerification({
           }}
         >
           <Brand />
-        </a>
+        </Link>
         <button
           className="back-home"
           onClick={() => nav(`/login?role=${role}`)}

@@ -1,5 +1,6 @@
 "use client";
 import { HiddenCompanies } from "./hiring-tools";
+import { useBrowserClock } from "@/hooks/use-browser-clock";
 import { SessionSettings } from "./session-settings";
 import { McpIntegration } from './mcp-integration';
 import { FspConnect } from "./fsp-connect";
@@ -43,6 +44,7 @@ export function AccountSettings({
   act: Action;
 }) {
   const [tab, setTab] = useState("account");
+  const now = useBrowserClock();
   const [draft, setDraft] = useState(() => ({
     ...userSettings(s),
     visible: s.profile.visible,
@@ -279,7 +281,7 @@ export function AccountSettings({
           <div>
             <h3>Пауза уведомлений</h3>
             <p>
-              {draft.snoozedUntil && Date.parse(draft.snoozedUntil) > Date.now()
+              {draft.snoozedUntil && Date.parse(draft.snoozedUntil) > now
                 ? `Пауза до ${displayDate(draft.snoozedUntil, s, { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" })}`
                 : "Рабочие записи сохраняются; уведомления можно временно отключить."}
             </p>

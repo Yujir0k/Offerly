@@ -1,11 +1,15 @@
 import { readRequestJson, RequestSecurityError } from "./request-security";
 import { getDb, type Database } from "@/db";
 import type { Account } from "./platform";
-import type { Role } from "./model";
+import type { Role, Profile, CompanyProfile } from "./model";
 import { bucket } from "./file-storage";
 import type { EmployerTask } from "./conversation-types";
 import type { ChatMessage, Conversation } from "./chat-types";
 
+type ConversationRow = { id: string; company_id: string; candidate_id: number; profile: Profile; company: CompanyProfile; employer_name: string; updated_at: string | Date; can_write: boolean };
+type RoomRow = ConversationRow & { candidate_user_id: string; company_owner_id: string };
+type MessageRow = { id: number | string; body: string; task: EmployerTask | null; created_at: Date | string; sender_id: string; sender_name: string; client_id: string };
+type ContactLink = { company_id: string; candidate_id: number; status?: string };
 export class ChatError extends Error {
   constructor(
     message: string,
@@ -72,7 +76,7 @@ async function room(
 ) {
   const {
     rows: [row],
-  } = await db.query(
+  } = await db.query<RoomRow>(
     `SELECT c.*,p.user_id AS candidate_user_id,co.owner_id AS company_owner_id,p.payload AS profile,co.payload AS company,employer.name AS employer_name,${canWrite(role)} AS can_write
     FROM ${joins} WHERE c.id=$3 AND ${allowed(role)} ${lock ? "FOR UPDATE OF c" : ""}`,
     [account.id, account.scope, id],
@@ -97,7 +101,7 @@ async function taskNotice(
     [roomId],
   );
 }
-async function expireTasks(db: Database, r: any) {
+async function expireTasks(db: Database, r: RoomRow) {
   const { rows } = await db.query(
     "SELECT id,task,created_at FROM conversation_messages WHERE conversation_id=$1 AND task->>'status'='accepted' FOR UPDATE",
     [r.id],
@@ -144,7 +148,7 @@ async function summary(
   db: Database,
   account: Account,
   role: Role,
-  row: any,
+  row: ConversationRow,
 ): Promise<Conversation> {
   const {
     rows: [last],
@@ -159,7 +163,7 @@ async function summary(
     WHERE m.conversation_id=$1 AND m.sender_id<>$2 AND m.id>coalesce((SELECT last_message_id FROM conversation_reads WHERE conversation_id=$1 AND user_id=$2),0)`,
     [row.id, account.id],
   );
-  const { rows: context } = await db.query(
+  const { rows: context } = await db.query<Conversation["context"][number]>(
     `SELECT payload->>'title' AS title,'invitation' AS kind FROM invitations WHERE company_id=$1 AND candidate_id=$2 AND status='accepted'
     UNION ALL SELECT j.payload->>'title','application' FROM applications a JOIN jobs j ON j.id=a.job_id WHERE j.company_id=$1 AND a.candidate_id=$2 ORDER BY title LIMIT 20`,
     [row.company_id, row.candidate_id],
@@ -225,7 +229,7 @@ export async function listConversations(
       throw new ChatError("Некорректная страница диалогов");
     }
   }
-  const { rows } = await db.query(
+  const { rows } = await db.query<ConversationRow>(
     `SELECT c.*,p.payload AS profile,co.payload AS company,employer.name AS employer_name,${canWrite(role)} AS can_write FROM ${joins}
     WHERE ${allowed(role)} AND ($3::timestamptz IS NULL OR (c.updated_at,c.id)<($3::timestamptz,$4::text))
     ORDER BY c.updated_at DESC,c.id DESC LIMIT 31`,
@@ -254,11 +258,11 @@ export async function openConversation(
     throw new ChatError("Подтвердите почту перед началом общения", 403);
   const db = await getDb();
   return db.transaction(async (tx) => {
-    let link: any;
+    let link: ContactLink | undefined;
     if (typeof input.invitationId === "string") {
       const {
         rows: [r],
-      } = await tx.query(
+      } = await tx.query<ContactLink>(
         "SELECT company_id,candidate_id,status FROM invitations WHERE id=$1",
         [input.invitationId.slice(0, 100)],
       );
@@ -266,7 +270,7 @@ export async function openConversation(
     } else if (typeof input.applicationId === "string") {
       const {
         rows: [r],
-      } = await tx.query(
+      } = await tx.query<ContactLink>(
         "SELECT j.company_id,a.candidate_id FROM applications a JOIN jobs j ON j.id=a.job_id WHERE a.id=$1",
         [input.applicationId.slice(0, 100)],
       );
@@ -275,7 +279,7 @@ export async function openConversation(
     if (!link && (input.candidateId || input.companyId)) {
       const {
         rows: [target],
-      } = await tx.query(
+      } = await tx.query<ContactLink>(
         `SELECT p.id AS candidate_id, co.id AS company_id FROM candidate_profiles p CROSS JOIN companies co
         WHERE ${role === "candidate" ? "p.user_id=$1 AND co.id=$3" : "p.id=$3::integer AND EXISTS(SELECT 1 FROM company_memberships member WHERE member.user_id=$1 AND member.company_id=co.id AND member.role IN ('owner','recruiter'))"}
         AND co.scope=$2 AND EXISTS(SELECT 1 FROM users u WHERE u.id=p.user_id AND u.scope=$2 AND u.deleted_at IS NULL)
@@ -314,7 +318,7 @@ export async function openConversation(
     return { id: r.id };
   });
 }
-function taskIsHidden(task: any, role: Role) {
+function taskIsHidden(task: EmployerTask | null | undefined, role: Role) {
   return (
     role === "candidate" &&
     task &&
@@ -322,9 +326,9 @@ function taskIsHidden(task: any, role: Role) {
     ["offered", "declined"].includes(task.status)
   );
 }
-function message(row: any, account: Account, role: Role): ChatMessage {
+function message(row: MessageRow, account: Account, role: Role): ChatMessage {
   const hidden = taskIsHidden(row.task, role);
-  let projected = row.task ? { ...row.task } : undefined;
+  const projected = row.task ? { ...row.task } : undefined;
   if (projected && role === "employer") delete projected.draftAnswer;
   if (projected?.expiredAt && role === "candidate") {
     projected.instructions = "";
@@ -352,7 +356,7 @@ function message(row: any, account: Account, role: Role): ChatMessage {
     ...(row.sender_id === account.id ? { clientId: row.client_id } : {}),
   };
 }
-function senderDisplayName(row: any, room: any) {
+function senderDisplayName(row: MessageRow, room: RoomRow) {
   if (row.sender_id === room.candidate_user_id)
     return room.profile.name || row.sender_name;
   if (row.sender_id === room.company_owner_id)
@@ -373,7 +377,7 @@ export async function readConversation(
   });
   if (before && !/^\d{1,18}$/.test(before))
     throw new ChatError("Некорректная страница сообщений");
-  const { rows } = await db.query(
+  const { rows } = await db.query<MessageRow>(
     `SELECT m.*,u.name AS sender_name FROM conversation_messages m JOIN users u ON u.id=m.sender_id
     WHERE m.conversation_id=$1 AND ($2::bigint IS NULL OR m.id<$2::bigint) ORDER BY m.id DESC LIMIT 41`,
     [id, before],
@@ -606,15 +610,16 @@ export async function changeConversation(
       throw new ChatError("Некорректный идентификатор сообщения");
     const {
       rows: [previous],
-    } = await tx.query(
+    } = await tx.query<MessageRow>(
       "SELECT *, $4::text AS sender_name FROM conversation_messages WHERE conversation_id=$1 AND sender_id=$2 AND client_id=$3",
       [id, account.id, clientId, account.name],
     );
     if (previous) {
+      const previousTask = previous.task;
       const sameTask = task
-        ? previous.task &&
+        ? previousTask &&
           ["title", "instructions", "minutes", "criteria"].every(
-            (key) => previous.task[key] === task[key as keyof typeof task],
+            (key) => previousTask[key as keyof EmployerTask] === task[key as keyof typeof task],
           )
         : !previous.task;
       if (previous.body !== body || !sameTask)
@@ -629,7 +634,7 @@ export async function changeConversation(
     }
     const {
       rows: [saved],
-    } = await tx.query(
+    } = await tx.query<MessageRow>(
       "INSERT INTO conversation_messages(conversation_id,sender_id,client_id,body,task) VALUES($1,$2,$3,$4,$5) RETURNING *",
       [id, account.id, clientId, body, task ? JSON.stringify(task) : null],
     );

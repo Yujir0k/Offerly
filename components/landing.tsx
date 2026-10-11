@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
   ChevronDown,
@@ -67,7 +68,7 @@ export function PublicHeader({
       className={`public-header ${landing ? "landing-header" : ""} ${dark ? "is-scrolled" : ""}`}
     >
       <div className="nav-container">
-        <a
+        <Link
           href="/"
           onClick={(e) => {
             e.preventDefault();
@@ -76,7 +77,7 @@ export function PublicHeader({
           aria-label="Офферли — главная"
         >
           <Brand light={landing && !dark} />
-        </a>
+        </Link>
         <nav aria-label="Главная навигация">
           <NavigationMenu
             className="role-navigation"

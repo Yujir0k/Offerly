@@ -35,7 +35,7 @@ export async function resolveFspIdentity({
     ]);
     const {
       rows: [existing],
-    } = await tx.query(
+    } = await tx.query<Account>(
       "SELECT u.* FROM external_identities i JOIN users u ON u.id=i.user_id WHERE i.issuer=$1 AND i.subject=$2 AND u.deleted_at IS NULL",
       [issuer, subject],
     );
@@ -59,7 +59,7 @@ export async function resolveFspIdentity({
     if (intent === "link") {
       const {
         rows: [own],
-      } = await tx.query(
+      } = await tx.query<Account>(
         "SELECT * FROM users WHERE id=$1 AND deleted_at IS NULL FOR UPDATE",
         [userId],
       );

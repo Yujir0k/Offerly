@@ -70,7 +70,7 @@ function JobEditor({
   const [tab, setTab] = useState("role"),
     [busy, setBusy] = useState(false),
     [error, setError] = useState("");
-  const set = (key: keyof typeof d, value: any) =>
+  const set = <K extends keyof typeof d>(key: K, value: (typeof d)[K]) =>
     setD((current) => ({ ...current, [key]: value }));
   useEffect(() => {
     const allowed = new Set([

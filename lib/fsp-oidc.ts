@@ -196,7 +196,7 @@ export async function takeFspFlow(url: URL): Promise<FspFlow> {
     throw new FspError("expired");
   const {
     rows: [flow],
-  } = await query(
+  } = await query<FspFlow>(
     "DELETE FROM oidc_flows WHERE state_hash=$1 AND browser_hash=$2 AND expires_at>now() RETURNING *",
     [digest(state), digest(browser)],
   );

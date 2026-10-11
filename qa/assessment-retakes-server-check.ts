@@ -32,7 +32,7 @@ const confirmed = account(),
   failed = account(),
   fresh = account();
 for (const a of [confirmed, failed, fresh]) await createAccount(db, a, null);
-async function history(a: any, decision: string) {
+async function history(a: import("../lib/platform").Account, decision: string) {
   const s = createSession(
     "policy-" + a.id,
     a.id,
@@ -44,7 +44,7 @@ async function history(a: any, decision: string) {
     { specialization: "backend" },
   );
   expireSession(s, now);
-  s.result!.decision = decision as any;
+  s.result!.decision = decision as NonNullable<typeof s.result>["decision"];
   s.finishedAt = new Date(now).toISOString();
   await db.query(
     "INSERT INTO professional_assessment_records(scope,collection,id,user_id,body) VALUES('public','adaptive-sessions',$1,$2,$3)",

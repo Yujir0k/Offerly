@@ -24,11 +24,11 @@ export function MultiChoice({
   useEffect(() => {
     if (!remoteCompanies || !open) return;
     const c = new AbortController();
-    setLoading(true);
-    setError("");
     const timer = setTimeout(
-      () =>
-        fetch(`/api/catalog/companies?query=${encodeURIComponent(query)}`, {
+      () => {
+        setLoading(true);
+        setError("");
+        return fetch(`/api/catalog/companies?query=${encodeURIComponent(query)}`, {
           signal: c.signal,
         })
           .then(async (r) => {
@@ -41,7 +41,8 @@ export function MultiChoice({
           })
           .finally(() => {
             if (!c.signal.aborted) setLoading(false);
-          }),
+          });
+      },
       200,
     );
     return () => {

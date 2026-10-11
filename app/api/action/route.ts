@@ -1,4 +1,4 @@
-import { readRequestJson } from "@/lib/request-security";
+import { isOneOf, readRequestJson } from "@/lib/request-security";
 import { specialtyName } from "@/lib/assessment-tracks";
 import { workHistoryDateError } from "@/lib/work-dates";
 import { syncDemoFspHistory } from "@/lib/fsp-history";
@@ -60,7 +60,7 @@ import { invitationSource } from '@/lib/invitations';
 export async function POST(r: Request) {
   try {
     checkOrigin(r);
-    const b = (await readRequestJson(r, 524288)) as Record<string, any>;
+    const b = (await readRequestJson(r, 524288)) as Record<string, unknown>;
     const {
       owner,
       db,
@@ -68,7 +68,7 @@ export async function POST(r: Request) {
       state: s,
     } = await workspace({
       allOwnedJobs: b.type === "company",
-      jobId: ["apply", "favorite-job", "job", "job-status"].includes(b.type)
+      jobId: isOneOf(b.type, ["apply", "favorite-job", "job", "job-status"])
         ? String(b.id || "").slice(0, 100)
         : String(b.type === 'invite' ? b.needId || '' : b.jobId || '').slice(0, 100),
       candidateId:
@@ -100,16 +100,16 @@ export async function POST(r: Request) {
       throw new Error(
         "Аккаунт удалён. Создайте новый профиль, чтобы продолжить.",
       );
-    const str = (v: any, max = 3000) =>
+    const str = (v: unknown, max = 3000) =>
       typeof v === "string" ? v.trim().slice(0, max) : "";
-    const salary = (a: any, z: any) => {
+    const salary = (a: unknown, z: unknown) => {
       const min = Number(a),
         max = Number(z);
       const error = salaryRangeError(a, z);
       if (error) throw new Error(error);
       return { min, max };
     };
-    const list = (v: any, max = 20) =>
+    const list = (v: unknown, max = 20) =>
       Array.isArray(v)
         ? v
             .slice(0, max)
@@ -222,9 +222,9 @@ export async function POST(r: Request) {
         const workDateError = workHistoryDateError(b.workHistory);
         if (workDateError) throw new Error(workDateError);
         if (
-          (!specialties.includes(b.specialty) &&
-            !assessmentProfileSpecialties.includes(b.specialty)) ||
-          !profileGrades.includes(b.claimed)
+          (!isOneOf(b.specialty, specialties) &&
+            !isOneOf(b.specialty, assessmentProfileSpecialties)) ||
+          !isOneOf(b.claimed, profileGrades)
         )
           throw new Error("Выберите специализацию и грейд");
         const phoneValidation = phoneError(str(b.phone, 100));
@@ -241,7 +241,7 @@ export async function POST(r: Request) {
         if (availabilities.some((v) => !availabilityOptions.includes(v)))
           throw new Error("Выберите готовность к работе из списка.");
         const previousSpecialty = p.specialty;
-        if (b.jobStatus && !["active", "open", "paused"].includes(b.jobStatus))
+        if (b.jobStatus && !isOneOf(b.jobStatus, ["active", "open", "paused"]))
           throw new Error("Выберите статус поиска работы");
         const partialSalary = (value: unknown) => {
           if (typeof value !== "number" && typeof value !== "string") return 0;
@@ -293,7 +293,7 @@ export async function POST(r: Request) {
           jobStatus: b.jobStatus || p.jobStatus || "open",
           email: str(b.email, 200),
           phone: formatPhone(str(b.phone, 50)),
-          specialty: b.specialty,
+          specialty: str(b.specialty),
           professionalDirection: str(b.professionalDirection, 100),
           claimed: b.claimed,
           skills: Array.isArray(b.skills)
@@ -341,7 +341,9 @@ export async function POST(r: Request) {
           availabilities,
           availability: availabilities.join(" · "),
           workHistory: Array.isArray(b.workHistory)
-            ? b.workHistory.slice(0, 12).map((w: any) => ({
+            ? b.workHistory.slice(0, 12).map((entry: unknown) => {
+                const w = entry && typeof entry === "object" ? entry as Record<string, unknown> : {};
+                return ({
                 id: str(w.id, 80) || crypto.randomUUID(),
                 company: str(w.company, 150),
                 role: str(w.role, 150),
@@ -349,7 +351,7 @@ export async function POST(r: Request) {
                 end: str(w.end, 20),
                 current: !!w.current,
                 description: str(w.description, 2000),
-              }))
+              }); })
             : [],
         });
         // Profile contact email is independent of the verified login address.
@@ -381,9 +383,9 @@ export async function POST(r: Request) {
       case "survey": {
         if (role !== "candidate") throw new Error("Доступно только кандидату");
         if (
-          !industries.includes(b.industry) ||
-          !assessmentTracks.some((t) => t.name === b.specialty) ||
-          !["Junior", "Middle", "Senior"].includes(b.grade)
+          !isOneOf(b.industry, industries) ||
+          (typeof b.specialty !== "string" || !assessmentTracks.some((t) => t.name === b.specialty)) ||
+          !isOneOf(b.grade, ["Junior", "Middle", "Senior"])
         )
           throw new Error(
             "Выберите отрасль, специализацию и предполагаемый уровень",
@@ -392,9 +394,9 @@ export async function POST(r: Request) {
         const survey = {
           id: crypto.randomUUID(),
           createdAt: new Date().toISOString(),
-          industry: b.industry,
-          specialty: b.specialty,
-          grade: b.grade,
+          industry: str(b.industry),
+          specialty: str(b.specialty),
+          grade: str(b.grade),
           roles: list(b.roles),
           experience: Math.max(0, Math.min(50, Number(b.experience) || 0)),
           goal: str(b.goal, 1000),
@@ -465,12 +467,12 @@ export async function POST(r: Request) {
         const timeZone = str(b.timeZone, 80);
         if (!validTimeZone(timeZone))
           throw new Error("Выберите действительный часовой пояс.");
-        if (!["off", "daily", "weekly"].includes(b.emailDigest))
+        if (!isOneOf(b.emailDigest, ["off", "daily", "weekly"]))
           throw new Error("Выберите частоту уведомлений.");
         const settings = userSettings(s);
         let snoozedUntil = settings.snoozedUntil;
         if (b.snooze === "off") snoozedUntil = null;
-        else if (["1", "7", "30"].includes(b.snooze))
+        else if (isOneOf(b.snooze, ["1", "7", "30"]))
           snoozedUntil = new Date(
             Date.now() + Number(b.snooze) * 86400000,
           ).toISOString();
@@ -581,7 +583,7 @@ export async function POST(r: Request) {
           throw new Error("Доступно только работодателю");
         const job = s.jobs.find((j) => j.id === b.id);
         if (!job || !ownsJob(job, s)) throw new Error("Вакансия недоступна");
-        if (!["published", "archived"].includes(b.status))
+        if (!isOneOf(b.status, ["published", "archived"]))
           throw new Error("Некорректный статус вакансии");
         if (b.status === "published" && job.status === "draft")
           throw new Error(
@@ -598,7 +600,7 @@ export async function POST(r: Request) {
         const range = salary(b.min, b.max);
         if (
           !str(b.title) ||
-          (!confirmedBrief && (!specialties.includes(b.specialty) || !grades.includes(b.grade)))
+          (!confirmedBrief && (!isOneOf(b.specialty, specialties) || !isOneOf(b.grade, grades)))
         )
           throw new Error(
             "Заполните название, описание, специализацию и грейд",
@@ -607,14 +609,14 @@ export async function POST(r: Request) {
           id: crypto.randomUUID(),
           title: str(b.title, 200),
           description: str(b.description) || 'Потребность команды',
-          specialty: b.specialty,
-          grade: b.grade,
+          specialty: str(b.specialty),
+          grade: str(b.grade),
           skills: str(b.skills, 500)
             .split(",")
             .map((x) => x.trim())
             .filter(Boolean),
           desiredSkills: str(b.desiredSkills, 500).split(',').map(x => canonicalSuggestion(skillCatalog, x.trim())).filter(Boolean),
-          task: ['balanced', 'operations', 'product', 'quality'].includes(b.task) ? b.task : 'balanced',
+          task: isOneOf(b.task, ['balanced', 'operations', 'product', 'quality']) ? b.task : 'balanced',
           format: str(b.format, 40),
           ...range,
         };
@@ -705,11 +707,11 @@ export async function POST(r: Request) {
           contact: str(b.contact, 200),
           format: formatOptions
             .filter((value) => value !== "Любой")
-            .includes(b.format)
-            ? b.format
+            .includes(str(b.format))
+            ? str(b.format)
             : undefined,
           city: str(b.city, 100) || undefined,
-          grade: grades.includes(b.grade) ? b.grade : undefined,
+          grade: isOneOf(b.grade, grades) ? b.grade : undefined,
           skills: list(b.skills),
           ...range,
           status: "sent",
@@ -736,7 +738,7 @@ export async function POST(r: Request) {
         if (!["sent", "viewed"].includes(i.status))
           throw new Error("Ответ уже сохранён");
         if (b.status !== "viewed") assertInvitationRevision(i, b.expectedUpdatedAt);
-        if (!["viewed", "accepted", "declined"].includes(b.status))
+        if (!isOneOf(b.status, ["viewed", "accepted", "declined"]))
           throw new Error("Некорректный статус");
         if (b.status === "declined")
           i.declineReason = str(b.declineReason, 500) || undefined;
@@ -767,7 +769,7 @@ export async function POST(r: Request) {
           candidateId: p.id,
           candidate,
           message: b.message.trim(),
-          jobId: b.id,
+          jobId: str(b.id),
           status: "Отправлен",
           createdAt: new Date().toISOString(),
         });
@@ -783,7 +785,7 @@ export async function POST(r: Request) {
           (a) => a.jobId === b.jobId && (a.id === b.id || (!a.id && !b.id)),
         );
         if (!application) throw new Error("Отклик не найден");
-        if (!["Просмотрен", "Отклонён"].includes(b.status))
+        if (!isOneOf(b.status, ["Просмотрен", "Отклонён"]))
           throw new Error("Некорректный статус");
         application.status = b.status;
         application.updatedAt = new Date().toISOString();
@@ -800,7 +802,7 @@ export async function POST(r: Request) {
       }
       case "favorite-job": {
         if (role !== "candidate") throw new Error("Доступно только кандидату");
-        if (!s.jobs.some((job) => job.id === b.id && job.status !== "draft"))
+        if (typeof b.id !== "string" || !s.jobs.some((job) => job.id === b.id && job.status !== "draft"))
           throw new Error("Вакансия не найдена");
         if (typeof b.saved !== "boolean")
           throw new Error("Укажите состояние избранного");
@@ -829,11 +831,11 @@ export async function POST(r: Request) {
     }
     await save(owner, s);
     let output = s;
-    if (["profile", "profile-draft", "company"].includes(b.type)) {
+    if (isOneOf(b.type, ["profile", "profile-draft", "company"])) {
       const freshAccount = await accountById(owner);
       if (!freshAccount) throw new Error("AUTH");
       output = await loadPlatform(freshAccount);
-    } else if (["job", "job-status"].includes(b.type)) {
+    } else if (isOneOf(b.type, ["job", "job-status"])) {
       output = await loadPlatform(account, {
         jobId: String(b.id || "").slice(0, 100),
       });

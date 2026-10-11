@@ -10,7 +10,7 @@ import { settleAssessmentTimeout } from "../lib/assessment-timeout";
 import { writeFile } from "node:fs/promises";
 const rows = [];
 let steps = 0;
-function respond(s: any, good: boolean, t: number) {
+function respond(s: ReturnType<typeof createSession>, good: boolean, t: number) {
   const item = s.items[s.cursor.item].variant,
     step = item.steps[s.cursor.step];
   if (step.exploration) {
@@ -22,7 +22,7 @@ function respond(s: any, good: boolean, t: number) {
       openEvidence(s, item.id, step.id, a.id, t);
     answer(s, item.id, step.id, "continue", t);
   } else {
-    const option = Object.entries(step.rubric.scores).sort((a: any, b: any) =>
+    const option = Object.entries(step.rubric.scores).sort((a, b) =>
       good ? b[1] - a[1] : a[1] - b[1],
     )[0][0];
     answer(
@@ -75,7 +75,7 @@ for (const pack of packs.filter((p) => p.enabled))
     const timed = structuredClone(seed);
     respond(timed, true, now + 1);
     settleAssessmentTimeout(timed, Date.parse(timed.deadlineAt));
-    const result = timed.result as any;
+    const result = timed.result as NonNullable<typeof timed.result> & { timeoutSummary: import("../lib/assessment-timeout").TimeoutSummary };
     assert(result.timeoutSummary.unanswered > 0);
     assert.equal(timed.state, "completed");
     assert.equal(result.stopReason, "timeout");

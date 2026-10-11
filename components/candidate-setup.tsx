@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { registrationDestination } from "@/lib/registration-flow";
 import { MonthPicker } from "./month-picker";
 import { workHistoryDateError } from "@/lib/work-dates";
@@ -355,7 +356,7 @@ export function CandidateSetup({
   return (
     <div className="registration-page auth-refresh candidate-setup">
       <header className="registration-header">
-        <a
+        <Link
           href="/"
           onClick={(event) => {
             event.preventDefault();
@@ -363,7 +364,7 @@ export function CandidateSetup({
           }}
         >
           <Brand />
-        </a>
+        </Link>
         <button className="back-home" onClick={() => nav("/")}>
           <ArrowLeft />
           На главную

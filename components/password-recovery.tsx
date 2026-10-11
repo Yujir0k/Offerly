@@ -21,7 +21,7 @@ export function PasswordRecovery({ email: initial }: { email: string }) {
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false),
     [resendAt, setResendAt] = useState(0),
-    [now, setNow] = useState(Date.now());
+    [now, setNow] = useState(() => Date.now());
   const verifying = useRef(false);
   const heading = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
@@ -29,7 +29,7 @@ export function PasswordRecovery({ email: initial }: { email: string }) {
     const t = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(t);
   }, [open]);
-  async function call(type: string, data: any) {
+  async function call(type: string, data: Record<string, unknown>) {
     const r = await fetch("/api/auth/recovery", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

@@ -14,7 +14,7 @@ import {
 } from "../lib/professional-navigation";
 let checks = 0;
 const start = Date.now();
-function respond(s: any, quality: number, t: number) {
+function respond(s: ReturnType<typeof createSession>, quality: number, t: number) {
   const item = s.items[s.cursor.item].variant,
     step = item.steps[s.cursor.step];
   if (step.exploration) {
@@ -110,19 +110,19 @@ for (const pack of packs.filter((p) => p.enabled))
       native.items.map((i) => i.variant.id),
     );
     checks += 3;
-    const responseScores = (s: any) =>
+    const responseScores = (s: ReturnType<typeof createSession>) =>
       s.responses
-        .map((r: any) => [
+        .map((r) => [
           r.itemId,
           r.stepId,
-          r.contributions.map((c: any) => ({
+          r.contributions.map((c) => ({
             dimension: c.dimension,
             value: c.value,
             weight: c.weight,
             resultWeight: c.resultWeight,
           })),
         ])
-        .sort((a: any, b: any) =>
+        .sort((a, b) =>
           JSON.stringify(a).localeCompare(JSON.stringify(b)),
         );
     assert.deepEqual(responseScores(reordered), responseScores(native));

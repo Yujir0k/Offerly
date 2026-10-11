@@ -235,9 +235,10 @@ export function CandidateVacancies({
     companyJobCount: number;
   } | null>(null);
   const [detailError, setDetailError] = useState("");
+  const detailSignature = `${jobId}:${!!employer}:${s.version}`;
+  const [previousDetail, setPreviousDetail] = useState(detailSignature);
+  if (previousDetail !== detailSignature) { setPreviousDetail(detailSignature); setDetail(null); setDetailError(""); }
   useEffect(() => {
-    setDetail(null);
-    setDetailError("");
     if (!jobId) return;
     const c = new AbortController();
     fetch(

@@ -1,4 +1,4 @@
-import { parseRequestJson, readRequestText } from "@/lib/request-security";
+import { isOneOf, parseRequestJson, readRequestText } from "@/lib/request-security";
 import {
   registerAccount,
   loginAccount,
@@ -22,7 +22,7 @@ export async function POST(r: Request) {
       await logout();
       return Response.json({ ok: true });
     }
-    if (!["register", "login", "demo-login"].includes(b.type))
+    if (!isOneOf(b.type, ["register", "login", "demo-login"]))
       throw new Error("Неизвестное действие");
     const ip =
       process.env.TRUST_PROXY === "true"

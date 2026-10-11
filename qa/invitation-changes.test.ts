@@ -22,14 +22,14 @@ for (const name of (await readdir("db/migrations"))
   .filter((v) => v.endsWith(".sql"))
   .sort())
   await pg.exec(await readFile(`db/migrations/${name}`, "utf8"));
-const wrap = (client: any): Database => ({
+const wrap = (client: Pick<PGlite, "query">): Database => ({
   query: (sql, params = []) => client.query(sql, params),
   transaction: (fn) => pg.transaction((tx) => fn(wrap(tx))),
 });
 const db = wrap(pg);
-(globalThis as any).offerlyDb = Promise.resolve(db);
+(globalThis as typeof globalThis & {offerlyDb?: Promise<Database>}).offerlyDb = Promise.resolve(db);
 after(async () => {
-  delete (globalThis as any).offerlyDb;
+  delete (globalThis as typeof globalThis & {offerlyDb?: Promise<Database>}).offerlyDb;
   await pg.close();
 });
 const account = (id: string): Account => ({

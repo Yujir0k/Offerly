@@ -136,7 +136,7 @@ export async function registerAccount(b: Record<string, unknown>) {
       await recordConsent(db, account.id, "profile-processing", true);
     });
   } catch (e) {
-    if ((e as any).code === "23505")
+    if ((e as { code?: string } | null)?.code === "23505")
       throw new Error(
         "Аккаунт с этой почтой уже зарегистрирован. Перейдите ко входу и используйте пароль, указанный при регистрации.",
       );
@@ -155,7 +155,7 @@ export async function loginAccount(b: Record<string, unknown>) {
   await throttle("login:" + email, 10);
   const {
     rows: [row],
-  } = await query(
+  } = await query<Account & { password_hash: string }>(
     "SELECT * FROM users WHERE email=$1 AND demo=false AND deleted_at IS NULL AND (id NOT LIKE 'offerly-showcase-v1-%' OR $2)",
     [email, showcaseEnabled()],
   );
@@ -315,7 +315,7 @@ export async function confirmEmail(account: Account, code: string) {
       );
       return null;
     } catch (e) {
-      if ((e as any).code === "23505")
+      if ((e as { code?: string } | null)?.code === "23505")
         throw new Error("Не удалось изменить адрес");
       throw e;
     }

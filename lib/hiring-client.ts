@@ -1,5 +1,5 @@
 import type { Role } from "./model";
-export async function hiringApi<T = any>(
+export async function hiringApi<T = unknown>(
   role: Role,
   type: string,
   data: Record<string, unknown> = {},

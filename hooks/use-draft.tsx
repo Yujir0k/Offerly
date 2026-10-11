@@ -88,7 +88,9 @@ export function useDraft<T>(key: string, initial: T) {
       } catch {}
     }
     current.current = cached ?? initial;
-    rawSet(cached ?? initial);
+    void Promise.resolve().then(() => {
+      if (!cancelled && !dirty.current) rawSet(cached ?? initial);
+    });
     (pending.get(key) || Promise.resolve())
       .catch(() => {})
       .then(() => fetch(`/api/drafts?key=${encodeURIComponent(key)}`))

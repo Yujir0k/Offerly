@@ -6,6 +6,10 @@ import { validTimeZone } from "./account-settings";
 import { recommendSpecialties } from "./assessment-tracks";
 import type { Role } from "./model";
 
+type ProcessRow = { id: string; company_id: string; candidate_id: number; user_id: string; title: string; company_name: string; stage: string; note: string; reminder_at: string | Date | null; revision: number; updated_at: string | Date };
+type MeetingRow = { id: string; process_id: string; slots: string[]; timezone: string; duration: number; status: string; selected_at: string | Date | null; revision: number };
+type TaskQuestion = { id: string; prompt: string; options: string[]; correct: number };
+type TaskRow = { id: string; process_id: string; title: string; questions: TaskQuestion[]; period_days: number; active: boolean; created_at: Date | string };
 export class HiringError extends Error {
   constructor(
     message: string,
@@ -25,8 +29,9 @@ export const stages = {
 export const consentVersion = "2026-10-10-v1";
 const text = (v: unknown, max = 200) =>
   typeof v === "string" ? v.trim().slice(0, max) : "";
-const iso = (v: any) => {
+const iso = (v: unknown) => {
   if (!v) return null;
+  if (typeof v !== "string" && typeof v !== "number" && !(v instanceof Date)) throw new HiringError("Некорректная дата");
   const d = new Date(v);
   if (!Number.isFinite(d.getTime())) throw new HiringError("Некорректная дата");
   return d.toISOString();
@@ -83,7 +88,7 @@ async function processAccess(
   }
   const {
     rows: [p],
-  } = await db.query(
+  } = await db.query<ProcessRow>(
     `SELECT h.*,p.user_id,c.payload->>'name' AS company_name FROM hiring_processes h JOIN candidate_profiles p ON p.id=h.candidate_id JOIN companies c ON c.id=h.company_id JOIN users u ON u.id=p.user_id JOIN users owner ON owner.id=c.owner_id WHERE h.id=$1 AND u.scope=$2 AND c.scope=$2 AND u.deleted_at IS NULL AND owner.deleted_at IS NULL ${lock ? "FOR UPDATE OF h" : ""}`,
     [id, a.scope],
   );
@@ -98,7 +103,7 @@ async function processAccess(
     throw new HiringError("Процесс недоступен", 404);
   return p;
 }
-async function linked(db: Database, p: any) {
+async function linked(db: Database, p: ProcessRow) {
   return !!(
     await db.query(
       `SELECT 1 FROM invitations WHERE company_id=$1 AND candidate_id=$2 AND status='accepted' UNION ALL SELECT 1 FROM applications a JOIN jobs j ON j.id=a.job_id WHERE j.company_id=$1 AND a.candidate_id=$2 LIMIT 1`,
@@ -106,7 +111,7 @@ async function linked(db: Database, p: any) {
     )
   ).rows.length;
 }
-function publicMeeting(m: any) {
+function publicMeeting(m: MeetingRow) {
   return {
     id: m.id,
     processId: m.process_id,
@@ -118,7 +123,7 @@ function publicMeeting(m: any) {
     revision: m.revision,
   };
 }
-function publicProcess(p: any, role: Role) {
+function publicProcess(p: ProcessRow, role: Role) {
   return {
     id: p.id,
     candidateId: p.candidate_id,
@@ -135,7 +140,7 @@ function publicProcess(p: any, role: Role) {
 export async function hiringOperation(
   a: Account,
   role: Role,
-  b: Record<string, any>,
+  b: Record<string, unknown>,
 ) {
   const db = await getDb();
   const type = text(b.type);
@@ -225,17 +230,17 @@ export async function hiringOperation(
         throw new HiringError("Некорректная страница");
       }
     }
-    const { rows } = await db.query(
+    const { rows } = await db.query<ProcessRow>(
       `SELECT h.*,c.payload->>'name' AS company_name FROM hiring_processes h JOIN candidate_profiles p ON p.id=h.candidate_id JOIN companies c ON c.id=h.company_id JOIN users u ON u.id=p.user_id JOIN users owner ON owner.id=c.owner_id WHERE c.scope=$1 AND u.deleted_at IS NULL AND owner.deleted_at IS NULL AND ${role === "employer" ? "h.company_id=$2" : "p.user_id=$2 AND (EXISTS(SELECT 1 FROM invitations i WHERE i.company_id=h.company_id AND i.candidate_id=h.candidate_id AND i.status='accepted') OR EXISTS(SELECT 1 FROM applications ap JOIN jobs j ON j.id=ap.job_id WHERE j.company_id=h.company_id AND ap.candidate_id=h.candidate_id))"} AND ($3::timestamptz IS NULL OR (h.updated_at,h.id)<($3::timestamptz,$4::text)) ORDER BY h.updated_at DESC,h.id DESC LIMIT 51`,
       [a.scope, company || a.id, cursor?.at || null, cursor?.id || null],
     );
     const items = [];
     for (const p of rows.slice(0, 50)) {
-      const { rows: meetings } = await db.query(
+      const { rows: meetings } = await db.query<MeetingRow>(
         "SELECT * FROM interview_meetings WHERE process_id=$1 ORDER BY created_at DESC LIMIT 10",
         [p.id],
       );
-      const { rows: tasks } = await db.query(
+      const { rows: tasks } = await db.query<TaskRow>(
         "SELECT * FROM company_tasks WHERE process_id=$1 ORDER BY created_at DESC LIMIT 20",
         [p.id],
       );
@@ -262,7 +267,7 @@ export async function hiringOperation(
             new Date(task.created_at).getTime() +
               (occurrence + 1) * task.period_days * 86400000,
           ).toISOString(),
-          questions: task.questions.map((q: any) => ({
+          questions: task.questions.map((q: TaskQuestion) => ({
             id: q.id,
             prompt: q.prompt,
             options: q.options,
@@ -356,14 +361,15 @@ export async function hiringOperation(
           "Процесс изменён в другой вкладке. Обновите его.",
           409,
         );
-      if (!Object.hasOwn(stages, b.stage))
+      if ((typeof b.stage !== "string" || !Object.hasOwn(stages, b.stage)))
         throw new HiringError("Выберите этап");
       if (
         b.note !== undefined &&
         (typeof b.note !== "string" || b.note.length > 4000)
       )
         throw new HiringError("Заметка до 4000 символов");
-      const reminder = b.reminderAt ? new Date(b.reminderAt) : null;
+      const reminderDate = iso(b.reminderAt);
+      const reminder = reminderDate ? new Date(reminderDate) : null;
       if (
         reminder &&
         (!Number.isFinite(reminder.getTime()) ||
@@ -390,7 +396,7 @@ export async function hiringOperation(
       const slots = Array.isArray(b.slots)
         ? [
             ...new Set<string>(
-              b.slots.map((v: any) => {
+              b.slots.map((v: unknown) => {
                 if (typeof v !== "string" || !v)
                   throw new HiringError("Некорректное время встречи");
                 return iso(v)!;
@@ -407,7 +413,7 @@ export async function hiringOperation(
             Date.parse(v) > Date.now() + 90 * 86400000,
         ) ||
         !validTimeZone(text(b.timeZone)) ||
-        !Number.isInteger(b.duration) ||
+        typeof b.duration !== "number" || !Number.isInteger(b.duration) ||
         b.duration < 15 ||
         b.duration > 180
       )
@@ -449,15 +455,15 @@ export async function hiringOperation(
       );
       const {
         rows: [m],
-      } = await tx.query(
+      } = await tx.query<MeetingRow>(
         "SELECT * FROM interview_meetings WHERE id=$1 FOR UPDATE",
         [text(b.id)],
       );
       if (!m) throw new HiringError("Встреча недоступна", 404);
       if (type === "meeting-ics") {
-        if (m.status !== "confirmed")
+        if (m.status !== "confirmed" || !m.selected_at)
           throw new HiringError("Встреча ещё не подтверждена");
-        const stamp = (v: any) =>
+        const stamp = (v: Date | string | number) =>
           new Date(v)
             .toISOString()
             .replace(/[-:]/g, "")
@@ -507,7 +513,7 @@ export async function hiringOperation(
         if (
           role !== "candidate" ||
           m.status !== "proposed" ||
-          !m.slots.includes(b.slot) ||
+          typeof b.slot !== "string" || !m.slots.includes(b.slot) ||
           Date.parse(b.slot) <= Date.now() ||
           (await blocked(tx, p.candidate_id, p.company_id))
         )
@@ -577,7 +583,7 @@ export async function hiringOperation(
       a,
       s,
       role === "employer" ? "candidates" : "jobs",
-      b.filters,
+      b.filters as Record<string, unknown>,
       role,
       1,
       "market",
@@ -654,16 +660,16 @@ export async function hiringOperation(
       [search.id],
     );
     const set = new Set(seen.map((r) => r.item_id));
-    const fresh = page.items.filter((r: any) => !set.has(String(r.id)));
+    const fresh = page.items.filter((r): r is NonNullable<typeof r> => !!r && !set.has(String(r.id)));
     if (type === "search-seen")
       for (const item of page.items)
         await db.query(
           "INSERT INTO search_seen(search_id,item_id) VALUES($1,$2) ON CONFLICT DO NOTHING",
-          [search.id, String((item as any).id)],
+          [search.id, String(item?.id)],
         );
     return {
       ...page,
-      newIds: search.enabled ? fresh.map((r: any) => r.id) : [],
+      newIds: search.enabled ? fresh.map((r) => r.id) : [],
     };
   }
   if (type === "task-create") {
@@ -678,7 +684,7 @@ export async function hiringOperation(
       const qs = b.questions;
       if (
         !text(b.title) ||
-        !Number.isInteger(b.periodDays) ||
+        typeof b.periodDays !== "number" || !Number.isInteger(b.periodDays) ||
         b.periodDays < 1 ||
         b.periodDays > 90 ||
         !Array.isArray(qs) ||
@@ -692,7 +698,7 @@ export async function hiringOperation(
             !Array.isArray(q.options) ||
             q.options.length < 2 ||
             q.options.length > 5 ||
-            q.options.some((o: any) => !text(o, 500)) ||
+            q.options.some((o: unknown) => !text(o, 500)) ||
             !Number.isInteger(q.correct) ||
             q.correct < 0 ||
             q.correct >= q.options.length,
@@ -717,10 +723,10 @@ export async function hiringOperation(
           p.id,
           text(b.title),
           JSON.stringify(
-            qs.map((q: any) => ({
+            qs.map((q: TaskQuestion) => ({
               id: crypto.randomUUID(),
               prompt: text(q.prompt, 1000),
-              options: q.options.map((o: any) => text(o, 500)),
+              options: q.options.map((o: unknown) => text(o, 500)),
               correct: q.correct,
             })),
           ),
@@ -778,14 +784,14 @@ export async function hiringOperation(
           "Начался новый период задачи. Обновите страницу.",
           409,
         );
-      const supplied = b.answers;
+      const supplied = b.answers && typeof b.answers === "object" && !Array.isArray(b.answers) ? b.answers as Record<string, unknown> : null;
       const answers = Object.fromEntries(
-        t.questions.map((q: any) => [q.id, supplied?.[q.id]]),
+        t.questions.map((q: TaskQuestion) => [q.id, supplied?.[q.id]]),
       );
       if (
         !supplied ||
         t.questions.some(
-          (q: any) =>
+          (q: TaskQuestion) =>
             !Number.isInteger(answers[q.id]) ||
             answers[q.id] < 0 ||
             answers[q.id] >= q.options.length,
@@ -794,7 +800,7 @@ export async function hiringOperation(
         throw new HiringError("Ответьте на все вопросы");
       const score = Math.round(
         (100 *
-          t.questions.filter((q: any) => answers[q.id] === q.correct).length) /
+          t.questions.filter((q: TaskQuestion) => answers[q.id] === q.correct).length) /
           t.questions.length,
       );
       const {
@@ -804,7 +810,7 @@ export async function hiringOperation(
         [t.id, occurrence],
       );
       if (prior) {
-        if (t.questions.some((q: any) => prior.answers[q.id] !== answers[q.id]))
+        if (t.questions.some((q: TaskQuestion) => prior.answers[q.id] !== answers[q.id]))
           throw new HiringError("Ответ уже сохранён", 409);
         return { score: prior.score };
       }

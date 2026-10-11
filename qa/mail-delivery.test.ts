@@ -12,9 +12,9 @@ process.env.APP_URL='https://opherly.ru';
 process.env.MAIL_WORKER_ENABLED='false';
 const pg=new PGlite();
 for(const f of (await readdir('db/migrations')).filter(f=>f.endsWith('.sql')).sort())await pg.exec(await readFile('db/migrations/'+f,'utf8'));
-const wrap=(c:any):Database=>({query:(sql,p=[])=>c.query(sql,p),transaction:fn=>pg.transaction(tx=>fn(wrap(tx)))});
-const db=wrap(pg);(globalThis as any).offerlyDb=Promise.resolve(db);
-after(async()=>{delete (globalThis as any).offerlyDb;await pg.close()});
+const wrap=(c:Pick<PGlite,"query">):Database=>({query:(sql,p=[])=>c.query(sql,p),transaction:fn=>pg.transaction(tx=>fn(wrap(tx)))});
+const db=wrap(pg);(globalThis as typeof globalThis & {offerlyDb?: Promise<Database>}).offerlyDb=Promise.resolve(db);
+after(async()=>{delete (globalThis as typeof globalThis & {offerlyDb?: Promise<Database>}).offerlyDb;await pg.close()});
 const account=(id:string):Account=>({id,email:id+'@example.test',name:'Почтовая проверка',scope:'mail-tests',demo:false,verified_at:new Date().toISOString(),deleted_at:null});
 const employer=account('mail-employer'),recipient=account('mail-candidate');
 for(const u of [employer,recipient])await createAccount(db,u,null);
@@ -25,7 +25,7 @@ beforeEach(async()=>{await db.query('DELETE FROM invitations');});
 async function queue(id:string){await db.query("UPDATE invitations SET status='cancelled'");const i={...sample,id};await db.query('INSERT INTO invitations(id,company_id,candidate_id,status,min_salary,max_salary,payload) VALUES($1,$2,$3,$4,$5,$6,$7)',[id,ep,cp,i.status,i.min,i.max,JSON.stringify(i)]);await enqueueInvitationMail(db,i);return i;}
 async function count(id:string){return (await db.query('SELECT * FROM invitation_mail_outbox WHERE invitation_id=$1',[id])).rows[0]}
 test('all security mails share the chosen signature template, literal OTP, HTML logo without images or attachments and text alternative',()=>{
- for(const kind of ['verify','change-old','change-new','recovery'] as const){const m=codeMail(kind,'own@example.test','654321');assert.match(m.html as string,/#F3F1F8/);assert.match(m.html as string,/aria-hidden="true" width="40" height="40"/);assert(!m.html?.toString().includes("<img"));assert.match(m.html as string,/>654321<\/div>/);assert.match(m.text,/654321/);assert.equal((m.headers as any)['X-Offerly-Template'],'signature-v1/'+kind);assert.equal(m.attachments,undefined);assert(!m.html?.toString().includes('<script'));assert(!m.html?.toString().includes('483921'));}
+ for(const kind of ['verify','change-old','change-new','recovery'] as const){const m=codeMail(kind,'own@example.test','654321');assert.match(m.html as string,/#F3F1F8/);assert.match(m.html as string,/aria-hidden="true" width="40" height="40"/);assert(!m.html?.toString().includes("<img"));assert.match(m.html as string,/>654321<\/div>/);assert.match(m.text,/654321/);assert.equal((m.headers as Record<string,string>)['X-Offerly-Template'],'signature-v1/'+kind);assert.equal(m.attachments,undefined);assert(!m.html?.toString().includes('<script'));assert(!m.html?.toString().includes('483921'));}
  assert.throws(()=>codeMail('verify','x@example.test','<x>'));
  assert.match(passwordChangedMail('x@example.test').html as string,/Пароль обновлён/);
 });
@@ -38,7 +38,7 @@ test('invitation and mail event are atomic on rollback',async()=>{
  const s=await loadPlatform(employer);s.invitations.push({...sample,id:'rollback-mail'});s.favoriteJobs.push('nonexistent');await assert.rejects(savePlatform(employer.id,s));assert.equal((await db.query("SELECT id FROM invitations WHERE id='rollback-mail'")).rows.length,0);assert.equal(await count('rollback-mail'),undefined);
 });
 test('concurrent workers claim an event once; persisted state prevents another delivery',async()=>{
- const i=await queue('single');await enqueueInvitationMail(db,i);let sent=0;const send=async(m:any)=>{sent++;assert.equal(m.to,recipient.email);assert.match(m.messageId,/invitation-single/)};
+ const i=await queue('single');await enqueueInvitationMail(db,i);let sent=0;const send=async(m: import("../lib/mail-transport").AccountMail)=>{sent++;assert.equal(m.to,recipient.email);assert.match(m.messageId,/invitation-single/)};
  await Promise.all([drainInvitationMail(db,send),drainInvitationMail(db,send)]);assert.equal(sent,1);assert.equal((await count(i.id)).status,'sent');await drainInvitationMail(db,send);assert.equal(sent,1);
 });
 test('failed SMTP leaves invitation intact and retries successfully',async()=>{

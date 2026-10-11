@@ -19,14 +19,14 @@ for (const f of (await readdir("db/migrations"))
   .filter((v) => v.endsWith(".sql"))
   .sort())
   await pg.exec(await readFile("db/migrations/" + f, "utf8"));
-const wrap = (c: any): Database => ({
+const wrap = (c: Pick<PGlite, "query">): Database => ({
     query: (s, p = []) => c.query(s, p),
     transaction: (fn) => pg.transaction((tx) => fn(wrap(tx))),
   }),
   db = wrap(pg);
-(globalThis as any).offerlyDb = Promise.resolve(db);
+(globalThis as typeof globalThis & {offerlyDb?: Promise<Database>}).offerlyDb = Promise.resolve(db);
 after(async () => {
-  delete (globalThis as any).offerlyDb;
+  delete (globalThis as typeof globalThis & {offerlyDb?: Promise<Database>}).offerlyDb;
   await pg.close();
 });
 const person = (id: string, scope = "access-qa"): Account => ({
@@ -112,7 +112,7 @@ for (let i = 0; i < 6; i++) {
   candidates.push(p);
 }
 const ids = candidates.map((p) => p.id);
-const search = async (f: any = {}) =>
+const search = async (f: Record<string, unknown> = {}) =>
   searchCatalog(a, sa, "candidates", f, "employer", 1, "market");
 test('stored search fields follow profile edits, pause and consent atomically', async () => {
   const p = candidates[0];
@@ -205,7 +205,7 @@ test("MCP binds tokens and drafts to the company, hides contacts, rejects candid
     }),
   );
   assert.equal(context.companyId, sa.company.id);
-  const result = (await callMcpTool(context, "search_candidates", {})) as any;
+  const result = (await callMcpTool(context, "search_candidates", {})) as { total: number };
   assert.equal(result.total, 3);
   const json = JSON.stringify(result);
   for (const k of [
@@ -230,7 +230,7 @@ test("MCP binds tokens and drafts to the company, hides contacts, rejects candid
     salaryMin: 150000,
     salaryMax: 200000,
     requestId: "company-access-check-01",
-  })) as any;
+  })) as { sent: boolean; draftId: string };
   assert.equal(draft.sent, false);
   assert.equal((await listMcpDrafts(cb)).length, 0);
   await assert.rejects(

@@ -127,7 +127,7 @@ export async function authorizeEmailChange(
     const flow = await flowFor(db, account, id, hash);
     if (flow.authorized_at) throw new Error("Доступ уже подтверждён.");
     const checked = await checkCode(db, account, id, "change-old", code);
-    if (checked.error) return { error: checked.error, flow };
+    if (!checked.challenge) return { error: checked.error, flow };
     if (checked.challenge.email !== flow.old_email)
       throw new Error("Начните смену почты заново.");
     await db.query("UPDATE email_challenges SET used_at=now() WHERE id=$1", [
@@ -187,7 +187,7 @@ export async function finishEmailChange(
     if (!flow.authorized_at)
       throw new Error("Сначала подтвердите доступ к аккаунту.");
     const checked = await checkCode(db, account, id, "change-new", code);
-    if (checked.error) return checked.error;
+    if (!checked.challenge) return checked.error;
     if (checked.challenge.email !== flow.new_email)
       throw new Error("Начните смену почты заново.");
     try {

@@ -4,11 +4,13 @@ import { chatRequest } from "@/lib/chat-client";
 import type { Role } from "@/lib/model";
 export function useChatUnread(role: Role, userId?: string) {
   const [count, setCount] = useState(0);
+  const identity = `${role}:${userId}`;
+  const [previousIdentity, setPreviousIdentity] = useState(identity);
+  if (previousIdentity !== identity) { setPreviousIdentity(identity); setCount(0); }
   useEffect(() => {
     let cancelled = false,
       pending = false;
     const abort = new AbortController();
-    setCount(0);
     const refresh = async () => {
       if (document.hidden || pending) return;
       pending = true;

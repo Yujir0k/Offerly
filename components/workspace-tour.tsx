@@ -46,31 +46,20 @@ export function WorkspaceTour({
   const target = useRef<HTMLElement | null>(null);
   const okButton = useRef<HTMLButtonElement>(null);
   const markerId = useId().replace(/:/g, "");
-  const lastReplay = useRef(0);
+  const [lastReplay, setLastReplay] = useState(0);
   const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    // A failed request must never turn the default empty settings into consent
-    // to show hints again. Keep readiness during saving to preserve the exit.
-    if (meta.status === "saved" && preferencesMeta.status === "saved")
-      setLoaded(true);
-  }, [meta.status, preferencesMeta.status]);
+  // Preserve readiness while saving; unsuccessful loads never enable hints.
+  if (!loaded && meta.status === "saved" && preferencesMeta.status === "saved") setLoaded(true);
   const hint = active ? workspaceHints[role][active] : undefined;
-  useEffect(() => {
-    if (timer.current) clearTimeout(timer.current);
-    setClosing(false);
-    setPosition(null);
-    const requestedReplay = replay !== lastReplay.current;
-    lastReplay.current = replay;
-    setActive(
-      loaded &&
-        workspaceHints[role][key] &&
-        (requestedReplay || (!preferences.disabled && !seen[key]))
-        ? key
-        : null,
-    );
-    // Acknowledging a hint changes seen, but must not interrupt its exit animation.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [key, role, loaded, intro, replay]);
+  const context = `${key}:${role}:${loaded}:${intro}:${replay}`;
+  const [previousContext, setPreviousContext] = useState(context);
+  if (previousContext !== context) {
+    setPreviousContext(context); setClosing(false); setPosition(null);
+    const requestedReplay = replay !== lastReplay;
+    setLastReplay(replay);
+    setActive(loaded && workspaceHints[role][key] && (requestedReplay || (!preferences.disabled && !seen[key])) ? key : null);
+  }
+  useEffect(() => { if (timer.current) clearTimeout(timer.current); }, [context]);
   useEffect(() => {
     if (loaded && intro && (seen[key] || preferences.disabled) && !active)
       nav(`/demo/${role}/${key}`);

@@ -13,9 +13,9 @@ async function main() {
  const {rows}=await db.query<{id:number}>(`SELECT p.id FROM candidate_profiles p JOIN users u ON u.id=p.user_id WHERE u.scope=$1 AND u.id<>$1 AND p.visible AND p.consent AND p.grade IS NOT NULL ORDER BY p.id DESC LIMIT 25`,[id]);
  const ids=rows.map(r=>r.id);assert.equal(ids.length,25);
  const result=await hiringOperation(a,'employer',{type:'compare',ids:[...ids,ids[0]]});
- assert.deepEqual(result.items.map((p:any)=>p.id),ids,'All 25 candidates beyond preview are returned in selection order, without duplicates');
- assert(result.items.every((p:any)=>!p.email&&!p.phone&&!p.resumeKey),'Unaccepted contacts/files stay redacted');
- const rejects=async(body:any,status:number,role:'employer'|'candidate'='employer')=>assert.rejects(hiringOperation(a,role,{type:'compare',...body}),(e:any)=>e instanceof HiringError&&e.status===status);
+ assert.deepEqual(result.items.map((p)=>p.id),ids,'All 25 candidates beyond preview are returned in selection order, without duplicates');
+ assert(result.items.every((p)=>!p.email&&!p.phone&&!p.resumeKey),'Unaccepted contacts/files stay redacted');
+ const rejects=async(body:Record<string,unknown>,status:number,role:'employer'|'candidate'='employer')=>assert.rejects(hiringOperation(a,role,{type:'compare',...body}),(e:unknown)=>e instanceof HiringError&&e.status===status);
  await rejects({ids:[ids[0]]},400);await rejects({ids:[ids[0],-1]},400);await rejects({ids:ids.slice(0,4)},403,'candidate');
  const {rows:[company]}=await db.query('SELECT id FROM companies WHERE owner_id=$1',[id]);
  await db.query('INSERT INTO blocked_companies(candidate_id,company_id) VALUES($1,$2)',[ids[0],company.id]);

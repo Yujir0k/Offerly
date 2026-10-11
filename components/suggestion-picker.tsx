@@ -29,7 +29,7 @@ function useSkillSuggestions(catalog: Suggestion[], query: string) {
         signal: controller.signal,
       })
         .then((response) => (response.ok ? response.json() : { items: [] }))
-        .then((body: any) => {
+        .then((body: { items?: string[] }) => {
           if (!controller.signal.aborted)
             setRemote({
               query,

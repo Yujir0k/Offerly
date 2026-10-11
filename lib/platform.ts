@@ -13,6 +13,7 @@ import {
   type State,
   type Profile,
   type CompanyProfile,
+  type Job,
 } from "./model";
 import { withPersonalName } from "./personal-name";
 import { profileInitials } from "./profile-identity";
@@ -32,7 +33,7 @@ const baseline = new WeakMap<
     state: State;
     account: Account;
     membership: string;
-    raw: Record<string, Map<string | number, any>>;
+    raw: Record<string, Map<string | number, unknown>>;
   }
 >();
 const json = (v: unknown) =>
@@ -304,7 +305,7 @@ export async function loadPlatform(
   } as State);
   // No persistence baseline: this context is deliberately read-only and cannot be saved.
   if (targets.catalogOnly) return s;
-  const raw: Record<string, Map<string | number, any>> = {
+  const raw: Record<string, Map<string | number, unknown>> = {
     candidate_profiles: new Map([[own.id, own.payload]]),
     companies: new Map([[company.id, company]]),
   };
@@ -319,7 +320,7 @@ export async function loadPlatform(
     ["assessments", "attempts"],
     ["surveys", "surveys"],
   ] as const)
-    raw[table] = new Map((s[key] as any[]).map((v) => [v.id, v]));
+    raw[table] = new Map(s[key].map((v) => [v.id, v]));
   for (const values of Object.values(raw))
     for (const [id, value] of values) values.set(id, structuredClone(value));
   baseline.set(s, {
@@ -334,8 +335,8 @@ async function replace(
   db: Database,
   table: string,
   id: string | number,
-  old: any,
-  value: any,
+  old: unknown,
+  value: unknown,
   extra: Record<string, unknown> = {},
 ) {
   const entries = Object.entries(extra),
@@ -363,8 +364,8 @@ export async function savePlatform(owner: string, s: State) {
     db: Database,
     table: string,
     id: string | number,
-    previous: any,
-    value: any,
+    previous: unknown,
+    value: unknown,
     extra: Record<string, unknown> = {},
   ) =>
     replace(
@@ -486,22 +487,22 @@ export async function savePlatform(owner: string, s: State) {
         ["surveys", "surveys", "user_id", owner],
       ] as const) {
         for (const value of s[listKey]) {
-          const previous = (old[listKey] as any[]).find(
+          const previous = old[listKey].find(
             (v) => v.id === value.id,
           );
           if (!changed(value, previous)) continue;
           if ((table === "jobs" || table === "needs") && !canEdit)
             throw new Error("Недостаточно прав");
-          if (table === "jobs" && (value as any).companyId !== s.company.id)
+          if (table === "jobs" && (value as Job).companyId !== s.company.id)
             throw new Error("Вакансия другой компании");
           const extra: Record<string, unknown> = { [ownerColumn]: ownerValue };
           if (table === "jobs")
             Object.assign(extra, {
-              status: (value as any).status || "published",
-              specialty: (value as any).specialty,
-              grade: (value as any).grade,
-              min_salary: (value as any).min,
-              max_salary: (value as any).max,
+              status: (value as Job).status || "published",
+              specialty: (value as Job).specialty,
+              grade: (value as Job).grade,
+              min_salary: (value as Job).min,
+              max_salary: (value as Job).max,
             });
           await persist(db, table, value.id, previous, value, extra);
         }
@@ -514,7 +515,7 @@ export async function savePlatform(owner: string, s: State) {
             if (!["sent", "viewed"].includes(previous.status)) throw new Error("Приглашение уже завершено");
             const allowed = new Set(["title", "description", "min", "max", "contact", "format", "city", "grade", "skills", "status", "readAt", "updatedAt", "cancelledAt"]);
             if ([...new Set([...Object.keys(value), ...Object.keys(previous)])].some(k =>
-              !allowed.has(k) && changed((value as any)[k], (previous as any)[k])))
+              !allowed.has(k) && changed(value[k as keyof typeof value], previous[k as keyof typeof previous])))
               throw new Error("Нельзя изменять получателя или источник приглашения");
             if (!["sent", "cancelled"].includes(value.status) || !value.updatedAt ||
                 (value.status === "sent" && value.readAt) ||
@@ -676,7 +677,7 @@ export async function savePlatform(owner: string, s: State) {
     ["surveys", "surveys"],
   ] as const) {
     const values = Array.isArray(s[key]) ? s[key] : [s[key]];
-    context.raw[table] = new Map((values as any[]).map((v) => [v.id, v]));
+    context.raw[table] = new Map(values.map((v) => [v.id, v]));
   }
   baseline.set(s, { ...context, state: structuredClone(s) });
   // Dispatch after commit only. SMTP latency/failure must not undo an invitation or hold its HTTP response.

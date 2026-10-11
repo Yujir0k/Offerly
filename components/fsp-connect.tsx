@@ -20,13 +20,14 @@ export function FspConnect({
     participantId?: string | null;
   } | null>(null);
   const [busy, setBusy] = useState(false),
-    [message, setMessage] = useState("");
+    [message, setMessage] = useState(() => {
+      if (typeof window === "undefined") return "";
+      const code = new URLSearchParams(window.location.search).get("fsp");
+      return code && Object.hasOwn(fspMessages, code) ? fspMessages[code as FspCode] : "";
+    });
   const description = useId();
   useEffect(() => {
     let active = true;
-    const code = new URLSearchParams(window.location.search).get("fsp");
-    if (code && Object.hasOwn(fspMessages, code))
-      setMessage(fspMessages[code as FspCode]);
     fetch("/api/identity/fsp", { cache: "no-store" })
       .then((r) => {
         if (!r.ok) throw new Error();

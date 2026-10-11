@@ -1,0 +1,221 @@
+{
+  "date": "2026-10-11T10:36:25.086Z",
+  "environment": "isolated local production Docker; Browser plugin absent, Playwright fallback; SMTP disabled",
+  "pages": [
+    {
+      "role": "candidate",
+      "section": "overview",
+      "width": 1440
+    },
+    {
+      "role": "candidate",
+      "section": "assessment",
+      "width": 1440
+    },
+    {
+      "role": "candidate",
+      "section": "skills",
+      "width": 1440
+    },
+    {
+      "role": "candidate",
+      "section": "results",
+      "width": 1440
+    },
+    {
+      "role": "candidate",
+      "section": "jobs",
+      "width": 1440
+    },
+    {
+      "role": "candidate",
+      "section": "invitations",
+      "width": 1440
+    },
+    {
+      "role": "candidate",
+      "section": "messages",
+      "width": 1440
+    },
+    {
+      "role": "candidate",
+      "section": "profile",
+      "width": 1440
+    },
+    {
+      "role": "candidate",
+      "section": "settings",
+      "width": 1440
+    },
+    {
+      "role": "candidate",
+      "section": "overview",
+      "width": 390
+    },
+    {
+      "role": "candidate",
+      "section": "assessment",
+      "width": 390
+    },
+    {
+      "role": "candidate",
+      "section": "skills",
+      "width": 390
+    },
+    {
+      "role": "candidate",
+      "section": "results",
+      "width": 390
+    },
+    {
+      "role": "candidate",
+      "section": "jobs",
+      "width": 390
+    },
+    {
+      "role": "candidate",
+      "section": "invitations",
+      "width": 390
+    },
+    {
+      "role": "candidate",
+      "section": "messages",
+      "width": 390
+    },
+    {
+      "role": "candidate",
+      "section": "profile",
+      "width": 390
+    },
+    {
+      "role": "candidate",
+      "section": "settings",
+      "width": 390
+    },
+    {
+      "role": "employer",
+      "section": "overview",
+      "width": 1440
+    },
+    {
+      "role": "employer",
+      "section": "candidates",
+      "width": 1440
+    },
+    {
+      "role": "employer",
+      "section": "needs",
+      "width": 1440
+    },
+    {
+      "role": "employer",
+      "section": "invitations",
+      "width": 1440
+    },
+    {
+      "role": "employer",
+      "section": "messages",
+      "width": 1440
+    },
+    {
+      "role": "employer",
+      "section": "jobs",
+      "width": 1440
+    },
+    {
+      "role": "employer",
+      "section": "company",
+      "width": 1440
+    },
+    {
+      "role": "employer",
+      "section": "settings",
+      "width": 1440
+    },
+    {
+      "role": "employer",
+      "section": "overview",
+      "width": 390
+    },
+    {
+      "role": "employer",
+      "section": "candidates",
+      "width": 390
+    },
+    {
+      "role": "employer",
+      "section": "needs",
+      "width": 390
+    },
+    {
+      "role": "employer",
+      "section": "invitations",
+      "width": 390
+    },
+    {
+      "role": "employer",
+      "section": "messages",
+      "width": 390
+    },
+    {
+      "role": "employer",
+      "section": "jobs",
+      "width": 390
+    },
+    {
+      "role": "employer",
+      "section": "company",
+      "width": 390
+    },
+    {
+      "role": "employer",
+      "section": "settings",
+      "width": 390
+    }
+  ],
+  "checks": [
+    "candidate/overview 1440",
+    "candidate/assessment 1440",
+    "candidate/skills 1440",
+    "candidate/results 1440",
+    "candidate/jobs 1440",
+    "candidate/invitations 1440",
+    "candidate/messages 1440",
+    "candidate/profile 1440",
+    "candidate/settings 1440",
+    "candidate/overview 390",
+    "candidate/assessment 390",
+    "candidate/skills 390",
+    "candidate/results 390",
+    "candidate/jobs 390",
+    "candidate/invitations 390",
+    "candidate/messages 390",
+    "candidate/profile 390",
+    "candidate/settings 390",
+    "employer/overview 1440",
+    "employer/candidates 1440",
+    "employer/needs 1440",
+    "employer/invitations 1440",
+    "employer/messages 1440",
+    "employer/jobs 1440",
+    "employer/company 1440",
+    "employer/settings 1440",
+    "employer/overview 390",
+    "employer/candidates 390",
+    "employer/needs 390",
+    "employer/invitations 390",
+    "employer/messages 390",
+    "employer/jobs 390",
+    "employer/company 390",
+    "employer/settings 390",
+    "No runtime exceptions / unexpected HTTP 5xx; disabled MCP is reported separately"
+  ],
+  "errors": [],
+  "expectedDisabledServices": {
+    "MCP_ENABLED=false": [
+      "503 /api/mcp/drafts",
+      "503 /api/mcp/drafts"
+    ]
+  },
+  "note": "The initial broad 5xx assertion was refined: MCP intentionally returns 503 when disabled in local Docker. All 34 page checks passed; this does not claim MCP was enabled."
+}

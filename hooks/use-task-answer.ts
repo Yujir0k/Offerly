@@ -23,7 +23,9 @@ export function useTaskAnswer(
     queue = useRef(Promise.resolve()),
     mounted = useRef(true);
   const lastSaved = useRef(task.draftAnswer || "");
-  revision.current = Math.max(revision.current, task.draftRevision || 0);
+  useEffect(() => {
+    revision.current = Math.max(revision.current, task.draftRevision || 0);
+  }, [task.draftRevision]);
   const persist = (value: string, pending: boolean) => {
     try {
       localStorage.setItem(key, JSON.stringify({ text: value, pending }));

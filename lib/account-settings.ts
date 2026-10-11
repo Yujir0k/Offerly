@@ -118,10 +118,10 @@ export function deletedAccountState(s: State): State {
   const p = fresh.profile;
   for (const key of Object.keys(p)) {
     const value = p[key as keyof typeof p];
-    if (typeof value === "string") (p as any)[key] = "";
-    else if (Array.isArray(value)) (p as any)[key] = [];
-    else if (typeof value === "number") (p as any)[key] = 0;
-    else if (typeof value === "boolean") (p as any)[key] = false;
+    if (typeof value === "string") Object.assign(p, { [key]: "" });
+    else if (Array.isArray(value)) Object.assign(p, { [key]: [] });
+    else if (typeof value === "number") Object.assign(p, { [key]: 0 });
+    else if (typeof value === "boolean") Object.assign(p, { [key]: false });
   }
   Object.assign(p, {
     id: s.profile.id,

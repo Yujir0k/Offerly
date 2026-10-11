@@ -17,7 +17,7 @@ export async function enqueueInvitationMail(db:Database, invitation:Invitation) 
 type Row = {invitation_id:string;recipient_id:string;attempts:number;lease_id:string};
 export function invitationMailPolicy(row:{email:string;demo:boolean;verified_at:unknown;deleted_at:unknown;
   employer_demo:boolean;employer_deleted:unknown;scope:string;company_scope:string;status:string;
-  blocked:boolean;preferences:any;created_at:Date|string}) {
+  blocked:boolean;preferences: { settings?: { emailInvitations?: boolean; snoozedUntil?: string } } | null;created_at:Date|string}) {
   if(row.demo||row.employer_demo||row.deleted_at||row.employer_deleted||!row.verified_at||
       row.scope!==row.company_scope||row.blocked||!['sent','viewed'].includes(row.status)) return 'skip';
   if(!/^\S+@\S+\.\S+$/.test(row.email))return 'skip';
@@ -42,7 +42,7 @@ export async function drainInvitationMail(db:Database,send:(m:AccountMail,id:str
     if(!event)break;
     processed++;
     try{
-      const {rows:[target]}=await db.query(`SELECT u.email,u.demo,u.verified_at,u.deleted_at,u.scope,
+      const {rows:[target]}=await db.query<Parameters<typeof invitationMailPolicy>[0] & { invitation: Invitation }>(`SELECT u.email,u.demo,u.verified_at,u.deleted_at,u.scope,
         employer.demo AS employer_demo,employer.deleted_at AS employer_deleted,c.scope AS company_scope,
         i.status,i.payload AS invitation,a.payload AS preferences,o.created_at,
         EXISTS(SELECT 1 FROM blocked_companies bc WHERE bc.company_id=i.company_id AND bc.candidate_id=i.candidate_id) AS blocked
@@ -68,7 +68,7 @@ export async function drainInvitationMail(db:Database,send:(m:AccountMail,id:str
         lease_id=NULL,lease_until=NULL WHERE invitation_id=$1 AND lease_id=$2`,[event.invitation_id,lease]);
     }catch(error){
       // Persist only a diagnostic class, never SMTP response contents, tokens, addresses or message body.
-      const label=String((error as any)?.code||'DELIVERY_FAILED').replace(/[^A-Z0-9_]/g,'').slice(0,40)||'DELIVERY_FAILED';
+      const label=String((error as { code?: unknown } | null)?.code||'DELIVERY_FAILED').replace(/[^A-Z0-9_]/g,'').slice(0,40)||'DELIVERY_FAILED';
       const delay=Math.min(3600,60*2**Math.min(event.attempts-1,6));
       await db.query(`UPDATE invitation_mail_outbox SET status=$3,last_error=$4,
         next_attempt_at=now()+($5*interval '1 second'),lease_id=NULL,lease_until=NULL

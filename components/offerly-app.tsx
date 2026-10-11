@@ -32,7 +32,7 @@ export default function OfferlyApp() {
     currentState.current = next;
     setState(next);
   }
-  const lastAction = useRef("");
+  const [lastAction, setLastAction] = useState("");
   const preparedRole = useRef<Role | null>(null);
   const role: Role =
     route.includes("/employer") || route.includes("role=employer")
@@ -181,7 +181,7 @@ export default function OfferlyApp() {
   }, [isWorkspace]);
   async function act(type: string, data: Record<string, unknown> = {}) {
     stateGeneration.current++;
-    lastAction.current = type;
+    setLastAction(type);
     setActionError("");
     try {
       const r = await fetch(
@@ -227,7 +227,7 @@ export default function OfferlyApp() {
     }
   }
   useEffect(() => {
-    const mc = (navigator as any).modelContext;
+    const mc = (navigator as Navigator & { modelContext?: { registerTool(tool: { name: string; description: string; inputSchema: object; execute: () => Promise<{ content: { type: string; text: string }[] }> }): void; unregisterTool(name: string): void } }).modelContext;
     if (!mc?.registerTool) return;
     const name = "offerly_view";
     try {
@@ -261,7 +261,7 @@ export default function OfferlyApp() {
     if (needsVerification) {
       const path = `/verify-email?role=${role}${isWelcome ? "&ready=1" : ""}`;
       window.history.replaceState({}, "", path);
-      setRoute(path);
+      window.dispatchEvent(new PopStateEvent("popstate"));
     }
   }, [needsVerification, role]);
   const requestedSection = route.split("?")[0].split("/")[3] || "overview";
@@ -443,7 +443,7 @@ export default function OfferlyApp() {
           !route.startsWith("/register") &&
           !route.startsWith("/login") &&
           !route.startsWith("/verify-email") &&
-          !lastAction.current.startsWith("email-change-")
+          !lastAction.startsWith("email-change-")
         }
         onOpenChange={(open) => {
           if (!open) setActionError("");
