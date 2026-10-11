@@ -16,7 +16,7 @@
 
 [Платформа](https://opherly.ru/) · [Документация PDF](docs/readme/offerly-documentation.pdf) · [Техническая документация](docs/README.md) · [OpenAPI](docs/api/openapi.json)
 
-**Презентация: ссылка будет добавлена**
+**[Презентация PDF](docs/readme/offerly-presentation.pdf)**
 
 <!-- После получения презентации замените её заглушку ссылкой. -->
 
