@@ -26,6 +26,12 @@ async function queue(id:string){await db.query("UPDATE invitations SET status='c
 async function count(id:string){return (await db.query('SELECT * FROM invitation_mail_outbox WHERE invitation_id=$1',[id])).rows[0]}
 test('all security mails share the chosen signature template, literal OTP, HTML logo without images or attachments and text alternative',()=>{
  for(const kind of ['verify','change-old','change-new','recovery'] as const){const m=codeMail(kind,'own@example.test','654321');assert.match(m.html as string,/#F3F1F8/);assert.match(m.html as string,/aria-hidden="true" width="40" height="40"/);assert(!m.html?.toString().includes("<img"));assert.match(m.html as string,/>654321<\/div>/);assert.match(m.text,/654321/);assert.equal((m.headers as Record<string,string>)['X-Offerly-Template'],'signature-v1/'+kind);assert.equal(m.attachments,undefined);assert(!m.html?.toString().includes('<script'));assert(!m.html?.toString().includes('483921'));}
+ for(const kind of ['verify','change-old','change-new','recovery'] as const){
+  const m=codeMail(kind,'own@example.test','654321');
+  assert.doesNotMatch(m.html as string,/<a\b|https?:\/\/|SMTP[. ]?BZ|демонстрационн|тест оформления/i);
+  assert.doesNotMatch(m.text,/https?:\/\/|SMTP[. ]?BZ|демонстрационн|тест оформления/i);
+  assert.match(m.text,/Действует 10 минут/);
+ }
  assert.throws(()=>codeMail('verify','x@example.test','<x>'));
  assert.match(passwordChangedMail('x@example.test').html as string,/Пароль обновлён/);
 });
