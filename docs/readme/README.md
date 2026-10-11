@@ -14,4 +14,4 @@
 
 `offerly-documentation.pdf` и `offerly-documentation.md` — согласованная сопроводительная документация. `research/` — оригинальные статьи и их атрибуция.
 
-Места для будущих ссылок на демо и презентацию находятся в начале корневого README. После получения URL замените строку «ссылка будет добавлена» настоящими Markdown-ссылками.
+[Полная демонстрация платформы · 8:57](https://drive.google.com/file/d/1NSkari65RXaiNPmRnXNd-gHujYh2MLH1/view) размещена на Google Drive. [Папка с исходным видео](https://drive.google.com/drive/folders/1CnPQlc7G-PuFPgPTlVa8a0Hep4sTp3aO?usp=sharing). Ссылка на просмотр добавлена в начало корневого README; место для презентации пока оставлено.

@@ -10,9 +10,9 @@
 
 [Платформа](https://opherly.ru/) · [Документация PDF](docs/readme/offerly-documentation.pdf) · [Техническая документация](docs/README.md) · [OpenAPI](docs/api/openapi.json)
 
-**Демо: ссылка будет добавлена** · **Презентация: ссылка будет добавлена**
+**[Смотреть демо · 8:57](https://drive.google.com/file/d/1NSkari65RXaiNPmRnXNd-gHujYh2MLH1/view)** · **Презентация: ссылка будет добавлена**
 
-<!-- После получения материалов замените строку выше ссылками на демо и презентацию. -->
+<!-- После получения презентации замените её заглушку ссылкой. -->
 
 [![Офферли за 60 секунд: профиль, проверка уровня, подбор и общение](docs/readme/media/offerly-preview-60s.webp)](docs/readme/media/offerly-preview-60s.mp4)
 
