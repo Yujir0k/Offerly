@@ -1,0 +1,2 @@
+# Server timezone: UTC. Wednesday/Sunday 06:00 Europe/Moscow, no restarts or updates.
+0 3 * * 0,3 root /usr/bin/nice -n 19 /usr/bin/ionice -c 3 /usr/bin/timeout 300 /usr/local/sbin/offerly-backup >> /var/log/offerly-backup.log 2>&1

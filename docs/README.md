@@ -11,7 +11,7 @@
 | [planning/](planning/) | Следующие шаги и исторические предложения |
 | [reports/2026-10-10/](reports/2026-10-10/) | Отчёты отдельных итераций, текущая сверка ТЗ |
 
-Ключевые инструкции: [MCP](guides/employer-mcp.md), [локальный ФСП](guides/fsp-demo.md), [реальная ФСП-интеграция](guides/fsp-id.md), [почта](guides/local-mail.md), [подбор по задаче](guides/task-recommendations.md), [подготовка сервера](guides/production-checklist.md).
+Ключевые инструкции: [MCP](guides/employer-mcp.md), [локальный ФСП](guides/fsp-demo.md), [реальная ФСП-интеграция](guides/fsp-id.md), [почта](guides/local-mail.md), [подбор по задаче](guides/task-recommendations.md), [подготовка сервера](guides/production-checklist.md), [резервные копии MVP](guides/minimal-backups.md).
 
 Публичная копия OpenAPI находится в `public/openapi.json`; источник — `docs/api/openapi.json`. После изменений выполняются `node scripts/update-mvp-openapi.mjs` и `npm run check:api`. Схемы MCP, добровольных задач и завершения по времени входят в эту спецификацию.
 
