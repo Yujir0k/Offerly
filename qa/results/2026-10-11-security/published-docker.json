@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-11T11:04:30.379Z",
+  "source": "Fresh shallow clone of GitVerse main",
+  "testedCommit": "8e4834601c7ea997448954725ea5aecccaf4bbbe",
+  "passed": true,
+  "checks": [
+    "Health after clean Docker build and empty DB migrations",
+    "candidate demo login",
+    "candidate /api/state",
+    "candidate /api/catalog/jobs",
+    "candidate /api/conversations",
+    "candidate logout revokes session",
+    "employer demo login",
+    "employer /api/state",
+    "employer /api/catalog/candidates",
+    "employer /api/conversations",
+    "employer logout revokes session"
+  ],
+  "environment": "Local Docker production build; new PostgreSQL volume; random distinct DB passwords; no SMTP or user data imported. Not VPS deployment."
+}
