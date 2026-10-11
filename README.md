@@ -14,7 +14,7 @@
 
 <!-- После получения материалов замените строку выше ссылками на демо и презентацию. -->
 
-[![Офферли за 60 секунд: профиль, проверка уровня, подбор и общение](docs/readme/media/offerly-preview-60s.gif)](docs/readme/media/offerly-preview-60s.mp4)
+[![Офферли за 60 секунд: профиль, проверка уровня, подбор и общение](docs/readme/media/offerly-preview-60s.webp)](docs/readme/media/offerly-preview-60s.mp4)
 
 [Смотреть исходный ролик · 60 секунд](docs/readme/media/offerly-preview-60s.mp4)
 
