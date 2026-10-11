@@ -1,0 +1,64 @@
+{
+  "version": "fsp-demo-1",
+  "accounts": [
+    {
+      "subject": "demo-winner",
+      "participantId": "FSP-DEMO-WINNER",
+      "name": "Роман Крылов",
+      "description": "Победа в продуктовом программировании и призовое место в алгоритмическом",
+      "catalogKey": "backend-middle-01",
+      "events": [
+        {
+          "id": "demo-product-2026",
+          "title": "Кубок продуктового программирования (демо)",
+          "date": "2026-09-15",
+          "discipline": "Продуктовое программирование",
+          "specialties": ["Backend", "Frontend"],
+          "skills": [],
+          "result": "winner",
+          "team": true,
+          "source": "demo"
+        },
+        {
+          "id": "demo-algorithm-2026",
+          "title": "Турнир алгоритмического программирования (демо)",
+          "date": "2026-08-10",
+          "discipline": "Программирование алгоритмическое",
+          "specialties": ["Backend"],
+          "skills": [],
+          "result": "prize",
+          "team": false,
+          "source": "demo"
+        }
+      ]
+    },
+    {
+      "subject": "demo-participant",
+      "participantId": "FSP-DEMO-PARTICIPANT",
+      "name": "Виктория Крылова",
+      "description": "Участие в командном соревновании без призового места",
+      "catalogKey": "backend-middle-02",
+      "events": [
+        {
+          "id": "demo-product-2026",
+          "title": "Кубок продуктового программирования (демо)",
+          "date": "2026-09-15",
+          "discipline": "Продуктовое программирование",
+          "specialties": ["Backend", "Frontend"],
+          "skills": [],
+          "result": "participation",
+          "team": true,
+          "source": "demo"
+        }
+      ]
+    },
+    {
+      "subject": "demo-no-history",
+      "participantId": "FSP-DEMO-EMPTY",
+      "name": "Егор Крылов",
+      "description": "ФСП ID есть, соревнований в реестре пока нет",
+      "catalogKey": "backend-middle-03",
+      "events": []
+    }
+  ]
+}

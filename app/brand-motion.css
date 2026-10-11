@@ -1,0 +1,437 @@
+.logo-motion {
+  display: inline-flex;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+.logo-motion > svg {
+  overflow: visible;
+}
+.logo-piece {
+  transform-box: view-box;
+  transform-origin: 205px 205px;
+}
+.logo-motion-loop .logo-piece-left {
+  animation: logo-puzzle-left 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.logo-motion-loop .logo-piece-red {
+  animation: logo-puzzle-red 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.logo-motion-loop .logo-piece-purple {
+  animation: logo-puzzle-purple 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.logo-motion-assemble .logo-piece-left {
+  animation: logo-assemble-left 1.7s cubic-bezier(0.2, 0.8, 0.25, 1) both;
+}
+.logo-motion-assemble .logo-piece-red {
+  animation: logo-assemble-red 1.85s 0.12s cubic-bezier(0.2, 0.8, 0.25, 1) both;
+}
+.logo-motion-assemble .logo-piece-purple {
+  animation: logo-assemble-purple 1.85s 0.24s cubic-bezier(0.2, 0.8, 0.25, 1)
+    both;
+}
+@keyframes logo-puzzle-left {
+  0%,
+  100% {
+    transform: translate(-54px, 12px) rotate(-11deg) scale(0.95);
+  }
+  32%,
+  65% {
+    transform: none;
+  }
+  82% {
+    transform: translate(-54px, 12px) rotate(-11deg) scale(0.95);
+  }
+}
+@keyframes logo-puzzle-red {
+  0%,
+  100% {
+    transform: translate(42px, -50px) rotate(10deg) scale(0.95);
+  }
+  38%,
+  65% {
+    transform: none;
+  }
+  88% {
+    transform: translate(42px, -50px) rotate(10deg) scale(0.95);
+  }
+}
+@keyframes logo-puzzle-purple {
+  0%,
+  100% {
+    transform: translate(47px, 46px) rotate(11deg) scale(0.95);
+  }
+  44%,
+  65% {
+    transform: none;
+  }
+  94% {
+    transform: translate(47px, 46px) rotate(11deg) scale(0.95);
+  }
+}
+@keyframes logo-assemble-left {
+  0% {
+    opacity: 0;
+    transform: translate(-120px, 15px) rotate(-20deg) scale(0.86);
+  }
+  30% {
+    opacity: 1;
+  }
+  75% {
+    transform: translate(3px, 0) rotate(1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes logo-assemble-red {
+  0% {
+    opacity: 0;
+    transform: translate(90px, -115px) rotate(25deg) scale(0.86);
+  }
+  30% {
+    opacity: 1;
+  }
+  75% {
+    transform: translate(-2px, 2px) rotate(-1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes logo-assemble-purple {
+  0% {
+    opacity: 0;
+    transform: translate(110px, 95px) rotate(22deg) scale(0.86);
+  }
+  30% {
+    opacity: 1;
+  }
+  75% {
+    transform: translate(-2px, -2px) rotate(-1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+.app-loading {
+  background: #191a20;
+  color: #ded9e8;
+}
+.app-loading > .logo-motion {
+  margin-bottom: 18px;
+}
+.app-loading > span:not(.logo-motion) {
+  font-size: 14px;
+}
+.brand-activity {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  border: 1px solid #484052;
+  border-radius: 16px;
+  background: #202027;
+  color: #f5f1ff;
+  box-shadow: 0 12px 35px #1815202b;
+  z-index: 70;
+  pointer-events: none;
+  font-size: 13px;
+  animation: brand-activity-enter 0.25s 0.2s both;
+}
+@keyframes brand-activity-enter {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+/* The real workspace stays underneath the welcome overlay. */
+.login-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 250;
+  display: grid;
+  place-items: center;
+  background: #191a20;
+}
+.login-transition-reveal {
+  animation: login-workspace-reveal 0.55s ease both;
+  pointer-events: none;
+}
+@keyframes login-workspace-reveal {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .login-transition-reveal { animation: none; opacity: 0; }
+}
+.welcome-stage {
+  min-height: 100dvh;
+  background: #191a20;
+}
+.welcome-workspace {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  animation: welcome-workspace-reveal 2.6s ease both;
+}
+@keyframes welcome-workspace-reveal {
+  from {
+    opacity: 0;
+    transform: scale(1.025);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.offerly-welcome {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  padding: 48px 24px;
+  overflow: auto;
+  color: #24222c;
+  isolation: isolate;
+}
+.welcome-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background: #f7f8fb80;
+  animation: welcome-workspace-morph 2.6s ease both;
+  transition: opacity 0.55s ease;
+}
+@keyframes welcome-workspace-morph {
+  0% {
+    background: #191a20;
+  }
+  25% {
+    background: #191a20e8;
+  }
+  100% {
+    background: #f7f8fb80;
+  }
+}
+.welcome-content {
+  position: relative;
+  text-align: center;
+  width: min(100%, 660px);
+  margin: auto;
+  transition:
+    opacity 0.45s,
+    transform 0.55s;
+}
+.welcome-mark {
+  display: grid;
+  place-items: center;
+  height: 200px;
+  margin-bottom: 30px;
+  filter: drop-shadow(0 16px 30px #3d286f26);
+}
+.welcome-mark .logo-piece {
+  stroke: #18191f;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
+}
+.welcome-content h1 {
+  font-size: clamp(32px, 3.2vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1.24;
+  margin: 0;
+  outline: none;
+  text-wrap: balance;
+  animation: welcome-title-reveal 0.85s 1.5s both;
+}
+@keyframes welcome-title-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+.welcome-enter {
+  margin-top: 38px;
+  min-width: 180px;
+  padding: 15px 30px;
+  animation: welcome-title-reveal 0.7s 1.85s both;
+}
+.welcome-enter:disabled {
+  cursor: default;
+}
+.offerly-welcome.is-leaving .welcome-backdrop {
+  animation: none;
+  opacity: 0;
+}
+.offerly-welcome.is-leaving .welcome-content {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
+.brand-graphic {
+  position: relative;
+  width: 220px;
+  height: 165px;
+  color: #bcaaec;
+  flex-shrink: 0;
+}
+.brand-graphic-orbit {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.brand-graphic > .logo-motion {
+  position: absolute;
+  left: 59px;
+  top: 30px;
+  transform: rotate(-9deg);
+  filter: drop-shadow(0 16px 16px #45319320);
+}
+.dashboard-empty-invites > .brand-graphic {
+  width: 150px;
+  height: 120px;
+}
+.dashboard-empty-invites > .brand-graphic > .logo-motion {
+  left: 40px;
+  top: 20px;
+}
+.dashboard-empty-invites > .brand-graphic > .logo-motion svg {
+  width: 74px;
+  height: 74px;
+}
+.dashboard-card-heading h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.dashboard-card-heading h2 > svg {
+  width: 18px;
+  height: 18px;
+  color: #9b83c6;
+  flex-shrink: 0;
+}
+.social-profile-cover {
+  justify-content: flex-start;
+  position: relative;
+  overflow: hidden;
+}
+.social-profile-cover > img,
+.social-profile-cover > span {
+  position: relative;
+  z-index: 1;
+}
+.social-profile-cover > .brand-graphic {
+  position: absolute;
+  right: 55px;
+  top: -7px;
+  width: 320px;
+  height: 225px;
+  opacity: 0.75;
+  color: #ac8cdf;
+}
+.social-profile-cover > .brand-graphic > .logo-motion {
+  left: 103px;
+  top: 51px;
+  transform: rotate(12deg);
+}
+.social-profile-cover::after {
+  content: "";
+  position: absolute;
+  width: 330px;
+  height: 330px;
+  right: -150px;
+  top: -220px;
+  border: 1px solid #b595ec3b;
+  border-radius: 50%;
+}
+.social-profile-card h2 {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.social-profile-card h2 > svg {
+  color: #9a7acb;
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+}
+.social-profile-card {
+  transition: border-color 0.2s ease;
+}
+.social-profile-card:hover {
+  border-color: #d8c7f0;
+}
+@media (max-width: 850px) {
+  .dashboard-empty-invites > .brand-graphic {
+    width: 135px;
+    height: 100px;
+  }
+  .social-profile-cover > .brand-graphic {
+    right: -70px;
+    opacity: 0.45;
+  }
+}
+@media (max-width: 580px) {
+  .welcome-mark {
+    height: 170px;
+  }
+  .welcome-mark svg {
+    width: 136px;
+    height: 136px;
+  }
+  .welcome-content > p {
+    font-size: 14px;
+  }
+  .offerly-welcome {
+    padding: 32px 20px;
+  }
+  .brand-activity {
+    max-width: calc(100% - 32px);
+    padding: 14px 18px;
+    width: max-content;
+  }
+  .social-profile-cover > .brand-graphic {
+    right: -135px;
+    opacity: 0.3;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-motion .logo-piece,
+  .welcome-content > *,
+  .welcome-content,
+  .welcome-backdrop,
+  .welcome-workspace,
+  .brand-activity {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  .social-profile-card,
+  .welcome-content,
+  .welcome-backdrop {
+    transition: none;
+  }
+}

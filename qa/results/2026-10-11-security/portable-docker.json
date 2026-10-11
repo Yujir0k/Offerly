@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-11T09:54:11.114Z",
+  "environment": "isolated fresh local Docker; no SMTP",
+  "checks": [
+    "health",
+    "HTML brand",
+    "CSP nonce",
+    "no powered by",
+    "frame protection",
+    "anonymous state denied",
+    "foreign origin denied",
+    "prototype mutation denied",
+    "candidate demo login",
+    "candidate session cookie",
+    "candidate catalog",
+    "candidate no-store",
+    "candidate workspace",
+    "candidate logout",
+    "candidate revoked session denied",
+    "employer demo login",
+    "employer session cookie",
+    "employer catalog",
+    "employer no-store",
+    "employer workspace",
+    "employer logout",
+    "employer revoked session denied"
+  ],
+  "passed": 22
+}

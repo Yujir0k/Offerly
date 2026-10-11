@@ -1,0 +1,40 @@
+{
+  servers {
+    max_header_size 32KB
+    timeouts {
+      read_header 10s
+      read_body 30s
+      idle 2m
+    }
+  }
+}
+your-domain.example {
+  encode zstd gzip
+  request_body {
+    max_size 12MB
+  }
+  header {
+    Strict-Transport-Security "max-age=31536000"
+    X-Content-Type-Options nosniff
+    X-Frame-Options DENY
+    Referrer-Policy strict-origin-when-cross-origin
+    Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    -Server
+    -X-Powered-By
+  }
+  reverse_proxy 127.0.0.1:3000 127.0.0.1:3004 {
+    lb_policy round_robin
+    health_uri /api/health
+    health_interval 10s
+    health_timeout 3s
+    fail_duration 10s
+    lb_try_duration 5s
+    lb_retry_match {
+      method GET
+    }
+    header_up X-Forwarded-For {remote_host}
+  }
+}
+www.your-domain.example {
+  redir https://your-domain.example{uri} permanent
+}

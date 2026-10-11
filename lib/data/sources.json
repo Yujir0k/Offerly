@@ -1,0 +1,18 @@
+{
+  "checked": "2026-10-07",
+  "cities": {
+    "url": "https://api.hh.ru/areas/113",
+    "count": 15261,
+    "scope": "leaf settlements in the Russian area tree; not only incorporated cities"
+  },
+  "skills": {
+    "url": "https://api.hh.ru/suggests/skill_set",
+    "count": 205,
+    "scope": "starter snapshot; full suggestions queried on demand, not an exhaustive skill dictionary"
+  },
+  "countryRegions": {
+    "url": "https://api.hh.ru/areas",
+    "scope": "Top-level country groups and their immediate regions; Russian regions derive from the full Russian area tree. Country names use Intl.DisplayNames with ISO region codes."
+  },
+  "docs": "https://api.hh.ru/openapi/redoc"
+}

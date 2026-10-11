@@ -1,0 +1,17 @@
+{
+  "checks": 102,
+  "aliasesDiscoverable": true,
+  "sortingFixed": true,
+  "contactPrivacy": true,
+  "directChatBeforeInvitation": false,
+  "acceptedInvitationOrApplicationRequired": true,
+  "invitationSourceImmutable": true,
+  "structuredMatchReasons": true,
+  "hiddenAndPausedCandidatesProtected": true,
+  "incompleteAndNonConsentingCandidatesProtected": true,
+  "prioritiesKeepUnconfirmedCandidates": true,
+  "messagesPrivate": true,
+  "taskLifecycle": true,
+  "gradePreserved": true,
+  "demoIsolated": true
+}

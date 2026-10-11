@@ -1,0 +1,781 @@
+{
+  "version": "professional-competency-2.0.0",
+  "track": "frontend",
+  "name": "Frontend",
+  "roleScope": "пользовательские state, rendering, browser boundaries и доступность",
+  "gradeStandards": {
+    "Junior": "Самостоятельно и корректно решает локальный UI path с доступным markup/state при понятных фактах и ограниченных последствиях.",
+    "Middle": "Самостоятельно интегрирует async state, browser behavior, accessibility и performance evidence, строит причинную/аналитическую модель и проверяет действие при реальных constraints.",
+    "Senior": "Выбирает UX contracts, delivery evolution, budgets и residual browser risk среди допустимых решений с uncertainty, evolution, rollback и ответственностью за последствия."
+  },
+  "sources": [
+    "https://sfia-online.org/en/sfia-9/responsibilities",
+    "https://www.w3.org/TR/WCAG22/",
+    "https://web.dev/articles/vitals",
+    "https://developer.mozilla.org/en-US/docs/Web/Security"
+  ],
+  "knownLimitations": [
+    "18 capabilities охватывают scenario scope этого assessment, а не всю профессию.",
+    "Grade taxonomy — synthesis команды; стандарты не задают эти три grades или проценты confirmation.",
+    "Closed-world multiple choice и bounded execution не доказывают самостоятельную формулировку стратегии в открытой задаче.",
+    "Rubric и mapping требуют независимого expert review; человеческая calibration отсутствует."
+  ],
+  "capabilities": [
+    {
+      "id": "frontend.async-identity",
+      "domain": "state",
+      "description": "Identity асинхронного результата",
+      "middleTier": "core",
+      "juniorExpectation": "Применяет результат только к текущему request",
+      "middleExpectation": "Связывает cancellation, navigation и out-of-order ответы",
+      "seniorExpectation": "Выбирает модель state при нескольких источниках и восстановлении",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Показывает ответ старого поискового запроса; не связывает это с границей ожидаемого результата: применяет результат только к текущему request",
+          "borderline": "Может: применяет результат только к текущему request, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: применяет результат только к текущему request. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Показывает ответ старого поискового запроса; не связывает это с границей ожидаемого результата: связывает cancellation, navigation и out-of-order ответы",
+          "borderline": "Может: связывает cancellation, navigation и out-of-order ответы, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает cancellation, navigation и out-of-order ответы. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Показывает ответ старого поискового запроса; не связывает это с границей ожидаемого результата: выбирает модель state при нескольких источниках и восстановлении",
+          "borderline": "Может: выбирает модель state при нескольких источниках и восстановлении, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает модель state при нескольких источниках и восстановлении. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Применяет результат только к текущему request — локальная проверка результата",
+        "Связывает cancellation, navigation и out-of-order ответы — независимое evidence и объяснение",
+        "Выбирает модель state при нескольких источниках и восстановлении — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Показывает ответ старого поискового запроса",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.w3.org/TR/WCAG22/",
+        "https://web.dev/articles/vitals",
+        "https://developer.mozilla.org/en-US/docs/Web/Security"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "frontend.draft-ownership",
+      "domain": "state",
+      "description": "Владение формой и draft",
+      "middleTier": "core",
+      "juniorExpectation": "Сохраняет введённые значения локальной формы",
+      "middleExpectation": "Различает server snapshot, draft и concurrent update",
+      "seniorExpectation": "Выбирает merge policy и потерю данных при эволюции формы",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Затирает draft очередным refetch; не связывает это с границей ожидаемого результата: сохраняет введённые значения локальной формы",
+          "borderline": "Может: сохраняет введённые значения локальной формы, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет введённые значения локальной формы. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Затирает draft очередным refetch; не связывает это с границей ожидаемого результата: различает server snapshot, draft и concurrent update",
+          "borderline": "Может: различает server snapshot, draft и concurrent update, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает server snapshot, draft и concurrent update. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Затирает draft очередным refetch; не связывает это с границей ожидаемого результата: выбирает merge policy и потерю данных при эволюции формы",
+          "borderline": "Может: выбирает merge policy и потерю данных при эволюции формы, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает merge policy и потерю данных при эволюции формы. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет введённые значения локальной формы — локальная проверка результата",
+        "Различает server snapshot, draft и concurrent update — независимое evidence и объяснение",
+        "Выбирает merge policy и потерю данных при эволюции формы — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Затирает draft очередным refetch",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.w3.org/TR/WCAG22/",
+        "https://web.dev/articles/vitals",
+        "https://developer.mozilla.org/en-US/docs/Web/Security"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "frontend.state-transitions",
+      "domain": "state",
+      "description": "Инварианты UI переходов",
+      "middleTier": "upper",
+      "juniorExpectation": "Не допускает недопустимого локального состояния",
+      "middleExpectation": "Согласует loading, error и navigation transitions",
+      "seniorExpectation": "Выбирает state protocol для сложного пользовательского workflow",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает независимые booleans согласованным state; не связывает это с границей ожидаемого результата: не допускает недопустимого локального состояния",
+          "borderline": "Может: не допускает недопустимого локального состояния, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: не допускает недопустимого локального состояния. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает независимые booleans согласованным state; не связывает это с границей ожидаемого результата: согласует loading, error и navigation transitions",
+          "borderline": "Может: согласует loading, error и navigation transitions, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует loading, error и navigation transitions. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает независимые booleans согласованным state; не связывает это с границей ожидаемого результата: выбирает state protocol для сложного пользовательского workflow",
+          "borderline": "Может: выбирает state protocol для сложного пользовательского workflow, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает state protocol для сложного пользовательского workflow. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Не допускает недопустимого локального состояния — локальная проверка результата",
+        "Согласует loading, error и navigation transitions — независимое evidence и объяснение",
+        "Выбирает state protocol для сложного пользовательского workflow — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает независимые booleans согласованным state",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.w3.org/TR/WCAG22/",
+        "https://web.dev/articles/vitals",
+        "https://developer.mozilla.org/en-US/docs/Web/Security"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "frontend.identity-reconciliation",
+      "domain": "rendering",
+      "description": "Identity элементов при rendering",
+      "middleTier": "core",
+      "juniorExpectation": "Назначает устойчивый key сущности",
+      "middleExpectation": "Прослеживает state через reorder и reuse компонентов",
+      "seniorExpectation": "Выбирает ownership компонентов при динамической структуре",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Использует индекс для переставляемой формы; не связывает это с границей ожидаемого результата: назначает устойчивый key сущности",
+          "borderline": "Может: назначает устойчивый key сущности, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: назначает устойчивый key сущности. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Использует индекс для переставляемой формы; не связывает это с границей ожидаемого результата: прослеживает state через reorder и reuse компонентов",
+          "borderline": "Может: прослеживает state через reorder и reuse компонентов, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: прослеживает state через reorder и reuse компонентов. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Использует индекс для переставляемой формы; не связывает это с границей ожидаемого результата: выбирает ownership компонентов при динамической структуре",
+          "borderline": "Может: выбирает ownership компонентов при динамической структуре, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает ownership компонентов при динамической структуре. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Назначает устойчивый key сущности — локальная проверка результата",
+        "Прослеживает state через reorder и reuse компонентов — независимое evidence и объяснение",
+        "Выбирает ownership компонентов при динамической структуре — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Использует индекс для переставляемой формы",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.w3.org/TR/WCAG22/",
+        "https://web.dev/articles/vitals",
+        "https://developer.mozilla.org/en-US/docs/Web/Security"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "frontend.hydration-contract",
+      "domain": "rendering",
+      "description": "Server/client rendering contract",
+      "middleTier": "core",
+      "juniorExpectation": "Сохраняет одинаковый исходный markup",
+      "middleExpectation": "Связывает hydration с locale, временем и источником данных",
+      "seniorExpectation": "Выбирает границы server/client и цену progressive rendering",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Маскирует mismatch подавлением warning; не связывает это с границей ожидаемого результата: сохраняет одинаковый исходный markup",
+          "borderline": "Может: сохраняет одинаковый исходный markup, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет одинаковый исходный markup. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Маскирует mismatch подавлением warning; не связывает это с границей ожидаемого результата: связывает hydration с locale, временем и источником данных",
+          "borderline": "Может: связывает hydration с locale, временем и источником данных, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает hydration с locale, временем и источником данных. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Маскирует mismatch подавлением warning; не связывает это с границей ожидаемого результата: выбирает границы server/client и цену progressive rendering",
+          "borderline": "Может: выбирает границы server/client и цену progressive rendering, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает границы server/client и цену progressive rendering. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет одинаковый исходный markup — локальная проверка результата",
+        "Связывает hydration с locale, временем и источником данных — независимое evidence и объяснение",
+        "Выбирает границы server/client и цену progressive rendering — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Маскирует mismatch подавлением warning",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.w3.org/TR/WCAG22/",
+        "https://web.dev/articles/vitals",
+        "https://developer.mozilla.org/en-US/docs/Web/Security"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "frontend.render-effects",
+      "domain": "rendering",
+      "description": "Эффекты и вычисления UI",
+      "middleTier": "upper",
+      "juniorExpectation": "Отделяет вычисление от побочного эффекта render",
+      "middleExpectation": "Распознаёт повтор эффекта и stale closure",
+      "seniorExpectation": "Выбирает жизненный цикл подписок при эволюции UI",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Выполняет запись во время render; не связывает это с границей ожидаемого результата: отделяет вычисление от побочного эффекта render",
+          "borderline": "Может: отделяет вычисление от побочного эффекта render, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: отделяет вычисление от побочного эффекта render. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Выполняет запись во время render; не связывает это с границей ожидаемого результата: распознаёт повтор эффекта и stale closure",
+          "borderline": "Может: распознаёт повтор эффекта и stale closure, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: распознаёт повтор эффекта и stale closure. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Выполняет запись во время render; не связывает это с границей ожидаемого результата: выбирает жизненный цикл подписок при эволюции ui",
+          "borderline": "Может: выбирает жизненный цикл подписок при эволюции ui, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает жизненный цикл подписок при эволюции ui. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Отделяет вычисление от побочного эффекта render — локальная проверка результата",
+        "Распознаёт повтор эффекта и stale closure — независимое evidence и объяснение",
+        "Выбирает жизненный цикл подписок при эволюции UI — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Выполняет запись во время render",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.w3.org/TR/WCAG22/",
+        "https://web.dev/articles/vitals",
+        "https://developer.mozilla.org/en-US/docs/Web/Security"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "frontend.interaction-budget",
+      "domain": "performance",
+      "description": "Бюджет пользовательского interaction",
+      "middleTier": "core",
+      "juniorExpectation": "Находит блокирующий обработчик в trace",
+      "middleExpectation": "Различает input delay, processing и presentation delay",
+      "seniorExpectation": "Выбирает приоритеты workload с измерением полевого эффекта",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Оптимизирует только bundle при медленном interaction; не связывает это с границей ожидаемого результата: находит блокирующий обработчик в trace",
+          "borderline": "Может: находит блокирующий обработчик в trace, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: находит блокирующий обработчик в trace. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Оптимизирует только bundle при медленном interaction; не связывает это с границей ожидаемого результата: различает input delay, processing и presentation delay",
+          "borderline": "Может: различает input delay, processing и presentation delay, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает input delay, processing и presentation delay. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Оптимизирует только bundle при медленном interaction; не связывает это с границей ожидаемого результата: выбирает приоритеты workload с измерением полевого эффекта",
+          "borderline": "Может: выбирает приоритеты workload с измерением полевого эффекта, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает приоритеты workload с измерением полевого эффекта. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Находит блокирующий обработчик в trace — локальная проверка результата",
+        "Различает input delay, processing и presentation delay — независимое evidence и объяснение",
+        "Выбирает приоритеты workload с измерением полевого эффекта — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Оптимизирует только bundle при медленном interaction",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.w3.org/TR/WCAG22/",
+        "https://web.dev/articles/vitals",
+        "https://developer.mozilla.org/en-US/docs/Web/Security"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "frontend.loading-path",
+      "domain": "performance",
+      "description": "Критический путь loading",
+      "middleTier": "core",
+      "juniorExpectation": "Удаляет известную блокировку critical resource",
+      "middleExpectation": "Связывает discovery, network, rendering и layout shift",
+      "seniorExpectation": "Выбирает loading strategy с cache и качеством опыта",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает onload полной оценкой UX; не связывает это с границей ожидаемого результата: удаляет известную блокировку critical resource",
+          "borderline": "Может: удаляет известную блокировку critical resource, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: удаляет известную блокировку critical resource. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает onload полной оценкой UX; не связывает это с границей ожидаемого результата: связывает discovery, network, rendering и layout shift",
+          "borderline": "Может: связывает discovery, network, rendering и layout shift, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает discovery, network, rendering и layout shift. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает onload полной оценкой UX; не связывает это с границей ожидаемого результата: выбирает loading strategy с cache и качеством опыта",
+          "borderline": "Может: выбирает loading strategy с cache и качеством опыта, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает loading strategy с cache и качеством опыта. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Удаляет известную блокировку critical resource — локальная проверка результата",
+        "Связывает discovery, network, rendering и layout shift — независимое evidence и объяснение",
+        "Выбирает loading strategy с cache и качеством опыта — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает onload полной оценкой UX",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.w3.org/TR/WCAG22/",
+        "https://web.dev/articles/vitals",
+        "https://developer.mozilla.org/en-US/docs/Web/Security"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "frontend.field-measurement",
+      "domain": "performance",
+      "description": "Полевое измерение производительности",
+      "middleTier": "upper",
+      "juniorExpectation": "Считывает метрику и её единицу",
+      "middleExpectation": "Сопоставляет lab и field по устройствам и сегментам",
+      "seniorExpectation": "Задаёт budgets и regression gates по реальному трафику",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Обобщает один desktop benchmark на всех; не связывает это с границей ожидаемого результата: считывает метрику и её единицу",
+          "borderline": "Может: считывает метрику и её единицу, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: считывает метрику и её единицу. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Обобщает один desktop benchmark на всех; не связывает это с границей ожидаемого результата: сопоставляет lab и field по устройствам и сегментам",
+          "borderline": "Может: сопоставляет lab и field по устройствам и сегментам, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет lab и field по устройствам и сегментам. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Обобщает один desktop benchmark на всех; не связывает это с границей ожидаемого результата: задаёт budgets и regression gates по реальному трафику",
+          "borderline": "Может: задаёт budgets и regression gates по реальному трафику, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: задаёт budgets и regression gates по реальному трафику. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Считывает метрику и её единицу — локальная проверка результата",
+        "Сопоставляет lab и field по устройствам и сегментам — независимое evidence и объяснение",
+        "Задаёт budgets и regression gates по реальному трафику — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Обобщает один desktop benchmark на всех",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.w3.org/TR/WCAG22/",
+        "https://web.dev/articles/vitals",
+        "https://developer.mozilla.org/en-US/docs/Web/Security"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "frontend.focus-navigation",
+      "domain": "accessibility",
+      "description": "Focus и keyboard navigation",
+      "middleTier": "core",
+      "juniorExpectation": "Поддерживает клавиатуру и возврат focus",
+      "middleExpectation": "Согласует modal, вложенный dialog и background inertness",
+      "seniorExpectation": "Выбирает доступные interaction patterns и проверку assistive tech",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Оставляет focus в скрытом элементе; не связывает это с границей ожидаемого результата: поддерживает клавиатуру и возврат focus",
+          "borderline": "Может: поддерживает клавиатуру и возврат focus, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: поддерживает клавиатуру и возврат focus. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Оставляет focus в скрытом элементе; не связывает это с границей ожидаемого результата: согласует modal, вложенный dialog и background inertness",
+          "borderline": "Может: согласует modal, вложенный dialog и background inertness, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует modal, вложенный dialog и background inertness. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Оставляет focus в скрытом элементе; не связывает это с границей ожидаемого результата: выбирает доступные interaction patterns и проверку assistive tech",
+          "borderline": "Может: выбирает доступные interaction patterns и проверку assistive tech, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает доступные interaction patterns и проверку assistive tech. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Поддерживает клавиатуру и возврат focus — локальная проверка результата",
+        "Согласует modal, вложенный dialog и background inertness — независимое evidence и объяснение",
+        "Выбирает доступные interaction patterns и проверку assistive tech — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Оставляет focus в скрытом элементе",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.w3.org/TR/WCAG22/",
+        "https://web.dev/articles/vitals",
+        "https://developer.mozilla.org/en-US/docs/Web/Security"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "frontend.semantic-feedback",
+      "domain": "accessibility",
+      "description": "Семантика и feedback формы",
+      "middleTier": "core",
+      "juniorExpectation": "Связывает label, control и ошибку",
+      "middleExpectation": "Согласует validation и announcements без потери контекста",
+      "seniorExpectation": "Выбирает accessibility acceptance contract для workflow",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Передаёт ошибку только цветом; не связывает это с границей ожидаемого результата: связывает label, control и ошибку",
+          "borderline": "Может: связывает label, control и ошибку, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает label, control и ошибку. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Передаёт ошибку только цветом; не связывает это с границей ожидаемого результата: согласует validation и announcements без потери контекста",
+          "borderline": "Может: согласует validation и announcements без потери контекста, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует validation и announcements без потери контекста. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Передаёт ошибку только цветом; не связывает это с границей ожидаемого результата: выбирает accessibility acceptance contract для workflow",
+          "borderline": "Может: выбирает accessibility acceptance contract для workflow, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает accessibility acceptance contract для workflow. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Связывает label, control и ошибку — локальная проверка результата",
+        "Согласует validation и announcements без потери контекста — независимое evidence и объяснение",
+        "Выбирает accessibility acceptance contract для workflow — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Передаёт ошибку только цветом",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.w3.org/TR/WCAG22/",
+        "https://web.dev/articles/vitals",
+        "https://developer.mozilla.org/en-US/docs/Web/Security"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "frontend.inclusive-verification",
+      "domain": "accessibility",
+      "description": "Проверка доступности",
+      "middleTier": "upper",
+      "juniorExpectation": "Проверяет ограниченный keyboard path",
+      "middleExpectation": "Проверяет screen reader, zoom и динамические состояния",
+      "seniorExpectation": "Выбирает приоритет remediation по барьерам пользователей",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Приравнивает автоматический scan к полной доступности; не связывает это с границей ожидаемого результата: проверяет ограниченный keyboard path",
+          "borderline": "Может: проверяет ограниченный keyboard path, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет ограниченный keyboard path. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Приравнивает автоматический scan к полной доступности; не связывает это с границей ожидаемого результата: проверяет screen reader, zoom и динамические состояния",
+          "borderline": "Может: проверяет screen reader, zoom и динамические состояния, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет screen reader, zoom и динамические состояния. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Приравнивает автоматический scan к полной доступности; не связывает это с границей ожидаемого результата: выбирает приоритет remediation по барьерам пользователей",
+          "borderline": "Может: выбирает приоритет remediation по барьерам пользователей, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает приоритет remediation по барьерам пользователей. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет ограниченный keyboard path — локальная проверка результата",
+        "Проверяет screen reader, zoom и динамические состояния — независимое evidence и объяснение",
+        "Выбирает приоритет remediation по барьерам пользователей — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Приравнивает автоматический scan к полной доступности",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.w3.org/TR/WCAG22/",
+        "https://web.dev/articles/vitals",
+        "https://developer.mozilla.org/en-US/docs/Web/Security"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "frontend.asset-compatibility",
+      "domain": "delivery",
+      "description": "Совместимость release assets",
+      "middleTier": "core",
+      "juniorExpectation": "Согласует entrypoint с доступным asset",
+      "middleExpectation": "Проверяет cache, старые вкладки и version skew",
+      "seniorExpectation": "Выбирает retention и rollout с rollback старых клиентов",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Удаляет chunk пока открыты старые вкладки; не связывает это с границей ожидаемого результата: согласует entrypoint с доступным asset",
+          "borderline": "Может: согласует entrypoint с доступным asset, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует entrypoint с доступным asset. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Удаляет chunk пока открыты старые вкладки; не связывает это с границей ожидаемого результата: проверяет cache, старые вкладки и version skew",
+          "borderline": "Может: проверяет cache, старые вкладки и version skew, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет cache, старые вкладки и version skew. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Удаляет chunk пока открыты старые вкладки; не связывает это с границей ожидаемого результата: выбирает retention и rollout с rollback старых клиентов",
+          "borderline": "Может: выбирает retention и rollout с rollback старых клиентов, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает retention и rollout с rollback старых клиентов. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Согласует entrypoint с доступным asset — локальная проверка результата",
+        "Проверяет cache, старые вкладки и version skew — независимое evidence и объяснение",
+        "Выбирает retention и rollout с rollback старых клиентов — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Удаляет chunk пока открыты старые вкладки",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.w3.org/TR/WCAG22/",
+        "https://web.dev/articles/vitals",
+        "https://developer.mozilla.org/en-US/docs/Web/Security"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "frontend.route-recovery",
+      "domain": "delivery",
+      "description": "Восстановление navigation",
+      "middleTier": "core",
+      "juniorExpectation": "Показывает корректный локальный error state",
+      "middleExpectation": "Связывает offline, stale chunk и повтор navigation",
+      "seniorExpectation": "Выбирает recovery UX с сохранением действий пользователя",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Повторяет reload с потерей draft; не связывает это с границей ожидаемого результата: показывает корректный локальный error state",
+          "borderline": "Может: показывает корректный локальный error state, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: показывает корректный локальный error state. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Повторяет reload с потерей draft; не связывает это с границей ожидаемого результата: связывает offline, stale chunk и повтор navigation",
+          "borderline": "Может: связывает offline, stale chunk и повтор navigation, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает offline, stale chunk и повтор navigation. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Повторяет reload с потерей draft; не связывает это с границей ожидаемого результата: выбирает recovery ux с сохранением действий пользователя",
+          "borderline": "Может: выбирает recovery ux с сохранением действий пользователя, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает recovery ux с сохранением действий пользователя. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Показывает корректный локальный error state — локальная проверка результата",
+        "Связывает offline, stale chunk и повтор navigation — независимое evidence и объяснение",
+        "Выбирает recovery UX с сохранением действий пользователя — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Повторяет reload с потерей draft",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.w3.org/TR/WCAG22/",
+        "https://web.dev/articles/vitals",
+        "https://developer.mozilla.org/en-US/docs/Web/Security"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "frontend.release-evidence",
+      "domain": "delivery",
+      "description": "Evidence выпуска UI",
+      "middleTier": "upper",
+      "juniorExpectation": "Проверяет известный пользовательский путь",
+      "middleExpectation": "Сопоставляет ошибки release с browser и версией",
+      "seniorExpectation": "Выбирает rollout gates и наблюдение за regressions",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает успешный build доказательством пользовательского успеха; не связывает это с границей ожидаемого результата: проверяет известный пользовательский путь",
+          "borderline": "Может: проверяет известный пользовательский путь, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет известный пользовательский путь. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает успешный build доказательством пользовательского успеха; не связывает это с границей ожидаемого результата: сопоставляет ошибки release с browser и версией",
+          "borderline": "Может: сопоставляет ошибки release с browser и версией, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет ошибки release с browser и версией. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает успешный build доказательством пользовательского успеха; не связывает это с границей ожидаемого результата: выбирает rollout gates и наблюдение за regressions",
+          "borderline": "Может: выбирает rollout gates и наблюдение за regressions, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает rollout gates и наблюдение за regressions. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет известный пользовательский путь — локальная проверка результата",
+        "Сопоставляет ошибки release с browser и версией — независимое evidence и объяснение",
+        "Выбирает rollout gates и наблюдение за regressions — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает успешный build доказательством пользовательского успеха",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.w3.org/TR/WCAG22/",
+        "https://web.dev/articles/vitals",
+        "https://developer.mozilla.org/en-US/docs/Web/Security"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "frontend.untrusted-content",
+      "domain": "browser-security",
+      "description": "Недоверенный контент",
+      "middleTier": "core",
+      "juniorExpectation": "Избегает небезопасной вставки HTML",
+      "middleExpectation": "Прослеживает trust от данных до DOM sink",
+      "seniorExpectation": "Выбирает sanitization и CSP defense policy",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Доверяет HTML из API по происхождению; не связывает это с границей ожидаемого результата: избегает небезопасной вставки html",
+          "borderline": "Может: избегает небезопасной вставки html, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: избегает небезопасной вставки html. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Доверяет HTML из API по происхождению; не связывает это с границей ожидаемого результата: прослеживает trust от данных до dom sink",
+          "borderline": "Может: прослеживает trust от данных до dom sink, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: прослеживает trust от данных до dom sink. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Доверяет HTML из API по происхождению; не связывает это с границей ожидаемого результата: выбирает sanitization и csp defense policy",
+          "borderline": "Может: выбирает sanitization и csp defense policy, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает sanitization и csp defense policy. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Избегает небезопасной вставки HTML — локальная проверка результата",
+        "Прослеживает trust от данных до DOM sink — независимое evidence и объяснение",
+        "Выбирает sanitization и CSP defense policy — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Доверяет HTML из API по происхождению",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.w3.org/TR/WCAG22/",
+        "https://web.dev/articles/vitals",
+        "https://developer.mozilla.org/en-US/docs/Web/Security"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "frontend.origin-boundary",
+      "domain": "browser-security",
+      "description": "Origin и browser isolation",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет origin сообщения",
+      "middleExpectation": "Связывает credentials, embedding и cross-origin request",
+      "seniorExpectation": "Выбирает boundary policy при интеграции сторонних приложений",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Доверяет любому postMessage; не связывает это с границей ожидаемого результата: проверяет origin сообщения",
+          "borderline": "Может: проверяет origin сообщения, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет origin сообщения. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Доверяет любому postMessage; не связывает это с границей ожидаемого результата: связывает credentials, embedding и cross-origin request",
+          "borderline": "Может: связывает credentials, embedding и cross-origin request, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает credentials, embedding и cross-origin request. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Доверяет любому postMessage; не связывает это с границей ожидаемого результата: выбирает boundary policy при интеграции сторонних приложений",
+          "borderline": "Может: выбирает boundary policy при интеграции сторонних приложений, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает boundary policy при интеграции сторонних приложений. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет origin сообщения — локальная проверка результата",
+        "Связывает credentials, embedding и cross-origin request — независимое evidence и объяснение",
+        "Выбирает boundary policy при интеграции сторонних приложений — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Доверяет любому postMessage",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.w3.org/TR/WCAG22/",
+        "https://web.dev/articles/vitals",
+        "https://developer.mozilla.org/en-US/docs/Web/Security"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "frontend.client-trust",
+      "domain": "browser-security",
+      "description": "Границы доверия client",
+      "middleTier": "upper",
+      "juniorExpectation": "Не хранит секрет в публичном bundle",
+      "middleExpectation": "Различает UX check и серверное enforcement",
+      "seniorExpectation": "Выбирает клиентскую защиту с серверной гарантией и residual risk",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает скрытую кнопку контролем доступа; не связывает это с границей ожидаемого результата: не хранит секрет в публичном bundle",
+          "borderline": "Может: не хранит секрет в публичном bundle, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: не хранит секрет в публичном bundle. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает скрытую кнопку контролем доступа; не связывает это с границей ожидаемого результата: различает ux check и серверное enforcement",
+          "borderline": "Может: различает ux check и серверное enforcement, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает ux check и серверное enforcement. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает скрытую кнопку контролем доступа; не связывает это с границей ожидаемого результата: выбирает клиентскую защиту с серверной гарантией и residual risk",
+          "borderline": "Может: выбирает клиентскую защиту с серверной гарантией и residual risk, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает клиентскую защиту с серверной гарантией и residual risk. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Не хранит секрет в публичном bundle — локальная проверка результата",
+        "Различает UX check и серверное enforcement — независимое evidence и объяснение",
+        "Выбирает клиентскую защиту с серверной гарантией и residual risk — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает скрытую кнопку контролем доступа",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.w3.org/TR/WCAG22/",
+        "https://web.dev/articles/vitals",
+        "https://developer.mozilla.org/en-US/docs/Web/Security"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "checks": 80,
+  "oidcFlow": true,
+  "threeAccounts": true,
+  "gradesPreserved": true,
+  "unlinkPreservesGradeAndOtherUsers": true,
+  "replayDenied": true,
+  "browserBinding": true,
+  "cancelPreserved": true,
+  "outagePreserved": true,
+  "scopeIsolation": true,
+  "ordinaryMarketUntouched": true
+}

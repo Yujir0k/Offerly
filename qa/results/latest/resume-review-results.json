@@ -1,0 +1,19 @@
+{
+  "passed": 14,
+  "checks": {
+    "name": true,
+    "contacts": true,
+    "grade": true,
+    "role": true,
+    "experience": true,
+    "skills": true,
+    "softSkills": true,
+    "education": true,
+    "languages": true,
+    "links": true,
+    "work": true,
+    "noConfirmedGrade": true,
+    "reviewWarnings": true,
+    "noEducationAsIndustry": true
+  }
+}

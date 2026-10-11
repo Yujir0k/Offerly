@@ -1,0 +1,15 @@
+{
+  "archive": "FSP-assessment-fixed-7.2.7.zip",
+  "archiveSha256": "05d940c683cc5337a4d5d601351278f539db17ceb59d501008c21227d6dd7728",
+  "verifiedAgainst": "data/competency-rubrics/PRE_RUN_LOCK_V21.json",
+  "files": [
+    {
+      "file": "src/synthetic-validation/metadata.ts",
+      "sha256": "dc9bb4ddcf6a135414252e82a7706d245cee88d2e9b1d4f24cff3c31d4f745f1"
+    },
+    {
+      "file": "src/synthetic-validation/competency/rubrics.ts",
+      "sha256": "b2da0becd2086cb7294303d741e7a4debdd4bed05924fef764d174a3698bb885"
+    }
+  ]
+}

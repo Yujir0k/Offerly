@@ -1,0 +1,72 @@
+services:
+  db:
+    image: postgres:16-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: offerly
+      POSTGRES_DB: offerly
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U offerly -d offerly']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  migrate:
+    image: offerly-local
+    build: .
+    command: [node, scripts/migrate.mjs]
+    environment:
+      DATABASE_URL: postgres://offerly:${POSTGRES_PASSWORD}@db:5432/offerly
+      POSTGRES_APP_PASSWORD: ${POSTGRES_APP_PASSWORD:?Set POSTGRES_APP_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: 'no'
+  app:
+    image: offerly-local
+    build: .
+    restart: unless-stopped
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 160
+    read_only: true
+    mem_limit: 2g
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=128m,uid=1000,gid=1000,mode=1777
+      - /app/.next/cache:rw,noexec,nosuid,size=64m,uid=1000,gid=1000,mode=0700
+    environment:
+      DATABASE_URL: postgres://offerly_runtime:${POSTGRES_APP_PASSWORD:?Set a distinct POSTGRES_APP_PASSWORD}@db:5432/offerly
+      APP_URL: ${APP_URL:?Set APP_URL}
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+      ENABLE_DEMO: ${ENABLE_DEMO:-false}
+      ENABLE_DEMO_DATA: ${ENABLE_DEMO_DATA:-false}
+      MCP_ENABLED: ${MCP_ENABLED:-false}
+      MCP_TOKEN_ENCRYPTION_KEY: ${MCP_TOKEN_ENCRYPTION_KEY:-}
+      TRUST_PROXY: ${TRUST_PROXY:-false}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      MAIL_FROM: ${MAIL_FROM:-}
+      MAIL_WORKER_ENABLED: ${MAIL_WORKER_ENABLED:-true}
+      FSP_OIDC_ENABLED: ${FSP_OIDC_ENABLED:-false}
+      FSP_OIDC_ISSUER: ${FSP_OIDC_ISSUER:-}
+      FSP_OIDC_CLIENT_ID: ${FSP_OIDC_CLIENT_ID:-}
+      FSP_OIDC_CLIENT_SECRET: ${FSP_OIDC_CLIENT_SECRET:-}
+      FSP_OIDC_PARTICIPANT_CLAIM: ${FSP_OIDC_PARTICIPANT_CLAIM:-fsp_id}
+    ports: ['127.0.0.1:3000:3000']
+    volumes:
+      - uploads:/data/uploads
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: [CMD, node, -e, 'fetch("http://127.0.0.1:3000/api/health").then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))']
+      interval: 20s
+      timeout: 7s
+      retries: 3
+volumes:
+  postgres-data:
+  uploads:

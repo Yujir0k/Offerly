@@ -1,0 +1,30 @@
+/* Optional FSP typography layer: remove this import to restore the prior balance. */
+.landing-refresh .narrative-heading h2,
+.landing-refresh .employer-inner h2,
+.landing-refresh .faq-intro h2 {
+  font-family: JetBrains, monospace;
+  font-weight: 700;
+  letter-spacing: -0.065em;
+}
+.landing-refresh .scene-signals strong,
+.landing-refresh .preview-top h2,
+.landing-refresh .assessment-question h3 {
+  font-family: JetBrains, monospace;
+  font-weight: 600;
+  letter-spacing: -0.055em;
+}
+.landing-refresh .eyebrow,
+.landing-refresh .kicker {
+  font-size: clamp(14px, 1vw, 22px);
+  font-weight: 600;
+}
+@media (max-width: 800px) {
+  .landing-refresh .narrative-heading h2,
+  .landing-refresh .employer-inner h2,
+  .landing-refresh .faq-intro h2 {
+    font-size: clamp(30px, 7.5vw, 48px);
+  }
+  .landing-refresh .preview-top h2 {
+    font-size: clamp(20px, 5.5vw, 28px);
+  }
+}

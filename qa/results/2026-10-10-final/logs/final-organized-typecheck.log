@@ -1,0 +1,4 @@
+
+> offerly@0.1.0 check:types
+> tsc -p tsconfig.check.json --noEmit
+

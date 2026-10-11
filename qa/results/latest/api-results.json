@@ -1,0 +1,18 @@
+{
+  "passed": 13,
+  "checks": [
+    "Contacts excluded before consent",
+    "Invalid salary rejected",
+    "Duplicate active invitation rejected",
+    "Candidate can mark invitation viewed",
+    "Employer cannot accept for candidate",
+    "Candidate acceptance saved",
+    "Contacts revealed after acceptance",
+    "Assessment generated server-side",
+    "Answer keys absent from response",
+    "Failed assessment does not lower grade",
+    "No FSP history handled",
+    "Changes survive new GET",
+    "Demo FSP link available"
+  ]
+}

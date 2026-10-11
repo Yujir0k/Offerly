@@ -1,0 +1,92 @@
+{
+  "at": "2026-10-10T22:50:42.601Z",
+  "target": "Aeza production app through private SSH tunnel; public DNS/TLS pending",
+  "suites": {
+    "functional": {
+      "passed": 70,
+      "errors": []
+    },
+    "additional": {
+      "passed": 16,
+      "errors": []
+    },
+    "integrations": {
+      "passed": 12,
+      "errors": []
+    },
+    "registration-browser": {
+      "passed": 9,
+      "errors": []
+    },
+    "new-user-journey": {
+      "passed": 12,
+      "errors": []
+    },
+    "browser-interactions": {
+      "passed": 25,
+      "errors": []
+    },
+    "settings-expiry-browser": {
+      "passed": 13,
+      "errors": []
+    },
+    "load-lifecycle": {
+      "passed": 5,
+      "errors": [],
+      "load": {
+        "requests": 120,
+        "concurrency": 6,
+        "medianMs": 166,
+        "p95Ms": 670,
+        "maxMs": 967,
+        "errors": []
+      }
+    },
+    "restart": {
+      "passed": 6,
+      "errors": []
+    },
+    "browser": {
+      "pages": 17,
+      "passed": 56,
+      "errors": []
+    },
+    "browser-mobile": {
+      "pages": 17,
+      "passed": 56,
+      "errors": []
+    },
+    "public-browser": {
+      "pages": 14,
+      "errors": []
+    }
+  },
+  "assessment": {
+    "cases": 108,
+    "tracks": 12,
+    "grades": 3,
+    "scenarios": [
+      "success",
+      "failure",
+      "timeout"
+    ]
+  },
+  "backup": {
+    "tables": 40,
+    "exactMatches": 39,
+    "differences": [
+      {
+        "table": "auth_throttles",
+        "liveRows": 432,
+        "restoredRows": 432,
+        "exactMatch": false,
+        "volatile": true
+      }
+    ],
+    "restoredRows": 7924
+  },
+  "mailDeliveryVerified": false,
+  "publicTlsVerified": false,
+  "productionFspConnected": false,
+  "gitSynchronized": false
+}

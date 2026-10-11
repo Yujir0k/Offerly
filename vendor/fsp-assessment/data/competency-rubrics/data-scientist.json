@@ -1,0 +1,781 @@
+{
+  "version": "professional-competency-2.0.0",
+  "track": "data-scientist",
+  "name": "Data Scientist / Applied ML",
+  "roleScope": "обоснованные аналитические и статистические выводы",
+  "gradeStandards": {
+    "Junior": "Самостоятельно и корректно решает заданный estimand, metric и ограниченная проверка при понятных фактах и ограниченных последствиях.",
+    "Middle": "Самостоятельно интегрирует sampling, split, experiment validity, uncertainty и causal limits, строит причинную/аналитическую модель и проверяет действие при реальных constraints.",
+    "Senior": "Выбирает design и decision policy с heterogeneity, sensitivity и ценой ошибки среди допустимых решений с uncertainty, evolution, rollback и ответственностью за последствия."
+  },
+  "sources": [
+    "https://sfia-online.org/en/sfia-9/responsibilities",
+    "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+    "https://scikit-learn.org/stable/common_pitfalls.html",
+    "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+  ],
+  "knownLimitations": [
+    "18 capabilities охватывают scenario scope этого assessment, а не всю профессию.",
+    "Grade taxonomy — synthesis команды; стандарты не задают эти три grades или проценты confirmation.",
+    "Closed-world multiple choice и bounded execution не доказывают самостоятельную формулировку стратегии в открытой задаче.",
+    "Rubric и mapping требуют независимого expert review; человеческая calibration отсутствует."
+  ],
+  "capabilities": [
+    {
+      "id": "data-scientist.population-estimand",
+      "domain": "sampling",
+      "description": "Популяция и estimand",
+      "middleTier": "core",
+      "juniorExpectation": "Описывает единицу наблюдения и знаменатель",
+      "middleExpectation": "Связывает inclusion, missingness и целевую популяцию",
+      "seniorExpectation": "Выбирает допустимое обобщение и предел selection bias",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Обобщает удобную выборку на всех пользователей; не связывает это с границей ожидаемого результата: описывает единицу наблюдения и знаменатель",
+          "borderline": "Может: описывает единицу наблюдения и знаменатель, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: описывает единицу наблюдения и знаменатель. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Обобщает удобную выборку на всех пользователей; не связывает это с границей ожидаемого результата: связывает inclusion, missingness и целевую популяцию",
+          "borderline": "Может: связывает inclusion, missingness и целевую популяцию, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает inclusion, missingness и целевую популяцию. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Обобщает удобную выборку на всех пользователей; не связывает это с границей ожидаемого результата: выбирает допустимое обобщение и предел selection bias",
+          "borderline": "Может: выбирает допустимое обобщение и предел selection bias, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает допустимое обобщение и предел selection bias. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Описывает единицу наблюдения и знаменатель — локальная проверка результата",
+        "Связывает inclusion, missingness и целевую популяцию — независимое evidence и объяснение",
+        "Выбирает допустимое обобщение и предел selection bias — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Обобщает удобную выборку на всех пользователей",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+        "https://scikit-learn.org/stable/common_pitfalls.html",
+        "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-scientist.measurement-definition",
+      "domain": "sampling",
+      "description": "Смысл измеряемой переменной",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет единицы и определение поля",
+      "middleExpectation": "Согласует measurement process между cohorts",
+      "seniorExpectation": "Выбирает устойчивый measurement contract при изменении продукта",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает одно имя поля неизменным смыслом; не связывает это с границей ожидаемого результата: проверяет единицы и определение поля",
+          "borderline": "Может: проверяет единицы и определение поля, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет единицы и определение поля. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает одно имя поля неизменным смыслом; не связывает это с границей ожидаемого результата: согласует measurement process между cohorts",
+          "borderline": "Может: согласует measurement process между cohorts, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует measurement process между cohorts. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает одно имя поля неизменным смыслом; не связывает это с границей ожидаемого результата: выбирает устойчивый measurement contract при изменении продукта",
+          "borderline": "Может: выбирает устойчивый measurement contract при изменении продукта, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает устойчивый measurement contract при изменении продукта. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет единицы и определение поля — локальная проверка результата",
+        "Согласует measurement process между cohorts — независимое evidence и объяснение",
+        "Выбирает устойчивый measurement contract при изменении продукта — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает одно имя поля неизменным смыслом",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+        "https://scikit-learn.org/stable/common_pitfalls.html",
+        "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-scientist.sampling-bias",
+      "domain": "sampling",
+      "description": "Evidence смещения выборки",
+      "middleTier": "upper",
+      "juniorExpectation": "Замечает отсутствующую группу",
+      "middleExpectation": "Различает sampling bias и случайную вариацию",
+      "seniorExpectation": "Выбирает collection/reweighting с проверяемыми assumptions",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Игнорирует missing population при сравнении; не связывает это с границей ожидаемого результата: замечает отсутствующую группу",
+          "borderline": "Может: замечает отсутствующую группу, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: замечает отсутствующую группу. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Игнорирует missing population при сравнении; не связывает это с границей ожидаемого результата: различает sampling bias и случайную вариацию",
+          "borderline": "Может: различает sampling bias и случайную вариацию, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает sampling bias и случайную вариацию. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Игнорирует missing population при сравнении; не связывает это с границей ожидаемого результата: выбирает collection/reweighting с проверяемыми assumptions",
+          "borderline": "Может: выбирает collection/reweighting с проверяемыми assumptions, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает collection/reweighting с проверяемыми assumptions. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Замечает отсутствующую группу — локальная проверка результата",
+        "Различает sampling bias и случайную вариацию — независимое evidence и объяснение",
+        "Выбирает collection/reweighting с проверяемыми assumptions — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Игнорирует missing population при сравнении",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+        "https://scikit-learn.org/stable/common_pitfalls.html",
+        "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-scientist.dependency-split",
+      "domain": "validation",
+      "description": "Split по зависимости наблюдений",
+      "middleTier": "core",
+      "juniorExpectation": "Разделяет независимые train/test наблюдения",
+      "middleExpectation": "Учитывает group, time и preprocessing leakage",
+      "seniorExpectation": "Выбирает validation design под реальный deployment",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Делит связанные entities случайно по строкам; не связывает это с границей ожидаемого результата: разделяет независимые train/test наблюдения",
+          "borderline": "Может: разделяет независимые train/test наблюдения, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: разделяет независимые train/test наблюдения. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Делит связанные entities случайно по строкам; не связывает это с границей ожидаемого результата: учитывает group, time и preprocessing leakage",
+          "borderline": "Может: учитывает group, time и preprocessing leakage, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: учитывает group, time и preprocessing leakage. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Делит связанные entities случайно по строкам; не связывает это с границей ожидаемого результата: выбирает validation design под реальный deployment",
+          "borderline": "Может: выбирает validation design под реальный deployment, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает validation design под реальный deployment. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Разделяет независимые train/test наблюдения — локальная проверка результата",
+        "Учитывает group, time и preprocessing leakage — независимое evidence и объяснение",
+        "Выбирает validation design под реальный deployment — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Делит связанные entities случайно по строкам",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+        "https://scikit-learn.org/stable/common_pitfalls.html",
+        "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-scientist.temporal-backtest",
+      "domain": "validation",
+      "description": "Временной backtest",
+      "middleTier": "core",
+      "juniorExpectation": "Обучает на прошлом, проверяет на будущем",
+      "middleExpectation": "Проверяет feature availability и rolling windows",
+      "seniorExpectation": "Выбирает backtest protocol с сменой regimes",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Использует будущее для выбора transform; не связывает это с границей ожидаемого результата: обучает на прошлом, проверяет на будущем",
+          "borderline": "Может: обучает на прошлом, проверяет на будущем, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: обучает на прошлом, проверяет на будущем. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Использует будущее для выбора transform; не связывает это с границей ожидаемого результата: проверяет feature availability и rolling windows",
+          "borderline": "Может: проверяет feature availability и rolling windows, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет feature availability и rolling windows. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Использует будущее для выбора transform; не связывает это с границей ожидаемого результата: выбирает backtest protocol с сменой regimes",
+          "borderline": "Может: выбирает backtest protocol с сменой regimes, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает backtest protocol с сменой regimes. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Обучает на прошлом, проверяет на будущем — локальная проверка результата",
+        "Проверяет feature availability и rolling windows — независимое evidence и объяснение",
+        "Выбирает backtest protocol с сменой regimes — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Использует будущее для выбора transform",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+        "https://scikit-learn.org/stable/common_pitfalls.html",
+        "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-scientist.decision-cost",
+      "domain": "validation",
+      "description": "Валидация решения",
+      "middleTier": "upper",
+      "juniorExpectation": "Вычисляет заданный cost ошибок",
+      "middleExpectation": "Связывает threshold, prevalence и validation uncertainty",
+      "seniorExpectation": "Выбирает policy под business utility и instability segments",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Принимает лучший AUC за лучшую policy; не связывает это с границей ожидаемого результата: вычисляет заданный cost ошибок",
+          "borderline": "Может: вычисляет заданный cost ошибок, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: вычисляет заданный cost ошибок. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Принимает лучший AUC за лучшую policy; не связывает это с границей ожидаемого результата: связывает threshold, prevalence и validation uncertainty",
+          "borderline": "Может: связывает threshold, prevalence и validation uncertainty, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает threshold, prevalence и validation uncertainty. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Принимает лучший AUC за лучшую policy; не связывает это с границей ожидаемого результата: выбирает policy под business utility и instability segments",
+          "borderline": "Может: выбирает policy под business utility и instability segments, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает policy под business utility и instability segments. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Вычисляет заданный cost ошибок — локальная проверка результата",
+        "Связывает threshold, prevalence и validation uncertainty — независимое evidence и объяснение",
+        "Выбирает policy под business utility и instability segments — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Принимает лучший AUC за лучшую policy",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+        "https://scikit-learn.org/stable/common_pitfalls.html",
+        "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-scientist.assignment-validity",
+      "domain": "experimentation",
+      "description": "Валидность randomization",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет назначение и единицу experiment",
+      "middleExpectation": "Различает assignment, exposure и contamination",
+      "seniorExpectation": "Выбирает design с interference и этикой последствий",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Анализирует treatment только реально использовавших feature; не связывает это с границей ожидаемого результата: проверяет назначение и единицу experiment",
+          "borderline": "Может: проверяет назначение и единицу experiment, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет назначение и единицу experiment. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Анализирует treatment только реально использовавших feature; не связывает это с границей ожидаемого результата: различает assignment, exposure и contamination",
+          "borderline": "Может: различает assignment, exposure и contamination, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает assignment, exposure и contamination. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Анализирует treatment только реально использовавших feature; не связывает это с границей ожидаемого результата: выбирает design с interference и этикой последствий",
+          "borderline": "Может: выбирает design с interference и этикой последствий, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает design с interference и этикой последствий. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет назначение и единицу experiment — локальная проверка результата",
+        "Различает assignment, exposure и contamination — независимое evidence и объяснение",
+        "Выбирает design с interference и этикой последствий — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Анализирует treatment только реально использовавших feature",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+        "https://scikit-learn.org/stable/common_pitfalls.html",
+        "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-scientist.exposure-srm",
+      "domain": "experimentation",
+      "description": "Exposure и sample ratio",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет ожидаемое распределение групп",
+      "middleExpectation": "Находит SRM и причины divergent exposure",
+      "seniorExpectation": "Выбирает остановку/repair experiment с validity risks",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Объясняет SRM успешностью treatment; не связывает это с границей ожидаемого результата: проверяет ожидаемое распределение групп",
+          "borderline": "Может: проверяет ожидаемое распределение групп, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет ожидаемое распределение групп. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Объясняет SRM успешностью treatment; не связывает это с границей ожидаемого результата: находит srm и причины divergent exposure",
+          "borderline": "Может: находит srm и причины divergent exposure, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: находит srm и причины divergent exposure. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Объясняет SRM успешностью treatment; не связывает это с границей ожидаемого результата: выбирает остановку/repair experiment с validity risks",
+          "borderline": "Может: выбирает остановку/repair experiment с validity risks, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает остановку/repair experiment с validity risks. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет ожидаемое распределение групп — локальная проверка результата",
+        "Находит SRM и причины divergent exposure — независимое evidence и объяснение",
+        "Выбирает остановку/repair experiment с validity risks — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Объясняет SRM успешностью treatment",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+        "https://scikit-learn.org/stable/common_pitfalls.html",
+        "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-scientist.experiment-policy",
+      "domain": "experimentation",
+      "description": "Политика experiment decision",
+      "middleTier": "upper",
+      "juniorExpectation": "Следует заранее заданному horizon",
+      "middleExpectation": "Учитывает power, multiple looks и guardrails",
+      "seniorExpectation": "Выбирает sequential/design strategy с ценой ошибки",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Останавливает experiment при первом значимом p-value; не связывает это с границей ожидаемого результата: следует заранее заданному horizon",
+          "borderline": "Может: следует заранее заданному horizon, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: следует заранее заданному horizon. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Останавливает experiment при первом значимом p-value; не связывает это с границей ожидаемого результата: учитывает power, multiple looks и guardrails",
+          "borderline": "Может: учитывает power, multiple looks и guardrails, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: учитывает power, multiple looks и guardrails. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Останавливает experiment при первом значимом p-value; не связывает это с границей ожидаемого результата: выбирает sequential/design strategy с ценой ошибки",
+          "borderline": "Может: выбирает sequential/design strategy с ценой ошибки, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает sequential/design strategy с ценой ошибки. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Следует заранее заданному horizon — локальная проверка результата",
+        "Учитывает power, multiple looks и guardrails — независимое evidence и объяснение",
+        "Выбирает sequential/design strategy с ценой ошибки — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Останавливает experiment при первом значимом p-value",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+        "https://scikit-learn.org/stable/common_pitfalls.html",
+        "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-scientist.multiple-inference",
+      "domain": "statistics",
+      "description": "Множественные выводы",
+      "middleTier": "core",
+      "juniorExpectation": "Различает exploratory и заданную hypothesis",
+      "middleExpectation": "Учитывает multiplicity и выбор лучших результатов",
+      "seniorExpectation": "Выбирает семейство inference и контроль ошибки по decision",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Отчитывает лучший из многих тестов как заранее заданный; не связывает это с границей ожидаемого результата: различает exploratory и заданную hypothesis",
+          "borderline": "Может: различает exploratory и заданную hypothesis, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает exploratory и заданную hypothesis. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Отчитывает лучший из многих тестов как заранее заданный; не связывает это с границей ожидаемого результата: учитывает multiplicity и выбор лучших результатов",
+          "borderline": "Может: учитывает multiplicity и выбор лучших результатов, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: учитывает multiplicity и выбор лучших результатов. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Отчитывает лучший из многих тестов как заранее заданный; не связывает это с границей ожидаемого результата: выбирает семейство inference и контроль ошибки по decision",
+          "borderline": "Может: выбирает семейство inference и контроль ошибки по decision, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает семейство inference и контроль ошибки по decision. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Различает exploratory и заданную hypothesis — локальная проверка результата",
+        "Учитывает multiplicity и выбор лучших результатов — независимое evidence и объяснение",
+        "Выбирает семейство inference и контроль ошибки по decision — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Отчитывает лучший из многих тестов как заранее заданный",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+        "https://scikit-learn.org/stable/common_pitfalls.html",
+        "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-scientist.effect-uncertainty",
+      "domain": "statistics",
+      "description": "Effect и uncertainty",
+      "middleTier": "core",
+      "juniorExpectation": "Читает effect estimate и interval",
+      "middleExpectation": "Сопоставляет interval, assumptions и practical magnitude",
+      "seniorExpectation": "Выбирает решение под asymmetric loss и unresolved uncertainty",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает p-value величиной эффекта; не связывает это с границей ожидаемого результата: читает effect estimate и interval",
+          "borderline": "Может: читает effect estimate и interval, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: читает effect estimate и interval. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает p-value величиной эффекта; не связывает это с границей ожидаемого результата: сопоставляет interval, assumptions и practical magnitude",
+          "borderline": "Может: сопоставляет interval, assumptions и practical magnitude, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет interval, assumptions и practical magnitude. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает p-value величиной эффекта; не связывает это с границей ожидаемого результата: выбирает решение под asymmetric loss и unresolved uncertainty",
+          "borderline": "Может: выбирает решение под asymmetric loss и unresolved uncertainty, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает решение под asymmetric loss и unresolved uncertainty. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Читает effect estimate и interval — локальная проверка результата",
+        "Сопоставляет interval, assumptions и practical magnitude — независимое evidence и объяснение",
+        "Выбирает решение под asymmetric loss и unresolved uncertainty — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает p-value величиной эффекта",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+        "https://scikit-learn.org/stable/common_pitfalls.html",
+        "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-scientist.assumption-check",
+      "domain": "statistics",
+      "description": "Проверка статистических assumptions",
+      "middleTier": "upper",
+      "juniorExpectation": "Проверяет известную зависимость наблюдений",
+      "middleExpectation": "Различает model misspecification и шум оценки",
+      "seniorExpectation": "Выбирает sensitivity analysis и границы вывода",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Принимает формулу за гарантию корректного вывода; не связывает это с границей ожидаемого результата: проверяет известную зависимость наблюдений",
+          "borderline": "Может: проверяет известную зависимость наблюдений, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет известную зависимость наблюдений. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Принимает формулу за гарантию корректного вывода; не связывает это с границей ожидаемого результата: различает model misspecification и шум оценки",
+          "borderline": "Может: различает model misspecification и шум оценки, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает model misspecification и шум оценки. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Принимает формулу за гарантию корректного вывода; не связывает это с границей ожидаемого результата: выбирает sensitivity analysis и границы вывода",
+          "borderline": "Может: выбирает sensitivity analysis и границы вывода, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает sensitivity analysis и границы вывода. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет известную зависимость наблюдений — локальная проверка результата",
+        "Различает model misspecification и шум оценки — независимое evidence и объяснение",
+        "Выбирает sensitivity analysis и границы вывода — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Принимает формулу за гарантию корректного вывода",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+        "https://scikit-learn.org/stable/common_pitfalls.html",
+        "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-scientist.objective-alignment",
+      "domain": "metrics",
+      "description": "Соответствие метрики цели",
+      "middleTier": "core",
+      "juniorExpectation": "Различает proxy и целевой outcome",
+      "middleExpectation": "Сопоставляет metric с costs и поведением пользователей",
+      "seniorExpectation": "Выбирает objective и guardrails при gaming и evolution",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Оптимизирует proxy вопреки итоговому outcome; не связывает это с границей ожидаемого результата: различает proxy и целевой outcome",
+          "borderline": "Может: различает proxy и целевой outcome, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает proxy и целевой outcome. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Оптимизирует proxy вопреки итоговому outcome; не связывает это с границей ожидаемого результата: сопоставляет metric с costs и поведением пользователей",
+          "borderline": "Может: сопоставляет metric с costs и поведением пользователей, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет metric с costs и поведением пользователей. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Оптимизирует proxy вопреки итоговому outcome; не связывает это с границей ожидаемого результата: выбирает objective и guardrails при gaming и evolution",
+          "borderline": "Может: выбирает objective и guardrails при gaming и evolution, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает objective и guardrails при gaming и evolution. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Различает proxy и целевой outcome — локальная проверка результата",
+        "Сопоставляет metric с costs и поведением пользователей — независимое evidence и объяснение",
+        "Выбирает objective и guardrails при gaming и evolution — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Оптимизирует proxy вопреки итоговому outcome",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+        "https://scikit-learn.org/stable/common_pitfalls.html",
+        "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-scientist.segment-heterogeneity",
+      "domain": "metrics",
+      "description": "Heterogeneity сегментов",
+      "middleTier": "core",
+      "juniorExpectation": "Считает заданный segment effect",
+      "middleExpectation": "Различает mixture shift и внутри-сегментное изменение",
+      "seniorExpectation": "Выбирает segment policy с uncertainty и fairness limits",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Выводит единый эффект из aggregate reversal; не связывает это с границей ожидаемого результата: считает заданный segment effect",
+          "borderline": "Может: считает заданный segment effect, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: считает заданный segment effect. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Выводит единый эффект из aggregate reversal; не связывает это с границей ожидаемого результата: различает mixture shift и внутри-сегментное изменение",
+          "borderline": "Может: различает mixture shift и внутри-сегментное изменение, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает mixture shift и внутри-сегментное изменение. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Выводит единый эффект из aggregate reversal; не связывает это с границей ожидаемого результата: выбирает segment policy с uncertainty и fairness limits",
+          "borderline": "Может: выбирает segment policy с uncertainty и fairness limits, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает segment policy с uncertainty и fairness limits. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Считает заданный segment effect — локальная проверка результата",
+        "Различает mixture shift и внутри-сегментное изменение — независимое evidence и объяснение",
+        "Выбирает segment policy с uncertainty и fairness limits — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Выводит единый эффект из aggregate reversal",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+        "https://scikit-learn.org/stable/common_pitfalls.html",
+        "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-scientist.threshold-policy",
+      "domain": "metrics",
+      "description": "Policy thresholds",
+      "middleTier": "upper",
+      "juniorExpectation": "Применяет заданный threshold к probabilities",
+      "middleExpectation": "Учитывает calibration, segment prevalence и cost",
+      "seniorExpectation": "Выбирает устойчивую policy при drift и рисках решений",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает общий threshold оптимальным для всех сегментов; не связывает это с границей ожидаемого результата: применяет заданный threshold к probabilities",
+          "borderline": "Может: применяет заданный threshold к probabilities, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: применяет заданный threshold к probabilities. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает общий threshold оптимальным для всех сегментов; не связывает это с границей ожидаемого результата: учитывает calibration, segment prevalence и cost",
+          "borderline": "Может: учитывает calibration, segment prevalence и cost, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: учитывает calibration, segment prevalence и cost. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает общий threshold оптимальным для всех сегментов; не связывает это с границей ожидаемого результата: выбирает устойчивую policy при drift и рисках решений",
+          "borderline": "Может: выбирает устойчивую policy при drift и рисках решений, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает устойчивую policy при drift и рисках решений. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Применяет заданный threshold к probabilities — локальная проверка результата",
+        "Учитывает calibration, segment prevalence и cost — независимое evidence и объяснение",
+        "Выбирает устойчивую policy при drift и рисках решений — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает общий threshold оптимальным для всех сегментов",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+        "https://scikit-learn.org/stable/common_pitfalls.html",
+        "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-scientist.causal-boundary",
+      "domain": "causality",
+      "description": "Граница causal claim",
+      "middleTier": "core",
+      "juniorExpectation": "Отличает association от intervention",
+      "middleExpectation": "Формулирует confounding и идентифицирующие assumptions",
+      "seniorExpectation": "Выбирает допустимый causal claim с sensitivity и decision risk",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Называет regression coefficient причинным эффектом; не связывает это с границей ожидаемого результата: отличает association от intervention",
+          "borderline": "Может: отличает association от intervention, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: отличает association от intervention. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Называет regression coefficient причинным эффектом; не связывает это с границей ожидаемого результата: формулирует confounding и идентифицирующие assumptions",
+          "borderline": "Может: формулирует confounding и идентифицирующие assumptions, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: формулирует confounding и идентифицирующие assumptions. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Называет regression coefficient причинным эффектом; не связывает это с границей ожидаемого результата: выбирает допустимый causal claim с sensitivity и decision risk",
+          "borderline": "Может: выбирает допустимый causal claim с sensitivity и decision risk, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает допустимый causal claim с sensitivity и decision risk. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Отличает association от intervention — локальная проверка результата",
+        "Формулирует confounding и идентифицирующие assumptions — независимое evidence и объяснение",
+        "Выбирает допустимый causal claim с sensitivity и decision risk — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Называет regression coefficient причинным эффектом",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+        "https://scikit-learn.org/stable/common_pitfalls.html",
+        "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-scientist.natural-design",
+      "domain": "causality",
+      "description": "Естественный experiment",
+      "middleTier": "core",
+      "juniorExpectation": "Указывает treatment и comparison",
+      "middleExpectation": "Проверяет timing, parallel trends и альтернативные explanations",
+      "seniorExpectation": "Выбирает quasi-experimental design с falsification и limits",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Принимает любое до/после за natural experiment; не связывает это с границей ожидаемого результата: указывает treatment и comparison",
+          "borderline": "Может: указывает treatment и comparison, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: указывает treatment и comparison. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Принимает любое до/после за natural experiment; не связывает это с границей ожидаемого результата: проверяет timing, parallel trends и альтернативные explanations",
+          "borderline": "Может: проверяет timing, parallel trends и альтернативные explanations, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет timing, parallel trends и альтернативные explanations. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Принимает любое до/после за natural experiment; не связывает это с границей ожидаемого результата: выбирает quasi-experimental design с falsification и limits",
+          "borderline": "Может: выбирает quasi-experimental design с falsification и limits, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает quasi-experimental design с falsification и limits. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Указывает treatment и comparison — локальная проверка результата",
+        "Проверяет timing, parallel trends и альтернативные explanations — независимое evidence и объяснение",
+        "Выбирает quasi-experimental design с falsification и limits — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Принимает любое до/после за natural experiment",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+        "https://scikit-learn.org/stable/common_pitfalls.html",
+        "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-scientist.claim-calibration",
+      "domain": "causality",
+      "description": "Калибровка научного вывода",
+      "middleTier": "upper",
+      "juniorExpectation": "Ограничивает вывод наблюдаемыми фактами",
+      "middleExpectation": "Связывает uncertainty, validation и популяцию claim",
+      "seniorExpectation": "Выбирает decision при nonidentifiability и residual uncertainty",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Формулирует уверенный вывод из неоднозначных данных; не связывает это с границей ожидаемого результата: ограничивает вывод наблюдаемыми фактами",
+          "borderline": "Может: ограничивает вывод наблюдаемыми фактами, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: ограничивает вывод наблюдаемыми фактами. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Формулирует уверенный вывод из неоднозначных данных; не связывает это с границей ожидаемого результата: связывает uncertainty, validation и популяцию claim",
+          "borderline": "Может: связывает uncertainty, validation и популяцию claim, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает uncertainty, validation и популяцию claim. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Формулирует уверенный вывод из неоднозначных данных; не связывает это с границей ожидаемого результата: выбирает decision при nonidentifiability и residual uncertainty",
+          "borderline": "Может: выбирает decision при nonidentifiability и residual uncertainty, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает decision при nonidentifiability и residual uncertainty. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Ограничивает вывод наблюдаемыми фактами — локальная проверка результата",
+        "Связывает uncertainty, validation и популяцию claim — независимое evidence и объяснение",
+        "Выбирает decision при nonidentifiability и residual uncertainty — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Формулирует уверенный вывод из неоднозначных данных",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.itl.nist.gov/div898/handbook/pri/section1/pri1.htm",
+        "https://scikit-learn.org/stable/common_pitfalls.html",
+        "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    }
+  ]
+}

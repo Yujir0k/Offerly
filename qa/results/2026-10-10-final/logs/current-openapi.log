@@ -1,0 +1,5 @@
+
+> offerly@0.1.0 check:api
+> node qa/openapi-check.mjs
+
+{"passed":true,"paths":41,"references":269,"directRouteMethods":44,"matchingCopies":true}

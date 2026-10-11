@@ -1,0 +1,20 @@
+✔ all 12 professions have distinct 18-capability standards, complete anchors and sources (13.260167ms)
+✔ all 184 ItemModels have disjoint resolvable required/supporting/optional capability mapping (0.402042ms)
+✔ clear Middle mastery is 83.3% stable core, with explicit unstable strategy rather than scalar ability (5.940708ms)
+✔ projection discards grade, band, score, cut, requirements and latent identity (1485.345792ms)
+✔ task demand follows actual source integration and strategy structure (3625.9185ms)
+✔ normalized components retain mixture mass regardless of distractor cardinality (0.241458ms)
+✔ ordinary policy couples intent with execution strategy and reuses comprehension across steps (12168.906292ms)
+✔ Oracle and perfect answers run real unchanged engine and preserve plans/evidence (25559.236125ms)
+✔ new simulation replays exactly and records dimensions, margins and capability evidence (203.9865ms)
+✔ old baseline stays preserved and successor production is registered; policy imports no scoring (321.991625ms)
+✔ v2.1 integration uncertainty does not override mastered bounded Junior capabilities (116.14075ms)
+✔ benchmark dispatches scoped v2.1 policy and counts unique boundary exposure sessions (1027.317375ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 44790.333792

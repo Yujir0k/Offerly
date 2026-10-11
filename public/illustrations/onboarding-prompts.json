@@ -1,0 +1,14 @@
+{
+  "generator": "Built-in ImageGen",
+  "transparent_background": true,
+  "assets": [
+    {
+      "file": "onboarding-skills.png",
+      "prompt": "Create a premium friendly 3D stylized character illustration for Offerly IT career onboarding, skills and experience step. Transparent background, isolated complete composition, no text, no letters, no logos, no watermarks. A unique young woman with short wavy dark hair and stylish round glasses, cream overshirt, charcoal trousers and white sneakers, seated on a sculptural violet stool holding an open laptop. Beside her a cheerful young man in a charcoal sweatshirt assembles three floating rounded violet skill tiles with abstract code marks and a tiny red accent cube. Expressive faces, polished soft clay/Pixar-like editorial 3D rendering, sophisticated proportions, purple #402FFF and lilac shapes, tiny #EC1D35 red accents, ivory/black outfits. Compact upright near-square composition, fill frame with 6 percent transparent margin, all characters fully visible including feet. Clear silhouettes readable against dark navy UI. Distinct original scene focused on building a professional skill set."
+    },
+    {
+      "file": "onboarding-conditions.png",
+      "prompt": "Create a premium friendly 3D stylized character illustration for Offerly IT career onboarding, work and conditions step. Transparent background, isolated complete composition, no text, no letters, no logos, no watermarks. A unique smiling young professional woman with auburn ponytail in a charcoal blazer and cream trousers stands beside a stylish young man with dark curly hair, light overshirt, violet trousers and white sneakers. They thoughtfully arrange a floating abstract violet map pin, a rounded calendar tile and a small salary coin shape around a sculptural lilac desk; woman gestures toward location pin, man holds a small tablet. Expressive faces, polished soft clay/Pixar-like editorial 3D rendering, sophisticated proportions, purple #402FFF and lilac geometry, tiny #EC1D35 red accents, ivory/black outfits. Compact upright near-square composition, fill frame with 6 percent transparent margin, all characters fully visible including feet. Clear silhouettes readable against dark navy UI. Distinct original scene about choosing work location and favorable conditions. No duplicate poses from skill-building scene."
+    }
+  ]
+}

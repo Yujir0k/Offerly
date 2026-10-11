@@ -1,0 +1,211 @@
+{
+  "tables": [
+    {
+      "table": "account_state",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "applications",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "assessments",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "auth_throttles",
+      "exactMatch": true,
+      "volatile": true
+    },
+    {
+      "table": "blocked_companies",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "candidate_profiles",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "companies",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "company_memberships",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "company_task_answers",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "company_tasks",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "consent_events",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "conversation_messages",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "conversation_reads",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "conversations",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "drafts",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "email_challenges",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "email_change_flows",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "external_identities",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "favorite_jobs",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "fsp_demo_flows",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "fsp_demo_links",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "hiring_processes",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "interview_meetings",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "invitation_mail_outbox",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "invitations",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "jobs",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "mcp_employer_tokens",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "mcp_invitation_drafts",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "migration_checksums",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "needs",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "oidc_flows",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "password_reset_flows",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "professional_assessment_locks",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "professional_assessment_records",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "saved_candidates",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "saved_searches",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "schema_migrations",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "search_seen",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "sessions",
+      "exactMatch": false,
+      "volatile": true
+    },
+    {
+      "table": "surveys",
+      "exactMatch": true,
+      "volatile": false
+    },
+    {
+      "table": "users",
+      "exactMatch": true,
+      "volatile": false
+    }
+  ],
+  "passed": true,
+  "dumpSha256": "953dbd6923f69bc65cc5629072066cd101da63a67c126706ea97f92c586eae6d"
+}

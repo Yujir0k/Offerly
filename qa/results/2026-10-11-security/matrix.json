@@ -1,0 +1,1087 @@
+{
+  "cases": 108,
+  "calls": 1475,
+  "checks": 1091,
+  "rows": [
+    {
+      "track": "backend",
+      "grade": "Junior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 25,
+        "total": 10,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9
+      }
+    },
+    {
+      "track": "backend",
+      "grade": "Junior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "backend",
+      "grade": "Junior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "frontend",
+      "grade": "Junior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 25,
+        "total": 10,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9
+      }
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Junior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 25,
+        "total": 10,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9
+      }
+    },
+    {
+      "track": "frontend",
+      "grade": "Junior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "frontend",
+      "grade": "Junior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Junior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 25,
+        "total": 10,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9
+      }
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Junior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 25,
+        "total": 10,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9
+      }
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Junior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Junior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Junior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 25,
+        "total": 10,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9
+      }
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Junior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 25,
+        "total": 9,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 8
+      }
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Junior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Junior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "mlops",
+      "grade": "Junior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 25,
+        "total": 10,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9
+      }
+    },
+    {
+      "track": "genai",
+      "grade": "Junior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 25,
+        "total": 10,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9
+      }
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Junior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Junior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "android",
+      "grade": "Junior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 25,
+        "total": 10,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9
+      }
+    },
+    {
+      "track": "ios",
+      "grade": "Junior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 25,
+        "total": 10,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9
+      }
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Junior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Junior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Junior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 25,
+        "total": 10,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9
+      }
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Junior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Junior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "mlops",
+      "grade": "Junior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "mlops",
+      "grade": "Junior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "backend",
+      "grade": "Middle",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "genai",
+      "grade": "Junior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "genai",
+      "grade": "Junior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "android",
+      "grade": "Junior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "frontend",
+      "grade": "Middle",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "android",
+      "grade": "Junior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "ios",
+      "grade": "Junior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "ios",
+      "grade": "Junior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Middle",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Junior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Junior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "backend",
+      "grade": "Middle",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 18,
+        "total": 11,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10
+      }
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Middle",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "backend",
+      "grade": "Middle",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "frontend",
+      "grade": "Middle",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 18,
+        "total": 11,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10
+      }
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Middle",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 18,
+        "total": 11,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10
+      }
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Middle",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Middle",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 18,
+        "total": 11,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10
+      }
+    },
+    {
+      "track": "frontend",
+      "grade": "Middle",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Middle",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 18,
+        "total": 11,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10
+      }
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Middle",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Middle",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 18,
+        "total": 11,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10
+      }
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Middle",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Middle",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 18,
+        "total": 10,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9
+      }
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Middle",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "mlops",
+      "grade": "Middle",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 18,
+        "total": 11,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10
+      }
+    },
+    {
+      "track": "genai",
+      "grade": "Middle",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 18,
+        "total": 11,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10
+      }
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Middle",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "mlops",
+      "grade": "Middle",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "android",
+      "grade": "Middle",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 18,
+        "total": 11,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10
+      }
+    },
+    {
+      "track": "ios",
+      "grade": "Middle",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 18,
+        "total": 11,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10
+      }
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Middle",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "genai",
+      "grade": "Middle",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Middle",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 18,
+        "total": 11,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10
+      }
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Middle",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "backend",
+      "grade": "Senior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "android",
+      "grade": "Middle",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "ios",
+      "grade": "Middle",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "frontend",
+      "grade": "Senior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Middle",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Middle",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Senior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "mlops",
+      "grade": "Middle",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "backend",
+      "grade": "Senior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Senior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "genai",
+      "grade": "Middle",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "frontend",
+      "grade": "Senior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Senior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "android",
+      "grade": "Middle",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Senior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Senior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "ios",
+      "grade": "Middle",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Senior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Senior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Middle",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "backend",
+      "grade": "Senior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 11,
+        "total": 12,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 11
+      }
+    },
+    {
+      "track": "frontend",
+      "grade": "Senior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 11,
+        "total": 12,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 11
+      }
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Senior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "mlops",
+      "grade": "Senior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Senior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 11,
+        "total": 12,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 11
+      }
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Senior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 11,
+        "total": 13,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 12
+      }
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Senior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "genai",
+      "grade": "Senior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Senior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 11,
+        "total": 12,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 11
+      }
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Senior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 11,
+        "total": 12,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 11
+      }
+    },
+    {
+      "track": "android",
+      "grade": "Senior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Senior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 11,
+        "total": 12,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 11
+      }
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Senior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "mlops",
+      "grade": "Senior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 11,
+        "total": 12,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 11
+      }
+    },
+    {
+      "track": "ios",
+      "grade": "Senior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "genai",
+      "grade": "Senior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 11,
+        "total": 13,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 12
+      }
+    },
+    {
+      "track": "mlops",
+      "grade": "Senior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "android",
+      "grade": "Senior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 11,
+        "total": 12,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 11
+      }
+    },
+    {
+      "track": "ios",
+      "grade": "Senior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 11,
+        "total": 12,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 11
+      }
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Senior",
+      "scenario": "success",
+      "decision": "CONFIRMED",
+      "status": "confirmed",
+      "timeoutSummary": null
+    },
+    {
+      "track": "genai",
+      "grade": "Senior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Senior",
+      "scenario": "timeout",
+      "decision": "NOT_CONFIRMED",
+      "status": "insufficient-evidence",
+      "timeoutSummary": {
+        "score": 11,
+        "total": 13,
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 12
+      }
+    },
+    {
+      "track": "android",
+      "grade": "Senior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "ios",
+      "grade": "Senior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Senior",
+      "scenario": "failure",
+      "decision": "NOT_CONFIRMED",
+      "status": "below-standard",
+      "timeoutSummary": null
+    }
+  ]
+}

@@ -1,0 +1,762 @@
+{
+  "version": "professional-competency-2.0.0",
+  "track": "qa-automation",
+  "name": "QA / QA Automation",
+  "roleScope": "проверяемое качество продукта и automation assurance",
+  "gradeStandards": {
+    "Junior": "Самостоятельно и корректно решает ограниченные tests и явные expected outcomes при понятных фактах и ограниченных последствиях.",
+    "Middle": "Самостоятельно интегрирует risk, независимый oracle, async behavior и isolation, строит причинную/аналитическую модель и проверяет действие при реальных constraints.",
+    "Senior": "Выбирает test portfolio, release evidence и ownership residual quality risk среди допустимых решений с uncertainty, evolution, rollback и ответственностью за последствия."
+  },
+  "sources": [
+    "https://sfia-online.org/en/sfia-9/responsibilities",
+    "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+    "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+  ],
+  "knownLimitations": [
+    "18 capabilities охватывают scenario scope этого assessment, а не всю профессию.",
+    "Grade taxonomy — synthesis команды; стандарты не задают эти три grades или проценты confirmation.",
+    "Closed-world multiple choice и bounded execution не доказывают самостоятельную формулировку стратегии в открытой задаче.",
+    "Rubric и mapping требуют независимого expert review; человеческая calibration отсутствует."
+  ],
+  "capabilities": [
+    {
+      "id": "qa-automation.risk-partition",
+      "domain": "risk",
+      "description": "Разбиение риска и boundaries",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет заданные equivalence classes и границы",
+      "middleExpectation": "Связывает impact, likelihood и отрицательные пути",
+      "seniorExpectation": "Выбирает test investment по residual product risk",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Проверяет только happy path; не связывает это с границей ожидаемого результата: проверяет заданные equivalence classes и границы",
+          "borderline": "Может: проверяет заданные equivalence classes и границы, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет заданные equivalence classes и границы. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Проверяет только happy path; не связывает это с границей ожидаемого результата: связывает impact, likelihood и отрицательные пути",
+          "borderline": "Может: связывает impact, likelihood и отрицательные пути, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает impact, likelihood и отрицательные пути. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Проверяет только happy path; не связывает это с границей ожидаемого результата: выбирает test investment по residual product risk",
+          "borderline": "Может: выбирает test investment по residual product risk, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает test investment по residual product risk. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет заданные equivalence classes и границы — локальная проверка результата",
+        "Связывает impact, likelihood и отрицательные пути — независимое evidence и объяснение",
+        "Выбирает test investment по residual product risk — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Проверяет только happy path",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+        "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "qa-automation.mutation-discrimination",
+      "domain": "risk",
+      "description": "Различение ошибочных реализаций",
+      "middleTier": "core",
+      "juniorExpectation": "Находит тест для известной локальной мутации",
+      "middleExpectation": "Строит набор, различающий независимые fault mechanisms",
+      "seniorExpectation": "Выбирает минимальный discriminative suite под CI budget",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Приравнивает line coverage к обнаружению ошибок; не связывает это с границей ожидаемого результата: находит тест для известной локальной мутации",
+          "borderline": "Может: находит тест для известной локальной мутации, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: находит тест для известной локальной мутации. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Приравнивает line coverage к обнаружению ошибок; не связывает это с границей ожидаемого результата: строит набор, различающий независимые fault mechanisms",
+          "borderline": "Может: строит набор, различающий независимые fault mechanisms, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: строит набор, различающий независимые fault mechanisms. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Приравнивает line coverage к обнаружению ошибок; не связывает это с границей ожидаемого результата: выбирает минимальный discriminative suite под ci budget",
+          "borderline": "Может: выбирает минимальный discriminative suite под ci budget, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает минимальный discriminative suite под ci budget. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Находит тест для известной локальной мутации — локальная проверка результата",
+        "Строит набор, различающий независимые fault mechanisms — независимое evidence и объяснение",
+        "Выбирает минимальный discriminative suite под CI budget — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Приравнивает line coverage к обнаружению ошибок",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+        "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "qa-automation.risk-reassessment",
+      "domain": "risk",
+      "description": "Пересмотр test risk",
+      "middleTier": "upper",
+      "juniorExpectation": "Добавляет тест при явном новом constraint",
+      "middleExpectation": "Сопоставляет change с affected contracts и тестами",
+      "seniorExpectation": "Выбирает risk acceptance и обязанности release owners",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Копирует старый test plan после изменения требований; не связывает это с границей ожидаемого результата: добавляет тест при явном новом constraint",
+          "borderline": "Может: добавляет тест при явном новом constraint, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: добавляет тест при явном новом constraint. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Копирует старый test plan после изменения требований; не связывает это с границей ожидаемого результата: сопоставляет change с affected contracts и тестами",
+          "borderline": "Может: сопоставляет change с affected contracts и тестами, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет change с affected contracts и тестами. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Копирует старый test plan после изменения требований; не связывает это с границей ожидаемого результата: выбирает risk acceptance и обязанности release owners",
+          "borderline": "Может: выбирает risk acceptance и обязанности release owners, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает risk acceptance и обязанности release owners. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Добавляет тест при явном новом constraint — локальная проверка результата",
+        "Сопоставляет change с affected contracts и тестами — независимое evidence и объяснение",
+        "Выбирает risk acceptance и обязанности release owners — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Копирует старый test plan после изменения требований",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+        "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "qa-automation.result-contract",
+      "domain": "oracle",
+      "description": "Контракт test oracle",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет точный ожидаемый результат",
+      "middleExpectation": "Различает независимый oracle и дублирование implementation",
+      "seniorExpectation": "Выбирает layered oracle при неопределённых внешних исходах",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Проверяет status без побочного эффекта; не связывает это с границей ожидаемого результата: проверяет точный ожидаемый результат",
+          "borderline": "Может: проверяет точный ожидаемый результат, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет точный ожидаемый результат. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Проверяет status без побочного эффекта; не связывает это с границей ожидаемого результата: различает независимый oracle и дублирование implementation",
+          "borderline": "Может: различает независимый oracle и дублирование implementation, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает независимый oracle и дублирование implementation. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Проверяет status без побочного эффекта; не связывает это с границей ожидаемого результата: выбирает layered oracle при неопределённых внешних исходах",
+          "borderline": "Может: выбирает layered oracle при неопределённых внешних исходах, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает layered oracle при неопределённых внешних исходах. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет точный ожидаемый результат — локальная проверка результата",
+        "Различает независимый oracle и дублирование implementation — независимое evidence и объяснение",
+        "Выбирает layered oracle при неопределённых внешних исходах — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Проверяет status без побочного эффекта",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+        "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "qa-automation.eventual-outcome",
+      "domain": "oracle",
+      "description": "Oracle eventual consistency",
+      "middleTier": "core",
+      "juniorExpectation": "Ожидает документированное конечное состояние",
+      "middleExpectation": "Различает bounded convergence и случайный sleep",
+      "seniorExpectation": "Выбирает time budget и observability contract для async test",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает timeout теста доказательством product failure; не связывает это с границей ожидаемого результата: ожидает документированное конечное состояние",
+          "borderline": "Может: ожидает документированное конечное состояние, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: ожидает документированное конечное состояние. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает timeout теста доказательством product failure; не связывает это с границей ожидаемого результата: различает bounded convergence и случайный sleep",
+          "borderline": "Может: различает bounded convergence и случайный sleep, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает bounded convergence и случайный sleep. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает timeout теста доказательством product failure; не связывает это с границей ожидаемого результата: выбирает time budget и observability contract для async test",
+          "borderline": "Может: выбирает time budget и observability contract для async test, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает time budget и observability contract для async test. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Ожидает документированное конечное состояние — локальная проверка результата",
+        "Различает bounded convergence и случайный sleep — независимое evidence и объяснение",
+        "Выбирает time budget и observability contract для async test — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает timeout теста доказательством product failure",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+        "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "qa-automation.negative-evidence",
+      "domain": "oracle",
+      "description": "Отрицательное evidence",
+      "middleTier": "upper",
+      "juniorExpectation": "Проверяет отсутствие запрещённого эффекта",
+      "middleExpectation": "Связывает response, state и audit trail",
+      "seniorExpectation": "Выбирает уровень assurance и независимость evidence",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает отсутствие сообщения отсутствием эффекта; не связывает это с границей ожидаемого результата: проверяет отсутствие запрещённого эффекта",
+          "borderline": "Может: проверяет отсутствие запрещённого эффекта, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет отсутствие запрещённого эффекта. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает отсутствие сообщения отсутствием эффекта; не связывает это с границей ожидаемого результата: связывает response, state и audit trail",
+          "borderline": "Может: связывает response, state и audit trail, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает response, state и audit trail. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает отсутствие сообщения отсутствием эффекта; не связывает это с границей ожидаемого результата: выбирает уровень assurance и независимость evidence",
+          "borderline": "Может: выбирает уровень assurance и независимость evidence, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает уровень assurance и независимость evidence. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет отсутствие запрещённого эффекта — локальная проверка результата",
+        "Связывает response, state и audit trail — независимое evidence и объяснение",
+        "Выбирает уровень assurance и независимость evidence — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает отсутствие сообщения отсутствием эффекта",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+        "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "qa-automation.sync-causality",
+      "domain": "automation",
+      "description": "Причинная синхронизация automation",
+      "middleTier": "core",
+      "juniorExpectation": "Ждёт наблюдаемого ready condition",
+      "middleExpectation": "Связывает events, subscriptions и asynchronous state",
+      "seniorExpectation": "Выбирает устойчивую synchronization abstraction и её limits",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Использует постоянный sleep вместо condition; не связывает это с границей ожидаемого результата: ждёт наблюдаемого ready condition",
+          "borderline": "Может: ждёт наблюдаемого ready condition, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: ждёт наблюдаемого ready condition. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Использует постоянный sleep вместо condition; не связывает это с границей ожидаемого результата: связывает events, subscriptions и asynchronous state",
+          "borderline": "Может: связывает events, subscriptions и asynchronous state, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает events, subscriptions и asynchronous state. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Использует постоянный sleep вместо condition; не связывает это с границей ожидаемого результата: выбирает устойчивую synchronization abstraction и её limits",
+          "borderline": "Может: выбирает устойчивую synchronization abstraction и её limits, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает устойчивую synchronization abstraction и её limits. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Ждёт наблюдаемого ready condition — локальная проверка результата",
+        "Связывает events, subscriptions и asynchronous state — независимое evidence и объяснение",
+        "Выбирает устойчивую synchronization abstraction и её limits — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Использует постоянный sleep вместо condition",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+        "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "qa-automation.contract-automation",
+      "domain": "automation",
+      "description": "Automation API contract",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет ограниченный request/response contract",
+      "middleExpectation": "Согласует schema, side effects и version skew",
+      "seniorExpectation": "Выбирает consumer contract strategy с ownership",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Тестирует mock вместо фактического contract; не связывает это с границей ожидаемого результата: проверяет ограниченный request/response contract",
+          "borderline": "Может: проверяет ограниченный request/response contract, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет ограниченный request/response contract. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Тестирует mock вместо фактического contract; не связывает это с границей ожидаемого результата: согласует schema, side effects и version skew",
+          "borderline": "Может: согласует schema, side effects и version skew, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует schema, side effects и version skew. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Тестирует mock вместо фактического contract; не связывает это с границей ожидаемого результата: выбирает consumer contract strategy с ownership",
+          "borderline": "Может: выбирает consumer contract strategy с ownership, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает consumer contract strategy с ownership. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет ограниченный request/response contract — локальная проверка результата",
+        "Согласует schema, side effects и version skew — независимое evidence и объяснение",
+        "Выбирает consumer contract strategy с ownership — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Тестирует mock вместо фактического contract",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+        "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "qa-automation.maintainable-fixtures",
+      "domain": "automation",
+      "description": "Поддерживаемая test automation",
+      "middleTier": "upper",
+      "juniorExpectation": "Разделяет fixture и assertion",
+      "middleExpectation": "Находит coupling selectors, data и environment",
+      "seniorExpectation": "Выбирает framework boundaries с maintenance cost",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Делает shared fixture зависимым от порядка тестов; не связывает это с границей ожидаемого результата: разделяет fixture и assertion",
+          "borderline": "Может: разделяет fixture и assertion, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: разделяет fixture и assertion. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Делает shared fixture зависимым от порядка тестов; не связывает это с границей ожидаемого результата: находит coupling selectors, data и environment",
+          "borderline": "Может: находит coupling selectors, data и environment, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: находит coupling selectors, data и environment. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Делает shared fixture зависимым от порядка тестов; не связывает это с границей ожидаемого результата: выбирает framework boundaries с maintenance cost",
+          "borderline": "Может: выбирает framework boundaries с maintenance cost, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает framework boundaries с maintenance cost. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Разделяет fixture и assertion — локальная проверка результата",
+        "Находит coupling selectors, data и environment — независимое evidence и объяснение",
+        "Выбирает framework boundaries с maintenance cost — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Делает shared fixture зависимым от порядка тестов",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+        "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "qa-automation.test-isolation",
+      "domain": "data",
+      "description": "Изоляция test data",
+      "middleTier": "core",
+      "juniorExpectation": "Создаёт уникальные данные и cleanup",
+      "middleExpectation": "Прослеживает collisions, workers и eventual cleanup",
+      "seniorExpectation": "Выбирает isolation strategy с realism и cost",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Разделяет одну запись между parallel tests; не связывает это с границей ожидаемого результата: создаёт уникальные данные и cleanup",
+          "borderline": "Может: создаёт уникальные данные и cleanup, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: создаёт уникальные данные и cleanup. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Разделяет одну запись между parallel tests; не связывает это с границей ожидаемого результата: прослеживает collisions, workers и eventual cleanup",
+          "borderline": "Может: прослеживает collisions, workers и eventual cleanup, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: прослеживает collisions, workers и eventual cleanup. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Разделяет одну запись между parallel tests; не связывает это с границей ожидаемого результата: выбирает isolation strategy с realism и cost",
+          "borderline": "Может: выбирает isolation strategy с realism и cost, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает isolation strategy с realism и cost. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Создаёт уникальные данные и cleanup — локальная проверка результата",
+        "Прослеживает collisions, workers и eventual cleanup — независимое evidence и объяснение",
+        "Выбирает isolation strategy с realism и cost — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Разделяет одну запись между parallel tests",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+        "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "qa-automation.environment-fidelity",
+      "domain": "data",
+      "description": "Соответствие test environment",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет известную конфигурацию окружения",
+      "middleExpectation": "Различает product defect и environment mismatch",
+      "seniorExpectation": "Выбирает репрезентативность среды по риску и бюджету",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает green stub эквивалентом production; не связывает это с границей ожидаемого результата: проверяет известную конфигурацию окружения",
+          "borderline": "Может: проверяет известную конфигурацию окружения, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет известную конфигурацию окружения. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает green stub эквивалентом production; не связывает это с границей ожидаемого результата: различает product defect и environment mismatch",
+          "borderline": "Может: различает product defect и environment mismatch, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает product defect и environment mismatch. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает green stub эквивалентом production; не связывает это с границей ожидаемого результата: выбирает репрезентативность среды по риску и бюджету",
+          "borderline": "Может: выбирает репрезентативность среды по риску и бюджету, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает репрезентативность среды по риску и бюджету. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет известную конфигурацию окружения — локальная проверка результата",
+        "Различает product defect и environment mismatch — независимое evidence и объяснение",
+        "Выбирает репрезентативность среды по риску и бюджету — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает green stub эквивалентом production",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+        "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "qa-automation.data-lifecycle",
+      "domain": "data",
+      "description": "Жизненный цикл fixtures",
+      "middleTier": "upper",
+      "juniorExpectation": "Восстанавливает fixture после теста",
+      "middleExpectation": "Согласует seed, migration и зависимые объекты",
+      "seniorExpectation": "Выбирает privacy и lifecycle policy синтетических данных",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Копирует персональные данные без ограничения доступа; не связывает это с границей ожидаемого результата: восстанавливает fixture после теста",
+          "borderline": "Может: восстанавливает fixture после теста, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: восстанавливает fixture после теста. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Копирует персональные данные без ограничения доступа; не связывает это с границей ожидаемого результата: согласует seed, migration и зависимые объекты",
+          "borderline": "Может: согласует seed, migration и зависимые объекты, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует seed, migration и зависимые объекты. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Копирует персональные данные без ограничения доступа; не связывает это с границей ожидаемого результата: выбирает privacy и lifecycle policy синтетических данных",
+          "borderline": "Может: выбирает privacy и lifecycle policy синтетических данных, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает privacy и lifecycle policy синтетических данных. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Восстанавливает fixture после теста — локальная проверка результата",
+        "Согласует seed, migration и зависимые объекты — независимое evidence и объяснение",
+        "Выбирает privacy и lifecycle policy синтетических данных — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Копирует персональные данные без ограничения доступа",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+        "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "qa-automation.flaky-triage",
+      "domain": "ci",
+      "description": "Разбор flaky failure",
+      "middleTier": "core",
+      "juniorExpectation": "Повторяет сбой с сохранением evidence",
+      "middleExpectation": "Различает race, isolation, infra и product regression",
+      "seniorExpectation": "Выбирает quarantine с владельцем и сроком исправления",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Скрывает instability бесконечными retries; не связывает это с границей ожидаемого результата: повторяет сбой с сохранением evidence",
+          "borderline": "Может: повторяет сбой с сохранением evidence, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: повторяет сбой с сохранением evidence. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Скрывает instability бесконечными retries; не связывает это с границей ожидаемого результата: различает race, isolation, infra и product regression",
+          "borderline": "Может: различает race, isolation, infra и product regression, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает race, isolation, infra и product regression. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Скрывает instability бесконечными retries; не связывает это с границей ожидаемого результата: выбирает quarantine с владельцем и сроком исправления",
+          "borderline": "Может: выбирает quarantine с владельцем и сроком исправления, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает quarantine с владельцем и сроком исправления. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Повторяет сбой с сохранением evidence — локальная проверка результата",
+        "Различает race, isolation, infra и product regression — независимое evidence и объяснение",
+        "Выбирает quarantine с владельцем и сроком исправления — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Скрывает instability бесконечными retries",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+        "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "qa-automation.gate-integrity",
+      "domain": "ci",
+      "description": "Целостность CI gate",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет выполнение обязательного теста",
+      "middleExpectation": "Различает skipped, retried и reproducible pass",
+      "seniorExpectation": "Выбирает release gate с ценой false block и escaped defect",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает пропущенный тест успешным; не связывает это с границей ожидаемого результата: проверяет выполнение обязательного теста",
+          "borderline": "Может: проверяет выполнение обязательного теста, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет выполнение обязательного теста. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает пропущенный тест успешным; не связывает это с границей ожидаемого результата: различает skipped, retried и reproducible pass",
+          "borderline": "Может: различает skipped, retried и reproducible pass, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает skipped, retried и reproducible pass. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает пропущенный тест успешным; не связывает это с границей ожидаемого результата: выбирает release gate с ценой false block и escaped defect",
+          "borderline": "Может: выбирает release gate с ценой false block и escaped defect, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает release gate с ценой false block и escaped defect. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет выполнение обязательного теста — локальная проверка результата",
+        "Различает skipped, retried и reproducible pass — независимое evidence и объяснение",
+        "Выбирает release gate с ценой false block и escaped defect — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает пропущенный тест успешным",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+        "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "qa-automation.failure-observability",
+      "domain": "ci",
+      "description": "Наблюдаемость test failure",
+      "middleTier": "upper",
+      "juniorExpectation": "Сохраняет assertion и trace",
+      "middleExpectation": "Связывает seed, environment и execution path",
+      "seniorExpectation": "Выбирает CI evidence retention и triage feedback",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Теряет первичный failure после успешного retry; не связывает это с границей ожидаемого результата: сохраняет assertion и trace",
+          "borderline": "Может: сохраняет assertion и trace, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет assertion и trace. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Теряет первичный failure после успешного retry; не связывает это с границей ожидаемого результата: связывает seed, environment и execution path",
+          "borderline": "Может: связывает seed, environment и execution path, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает seed, environment и execution path. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Теряет первичный failure после успешного retry; не связывает это с границей ожидаемого результата: выбирает ci evidence retention и triage feedback",
+          "borderline": "Может: выбирает ci evidence retention и triage feedback, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает ci evidence retention и triage feedback. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет assertion и trace — локальная проверка результата",
+        "Связывает seed, environment и execution path — независимое evidence и объяснение",
+        "Выбирает CI evidence retention и triage feedback — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Теряет первичный failure после успешного retry",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+        "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "qa-automation.test-layer",
+      "domain": "strategy",
+      "description": "Выбор test layer",
+      "middleTier": "core",
+      "juniorExpectation": "Выбирает локальный unit или contract test",
+      "middleExpectation": "Распределяет checks по boundaries и fault localization",
+      "seniorExpectation": "Выбирает portfolio с E2E cost и остаточным риском",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Дублирует все checks через UI; не связывает это с границей ожидаемого результата: выбирает локальный unit или contract test",
+          "borderline": "Может: выбирает локальный unit или contract test, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает локальный unit или contract test. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Дублирует все checks через UI; не связывает это с границей ожидаемого результата: распределяет checks по boundaries и fault localization",
+          "borderline": "Может: распределяет checks по boundaries и fault localization, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: распределяет checks по boundaries и fault localization. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Дублирует все checks через UI; не связывает это с границей ожидаемого результата: выбирает portfolio с e2e cost и остаточным риском",
+          "borderline": "Может: выбирает portfolio с e2e cost и остаточным риском, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает portfolio с e2e cost и остаточным риском. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Выбирает локальный unit или contract test — локальная проверка результата",
+        "Распределяет checks по boundaries и fault localization — независимое evidence и объяснение",
+        "Выбирает portfolio с E2E cost и остаточным риском — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Дублирует все checks через UI",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+        "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "qa-automation.release-evidence",
+      "domain": "strategy",
+      "description": "Evidence release decision",
+      "middleTier": "core",
+      "juniorExpectation": "Описывает проверенные и непроверенные пути",
+      "middleExpectation": "Связывает defects, coverage и impact изменения",
+      "seniorExpectation": "Выбирает release/hold с явным residual risk",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Приравнивает pass count к готовности release; не связывает это с границей ожидаемого результата: описывает проверенные и непроверенные пути",
+          "borderline": "Может: описывает проверенные и непроверенные пути, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: описывает проверенные и непроверенные пути. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Приравнивает pass count к готовности release; не связывает это с границей ожидаемого результата: связывает defects, coverage и impact изменения",
+          "borderline": "Может: связывает defects, coverage и impact изменения, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает defects, coverage и impact изменения. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Приравнивает pass count к готовности release; не связывает это с границей ожидаемого результата: выбирает release/hold с явным residual risk",
+          "borderline": "Может: выбирает release/hold с явным residual risk, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает release/hold с явным residual risk. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Описывает проверенные и непроверенные пути — локальная проверка результата",
+        "Связывает defects, coverage и impact изменения — независимое evidence и объяснение",
+        "Выбирает release/hold с явным residual risk — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Приравнивает pass count к готовности release",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+        "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "qa-automation.assurance-ownership",
+      "domain": "strategy",
+      "description": "Владение quality strategy",
+      "middleTier": "upper",
+      "juniorExpectation": "Фиксирует acceptance criterion задачи",
+      "middleExpectation": "Согласует продуктовые risks с независимым test evidence",
+      "seniorExpectation": "Выбирает quality feedback и ответственность за последствия",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Перекладывает весь quality risk на QA; не связывает это с границей ожидаемого результата: фиксирует acceptance criterion задачи",
+          "borderline": "Может: фиксирует acceptance criterion задачи, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: фиксирует acceptance criterion задачи. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Перекладывает весь quality risk на QA; не связывает это с границей ожидаемого результата: согласует продуктовые risks с независимым test evidence",
+          "borderline": "Может: согласует продуктовые risks с независимым test evidence, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует продуктовые risks с независимым test evidence. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Перекладывает весь quality risk на QA; не связывает это с границей ожидаемого результата: выбирает quality feedback и ответственность за последствия",
+          "borderline": "Может: выбирает quality feedback и ответственность за последствия, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает quality feedback и ответственность за последствия. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Фиксирует acceptance criterion задачи — локальная проверка результата",
+        "Согласует продуктовые risks с независимым test evidence — независимое evidence и объяснение",
+        "Выбирает quality feedback и ответственность за последствия — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Перекладывает весь quality risk на QA",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/",
+        "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-11T09:54:57.416Z",
+  "node": "v25.8.0",
+  "ownNodeModules": true,
+  "npmCi": true,
+  "nativeProductionBuild": true,
+  "cleanDockerBuild": true,
+  "cleanDockerMigrations": 24,
+  "cleanDockerHttpChecks": 22,
+  "productionAudit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "lint": {
+    "passed": false,
+    "errors": 194,
+    "warnings": 165
+  },
+  "sourceHashes": {
+    "package-lock.json": "d1ab83c0272a414d949e74d9745569561282d7e91a42797a671866823d87eb1f",
+    "Dockerfile": "37af28e321bf185058fb434f3cfcd9e0da3097f00a997bc83b0f1b195d866fd5",
+    "compose.yml": "298bc31b11d868911dc3a4b8132efb5561c5f9258360557570e0aa0c2083a047",
+    "next.config.ts": "439a4ff012964281487a089418201f09e7cf881dd100c90e8b82e3557e70896d",
+    "tsconfig.build.json": "0ef925f277d52927f46e925a0a89a37b0a9636faf5b59a66a6375521b0b4b950"
+  }
+}

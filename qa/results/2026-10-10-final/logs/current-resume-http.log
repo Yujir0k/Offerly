@@ -1,0 +1,9 @@
+{
+  passed: true,
+  fieldsPersisted: true,
+  photoExtracted: true,
+  originalBytesPreserved: true,
+  reparse: true,
+  invalidFileRejected: true,
+  gradeUnchanged: true
+}

@@ -1,0 +1,46 @@
+{
+  "name": "fsp-assessment-platform",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.19.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.17.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node scripts/start-offerly.mjs",
+    "start:api": "node --env-file-if-exists=.env dist/src/server.js",
+    "dev": "pnpm build && pnpm start",
+    "test": "pnpm build && node --test dist/test/*.test.js",
+    "validate": "pnpm build && node dist/src/validate.js",
+    "validate:adaptive": "pnpm build && node dist/src/adaptive/validate.js",
+    "generate:assessment": "pnpm build && node dist/src/generative/cli.js",
+    "format:check": "prettier --check src/adaptive src/generative test/adaptive.test.ts test/generative.test.ts test/assessment-quality.test.ts e2e/restored/quality.spec.ts scripts/review-assessment-quality.mjs offerly-web/components/assessment-artifacts.tsx offerly-web/components/adaptive-assessment.tsx offerly-web/components/adaptive-assessment.css offerly-web/components/generative-evaluator.tsx offerly-web/lib/adaptive-presentation.ts",
+    "check": "pnpm test && pnpm validate && pnpm validate:adaptive && pnpm format:check",
+    "test:adaptive-ui": "pnpm build && playwright test --config playwright.restored.config.ts e2e/restored/adaptive.spec.ts",
+    "test:e2e": "pnpm build && playwright test",
+    "test:restored": "pnpm build && playwright test --config playwright.restored.config.ts",
+    "lint:assessment": "node offerly-web/node_modules/eslint/bin/eslint.js --no-config-lookup --config assessment-eslint.config.mjs src/generative test/difficulty-dimensions.test.ts test/qualitative-grades.test.ts test/leak-resistance.test.ts test/specialization-packs.test.ts e2e/restored/native-grades.spec.ts playwright.local.config.ts",
+    "test:restored:local": "pnpm build && playwright test --config playwright.local.config.ts",
+    "verify:grades": "pnpm build && node scripts/verify-grade-model.mjs",
+    "verify:transfer": "pnpm build && node scripts/verify-answer-transfer.mjs",
+    "validate:synthetic": "pnpm build && node dist/src/synthetic-validation/cli.js",
+    "validate:metamorphic": "pnpm build && node scripts/validate-metamorphic.mjs",
+    "test:synthetic": "pnpm build && node --test dist/test/synthetic-validation.test.js dist/test/synthetic-decomposition.test.js dist/test/competency-validation.test.js dist/test/middle-targeted-review.test.js",
+    "lint:synthetic": "node offerly-web/node_modules/eslint/bin/eslint.js --no-config-lookup --config assessment-eslint.config.mjs src/synthetic-validation test/synthetic-validation.test.ts test/synthetic-decomposition.test.ts test/competency-validation.test.ts test/middle-targeted-review.test.ts",
+    "validate:synthetic:decomposition": "pnpm build && node dist/src/synthetic-validation/decomposition-cli.js",
+    "validate:synthetic:competency": "pnpm build && node dist/src/synthetic-validation/competency/cli.js",
+    "validate:synthetic:competency:items": "pnpm build && node dist/src/synthetic-validation/competency/item-audit.js",
+    "validate:synthetic:middle-review": "pnpm build && node dist/src/synthetic-validation/targeted/review.js",
+    "validate:synthetic:middle-after": "pnpm build && node dist/src/synthetic-validation/competency/cli.js --version 2.2.0",
+    "validate:assessment:revision": "pnpm build && node scripts/validate-assessment-revision.mjs",
+    "validate:assessment:scoring": "pnpm build && node scripts/validate-difficulty-scoring.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.0.0",
+    "prettier": "^3.9.9",
+    "typescript": "^5.9.0"
+  }
+}

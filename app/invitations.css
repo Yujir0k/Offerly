@@ -1,0 +1,650 @@
+.invitation-inbox {
+  --invite-accent: #402fff;
+  --interface-scale: 1;
+  color: #202027;
+  max-width: 1580px;
+  margin-inline: auto;
+}
+.invitation-inbox-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.invitation-inbox-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 5px;
+  border: 1px solid #e8e4ef;
+  background: white;
+  border-radius: 14px;
+}
+.invitation-inbox-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: transparent;
+  color: #746c81;
+  border-radius: 9px;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.invitation-inbox-tabs button span {
+  min-width: 21px;
+  padding: 2px 5px;
+  border-radius: 6px;
+  background: #f1eef6;
+  font-size: 12px;
+  text-align: center;
+}
+.invitation-inbox-tabs button[aria-selected="true"] {
+  color: #402fff;
+  background: #efeaff;
+}
+.invitation-inbox-tabs button[aria-selected="true"] span {
+  background: #402fff;
+  color: white;
+}
+.invitation-preview-button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #746c81;
+  font-size: 13px;
+  padding: 8px 0;
+  background: transparent;
+}
+.invitation-inbox :is(button, a):focus-visible,
+.invitation-decision-dialog button:focus-visible {
+  outline: 3px solid #b6a9ff;
+  outline-offset: 3px;
+}
+.invitation-example-note {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 13px 16px;
+  border-radius: 10px;
+  background: #eee9fb;
+  color: #57487d;
+  font-size: 13px;
+}
+.invitation-example-note svg {
+  flex-shrink: 0;
+}
+.invitation-inbox-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 278px;
+  gap: 28px;
+  align-items: start;
+}
+.invitation-inbox-list {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+.offer-invitation {
+  position: relative;
+  border: 1px solid #e7e2ed;
+  border-radius: 20px;
+  padding: 28px;
+  background: white;
+  min-width: 0;
+}
+.offer-invitation.is-unread {
+  border-color: #b9a8ff;
+  box-shadow: 0 6px 26px #402fff05;
+}
+.offer-invitation.is-unread::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 30px;
+  bottom: 30px;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: #402fff;
+}
+.offer-invitation-top {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.offer-company-logo {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 13px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: #f0ebff;
+  color: #402fff;
+  font-size: 24px;
+  font-weight: 700;
+}
+.offer-company-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.offer-company-name {
+  min-width: 0;
+}
+.offer-company-name strong {
+  font-size: 15px;
+  display: block;
+  color: #37313e;
+}
+.offer-company-name > span {
+  display: block;
+  color: #8b8395;
+  font-size: 12px;
+  margin-top: 4px;
+}
+.offer-invitation-state {
+  margin-left: auto;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.offer-status {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 650;
+  color: #756880;
+  background: #f3f0f7;
+  padding: 5px 9px;
+  border-radius: 7px;
+}
+.offer-status.sent {
+  color: #402fff;
+  background: #eee8ff;
+}
+.offer-status.accepted {
+  color: #246a48;
+  background: #eaf6ef;
+}
+.offer-status.declined {
+  color: #8b6371;
+  background: #f7f0f2;
+}
+.offer-unread-dot {
+  width: 6px;
+  height: 6px;
+  background: #402fff;
+  border-radius: 50%;
+}
+.offer-invitation-state time {
+  font-size: 12px;
+  color: #928b9b;
+}
+.offer-invitation h2 {
+  font-size: 24px;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  margin: 0 0 14px;
+  overflow-wrap: anywhere;
+}
+.offer-invitation-salary {
+  color: #402fff;
+  font-size: 23px;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  margin: 0 0 18px;
+}
+.offer-invitation-source {
+  display: grid;
+  gap: 6px;
+  margin: 0 0 18px;
+  padding: 14px 16px;
+  border: 1px solid #e8e3ef;
+  border-radius: 12px;
+  background: #faf9fd;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #756d82;
+  overflow-wrap: anywhere;
+}
+.offer-invitation-source > strong {
+  display: block;
+  color: #37313e;
+  font-size: 14px;
+  font-weight: 650;
+}
+.offer-invitation-source > span {
+  display: block;
+}
+.offer-invitation-salary > span {
+  display: block;
+  font-size: 12px;
+  color: #8b8395;
+  letter-spacing: 0;
+  font-weight: 400;
+  margin-top: 6px;
+}
+.offer-invitation-conditions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  color: #81758e;
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+.offer-invitation-conditions > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.offer-grade {
+  font-family: JetBrains, monospace;
+  background: #f2edfa;
+  color: #8068bd;
+  padding: 4px 7px;
+  border-radius: 5px;
+}
+.offer-invitation-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 19px;
+}
+.offer-invitation-skills > span {
+  background: #f6f3fa;
+  color: #7b6f8b;
+  font-size: 12px;
+  padding: 7px 10px;
+  border-radius: 7px;
+}
+.offer-invitation-message {
+  color: #736b7b;
+  font-size: 14px;
+  line-height: 1.8;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.offer-details-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #5c43be;
+  font-size: 13px;
+  font-weight: 650;
+  padding: 12px 0;
+  margin: 5px 0;
+  background: transparent;
+}
+.offer-invitation-details {
+  display: grid;
+  gap: 17px;
+  background: #faf8fd;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 8px 0 20px;
+}
+.offer-invitation-details > div {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  color: #89759d;
+}
+.offer-invitation-details span > strong {
+  display: block;
+  color: #65596f;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.offer-invitation-details span > span {
+  display: block;
+  color: #81768b;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.offer-invitation-footer {
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  margin-top: 8px;
+  border-top: 1px solid #eeebf3;
+  flex-wrap: wrap;
+}
+.offer-contact-note {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: #918499;
+}
+.offer-invitation-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-left: auto;
+}
+.offer-primary,
+.offer-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-size: 14px;
+  font-weight: 650;
+  padding: 12px 16px;
+  border-radius: 9px;
+}
+.offer-primary {
+  background: #402fff;
+  color: white;
+  border: 1px solid #402fff;
+}
+.offer-primary:hover {
+  background: #3523e5;
+}
+.offer-secondary {
+  background: white;
+  border: 1px solid #e1d9ee;
+  color: #80718d;
+}
+.offer-secondary:hover {
+  background: #f7f3fc;
+}
+.offer-outcome {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  color: #827589;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.offer-outcome.accepted {
+  color: #347857;
+}
+.offer-outcome svg,
+.offer-contact-note svg {
+  flex-shrink: 0;
+}
+.invitation-guide {
+  background: #eee8ff;
+  padding: 25px;
+  border-radius: 18px;
+  position: sticky;
+  top: 112px;
+}
+.invitation-guide-icon {
+  display: grid;
+  place-items: center;
+  width: 45px;
+  height: 45px;
+  background: white;
+  color: #6d52c6;
+  border-radius: 12px;
+  margin-bottom: 17px;
+}
+.invitation-guide h2 {
+  font-size: 20px;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+  color: #443064;
+}
+.invitation-guide ol {
+  display: grid;
+  gap: 23px;
+  list-style: none;
+  padding: 0;
+  margin: 26px 0;
+}
+.invitation-guide li {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+}
+.invitation-guide li > span {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #cfc0f4;
+  color: #8062bb;
+  border-radius: 50%;
+  font:
+    12px JetBrains,
+    monospace;
+}
+.invitation-guide li strong {
+  color: #5a4578;
+  font-size: 13px;
+  font-weight: 650;
+}
+.invitation-guide li p {
+  margin-top: 6px;
+  color: #8a76a4;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.invitation-guide-note {
+  display: flex;
+  gap: 8px;
+  border-top: 1px solid #dcd0f5;
+  padding-top: 17px;
+  color: #917aaa;
+}
+.invitation-guide-note svg {
+  flex-shrink: 0;
+}
+.invitation-guide-note p {
+  font-size: 11px;
+  line-height: 1.7;
+}
+.invitation-inbox-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 55px 30px;
+  background: white;
+  border: 1px solid #e7e2ed;
+  border-radius: 20px;
+}
+.invitation-empty-icon {
+  display: grid;
+  place-items: center;
+  width: 74px;
+  height: 74px;
+  border-radius: 20px;
+  color: #8064cd;
+  background: #f1ebff;
+  margin-bottom: 24px;
+}
+.invitation-inbox-empty h2 {
+  font-size: 24px;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+.invitation-inbox-empty p {
+  max-width: 410px;
+  color: #8a8094;
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 22px;
+}
+.invitation-decision-summary {
+  display: grid;
+  gap: 8px;
+  background: #f4efff;
+  padding: 20px;
+  border-radius: 12px;
+}
+.invitation-decision-summary strong {
+  color: #443557;
+}
+.invitation-decision-summary span {
+  color: #7b6b8d;
+  font-size: 14px;
+}
+.invitation-decision-summary b {
+  color: #402fff;
+}
+.invitation-compose-recipient {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: #f5f1ff;
+  border-radius: 12px;
+  padding: 15px;
+  color: #8264c4;
+}
+.invitation-compose-recipient strong {
+  display: block;
+  color: #493462;
+  font-size: 14px;
+}
+.invitation-compose-recipient span {
+  font-size: 12px;
+  color: #9580aa;
+  display: block;
+  margin-top: 3px;
+}
+.invitation-compose-recipient > svg:last-child {
+  margin-left: auto;
+}
+.invitation-compose-dialog {
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+}
+@media (min-width: 1900px) {
+  .invitation-inbox-layout {
+    grid-template-columns: minmax(0, 1fr) 330px;
+  }
+  .offer-invitation {
+    padding: 36px;
+  }
+  .offer-invitation h2 {
+    font-size: 29px;
+  }
+  .offer-invitation-salary {
+    font-size: 27px;
+  }
+  .offer-invitation-message {
+    font-size: 16px;
+  }
+}
+@media (max-width: 1100px) {
+  .invitation-inbox-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .invitation-guide {
+    position: static;
+  }
+  .invitation-guide ol {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .invitation-guide-note {
+    max-width: 600px;
+  }
+}
+@media (max-width: 600px) {
+  .offer-invitation {
+    padding: 22px;
+    border-radius: 15px;
+  }
+  .offer-invitation-top {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .offer-invitation-state {
+    width: 100%;
+    margin: 0;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .offer-invitation h2 {
+    font-size: 22px;
+  }
+  .offer-invitation-salary {
+    font-size: 21px;
+  }
+  .offer-invitation-actions {
+    margin: 0;
+    width: 100%;
+  }
+  .offer-invitation-actions > button {
+    flex: 1;
+  }
+  .invitation-inbox-tabs {
+    padding: 4px;
+    gap: 3px;
+  }
+  .invitation-inbox-tabs button {
+    padding: 9px;
+    font-size: 12px;
+  }
+  .invitation-guide ol {
+    grid-template-columns: 1fr;
+  }
+  .offer-contact-note {
+    font-size: 12px;
+  }
+  .invitation-decision-dialog .offer-primary {
+    white-space: normal;
+  }
+}
+@media (max-width: 360px) {
+  .offer-invitation-actions {
+    flex-direction: column-reverse;
+  }
+  .offer-invitation {
+    padding: 18px;
+  }
+  .offer-company-name strong {
+    font-size: 14px;
+  }
+}
+
+.invitation-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  border: 1px solid #e8e4ef;
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  color: #93869f;
+}
+.invitation-search input {
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  outline: none;
+  color: #292331;
+  font: inherit;
+  font-size: 15px;
+}
+.invitation-search:focus-within {
+  border-color: #9d8bea;
+  box-shadow: 0 0 0 3px #402fff0c;
+}
+
+.offer-invitation-footer.is-accepted { justify-content: flex-end; }
+.offer-invitation-footer.is-accepted .chat-launch { min-height: 44px; font-size: 14px; gap: 8px; }

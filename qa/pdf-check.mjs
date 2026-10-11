@@ -1,0 +1,4 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {jsPDF} from 'jspdf';
+import {getDocumentProxy,extractText} from 'unpdf';
+const pdf=new jsPDF();const font=await readFile('public/fonts/JetBrainsMono-Regular.ttf');pdf.addFileToVFS('JetBrains.ttf',font.toString('base64'));pdf.addFont('JetBrains.ttf','JetBrains','normal');pdf.setFont('JetBrains');pdf.setFontSize(15);pdf.text(['Офферли — Дело найдёт.','Алексей Крылов','Python, SQL, FastAPI','candidate1042@example.test','+7 000 000-00-42'],20,25);const bytes=new Uint8Array(pdf.output('arraybuffer'));await writeFile('qa/fixtures/resume-fixture.pdf',bytes);const doc=await getDocumentProxy(bytes);const {text}=await extractText(doc,{mergePages:true});if(!text.includes('Офферли')||!text.includes('Алексей'))throw new Error('Cyrillic PDF text missing');console.log('Cyrillic PDF export + text extraction passed');

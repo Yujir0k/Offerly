@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "checks": 122,
+  "tools": 3,
+  "demoScopeIsolated": true,
+  "ordinaryEmployersSupported": true,
+  "blockedCandidatesExcluded": true,
+  "fieldsMinimized": true,
+  "scopeIsolation": true,
+  "salaryRequired": true,
+  "humanApprovalOnly": true,
+  "idempotency": true,
+  "sseBridge": true,
+  "tokenRotationAndRevocation": true,
+  "rateLimited": true
+}

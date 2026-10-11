@@ -1,0 +1,762 @@
+{
+  "version": "professional-competency-2.0.0",
+  "track": "security-appsec",
+  "name": "Security Engineering / AppSec",
+  "roleScope": "проверяемое ограничение угроз и остаточного exposure",
+  "gradeStandards": {
+    "Junior": "Самостоятельно и корректно решает явный asset, identity и локальный enforcement path при понятных фактах и ограниченных последствиях.",
+    "Middle": "Самостоятельно интегрирует trust boundaries, authorization, effect и независимое attack evidence, строит причинную/аналитическую модель и проверяет действие при реальных constraints.",
+    "Senior": "Выбирает threat/assurance/trust policy с blast radius и владельцем residual risk среди допустимых решений с uncertainty, evolution, rollback и ответственностью за последствия."
+  },
+  "sources": [
+    "https://sfia-online.org/en/sfia-9/responsibilities",
+    "https://owasp.org/www-project-application-security-verification-standard/",
+    "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+  ],
+  "knownLimitations": [
+    "18 capabilities охватывают scenario scope этого assessment, а не всю профессию.",
+    "Grade taxonomy — synthesis команды; стандарты не задают эти три grades или проценты confirmation.",
+    "Closed-world multiple choice и bounded execution не доказывают самостоятельную формулировку стратегии в открытой задаче.",
+    "Rubric и mapping требуют независимого expert review; человеческая calibration отсутствует."
+  ],
+  "capabilities": [
+    {
+      "id": "security-appsec.asset-impact",
+      "domain": "threat",
+      "description": "Asset и последствия угрозы",
+      "middleTier": "core",
+      "juniorExpectation": "Указывает защищаемый asset",
+      "middleExpectation": "Связывает threat actor, entrypoint и business impact",
+      "seniorExpectation": "Выбирает threat priorities по exposure и residual risk",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Перечисляет угрозы без asset и impact; не связывает это с границей ожидаемого результата: указывает защищаемый asset",
+          "borderline": "Может: указывает защищаемый asset, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: указывает защищаемый asset. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Перечисляет угрозы без asset и impact; не связывает это с границей ожидаемого результата: связывает threat actor, entrypoint и business impact",
+          "borderline": "Может: связывает threat actor, entrypoint и business impact, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает threat actor, entrypoint и business impact. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Перечисляет угрозы без asset и impact; не связывает это с границей ожидаемого результата: выбирает threat priorities по exposure и residual risk",
+          "borderline": "Может: выбирает threat priorities по exposure и residual risk, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает threat priorities по exposure и residual risk. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Указывает защищаемый asset — локальная проверка результата",
+        "Связывает threat actor, entrypoint и business impact — независимое evidence и объяснение",
+        "Выбирает threat priorities по exposure и residual risk — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Перечисляет угрозы без asset и impact",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://owasp.org/www-project-application-security-verification-standard/",
+        "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "security-appsec.tenant-boundary",
+      "domain": "threat",
+      "description": "Trust boundary tenant",
+      "middleTier": "core",
+      "juniorExpectation": "Различает текущую identity и tenant",
+      "middleExpectation": "Прослеживает границы trust между сервисами и storage",
+      "seniorExpectation": "Выбирает isolation policy при delegated access и evolution",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Принимает tenant из request как доверенный; не связывает это с границей ожидаемого результата: различает текущую identity и tenant",
+          "borderline": "Может: различает текущую identity и tenant, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает текущую identity и tenant. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Принимает tenant из request как доверенный; не связывает это с границей ожидаемого результата: прослеживает границы trust между сервисами и storage",
+          "borderline": "Может: прослеживает границы trust между сервисами и storage, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: прослеживает границы trust между сервисами и storage. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Принимает tenant из request как доверенный; не связывает это с границей ожидаемого результата: выбирает isolation policy при delegated access и evolution",
+          "borderline": "Может: выбирает isolation policy при delegated access и evolution, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает isolation policy при delegated access и evolution. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Различает текущую identity и tenant — локальная проверка результата",
+        "Прослеживает границы trust между сервисами и storage — независимое evidence и объяснение",
+        "Выбирает isolation policy при delegated access и evolution — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Принимает tenant из request как доверенный",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://owasp.org/www-project-application-security-verification-standard/",
+        "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "security-appsec.abuse-path",
+      "domain": "threat",
+      "description": "Путь злоупотребления",
+      "middleTier": "upper",
+      "juniorExpectation": "Описывает локальный запрещённый action",
+      "middleExpectation": "Строит путь от attacker input до защищённого effect",
+      "seniorExpectation": "Выбирает mitigations по blast radius и adversary capability",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Оценивает endpoint без downstream effects; не связывает это с границей ожидаемого результата: описывает локальный запрещённый action",
+          "borderline": "Может: описывает локальный запрещённый action, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: описывает локальный запрещённый action. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Оценивает endpoint без downstream effects; не связывает это с границей ожидаемого результата: строит путь от attacker input до защищённого effect",
+          "borderline": "Может: строит путь от attacker input до защищённого effect, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: строит путь от attacker input до защищённого effect. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Оценивает endpoint без downstream effects; не связывает это с границей ожидаемого результата: выбирает mitigations по blast radius и adversary capability",
+          "borderline": "Может: выбирает mitigations по blast radius и adversary capability, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает mitigations по blast radius и adversary capability. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Описывает локальный запрещённый action — локальная проверка результата",
+        "Строит путь от attacker input до защищённого effect — независимое evidence и объяснение",
+        "Выбирает mitigations по blast radius и adversary capability — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Оценивает endpoint без downstream effects",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://owasp.org/www-project-application-security-verification-standard/",
+        "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "security-appsec.object-policy",
+      "domain": "authorization",
+      "description": "Object authorization",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет доступ identity к объекту",
+      "middleExpectation": "Связывает lookup, ownership и indirect references",
+      "seniorExpectation": "Выбирает policy enforcement при multi-service workflow",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает unpredictable id разрешением доступа; не связывает это с границей ожидаемого результата: проверяет доступ identity к объекту",
+          "borderline": "Может: проверяет доступ identity к объекту, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет доступ identity к объекту. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает unpredictable id разрешением доступа; не связывает это с границей ожидаемого результата: связывает lookup, ownership и indirect references",
+          "borderline": "Может: связывает lookup, ownership и indirect references, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает lookup, ownership и indirect references. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает unpredictable id разрешением доступа; не связывает это с границей ожидаемого результата: выбирает policy enforcement при multi-service workflow",
+          "borderline": "Может: выбирает policy enforcement при multi-service workflow, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает policy enforcement при multi-service workflow. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет доступ identity к объекту — локальная проверка результата",
+        "Связывает lookup, ownership и indirect references — независимое evidence и объяснение",
+        "Выбирает policy enforcement при multi-service workflow — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает unpredictable id разрешением доступа",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://owasp.org/www-project-application-security-verification-standard/",
+        "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "security-appsec.function-policy",
+      "domain": "authorization",
+      "description": "Function-level policy",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет право на заданное действие",
+      "middleExpectation": "Различает role, scope и контекст операции",
+      "seniorExpectation": "Выбирает least privilege при delegated и emergency доступе",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Скрывает функцию в UI вместо enforcement; не связывает это с границей ожидаемого результата: проверяет право на заданное действие",
+          "borderline": "Может: проверяет право на заданное действие, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет право на заданное действие. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Скрывает функцию в UI вместо enforcement; не связывает это с границей ожидаемого результата: различает role, scope и контекст операции",
+          "borderline": "Может: различает role, scope и контекст операции, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает role, scope и контекст операции. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Скрывает функцию в UI вместо enforcement; не связывает это с границей ожидаемого результата: выбирает least privilege при delegated и emergency доступе",
+          "borderline": "Может: выбирает least privilege при delegated и emergency доступе, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает least privilege при delegated и emergency доступе. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет право на заданное действие — локальная проверка результата",
+        "Различает role, scope и контекст операции — независимое evidence и объяснение",
+        "Выбирает least privilege при delegated и emergency доступе — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Скрывает функцию в UI вместо enforcement",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://owasp.org/www-project-application-security-verification-standard/",
+        "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "security-appsec.authorization-evidence",
+      "domain": "authorization",
+      "description": "Evidence authorization path",
+      "middleTier": "upper",
+      "juniorExpectation": "Проверяет denial известного forbidden request",
+      "middleExpectation": "Сопоставляет gateway, service и storage enforcement",
+      "seniorExpectation": "Выбирает независимую assurance и audit по privilege risk",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Проверяет только прямой endpoint путь; не связывает это с границей ожидаемого результата: проверяет denial известного forbidden request",
+          "borderline": "Может: проверяет denial известного forbidden request, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет denial известного forbidden request. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Проверяет только прямой endpoint путь; не связывает это с границей ожидаемого результата: сопоставляет gateway, service и storage enforcement",
+          "borderline": "Может: сопоставляет gateway, service и storage enforcement, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет gateway, service и storage enforcement. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Проверяет только прямой endpoint путь; не связывает это с границей ожидаемого результата: выбирает независимую assurance и audit по privilege risk",
+          "borderline": "Может: выбирает независимую assurance и audit по privilege risk, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает независимую assurance и audit по privilege risk. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет denial известного forbidden request — локальная проверка результата",
+        "Сопоставляет gateway, service и storage enforcement — независимое evidence и объяснение",
+        "Выбирает независимую assurance и audit по privilege risk — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Проверяет только прямой endpoint путь",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://owasp.org/www-project-application-security-verification-standard/",
+        "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "security-appsec.session-revocation",
+      "domain": "session",
+      "description": "Session lifecycle и revoke",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет expiration и revoke token",
+      "middleExpectation": "Связывает caches, refresh и concurrent sessions",
+      "seniorExpectation": "Выбирает revocation contract с availability и exposure",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает logout очисткой одного browser достаточным; не связывает это с границей ожидаемого результата: проверяет expiration и revoke token",
+          "borderline": "Может: проверяет expiration и revoke token, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет expiration и revoke token. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает logout очисткой одного browser достаточным; не связывает это с границей ожидаемого результата: связывает caches, refresh и concurrent sessions",
+          "borderline": "Может: связывает caches, refresh и concurrent sessions, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает caches, refresh и concurrent sessions. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает logout очисткой одного browser достаточным; не связывает это с границей ожидаемого результата: выбирает revocation contract с availability и exposure",
+          "borderline": "Может: выбирает revocation contract с availability и exposure, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает revocation contract с availability и exposure. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет expiration и revoke token — локальная проверка результата",
+        "Связывает caches, refresh и concurrent sessions — независимое evidence и объяснение",
+        "Выбирает revocation contract с availability и exposure — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает logout очисткой одного browser достаточным",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://owasp.org/www-project-application-security-verification-standard/",
+        "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "security-appsec.secret-rotation",
+      "domain": "session",
+      "description": "Secret rotation",
+      "middleTier": "core",
+      "juniorExpectation": "Не раскрывает локальный secret",
+      "middleExpectation": "Согласует dual keys, consumers и removal старого secret",
+      "seniorExpectation": "Выбирает rotation/recovery policy под compromise risk",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Удаляет старый key до migration consumers; не связывает это с границей ожидаемого результата: не раскрывает локальный secret",
+          "borderline": "Может: не раскрывает локальный secret, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: не раскрывает локальный secret. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Удаляет старый key до migration consumers; не связывает это с границей ожидаемого результата: согласует dual keys, consumers и removal старого secret",
+          "borderline": "Может: согласует dual keys, consumers и removal старого secret, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует dual keys, consumers и removal старого secret. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Удаляет старый key до migration consumers; не связывает это с границей ожидаемого результата: выбирает rotation/recovery policy под compromise risk",
+          "borderline": "Может: выбирает rotation/recovery policy под compromise risk, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает rotation/recovery policy под compromise risk. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Не раскрывает локальный secret — локальная проверка результата",
+        "Согласует dual keys, consumers и removal старого secret — независимое evidence и объяснение",
+        "Выбирает rotation/recovery policy под compromise risk — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Удаляет старый key до migration consumers",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://owasp.org/www-project-application-security-verification-standard/",
+        "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "security-appsec.identity-evidence",
+      "domain": "session",
+      "description": "Evidence identity",
+      "middleTier": "upper",
+      "juniorExpectation": "Проверяет issuer и audience credential",
+      "middleExpectation": "Прослеживает identity через delegation и session state",
+      "seniorExpectation": "Выбирает trust policy с audit и credential compromise",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Принимает валидную подпись для любого audience; не связывает это с границей ожидаемого результата: проверяет issuer и audience credential",
+          "borderline": "Может: проверяет issuer и audience credential, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет issuer и audience credential. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Принимает валидную подпись для любого audience; не связывает это с границей ожидаемого результата: прослеживает identity через delegation и session state",
+          "borderline": "Может: прослеживает identity через delegation и session state, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: прослеживает identity через delegation и session state. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Принимает валидную подпись для любого audience; не связывает это с границей ожидаемого результата: выбирает trust policy с audit и credential compromise",
+          "borderline": "Может: выбирает trust policy с audit и credential compromise, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает trust policy с audit и credential compromise. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет issuer и audience credential — локальная проверка результата",
+        "Прослеживает identity через delegation и session state — независимое evidence и объяснение",
+        "Выбирает trust policy с audit и credential compromise — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Принимает валидную подпись для любого audience",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://owasp.org/www-project-application-security-verification-standard/",
+        "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "security-appsec.query-boundary",
+      "domain": "input",
+      "description": "Query input boundary",
+      "middleTier": "core",
+      "juniorExpectation": "Разделяет input и исполняемый query",
+      "middleExpectation": "Прослеживает encoding, parser и downstream sink",
+      "seniorExpectation": "Выбирает validation/enforcement contract через trust layers",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Экранирует один слой и доверяет следующему; не связывает это с границей ожидаемого результата: разделяет input и исполняемый query",
+          "borderline": "Может: разделяет input и исполняемый query, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: разделяет input и исполняемый query. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Экранирует один слой и доверяет следующему; не связывает это с границей ожидаемого результата: прослеживает encoding, parser и downstream sink",
+          "borderline": "Может: прослеживает encoding, parser и downstream sink, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: прослеживает encoding, parser и downstream sink. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Экранирует один слой и доверяет следующему; не связывает это с границей ожидаемого результата: выбирает validation/enforcement contract через trust layers",
+          "borderline": "Может: выбирает validation/enforcement contract через trust layers, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает validation/enforcement contract через trust layers. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Разделяет input и исполняемый query — локальная проверка результата",
+        "Прослеживает encoding, parser и downstream sink — независимое evidence и объяснение",
+        "Выбирает validation/enforcement contract через trust layers — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Экранирует один слой и доверяет следующему",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://owasp.org/www-project-application-security-verification-standard/",
+        "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "security-appsec.external-resource",
+      "domain": "input",
+      "description": "Контроль external resource",
+      "middleTier": "core",
+      "juniorExpectation": "Ограничивает заданный resource destination",
+      "middleExpectation": "Связывает redirects, DNS и internal network exposure",
+      "seniorExpectation": "Выбирает egress policy с functionality и residual SSRF risk",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Проверяет только исходный URL; не связывает это с границей ожидаемого результата: ограничивает заданный resource destination",
+          "borderline": "Может: ограничивает заданный resource destination, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: ограничивает заданный resource destination. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Проверяет только исходный URL; не связывает это с границей ожидаемого результата: связывает redirects, dns и internal network exposure",
+          "borderline": "Может: связывает redirects, dns и internal network exposure, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает redirects, dns и internal network exposure. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Проверяет только исходный URL; не связывает это с границей ожидаемого результата: выбирает egress policy с functionality и residual ssrf risk",
+          "borderline": "Может: выбирает egress policy с functionality и residual ssrf risk, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает egress policy с functionality и residual ssrf risk. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Ограничивает заданный resource destination — локальная проверка результата",
+        "Связывает redirects, DNS и internal network exposure — независимое evidence и объяснение",
+        "Выбирает egress policy с functionality и residual SSRF risk — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Проверяет только исходный URL",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://owasp.org/www-project-application-security-verification-standard/",
+        "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "security-appsec.parser-context",
+      "domain": "input",
+      "description": "Семантика parser context",
+      "middleTier": "upper",
+      "juniorExpectation": "Использует encoding для конкретного sink",
+      "middleExpectation": "Различает canonicalization, validation и интерпретацию",
+      "seniorExpectation": "Выбирает безопасные interfaces при multiple parser boundaries",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает универсальный sanitizer достаточным; не связывает это с границей ожидаемого результата: использует encoding для конкретного sink",
+          "borderline": "Может: использует encoding для конкретного sink, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: использует encoding для конкретного sink. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает универсальный sanitizer достаточным; не связывает это с границей ожидаемого результата: различает canonicalization, validation и интерпретацию",
+          "borderline": "Может: различает canonicalization, validation и интерпретацию, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает canonicalization, validation и интерпретацию. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает универсальный sanitizer достаточным; не связывает это с границей ожидаемого результата: выбирает безопасные interfaces при multiple parser boundaries",
+          "borderline": "Может: выбирает безопасные interfaces при multiple parser boundaries, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает безопасные interfaces при multiple parser boundaries. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Использует encoding для конкретного sink — локальная проверка результата",
+        "Различает canonicalization, validation и интерпретацию — независимое evidence и объяснение",
+        "Выбирает безопасные interfaces при multiple parser boundaries — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает универсальный sanitizer достаточным",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://owasp.org/www-project-application-security-verification-standard/",
+        "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "security-appsec.build-provenance",
+      "domain": "supply-chain",
+      "description": "Provenance build artifact",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет digest известного artifact",
+      "middleExpectation": "Связывает source, builder и signed provenance",
+      "seniorExpectation": "Выбирает trust policy и независимый verification chain",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Доверяет provenance от того же compromised builder; не связывает это с границей ожидаемого результата: проверяет digest известного artifact",
+          "borderline": "Может: проверяет digest известного artifact, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет digest известного artifact. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Доверяет provenance от того же compromised builder; не связывает это с границей ожидаемого результата: связывает source, builder и signed provenance",
+          "borderline": "Может: связывает source, builder и signed provenance, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает source, builder и signed provenance. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Доверяет provenance от того же compromised builder; не связывает это с границей ожидаемого результата: выбирает trust policy и независимый verification chain",
+          "borderline": "Может: выбирает trust policy и независимый verification chain, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает trust policy и независимый verification chain. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет digest известного artifact — локальная проверка результата",
+        "Связывает source, builder и signed provenance — независимое evidence и объяснение",
+        "Выбирает trust policy и независимый verification chain — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Доверяет provenance от того же compromised builder",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://owasp.org/www-project-application-security-verification-standard/",
+        "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "security-appsec.dependency-exposure",
+      "domain": "supply-chain",
+      "description": "Exposure dependency",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет затронутую версию",
+      "middleExpectation": "Связывает reachable code, exploit prerequisites и deployment",
+      "seniorExpectation": "Выбирает remediation/compensating control по impact и cost",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Приравнивает CVSS к реальному exposure приложения; не связывает это с границей ожидаемого результата: проверяет затронутую версию",
+          "borderline": "Может: проверяет затронутую версию, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет затронутую версию. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Приравнивает CVSS к реальному exposure приложения; не связывает это с границей ожидаемого результата: связывает reachable code, exploit prerequisites и deployment",
+          "borderline": "Может: связывает reachable code, exploit prerequisites и deployment, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает reachable code, exploit prerequisites и deployment. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Приравнивает CVSS к реальному exposure приложения; не связывает это с границей ожидаемого результата: выбирает remediation/compensating control по impact и cost",
+          "borderline": "Может: выбирает remediation/compensating control по impact и cost, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает remediation/compensating control по impact и cost. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет затронутую версию — локальная проверка результата",
+        "Связывает reachable code, exploit prerequisites и deployment — независимое evidence и объяснение",
+        "Выбирает remediation/compensating control по impact и cost — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Приравнивает CVSS к реальному exposure приложения",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://owasp.org/www-project-application-security-verification-standard/",
+        "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "security-appsec.promotion-trust",
+      "domain": "supply-chain",
+      "description": "Trust artifact promotion",
+      "middleTier": "upper",
+      "juniorExpectation": "Промотирует проверенный immutable digest",
+      "middleExpectation": "Различает publisher, approver и deployer authority",
+      "seniorExpectation": "Выбирает separation of duties и emergency recovery policy",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает подпись доказательством безопасного содержания; не связывает это с границей ожидаемого результата: промотирует проверенный immutable digest",
+          "borderline": "Может: промотирует проверенный immutable digest, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: промотирует проверенный immutable digest. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает подпись доказательством безопасного содержания; не связывает это с границей ожидаемого результата: различает publisher, approver и deployer authority",
+          "borderline": "Может: различает publisher, approver и deployer authority, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает publisher, approver и deployer authority. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает подпись доказательством безопасного содержания; не связывает это с границей ожидаемого результата: выбирает separation of duties и emergency recovery policy",
+          "borderline": "Может: выбирает separation of duties и emergency recovery policy, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает separation of duties и emergency recovery policy. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Промотирует проверенный immutable digest — локальная проверка результата",
+        "Различает publisher, approver и deployer authority — независимое evidence и объяснение",
+        "Выбирает separation of duties и emergency recovery policy — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает подпись доказательством безопасного содержания",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://owasp.org/www-project-application-security-verification-standard/",
+        "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "security-appsec.control-verification",
+      "domain": "assurance",
+      "description": "Проверка security control",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет разрешённый и запрещённый локальный path",
+      "middleExpectation": "Связывает mitigation с независимым attack evidence",
+      "seniorExpectation": "Выбирает assurance depth и residual exposure ownership",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает наличие control доказательством effectiveness; не связывает это с границей ожидаемого результата: проверяет разрешённый и запрещённый локальный path",
+          "borderline": "Может: проверяет разрешённый и запрещённый локальный path, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет разрешённый и запрещённый локальный path. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает наличие control доказательством effectiveness; не связывает это с границей ожидаемого результата: связывает mitigation с независимым attack evidence",
+          "borderline": "Может: связывает mitigation с независимым attack evidence, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает mitigation с независимым attack evidence. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает наличие control доказательством effectiveness; не связывает это с границей ожидаемого результата: выбирает assurance depth и residual exposure ownership",
+          "borderline": "Может: выбирает assurance depth и residual exposure ownership, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает assurance depth и residual exposure ownership. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет разрешённый и запрещённый локальный path — локальная проверка результата",
+        "Связывает mitigation с независимым attack evidence — независимое evidence и объяснение",
+        "Выбирает assurance depth и residual exposure ownership — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает наличие control доказательством effectiveness",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://owasp.org/www-project-application-security-verification-standard/",
+        "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "security-appsec.audit-signal",
+      "domain": "assurance",
+      "description": "Security audit signal",
+      "middleTier": "core",
+      "juniorExpectation": "Сохраняет identity и effect события",
+      "middleExpectation": "Сопоставляет logs через trust boundaries и защищает integrity",
+      "seniorExpectation": "Выбирает detection/retention policy с privacy и response cost",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Логирует только успешные действия без identity; не связывает это с границей ожидаемого результата: сохраняет identity и effect события",
+          "borderline": "Может: сохраняет identity и effect события, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет identity и effect события. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Логирует только успешные действия без identity; не связывает это с границей ожидаемого результата: сопоставляет logs через trust boundaries и защищает integrity",
+          "borderline": "Может: сопоставляет logs через trust boundaries и защищает integrity, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет logs через trust boundaries и защищает integrity. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Логирует только успешные действия без identity; не связывает это с границей ожидаемого результата: выбирает detection/retention policy с privacy и response cost",
+          "borderline": "Может: выбирает detection/retention policy с privacy и response cost, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает detection/retention policy с privacy и response cost. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет identity и effect события — локальная проверка результата",
+        "Сопоставляет logs через trust boundaries и защищает integrity — независимое evidence и объяснение",
+        "Выбирает detection/retention policy с privacy и response cost — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Логирует только успешные действия без identity",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://owasp.org/www-project-application-security-verification-standard/",
+        "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "security-appsec.residual-risk",
+      "domain": "assurance",
+      "description": "Residual risk и последствия",
+      "middleTier": "upper",
+      "juniorExpectation": "Указывает непокрытый локальный случай",
+      "middleExpectation": "Описывает limitations mitigation и путь обхода",
+      "seniorExpectation": "Выбирает risk acceptance с владельцем и условиями пересмотра",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Называет mitigation полным устранением риска; не связывает это с границей ожидаемого результата: указывает непокрытый локальный случай",
+          "borderline": "Может: указывает непокрытый локальный случай, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: указывает непокрытый локальный случай. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Называет mitigation полным устранением риска; не связывает это с границей ожидаемого результата: описывает limitations mitigation и путь обхода",
+          "borderline": "Может: описывает limitations mitigation и путь обхода, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: описывает limitations mitigation и путь обхода. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Называет mitigation полным устранением риска; не связывает это с границей ожидаемого результата: выбирает risk acceptance с владельцем и условиями пересмотра",
+          "borderline": "Может: выбирает risk acceptance с владельцем и условиями пересмотра, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает risk acceptance с владельцем и условиями пересмотра. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Указывает непокрытый локальный случай — локальная проверка результата",
+        "Описывает limitations mitigation и путь обхода — независимое evidence и объяснение",
+        "Выбирает risk acceptance с владельцем и условиями пересмотра — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Называет mitigation полным устранением риска",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://owasp.org/www-project-application-security-verification-standard/",
+        "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    }
+  ]
+}

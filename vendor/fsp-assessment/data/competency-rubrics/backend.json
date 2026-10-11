@@ -1,0 +1,762 @@
+{
+  "version": "professional-competency-2.0.0",
+  "track": "backend",
+  "name": "Backend",
+  "roleScope": "request, persistence, asynchronous effects и гарантии сервисов",
+  "gradeStandards": {
+    "Junior": "Самостоятельно и корректно решает локальные API, записи и ресурсы при понятных фактах и ограниченных последствиях.",
+    "Middle": "Самостоятельно интегрирует причинные связи request, DB, delivery и dependencies, строит причинную/аналитическую модель и проверяет действие при реальных constraints.",
+    "Senior": "Выбирает эволюция контрактов, миграции и гарантии при partial failure среди допустимых решений с uncertainty, evolution, rollback и ответственностью за последствия."
+  },
+  "sources": [
+    "https://sfia-online.org/en/sfia-9/responsibilities",
+    "https://www.postgresql.org/docs/current/transaction-iso.html",
+    "https://sre.google/sre-book/table-of-contents/"
+  ],
+  "knownLimitations": [
+    "18 capabilities охватывают scenario scope этого assessment, а не всю профессию.",
+    "Grade taxonomy — synthesis команды; стандарты не задают эти три grades или проценты confirmation.",
+    "Closed-world multiple choice и bounded execution не доказывают самостоятельную формулировку стратегии в открытой задаче.",
+    "Rubric и mapping требуют независимого expert review; человеческая calibration отсутствует."
+  ],
+  "capabilities": [
+    {
+      "id": "backend.request-contract",
+      "domain": "api",
+      "description": "Валидация request и API contract",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет обязательные поля и границы входа",
+      "middleExpectation": "Связывает validation, status и побочный эффект request",
+      "seniorExpectation": "Выбирает эволюцию контрактов с совместимостью клиентов",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Применяет побочный эффект до проверки request; не связывает это с границей ожидаемого результата: проверяет обязательные поля и границы входа",
+          "borderline": "Может: проверяет обязательные поля и границы входа, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет обязательные поля и границы входа. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Применяет побочный эффект до проверки request; не связывает это с границей ожидаемого результата: связывает validation, status и побочный эффект request",
+          "borderline": "Может: связывает validation, status и побочный эффект request, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает validation, status и побочный эффект request. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Применяет побочный эффект до проверки request; не связывает это с границей ожидаемого результата: выбирает эволюцию контрактов с совместимостью клиентов",
+          "borderline": "Может: выбирает эволюцию контрактов с совместимостью клиентов, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает эволюцию контрактов с совместимостью клиентов. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет обязательные поля и границы входа — локальная проверка результата",
+        "Связывает validation, status и побочный эффект request — независимое evidence и объяснение",
+        "Выбирает эволюцию контрактов с совместимостью клиентов — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Применяет побочный эффект до проверки request",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.postgresql.org/docs/current/transaction-iso.html",
+        "https://sre.google/sre-book/table-of-contents/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "backend.workflow-compatibility",
+      "domain": "api",
+      "description": "Совместимость API workflow",
+      "middleTier": "core",
+      "juniorExpectation": "Сохраняет документированную форму ответа",
+      "middleExpectation": "Проверяет старый клиент на всём workflow",
+      "seniorExpectation": "Выбирает versioning и окно миграции с rollback",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает совпадение JSON достаточной совместимостью; не связывает это с границей ожидаемого результата: сохраняет документированную форму ответа",
+          "borderline": "Может: сохраняет документированную форму ответа, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет документированную форму ответа. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает совпадение JSON достаточной совместимостью; не связывает это с границей ожидаемого результата: проверяет старый клиент на всём workflow",
+          "borderline": "Может: проверяет старый клиент на всём workflow, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет старый клиент на всём workflow. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает совпадение JSON достаточной совместимостью; не связывает это с границей ожидаемого результата: выбирает versioning и окно миграции с rollback",
+          "borderline": "Может: выбирает versioning и окно миграции с rollback, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает versioning и окно миграции с rollback. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет документированную форму ответа — локальная проверка результата",
+        "Проверяет старый клиент на всём workflow — независимое evidence и объяснение",
+        "Выбирает versioning и окно миграции с rollback — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает совпадение JSON достаточной совместимостью",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.postgresql.org/docs/current/transaction-iso.html",
+        "https://sre.google/sre-book/table-of-contents/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "backend.identity-ordering",
+      "domain": "api",
+      "description": "Identity и порядок request",
+      "middleTier": "upper",
+      "juniorExpectation": "Сопоставляет ответ с локальной операцией",
+      "middleExpectation": "Прослеживает identity между request, записью и async effect",
+      "seniorExpectation": "Задаёт ownership identity и политику повторов при эволюции",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Применяет поздний ответ к другой операции; не связывает это с границей ожидаемого результата: сопоставляет ответ с локальной операцией",
+          "borderline": "Может: сопоставляет ответ с локальной операцией, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет ответ с локальной операцией. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Применяет поздний ответ к другой операции; не связывает это с границей ожидаемого результата: прослеживает identity между request, записью и async effect",
+          "borderline": "Может: прослеживает identity между request, записью и async effect, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: прослеживает identity между request, записью и async effect. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Применяет поздний ответ к другой операции; не связывает это с границей ожидаемого результата: задаёт ownership identity и политику повторов при эволюции",
+          "borderline": "Может: задаёт ownership identity и политику повторов при эволюции, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: задаёт ownership identity и политику повторов при эволюции. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сопоставляет ответ с локальной операцией — локальная проверка результата",
+        "Прослеживает identity между request, записью и async effect — независимое evidence и объяснение",
+        "Задаёт ownership identity и политику повторов при эволюции — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Применяет поздний ответ к другой операции",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.postgresql.org/docs/current/transaction-iso.html",
+        "https://sre.google/sre-book/table-of-contents/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "backend.transaction-boundary",
+      "domain": "data",
+      "description": "Границы транзакции",
+      "middleTier": "core",
+      "juniorExpectation": "Сохраняет локальный инвариант commit",
+      "middleExpectation": "Отличает atomic запись от внешнего побочного эффекта",
+      "seniorExpectation": "Выбирает outbox, reconciliation или отказ с ценой гарантии",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Предполагает атомарность DB и внешнего сервиса; не связывает это с границей ожидаемого результата: сохраняет локальный инвариант commit",
+          "borderline": "Может: сохраняет локальный инвариант commit, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет локальный инвариант commit. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Предполагает атомарность DB и внешнего сервиса; не связывает это с границей ожидаемого результата: отличает atomic запись от внешнего побочного эффекта",
+          "borderline": "Может: отличает atomic запись от внешнего побочного эффекта, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: отличает atomic запись от внешнего побочного эффекта. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Предполагает атомарность DB и внешнего сервиса; не связывает это с границей ожидаемого результата: выбирает outbox, reconciliation или отказ с ценой гарантии",
+          "borderline": "Может: выбирает outbox, reconciliation или отказ с ценой гарантии, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает outbox, reconciliation или отказ с ценой гарантии. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет локальный инвариант commit — локальная проверка результата",
+        "Отличает atomic запись от внешнего побочного эффекта — независимое evidence и объяснение",
+        "Выбирает outbox, reconciliation или отказ с ценой гарантии — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Предполагает атомарность DB и внешнего сервиса",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.postgresql.org/docs/current/transaction-iso.html",
+        "https://sre.google/sre-book/table-of-contents/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "backend.concurrent-state",
+      "domain": "data",
+      "description": "Конкурентное обновление и consistency",
+      "middleTier": "core",
+      "juniorExpectation": "Распознаёт потерянное обновление одной записи",
+      "middleExpectation": "Связывает isolation, версии, cache и конкурирующих writers",
+      "seniorExpectation": "Выбирает consistency contract и миграцию writer protocols",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Заменяет проверку версии последней записью; не связывает это с границей ожидаемого результата: распознаёт потерянное обновление одной записи",
+          "borderline": "Может: распознаёт потерянное обновление одной записи, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: распознаёт потерянное обновление одной записи. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Заменяет проверку версии последней записью; не связывает это с границей ожидаемого результата: связывает isolation, версии, cache и конкурирующих writers",
+          "borderline": "Может: связывает isolation, версии, cache и конкурирующих writers, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает isolation, версии, cache и конкурирующих writers. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Заменяет проверку версии последней записью; не связывает это с границей ожидаемого результата: выбирает consistency contract и миграцию writer protocols",
+          "borderline": "Может: выбирает consistency contract и миграцию writer protocols, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает consistency contract и миграцию writer protocols. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Распознаёт потерянное обновление одной записи — локальная проверка результата",
+        "Связывает isolation, версии, cache и конкурирующих writers — независимое evidence и объяснение",
+        "Выбирает consistency contract и миграцию writer protocols — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Заменяет проверку версии последней записью",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.postgresql.org/docs/current/transaction-iso.html",
+        "https://sre.google/sre-book/table-of-contents/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "backend.query-semantics",
+      "domain": "data",
+      "description": "Семантика чтения и выборки",
+      "middleTier": "upper",
+      "juniorExpectation": "Использует устойчивый порядок и границы страницы",
+      "middleExpectation": "Проверяет pagination, cache и snapshot при изменении данных",
+      "seniorExpectation": "Выбирает договорённость freshness и стоимость согласованного чтения",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает offset устойчивым при изменении выборки; не связывает это с границей ожидаемого результата: использует устойчивый порядок и границы страницы",
+          "borderline": "Может: использует устойчивый порядок и границы страницы, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: использует устойчивый порядок и границы страницы. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает offset устойчивым при изменении выборки; не связывает это с границей ожидаемого результата: проверяет pagination, cache и snapshot при изменении данных",
+          "borderline": "Может: проверяет pagination, cache и snapshot при изменении данных, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет pagination, cache и snapshot при изменении данных. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает offset устойчивым при изменении выборки; не связывает это с границей ожидаемого результата: выбирает договорённость freshness и стоимость согласованного чтения",
+          "borderline": "Может: выбирает договорённость freshness и стоимость согласованного чтения, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает договорённость freshness и стоимость согласованного чтения. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Использует устойчивый порядок и границы страницы — локальная проверка результата",
+        "Проверяет pagination, cache и snapshot при изменении данных — независимое evidence и объяснение",
+        "Выбирает договорённость freshness и стоимость согласованного чтения — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает offset устойчивым при изменении выборки",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.postgresql.org/docs/current/transaction-iso.html",
+        "https://sre.google/sre-book/table-of-contents/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "backend.unknown-outcome",
+      "domain": "reliability",
+      "description": "Неопределённый внешний исход",
+      "middleTier": "core",
+      "juniorExpectation": "Отличает локальный отказ от отсутствия ответа",
+      "middleExpectation": "Ищет outcome evidence и безопасную identity до retry эффекта",
+      "seniorExpectation": "Выбирает reconciliation, safe stop и retention policy",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает timeout доказательством failure; не связывает это с границей ожидаемого результата: отличает локальный отказ от отсутствия ответа",
+          "borderline": "Может: отличает локальный отказ от отсутствия ответа, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: отличает локальный отказ от отсутствия ответа. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает timeout доказательством failure; не связывает это с границей ожидаемого результата: ищет outcome evidence и безопасную identity до retry эффекта",
+          "borderline": "Может: ищет outcome evidence и безопасную identity до retry эффекта, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: ищет outcome evidence и безопасную identity до retry эффекта. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает timeout доказательством failure; не связывает это с границей ожидаемого результата: выбирает reconciliation, safe stop и retention policy",
+          "borderline": "Может: выбирает reconciliation, safe stop и retention policy, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает reconciliation, safe stop и retention policy. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Отличает локальный отказ от отсутствия ответа — локальная проверка результата",
+        "Ищет outcome evidence и безопасную identity до retry эффекта — независимое evidence и объяснение",
+        "Выбирает reconciliation, safe stop и retention policy — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает timeout доказательством failure",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.postgresql.org/docs/current/transaction-iso.html",
+        "https://sre.google/sre-book/table-of-contents/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "backend.duplicate-retry",
+      "domain": "reliability",
+      "description": "Повторы и доставка дубликатов",
+      "middleTier": "core",
+      "juniorExpectation": "Не повторяет известный выполненный эффект",
+      "middleExpectation": "Связывает delivery, deduplication и границы retry budget",
+      "seniorExpectation": "Выбирает гарантию доставки с нагрузкой и сроком дедупликации",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Повторяет эффект с новой identity; не связывает это с границей ожидаемого результата: не повторяет известный выполненный эффект",
+          "borderline": "Может: не повторяет известный выполненный эффект, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: не повторяет известный выполненный эффект. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Повторяет эффект с новой identity; не связывает это с границей ожидаемого результата: связывает delivery, deduplication и границы retry budget",
+          "borderline": "Может: связывает delivery, deduplication и границы retry budget, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает delivery, deduplication и границы retry budget. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Повторяет эффект с новой identity; не связывает это с границей ожидаемого результата: выбирает гарантию доставки с нагрузкой и сроком дедупликации",
+          "borderline": "Может: выбирает гарантию доставки с нагрузкой и сроком дедупликации, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает гарантию доставки с нагрузкой и сроком дедупликации. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Не повторяет известный выполненный эффект — локальная проверка результата",
+        "Связывает delivery, deduplication и границы retry budget — независимое evidence и объяснение",
+        "Выбирает гарантию доставки с нагрузкой и сроком дедупликации — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Повторяет эффект с новой identity",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.postgresql.org/docs/current/transaction-iso.html",
+        "https://sre.google/sre-book/table-of-contents/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "backend.partial-failure",
+      "domain": "reliability",
+      "description": "Частичный отказ и координация",
+      "middleTier": "upper",
+      "juniorExpectation": "Ограничивает локальный неуспешный вызов",
+      "middleExpectation": "Рассуждает о lease, dependencies и amplification при partial failure",
+      "seniorExpectation": "Выбирает containment и recovery с ограничением blast radius",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает lease вечным владением ресурсом; не связывает это с границей ожидаемого результата: ограничивает локальный неуспешный вызов",
+          "borderline": "Может: ограничивает локальный неуспешный вызов, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: ограничивает локальный неуспешный вызов. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает lease вечным владением ресурсом; не связывает это с границей ожидаемого результата: рассуждает о lease, dependencies и amplification при partial failure",
+          "borderline": "Может: рассуждает о lease, dependencies и amplification при partial failure, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: рассуждает о lease, dependencies и amplification при partial failure. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает lease вечным владением ресурсом; не связывает это с границей ожидаемого результата: выбирает containment и recovery с ограничением blast radius",
+          "borderline": "Может: выбирает containment и recovery с ограничением blast radius, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает containment и recovery с ограничением blast radius. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Ограничивает локальный неуспешный вызов — локальная проверка результата",
+        "Рассуждает о lease, dependencies и amplification при partial failure — независимое evidence и объяснение",
+        "Выбирает containment и recovery с ограничением blast radius — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает lease вечным владением ресурсом",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.postgresql.org/docs/current/transaction-iso.html",
+        "https://sre.google/sre-book/table-of-contents/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "backend.resource-lifecycle",
+      "domain": "performance",
+      "description": "Жизненный цикл ресурса",
+      "middleTier": "core",
+      "juniorExpectation": "Освобождает соединение на всех локальных ветках",
+      "middleExpectation": "Находит утечку pool через cancellation и взаимодействие запросов",
+      "seniorExpectation": "Выбирает resource budgets и деградацию при перегрузке",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Лечит утечку только увеличением pool; не связывает это с границей ожидаемого результата: освобождает соединение на всех локальных ветках",
+          "borderline": "Может: освобождает соединение на всех локальных ветках, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: освобождает соединение на всех локальных ветках. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Лечит утечку только увеличением pool; не связывает это с границей ожидаемого результата: находит утечку pool через cancellation и взаимодействие запросов",
+          "borderline": "Может: находит утечку pool через cancellation и взаимодействие запросов, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: находит утечку pool через cancellation и взаимодействие запросов. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Лечит утечку только увеличением pool; не связывает это с границей ожидаемого результата: выбирает resource budgets и деградацию при перегрузке",
+          "borderline": "Может: выбирает resource budgets и деградацию при перегрузке, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает resource budgets и деградацию при перегрузке. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Освобождает соединение на всех локальных ветках — локальная проверка результата",
+        "Находит утечку pool через cancellation и взаимодействие запросов — независимое evidence и объяснение",
+        "Выбирает resource budgets и деградацию при перегрузке — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Лечит утечку только увеличением pool",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.postgresql.org/docs/current/transaction-iso.html",
+        "https://sre.google/sre-book/table-of-contents/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "backend.bottleneck-evidence",
+      "domain": "performance",
+      "description": "Evidence bottleneck",
+      "middleTier": "core",
+      "juniorExpectation": "Сопоставляет latency с измерением одного ресурса",
+      "middleExpectation": "Различает queueing, saturation и downstream задержку",
+      "seniorExpectation": "Выбирает capacity strategy с стоимостью и пределом масштабирования",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает высокий CPU единственной причиной latency; не связывает это с границей ожидаемого результата: сопоставляет latency с измерением одного ресурса",
+          "borderline": "Может: сопоставляет latency с измерением одного ресурса, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет latency с измерением одного ресурса. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает высокий CPU единственной причиной latency; не связывает это с границей ожидаемого результата: различает queueing, saturation и downstream задержку",
+          "borderline": "Может: различает queueing, saturation и downstream задержку, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает queueing, saturation и downstream задержку. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает высокий CPU единственной причиной latency; не связывает это с границей ожидаемого результата: выбирает capacity strategy с стоимостью и пределом масштабирования",
+          "borderline": "Может: выбирает capacity strategy с стоимостью и пределом масштабирования, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает capacity strategy с стоимостью и пределом масштабирования. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сопоставляет latency с измерением одного ресурса — локальная проверка результата",
+        "Различает queueing, saturation и downstream задержку — независимое evidence и объяснение",
+        "Выбирает capacity strategy с стоимостью и пределом масштабирования — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает высокий CPU единственной причиной latency",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.postgresql.org/docs/current/transaction-iso.html",
+        "https://sre.google/sre-book/table-of-contents/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "backend.backpressure",
+      "domain": "performance",
+      "description": "Ограничение входящей нагрузки",
+      "middleTier": "upper",
+      "juniorExpectation": "Соблюдает заданный timeout и лимит очереди",
+      "middleExpectation": "Согласует admission, retry и throughput зависимостей",
+      "seniorExpectation": "Выбирает fairness и отказ от работы при перегрузке",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Допускает неограниченное накопление работы; не связывает это с границей ожидаемого результата: соблюдает заданный timeout и лимит очереди",
+          "borderline": "Может: соблюдает заданный timeout и лимит очереди, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: соблюдает заданный timeout и лимит очереди. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Допускает неограниченное накопление работы; не связывает это с границей ожидаемого результата: согласует admission, retry и throughput зависимостей",
+          "borderline": "Может: согласует admission, retry и throughput зависимостей, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует admission, retry и throughput зависимостей. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Допускает неограниченное накопление работы; не связывает это с границей ожидаемого результата: выбирает fairness и отказ от работы при перегрузке",
+          "borderline": "Может: выбирает fairness и отказ от работы при перегрузке, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает fairness и отказ от работы при перегрузке. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Соблюдает заданный timeout и лимит очереди — локальная проверка результата",
+        "Согласует admission, retry и throughput зависимостей — независимое evidence и объяснение",
+        "Выбирает fairness и отказ от работы при перегрузке — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Допускает неограниченное накопление работы",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.postgresql.org/docs/current/transaction-iso.html",
+        "https://sre.google/sre-book/table-of-contents/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "backend.schema-evolution",
+      "domain": "deployment",
+      "description": "Эволюция схемы",
+      "middleTier": "core",
+      "juniorExpectation": "Применяет безопасное совместимое изменение",
+      "middleExpectation": "Проверяет смешанные версии readers и writers",
+      "seniorExpectation": "Выбирает expand-contract и условия удаления старой схемы",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Удаляет поле до миграции readers; не связывает это с границей ожидаемого результата: применяет безопасное совместимое изменение",
+          "borderline": "Может: применяет безопасное совместимое изменение, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: применяет безопасное совместимое изменение. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Удаляет поле до миграции readers; не связывает это с границей ожидаемого результата: проверяет смешанные версии readers и writers",
+          "borderline": "Может: проверяет смешанные версии readers и writers, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет смешанные версии readers и writers. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Удаляет поле до миграции readers; не связывает это с границей ожидаемого результата: выбирает expand-contract и условия удаления старой схемы",
+          "borderline": "Может: выбирает expand-contract и условия удаления старой схемы, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает expand-contract и условия удаления старой схемы. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Применяет безопасное совместимое изменение — локальная проверка результата",
+        "Проверяет смешанные версии readers и writers — независимое evidence и объяснение",
+        "Выбирает expand-contract и условия удаления старой схемы — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Удаляет поле до миграции readers",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.postgresql.org/docs/current/transaction-iso.html",
+        "https://sre.google/sre-book/table-of-contents/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "backend.rollout-rollback",
+      "domain": "deployment",
+      "description": "Rollout и rollback",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет локальную версию до выпуска",
+      "middleExpectation": "Сопоставляет canary evidence с контрактом persisted state",
+      "seniorExpectation": "Выбирает rollout и rollback при необратимых эффектах",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает rollback бинарника rollback данных; не связывает это с границей ожидаемого результата: проверяет локальную версию до выпуска",
+          "borderline": "Может: проверяет локальную версию до выпуска, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет локальную версию до выпуска. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает rollback бинарника rollback данных; не связывает это с границей ожидаемого результата: сопоставляет canary evidence с контрактом persisted state",
+          "borderline": "Может: сопоставляет canary evidence с контрактом persisted state, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет canary evidence с контрактом persisted state. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает rollback бинарника rollback данных; не связывает это с границей ожидаемого результата: выбирает rollout и rollback при необратимых эффектах",
+          "borderline": "Может: выбирает rollout и rollback при необратимых эффектах, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает rollout и rollback при необратимых эффектах. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет локальную версию до выпуска — локальная проверка результата",
+        "Сопоставляет canary evidence с контрактом persisted state — независимое evidence и объяснение",
+        "Выбирает rollout и rollback при необратимых эффектах — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает rollback бинарника rollback данных",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.postgresql.org/docs/current/transaction-iso.html",
+        "https://sre.google/sre-book/table-of-contents/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "backend.migration-ownership",
+      "domain": "deployment",
+      "description": "Владение миграцией",
+      "middleTier": "upper",
+      "juniorExpectation": "Выполняет ограниченный migration plan",
+      "middleExpectation": "Согласует backfill, cutover и владельцев данных",
+      "seniorExpectation": "Выбирает окна совместимости, стоимость и recovery обязанности",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Запускает cutover до завершения backfill; не связывает это с границей ожидаемого результата: выполняет ограниченный migration plan",
+          "borderline": "Может: выполняет ограниченный migration plan, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выполняет ограниченный migration plan. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Запускает cutover до завершения backfill; не связывает это с границей ожидаемого результата: согласует backfill, cutover и владельцев данных",
+          "borderline": "Может: согласует backfill, cutover и владельцев данных, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует backfill, cutover и владельцев данных. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Запускает cutover до завершения backfill; не связывает это с границей ожидаемого результата: выбирает окна совместимости, стоимость и recovery обязанности",
+          "borderline": "Может: выбирает окна совместимости, стоимость и recovery обязанности, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает окна совместимости, стоимость и recovery обязанности. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Выполняет ограниченный migration plan — локальная проверка результата",
+        "Согласует backfill, cutover и владельцев данных — независимое evidence и объяснение",
+        "Выбирает окна совместимости, стоимость и recovery обязанности — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Запускает cutover до завершения backfill",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.postgresql.org/docs/current/transaction-iso.html",
+        "https://sre.google/sre-book/table-of-contents/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "backend.discriminative-evidence",
+      "domain": "observability",
+      "description": "Дискриминирующее evidence",
+      "middleTier": "core",
+      "juniorExpectation": "Находит факт, проверяющий локальную гипотезу",
+      "middleExpectation": "Сопоставляет независимые traces, состояние и эффект",
+      "seniorExpectation": "Выбирает observability policy с privacy и стоимостью",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Принимает symptom metric за root cause; не связывает это с границей ожидаемого результата: находит факт, проверяющий локальную гипотезу",
+          "borderline": "Может: находит факт, проверяющий локальную гипотезу, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: находит факт, проверяющий локальную гипотезу. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Принимает symptom metric за root cause; не связывает это с границей ожидаемого результата: сопоставляет независимые traces, состояние и эффект",
+          "borderline": "Может: сопоставляет независимые traces, состояние и эффект, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет независимые traces, состояние и эффект. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Принимает symptom metric за root cause; не связывает это с границей ожидаемого результата: выбирает observability policy с privacy и стоимостью",
+          "borderline": "Может: выбирает observability policy с privacy и стоимостью, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает observability policy с privacy и стоимостью. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Находит факт, проверяющий локальную гипотезу — локальная проверка результата",
+        "Сопоставляет независимые traces, состояние и эффект — независимое evidence и объяснение",
+        "Выбирает observability policy с privacy и стоимостью — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Принимает symptom metric за root cause",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.postgresql.org/docs/current/transaction-iso.html",
+        "https://sre.google/sre-book/table-of-contents/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "backend.causal-order",
+      "domain": "observability",
+      "description": "Причинный порядок",
+      "middleTier": "core",
+      "juniorExpectation": "Сопоставляет события одной операции",
+      "middleExpectation": "Строит порядок между persistence, delivery и подтверждением",
+      "seniorExpectation": "Выбирает системные инварианты и evidence для спорных исходов",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Путает timestamp с причинной зависимостью; не связывает это с границей ожидаемого результата: сопоставляет события одной операции",
+          "borderline": "Может: сопоставляет события одной операции, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет события одной операции. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Путает timestamp с причинной зависимостью; не связывает это с границей ожидаемого результата: строит порядок между persistence, delivery и подтверждением",
+          "borderline": "Может: строит порядок между persistence, delivery и подтверждением, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: строит порядок между persistence, delivery и подтверждением. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Путает timestamp с причинной зависимостью; не связывает это с границей ожидаемого результата: выбирает системные инварианты и evidence для спорных исходов",
+          "borderline": "Может: выбирает системные инварианты и evidence для спорных исходов, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает системные инварианты и evidence для спорных исходов. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сопоставляет события одной операции — локальная проверка результата",
+        "Строит порядок между persistence, delivery и подтверждением — независимое evidence и объяснение",
+        "Выбирает системные инварианты и evidence для спорных исходов — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Путает timestamp с причинной зависимостью",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.postgresql.org/docs/current/transaction-iso.html",
+        "https://sre.google/sre-book/table-of-contents/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "backend.falsification",
+      "domain": "observability",
+      "description": "Пересмотр причинной модели",
+      "middleTier": "upper",
+      "juniorExpectation": "Исправляет гипотезу при явном противоречии",
+      "middleExpectation": "Перепроверяет решение новым evidence и constraint",
+      "seniorExpectation": "Выбирает policy при residual uncertainty и последствиях ошибки",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Удерживает первоначальную гипотезу вопреки фактам; не связывает это с границей ожидаемого результата: исправляет гипотезу при явном противоречии",
+          "borderline": "Может: исправляет гипотезу при явном противоречии, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: исправляет гипотезу при явном противоречии. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Удерживает первоначальную гипотезу вопреки фактам; не связывает это с границей ожидаемого результата: перепроверяет решение новым evidence и constraint",
+          "borderline": "Может: перепроверяет решение новым evidence и constraint, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: перепроверяет решение новым evidence и constraint. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Удерживает первоначальную гипотезу вопреки фактам; не связывает это с границей ожидаемого результата: выбирает policy при residual uncertainty и последствиях ошибки",
+          "borderline": "Может: выбирает policy при residual uncertainty и последствиях ошибки, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает policy при residual uncertainty и последствиях ошибки. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Исправляет гипотезу при явном противоречии — локальная проверка результата",
+        "Перепроверяет решение новым evidence и constraint — независимое evidence и объяснение",
+        "Выбирает policy при residual uncertainty и последствиях ошибки — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Удерживает первоначальную гипотезу вопреки фактам",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://www.postgresql.org/docs/current/transaction-iso.html",
+        "https://sre.google/sre-book/table-of-contents/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    }
+  ]
+}

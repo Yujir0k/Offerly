@@ -1,0 +1,762 @@
+{
+  "version": "professional-competency-2.0.0",
+  "track": "ml-engineer",
+  "name": "ML Engineer",
+  "roleScope": "валидность и эксплуатационная корректность predictive ML",
+  "gradeStandards": {
+    "Junior": "Самостоятельно и корректно решает ограниченный train/inference/eval contract при понятных фактах и ограниченных последствиях.",
+    "Middle": "Самостоятельно интегрирует feature availability, leakage, serving parity и drift evidence, строит причинную/аналитическую модель и проверяет действие при реальных constraints.",
+    "Senior": "Выбирает evaluation/serving/rollout policy при shift, cost и feedback effects среди допустимых решений с uncertainty, evolution, rollback и ответственностью за последствия."
+  },
+  "sources": [
+    "https://sfia-online.org/en/sfia-9/responsibilities",
+    "https://developers.google.com/machine-learning/guides/rules-of-ml",
+    "https://scikit-learn.org/stable/common_pitfalls.html"
+  ],
+  "knownLimitations": [
+    "18 capabilities охватывают scenario scope этого assessment, а не всю профессию.",
+    "Grade taxonomy — synthesis команды; стандарты не задают эти три grades или проценты confirmation.",
+    "Closed-world multiple choice и bounded execution не доказывают самостоятельную формулировку стратегии в открытой задаче.",
+    "Rubric и mapping требуют независимого expert review; человеческая calibration отсутствует."
+  ],
+  "capabilities": [
+    {
+      "id": "ml-engineer.point-in-time",
+      "domain": "features",
+      "description": "Point-in-time доступность features",
+      "middleTier": "core",
+      "juniorExpectation": "Исключает факт, недоступный при prediction",
+      "middleExpectation": "Связывает event time, ingestion и label availability",
+      "seniorExpectation": "Выбирает feature contract при backfill и online evolution",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Использует будущую информацию в train row; не связывает это с границей ожидаемого результата: исключает факт, недоступный при prediction",
+          "borderline": "Может: исключает факт, недоступный при prediction, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: исключает факт, недоступный при prediction. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Использует будущую информацию в train row; не связывает это с границей ожидаемого результата: связывает event time, ingestion и label availability",
+          "borderline": "Может: связывает event time, ingestion и label availability, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает event time, ingestion и label availability. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Использует будущую информацию в train row; не связывает это с границей ожидаемого результата: выбирает feature contract при backfill и online evolution",
+          "borderline": "Может: выбирает feature contract при backfill и online evolution, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает feature contract при backfill и online evolution. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Исключает факт, недоступный при prediction — локальная проверка результата",
+        "Связывает event time, ingestion и label availability — независимое evidence и объяснение",
+        "Выбирает feature contract при backfill и online evolution — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Использует будущую информацию в train row",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developers.google.com/machine-learning/guides/rules-of-ml",
+        "https://scikit-learn.org/stable/common_pitfalls.html"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ml-engineer.preprocess-parity",
+      "domain": "features",
+      "description": "Parity preprocessing",
+      "middleTier": "core",
+      "juniorExpectation": "Повторяет fitted transform на inference",
+      "middleExpectation": "Проверяет training/serving schemas и версии",
+      "seniorExpectation": "Выбирает общий preprocessing contract и migration",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Переобучает preprocessing на inference batch; не связывает это с границей ожидаемого результата: повторяет fitted transform на inference",
+          "borderline": "Может: повторяет fitted transform на inference, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: повторяет fitted transform на inference. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Переобучает preprocessing на inference batch; не связывает это с границей ожидаемого результата: проверяет training/serving schemas и версии",
+          "borderline": "Может: проверяет training/serving schemas и версии, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет training/serving schemas и версии. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Переобучает preprocessing на inference batch; не связывает это с границей ожидаемого результата: выбирает общий preprocessing contract и migration",
+          "borderline": "Может: выбирает общий preprocessing contract и migration, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает общий preprocessing contract и migration. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Повторяет fitted transform на inference — локальная проверка результата",
+        "Проверяет training/serving schemas и версии — независимое evidence и объяснение",
+        "Выбирает общий preprocessing contract и migration — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Переобучает preprocessing на inference batch",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developers.google.com/machine-learning/guides/rules-of-ml",
+        "https://scikit-learn.org/stable/common_pitfalls.html"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ml-engineer.feature-validity",
+      "domain": "features",
+      "description": "Валидность feature semantics",
+      "middleTier": "upper",
+      "juniorExpectation": "Проверяет единицы и missing behavior",
+      "middleExpectation": "Связывает feature lineage, drift и leakage",
+      "seniorExpectation": "Выбирает feature ownership и degradation policy",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает одинаковый тип одинаковым смыслом; не связывает это с границей ожидаемого результата: проверяет единицы и missing behavior",
+          "borderline": "Может: проверяет единицы и missing behavior, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет единицы и missing behavior. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает одинаковый тип одинаковым смыслом; не связывает это с границей ожидаемого результата: связывает feature lineage, drift и leakage",
+          "borderline": "Может: связывает feature lineage, drift и leakage, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает feature lineage, drift и leakage. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает одинаковый тип одинаковым смыслом; не связывает это с границей ожидаемого результата: выбирает feature ownership и degradation policy",
+          "borderline": "Может: выбирает feature ownership и degradation policy, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает feature ownership и degradation policy. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет единицы и missing behavior — локальная проверка результата",
+        "Связывает feature lineage, drift и leakage — независимое evidence и объяснение",
+        "Выбирает feature ownership и degradation policy — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает одинаковый тип одинаковым смыслом",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developers.google.com/machine-learning/guides/rules-of-ml",
+        "https://scikit-learn.org/stable/common_pitfalls.html"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ml-engineer.resume-state",
+      "domain": "training",
+      "description": "Полнота training resume",
+      "middleTier": "core",
+      "juniorExpectation": "Восстанавливает model и optimizer state",
+      "middleExpectation": "Согласует RNG, scheduler и data cursor",
+      "seniorExpectation": "Выбирает recovery/repro contract с compute budget",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает weights достаточным checkpoint; не связывает это с границей ожидаемого результата: восстанавливает model и optimizer state",
+          "borderline": "Может: восстанавливает model и optimizer state, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: восстанавливает model и optimizer state. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает weights достаточным checkpoint; не связывает это с границей ожидаемого результата: согласует rng, scheduler и data cursor",
+          "borderline": "Может: согласует rng, scheduler и data cursor, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует rng, scheduler и data cursor. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает weights достаточным checkpoint; не связывает это с границей ожидаемого результата: выбирает recovery/repro contract с compute budget",
+          "borderline": "Может: выбирает recovery/repro contract с compute budget, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает recovery/repro contract с compute budget. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Восстанавливает model и optimizer state — локальная проверка результата",
+        "Согласует RNG, scheduler и data cursor — независимое evidence и объяснение",
+        "Выбирает recovery/repro contract с compute budget — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает weights достаточным checkpoint",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developers.google.com/machine-learning/guides/rules-of-ml",
+        "https://scikit-learn.org/stable/common_pitfalls.html"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ml-engineer.training-stability",
+      "domain": "training",
+      "description": "Evidence training instability",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет finite loss и gradient",
+      "middleExpectation": "Различает numerical, data и optimizer causes",
+      "seniorExpectation": "Выбирает training policy с convergence и cost risk",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Лечит любую instability снижением learning rate; не связывает это с границей ожидаемого результата: проверяет finite loss и gradient",
+          "borderline": "Может: проверяет finite loss и gradient, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет finite loss и gradient. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Лечит любую instability снижением learning rate; не связывает это с границей ожидаемого результата: различает numerical, data и optimizer causes",
+          "borderline": "Может: различает numerical, data и optimizer causes, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает numerical, data и optimizer causes. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Лечит любую instability снижением learning rate; не связывает это с границей ожидаемого результата: выбирает training policy с convergence и cost risk",
+          "borderline": "Может: выбирает training policy с convergence и cost risk, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает training policy с convergence и cost risk. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет finite loss и gradient — локальная проверка результата",
+        "Различает numerical, data и optimizer causes — независимое evidence и объяснение",
+        "Выбирает training policy с convergence и cost risk — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Лечит любую instability снижением learning rate",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developers.google.com/machine-learning/guides/rules-of-ml",
+        "https://scikit-learn.org/stable/common_pitfalls.html"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ml-engineer.training-repro",
+      "domain": "training",
+      "description": "Воспроизводимость обучения",
+      "middleTier": "upper",
+      "juniorExpectation": "Фиксирует seed и config",
+      "middleExpectation": "Связывает dataset, environment и hardware variation",
+      "seniorExpectation": "Выбирает tolerance и reproducibility guarantee",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Обещает bitwise reproducibility без ограничения среды; не связывает это с границей ожидаемого результата: фиксирует seed и config",
+          "borderline": "Может: фиксирует seed и config, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: фиксирует seed и config. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Обещает bitwise reproducibility без ограничения среды; не связывает это с границей ожидаемого результата: связывает dataset, environment и hardware variation",
+          "borderline": "Может: связывает dataset, environment и hardware variation, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает dataset, environment и hardware variation. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Обещает bitwise reproducibility без ограничения среды; не связывает это с границей ожидаемого результата: выбирает tolerance и reproducibility guarantee",
+          "borderline": "Может: выбирает tolerance и reproducibility guarantee, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает tolerance и reproducibility guarantee. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Фиксирует seed и config — локальная проверка результата",
+        "Связывает dataset, environment и hardware variation — независимое evidence и объяснение",
+        "Выбирает tolerance и reproducibility guarantee — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Обещает bitwise reproducibility без ограничения среды",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developers.google.com/machine-learning/guides/rules-of-ml",
+        "https://scikit-learn.org/stable/common_pitfalls.html"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ml-engineer.split-integrity",
+      "domain": "evaluation",
+      "description": "Целостность evaluation split",
+      "middleTier": "core",
+      "juniorExpectation": "Не смешивает train и test строки",
+      "middleExpectation": "Учитывает entities, time и leakage до preprocessing",
+      "seniorExpectation": "Выбирает evaluation protocol под production shift",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Приравнивает random split к валидности любого deployment; не связывает это с границей ожидаемого результата: не смешивает train и test строки",
+          "borderline": "Может: не смешивает train и test строки, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: не смешивает train и test строки. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Приравнивает random split к валидности любого deployment; не связывает это с границей ожидаемого результата: учитывает entities, time и leakage до preprocessing",
+          "borderline": "Может: учитывает entities, time и leakage до preprocessing, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: учитывает entities, time и leakage до preprocessing. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Приравнивает random split к валидности любого deployment; не связывает это с границей ожидаемого результата: выбирает evaluation protocol под production shift",
+          "borderline": "Может: выбирает evaluation protocol под production shift, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает evaluation protocol под production shift. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Не смешивает train и test строки — локальная проверка результата",
+        "Учитывает entities, time и leakage до preprocessing — независимое evidence и объяснение",
+        "Выбирает evaluation protocol под production shift — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Приравнивает random split к валидности любого deployment",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developers.google.com/machine-learning/guides/rules-of-ml",
+        "https://scikit-learn.org/stable/common_pitfalls.html"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ml-engineer.decision-metrics",
+      "domain": "evaluation",
+      "description": "Метрики decision policy",
+      "middleTier": "core",
+      "juniorExpectation": "Вычисляет заданную метрику",
+      "middleExpectation": "Сопоставляет threshold, prevalence и costs ошибок",
+      "seniorExpectation": "Выбирает utility и guardrails по segment и uncertainty",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Оптимизирует accuracy при асимметричной цене ошибок; не связывает это с границей ожидаемого результата: вычисляет заданную метрику",
+          "borderline": "Может: вычисляет заданную метрику, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: вычисляет заданную метрику. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Оптимизирует accuracy при асимметричной цене ошибок; не связывает это с границей ожидаемого результата: сопоставляет threshold, prevalence и costs ошибок",
+          "borderline": "Может: сопоставляет threshold, prevalence и costs ошибок, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет threshold, prevalence и costs ошибок. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Оптимизирует accuracy при асимметричной цене ошибок; не связывает это с границей ожидаемого результата: выбирает utility и guardrails по segment и uncertainty",
+          "borderline": "Может: выбирает utility и guardrails по segment и uncertainty, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает utility и guardrails по segment и uncertainty. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Вычисляет заданную метрику — локальная проверка результата",
+        "Сопоставляет threshold, prevalence и costs ошибок — независимое evidence и объяснение",
+        "Выбирает utility и guardrails по segment и uncertainty — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Оптимизирует accuracy при асимметричной цене ошибок",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developers.google.com/machine-learning/guides/rules-of-ml",
+        "https://scikit-learn.org/stable/common_pitfalls.html"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ml-engineer.availability-relevance",
+      "domain": "evaluation",
+      "description": "Relevance и availability",
+      "middleTier": "upper",
+      "juniorExpectation": "Проверяет доступность кандидата при ranking",
+      "middleExpectation": "Связывает offline labels с реальным candidate set",
+      "seniorExpectation": "Выбирает evaluation policy под changing inventory",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Ранжирует недоступные при prediction объекты; не связывает это с границей ожидаемого результата: проверяет доступность кандидата при ranking",
+          "borderline": "Может: проверяет доступность кандидата при ranking, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет доступность кандидата при ranking. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Ранжирует недоступные при prediction объекты; не связывает это с границей ожидаемого результата: связывает offline labels с реальным candidate set",
+          "borderline": "Может: связывает offline labels с реальным candidate set, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает offline labels с реальным candidate set. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Ранжирует недоступные при prediction объекты; не связывает это с границей ожидаемого результата: выбирает evaluation policy под changing inventory",
+          "borderline": "Может: выбирает evaluation policy под changing inventory, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает evaluation policy под changing inventory. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет доступность кандидата при ranking — локальная проверка результата",
+        "Связывает offline labels с реальным candidate set — независимое evidence и объяснение",
+        "Выбирает evaluation policy под changing inventory — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Ранжирует недоступные при prediction объекты",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developers.google.com/machine-learning/guides/rules-of-ml",
+        "https://scikit-learn.org/stable/common_pitfalls.html"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ml-engineer.batch-contract",
+      "domain": "serving",
+      "description": "Batching и precision",
+      "middleTier": "core",
+      "juniorExpectation": "Сохраняет shape и dtype локального inference",
+      "middleExpectation": "Связывает batching, precision, latency и output tolerance",
+      "seniorExpectation": "Выбирает serving strategy с capacity и quality trade-off",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает меньшую precision всегда безопасной; не связывает это с границей ожидаемого результата: сохраняет shape и dtype локального inference",
+          "borderline": "Может: сохраняет shape и dtype локального inference, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет shape и dtype локального inference. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает меньшую precision всегда безопасной; не связывает это с границей ожидаемого результата: связывает batching, precision, latency и output tolerance",
+          "borderline": "Может: связывает batching, precision, latency и output tolerance, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает batching, precision, latency и output tolerance. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает меньшую precision всегда безопасной; не связывает это с границей ожидаемого результата: выбирает serving strategy с capacity и quality trade-off",
+          "borderline": "Может: выбирает serving strategy с capacity и quality trade-off, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает serving strategy с capacity и quality trade-off. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет shape и dtype локального inference — локальная проверка результата",
+        "Связывает batching, precision, latency и output tolerance — независимое evidence и объяснение",
+        "Выбирает serving strategy с capacity и quality trade-off — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает меньшую precision всегда безопасной",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developers.google.com/machine-learning/guides/rules-of-ml",
+        "https://scikit-learn.org/stable/common_pitfalls.html"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ml-engineer.inference-contract",
+      "domain": "serving",
+      "description": "Inference contract",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет schema и version request",
+      "middleExpectation": "Прослеживает preprocessing, artifact и postprocessing",
+      "seniorExpectation": "Выбирает backward compatible serving migration",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает load model успешным serving release; не связывает это с границей ожидаемого результата: проверяет schema и version request",
+          "borderline": "Может: проверяет schema и version request, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет schema и version request. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает load model успешным serving release; не связывает это с границей ожидаемого результата: прослеживает preprocessing, artifact и postprocessing",
+          "borderline": "Может: прослеживает preprocessing, artifact и postprocessing, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: прослеживает preprocessing, artifact и postprocessing. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает load model успешным serving release; не связывает это с границей ожидаемого результата: выбирает backward compatible serving migration",
+          "borderline": "Может: выбирает backward compatible serving migration, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает backward compatible serving migration. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет schema и version request — локальная проверка результата",
+        "Прослеживает preprocessing, artifact и postprocessing — независимое evidence и объяснение",
+        "Выбирает backward compatible serving migration — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает load model успешным serving release",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developers.google.com/machine-learning/guides/rules-of-ml",
+        "https://scikit-learn.org/stable/common_pitfalls.html"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ml-engineer.serving-budget",
+      "domain": "serving",
+      "description": "Бюджет online inference",
+      "middleTier": "upper",
+      "juniorExpectation": "Соблюдает заданный latency limit",
+      "middleExpectation": "Различает queueing, model compute и dependency latency",
+      "seniorExpectation": "Выбирает fallback и resource policy при saturation",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Масштабирует model не исследовав upstream очередь; не связывает это с границей ожидаемого результата: соблюдает заданный latency limit",
+          "borderline": "Может: соблюдает заданный latency limit, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: соблюдает заданный latency limit. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Масштабирует model не исследовав upstream очередь; не связывает это с границей ожидаемого результата: различает queueing, model compute и dependency latency",
+          "borderline": "Может: различает queueing, model compute и dependency latency, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает queueing, model compute и dependency latency. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Масштабирует model не исследовав upstream очередь; не связывает это с границей ожидаемого результата: выбирает fallback и resource policy при saturation",
+          "borderline": "Может: выбирает fallback и resource policy при saturation, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает fallback и resource policy при saturation. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Соблюдает заданный latency limit — локальная проверка результата",
+        "Различает queueing, model compute и dependency latency — независимое evidence и объяснение",
+        "Выбирает fallback и resource policy при saturation — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Масштабирует model не исследовав upstream очередь",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developers.google.com/machine-learning/guides/rules-of-ml",
+        "https://scikit-learn.org/stable/common_pitfalls.html"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ml-engineer.drift-evidence",
+      "domain": "monitoring",
+      "description": "Evidence drift",
+      "middleTier": "core",
+      "juniorExpectation": "Измеряет изменение заданного распределения",
+      "middleExpectation": "Различает covariate drift, concept change и data bug",
+      "seniorExpectation": "Выбирает alert и action по impact, стоимости и labels",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает feature drift доказанным ухудшением модели; не связывает это с границей ожидаемого результата: измеряет изменение заданного распределения",
+          "borderline": "Может: измеряет изменение заданного распределения, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: измеряет изменение заданного распределения. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает feature drift доказанным ухудшением модели; не связывает это с границей ожидаемого результата: различает covariate drift, concept change и data bug",
+          "borderline": "Может: различает covariate drift, concept change и data bug, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает covariate drift, concept change и data bug. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает feature drift доказанным ухудшением модели; не связывает это с границей ожидаемого результата: выбирает alert и action по impact, стоимости и labels",
+          "borderline": "Может: выбирает alert и action по impact, стоимости и labels, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает alert и action по impact, стоимости и labels. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Измеряет изменение заданного распределения — локальная проверка результата",
+        "Различает covariate drift, concept change и data bug — независимое evidence и объяснение",
+        "Выбирает alert и action по impact, стоимости и labels — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает feature drift доказанным ухудшением модели",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developers.google.com/machine-learning/guides/rules-of-ml",
+        "https://scikit-learn.org/stable/common_pitfalls.html"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ml-engineer.delayed-label",
+      "domain": "monitoring",
+      "description": "Delayed labels",
+      "middleTier": "core",
+      "juniorExpectation": "Учитывает неполные текущие labels",
+      "middleExpectation": "Связывает maturation window и unbiased performance",
+      "seniorExpectation": "Выбирает monitoring policy при задержке truth",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Сравнивает mature baseline с незрелым current cohort; не связывает это с границей ожидаемого результата: учитывает неполные текущие labels",
+          "borderline": "Может: учитывает неполные текущие labels, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: учитывает неполные текущие labels. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Сравнивает mature baseline с незрелым current cohort; не связывает это с границей ожидаемого результата: связывает maturation window и unbiased performance",
+          "borderline": "Может: связывает maturation window и unbiased performance, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает maturation window и unbiased performance. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Сравнивает mature baseline с незрелым current cohort; не связывает это с границей ожидаемого результата: выбирает monitoring policy при задержке truth",
+          "borderline": "Может: выбирает monitoring policy при задержке truth, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает monitoring policy при задержке truth. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Учитывает неполные текущие labels — локальная проверка результата",
+        "Связывает maturation window и unbiased performance — независимое evidence и объяснение",
+        "Выбирает monitoring policy при задержке truth — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Сравнивает mature baseline с незрелым current cohort",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developers.google.com/machine-learning/guides/rules-of-ml",
+        "https://scikit-learn.org/stable/common_pitfalls.html"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ml-engineer.monitoring-action",
+      "domain": "monitoring",
+      "description": "Обоснованное действие мониторинга",
+      "middleTier": "upper",
+      "juniorExpectation": "Проверяет локальный alarm",
+      "middleExpectation": "Сопоставляет signal с сегментом и serving evidence",
+      "seniorExpectation": "Выбирает stop/retrain/investigate с residual uncertainty",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Запускает retrain от любого статистического сдвига; не связывает это с границей ожидаемого результата: проверяет локальный alarm",
+          "borderline": "Может: проверяет локальный alarm, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет локальный alarm. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Запускает retrain от любого статистического сдвига; не связывает это с границей ожидаемого результата: сопоставляет signal с сегментом и serving evidence",
+          "borderline": "Может: сопоставляет signal с сегментом и serving evidence, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет signal с сегментом и serving evidence. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Запускает retrain от любого статистического сдвига; не связывает это с границей ожидаемого результата: выбирает stop/retrain/investigate с residual uncertainty",
+          "borderline": "Может: выбирает stop/retrain/investigate с residual uncertainty, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает stop/retrain/investigate с residual uncertainty. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет локальный alarm — локальная проверка результата",
+        "Сопоставляет signal с сегментом и serving evidence — независимое evidence и объяснение",
+        "Выбирает stop/retrain/investigate с residual uncertainty — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Запускает retrain от любого статистического сдвига",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developers.google.com/machine-learning/guides/rules-of-ml",
+        "https://scikit-learn.org/stable/common_pitfalls.html"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ml-engineer.candidate-gate",
+      "domain": "deployment",
+      "description": "Проверка кандидата модели",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет заданные quality gates",
+      "middleExpectation": "Сопоставляет quality, serving contract и rollout evidence",
+      "seniorExpectation": "Выбирает promotion policy с guardrails и uncertainty",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Промотирует по одной offline метрике; не связывает это с границей ожидаемого результата: проверяет заданные quality gates",
+          "borderline": "Может: проверяет заданные quality gates, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет заданные quality gates. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Промотирует по одной offline метрике; не связывает это с границей ожидаемого результата: сопоставляет quality, serving contract и rollout evidence",
+          "borderline": "Может: сопоставляет quality, serving contract и rollout evidence, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет quality, serving contract и rollout evidence. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Промотирует по одной offline метрике; не связывает это с границей ожидаемого результата: выбирает promotion policy с guardrails и uncertainty",
+          "borderline": "Может: выбирает promotion policy с guardrails и uncertainty, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает promotion policy с guardrails и uncertainty. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет заданные quality gates — локальная проверка результата",
+        "Сопоставляет quality, serving contract и rollout evidence — независимое evidence и объяснение",
+        "Выбирает promotion policy с guardrails и uncertainty — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Промотирует по одной offline метрике",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developers.google.com/machine-learning/guides/rules-of-ml",
+        "https://scikit-learn.org/stable/common_pitfalls.html"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ml-engineer.rollout-recovery",
+      "domain": "deployment",
+      "description": "Rollout и recovery model",
+      "middleTier": "core",
+      "juniorExpectation": "Сохраняет проверенный предыдущий artifact",
+      "middleExpectation": "Проверяет совместимость model, features и state при rollback",
+      "seniorExpectation": "Выбирает canary и rollback по blast radius и cost",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Откатывает model без feature schema; не связывает это с границей ожидаемого результата: сохраняет проверенный предыдущий artifact",
+          "borderline": "Может: сохраняет проверенный предыдущий artifact, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет проверенный предыдущий artifact. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Откатывает model без feature schema; не связывает это с границей ожидаемого результата: проверяет совместимость model, features и state при rollback",
+          "borderline": "Может: проверяет совместимость model, features и state при rollback, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет совместимость model, features и state при rollback. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Откатывает model без feature schema; не связывает это с границей ожидаемого результата: выбирает canary и rollback по blast radius и cost",
+          "borderline": "Может: выбирает canary и rollback по blast radius и cost, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает canary и rollback по blast radius и cost. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет проверенный предыдущий artifact — локальная проверка результата",
+        "Проверяет совместимость model, features и state при rollback — независимое evidence и объяснение",
+        "Выбирает canary и rollback по blast radius и cost — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Откатывает model без feature schema",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developers.google.com/machine-learning/guides/rules-of-ml",
+        "https://scikit-learn.org/stable/common_pitfalls.html"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ml-engineer.feedback-effect",
+      "domain": "deployment",
+      "description": "Влияние feedback loop",
+      "middleTier": "upper",
+      "juniorExpectation": "Отличает prediction от наблюдаемой truth",
+      "middleExpectation": "Учитывает selection bias действий модели",
+      "seniorExpectation": "Выбирает data collection policy для долгосрочной валидности",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Принимает собственные predictions за независимые labels; не связывает это с границей ожидаемого результата: отличает prediction от наблюдаемой truth",
+          "borderline": "Может: отличает prediction от наблюдаемой truth, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: отличает prediction от наблюдаемой truth. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Принимает собственные predictions за независимые labels; не связывает это с границей ожидаемого результата: учитывает selection bias действий модели",
+          "borderline": "Может: учитывает selection bias действий модели, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: учитывает selection bias действий модели. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Принимает собственные predictions за независимые labels; не связывает это с границей ожидаемого результата: выбирает data collection policy для долгосрочной валидности",
+          "borderline": "Может: выбирает data collection policy для долгосрочной валидности, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает data collection policy для долгосрочной валидности. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Отличает prediction от наблюдаемой truth — локальная проверка результата",
+        "Учитывает selection bias действий модели — независимое evidence и объяснение",
+        "Выбирает data collection policy для долгосрочной валидности — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Принимает собственные predictions за независимые labels",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developers.google.com/machine-learning/guides/rules-of-ml",
+        "https://scikit-learn.org/stable/common_pitfalls.html"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    }
+  ]
+}

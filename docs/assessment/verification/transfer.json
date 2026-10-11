@@ -1,0 +1,1769 @@
+{
+  "summary": {
+    "checks": 752,
+    "answers": 189,
+    "evidence": 24,
+    "replays": 1,
+    "extra": 0,
+    "plans": 177,
+    "wrongForecasts": 52,
+    "artifacts": [
+      "code",
+      "experiment_table",
+      "table",
+      "schema",
+      "lineage",
+      "timeline",
+      "model_metrics",
+      "feature_distribution",
+      "dag",
+      "logs",
+      "security_policy",
+      "model_registry",
+      "test_run",
+      "metrics",
+      "crash_report",
+      "deployment",
+      "ci_log",
+      "retrieval_results",
+      "tool_trace",
+      "http_exchange",
+      "lifecycle",
+      "dom",
+      "network",
+      "code_diff"
+    ],
+    "controls": [
+      "select"
+    ],
+    "decisions": [
+      "CONFIRMED",
+      "NOT_CONFIRMED"
+    ],
+    "statuses": [
+      "confirmed",
+      "below-standard"
+    ],
+    "sessions": 37
+  },
+  "records": [
+    {
+      "id": "adaptive-87495805-55af-4a70-9798-62f11d693c51",
+      "track": "backend",
+      "grade": "Junior",
+      "scenario": 0,
+      "answers": 10,
+      "result": {
+        "targetGrade": "Junior",
+        "specialization": "backend",
+        "decision": "CONFIRMED",
+        "title": "JUNIOR CONFIRMED",
+        "reason": "Заявленный уровень Junior подтверждён инженерными сценариями.",
+        "stopReason": "above_band",
+        "contentTags": [
+          "input-contract",
+          "api-contracts",
+          "compatibility",
+          "transaction-rules",
+          "query-shape",
+          "reliability",
+          "observability",
+          "resource-lifecycle"
+        ],
+        "recommendation": "Middle",
+        "assessmentStatus": "confirmed",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-41745fb7-0dc4-4523-b3d8-2afe2578e3a9",
+      "track": "backend",
+      "grade": "Middle",
+      "scenario": 1,
+      "answers": 10,
+      "result": {
+        "targetGrade": "Middle",
+        "specialization": "backend",
+        "decision": "NOT_CONFIRMED",
+        "title": "MIDDLE ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Middle в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "query-shape",
+          "concurrency",
+          "reliability",
+          "compatibility",
+          "delivery",
+          "api-contracts",
+          "observability",
+          "resource-lifecycle"
+        ],
+        "recommendation": "Junior",
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-8f555095-7f8e-4c27-8c28-dd62a7e6f467",
+      "track": "backend",
+      "grade": "Senior",
+      "scenario": 2,
+      "answers": 11,
+      "result": {
+        "targetGrade": "Senior",
+        "specialization": "backend",
+        "decision": "NOT_CONFIRMED",
+        "title": "SENIOR ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Senior в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "delivery",
+          "deployments",
+          "compatibility",
+          "performance",
+          "observability",
+          "cache",
+          "consistency",
+          "reliability",
+          "api-contracts"
+        ],
+        "recommendation": "Middle",
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-5bea04c9-c60c-4101-bebe-c8b59db161c9",
+      "track": "frontend",
+      "grade": "Junior",
+      "scenario": 3,
+      "answers": 10,
+      "result": {
+        "targetGrade": "Junior",
+        "specialization": "frontend",
+        "decision": "NOT_CONFIRMED",
+        "title": "JUNIOR ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Junior в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "rendering",
+          "accessibility",
+          "browser-security",
+          "delivery",
+          "state",
+          "performance"
+        ],
+        "recommendation": null,
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-d94444b2-a6a0-48f2-b36c-990c2d416bcf",
+      "track": "frontend",
+      "grade": "Middle",
+      "scenario": 0,
+      "answers": 10,
+      "result": {
+        "targetGrade": "Middle",
+        "specialization": "frontend",
+        "decision": "CONFIRMED",
+        "title": "MIDDLE CONFIRMED",
+        "reason": "Заявленный уровень Middle подтверждён инженерными сценариями.",
+        "stopReason": "above_band",
+        "contentTags": [
+          "browser-security",
+          "state",
+          "accessibility",
+          "delivery",
+          "rendering",
+          "performance"
+        ],
+        "recommendation": "Senior",
+        "assessmentStatus": "confirmed",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-929a5664-2ff0-4a57-b7fd-e1c5257f9c3f",
+      "track": "frontend",
+      "grade": "Senior",
+      "scenario": 1,
+      "answers": 11,
+      "result": {
+        "targetGrade": "Senior",
+        "specialization": "frontend",
+        "decision": "NOT_CONFIRMED",
+        "title": "SENIOR ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Senior в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "accessibility",
+          "delivery",
+          "state",
+          "browser-security",
+          "rendering",
+          "performance"
+        ],
+        "recommendation": "Middle",
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-86ee18ea-fbde-4623-b8ae-a60769739b45",
+      "track": "devops-sre",
+      "grade": "Junior",
+      "scenario": 2,
+      "answers": 10,
+      "result": {
+        "targetGrade": "Junior",
+        "specialization": "devops-sre",
+        "decision": "NOT_CONFIRMED",
+        "title": "JUNIOR ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Junior в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "recovery",
+          "slo",
+          "delivery",
+          "observability",
+          "incident",
+          "capacity"
+        ],
+        "recommendation": null,
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-32fd3322-a829-4a8a-8235-5e0d5039ee1d",
+      "track": "devops-sre",
+      "grade": "Middle",
+      "scenario": 3,
+      "answers": 10,
+      "result": {
+        "targetGrade": "Middle",
+        "specialization": "devops-sre",
+        "decision": "NOT_CONFIRMED",
+        "title": "MIDDLE ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Middle в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "slo",
+          "capacity",
+          "delivery",
+          "incident",
+          "observability",
+          "recovery"
+        ],
+        "recommendation": "Junior",
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-49e0e828-3247-4533-905b-2f5aabecef6f",
+      "track": "devops-sre",
+      "grade": "Senior",
+      "scenario": 0,
+      "answers": 11,
+      "result": {
+        "targetGrade": "Senior",
+        "specialization": "devops-sre",
+        "decision": "CONFIRMED",
+        "title": "SENIOR CONFIRMED",
+        "reason": "Заявленный уровень Senior подтверждён инженерными сценариями.",
+        "stopReason": "above_band",
+        "contentTags": [
+          "slo",
+          "delivery",
+          "incident",
+          "capacity",
+          "observability",
+          "recovery"
+        ],
+        "recommendation": null,
+        "assessmentStatus": "confirmed",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-cdb062f5-7cf1-4a18-9ae8-2864e7302493",
+      "track": "qa-automation",
+      "grade": "Junior",
+      "scenario": 1,
+      "answers": 10,
+      "result": {
+        "targetGrade": "Junior",
+        "specialization": "qa-automation",
+        "decision": "NOT_CONFIRMED",
+        "title": "JUNIOR ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Junior в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "automation",
+          "ci",
+          "strategy",
+          "risk",
+          "oracle",
+          "data"
+        ],
+        "recommendation": null,
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-b1b15c9d-9279-4609-86f7-fbc8685f51a8",
+      "track": "qa-automation",
+      "grade": "Middle",
+      "scenario": 2,
+      "answers": 10,
+      "result": {
+        "targetGrade": "Middle",
+        "specialization": "qa-automation",
+        "decision": "NOT_CONFIRMED",
+        "title": "MIDDLE ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Middle в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "data",
+          "strategy",
+          "oracle",
+          "automation",
+          "ci",
+          "risk"
+        ],
+        "recommendation": "Junior",
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-b79b18e2-1dd7-47d1-8065-4533295a4283",
+      "track": "qa-automation",
+      "grade": "Senior",
+      "scenario": 3,
+      "answers": 12,
+      "result": {
+        "targetGrade": "Senior",
+        "specialization": "qa-automation",
+        "decision": "NOT_CONFIRMED",
+        "title": "SENIOR ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Senior в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "automation",
+          "ci",
+          "strategy",
+          "data",
+          "oracle",
+          "risk"
+        ],
+        "recommendation": "Middle",
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-fcc4f0ec-9944-4011-9ce5-ab0236774167",
+      "track": "data-engineering",
+      "grade": "Junior",
+      "scenario": 0,
+      "answers": 10,
+      "result": {
+        "targetGrade": "Junior",
+        "specialization": "data-engineering",
+        "decision": "CONFIRMED",
+        "title": "JUNIOR CONFIRMED",
+        "reason": "Заявленный уровень Junior подтверждён инженерными сценариями.",
+        "stopReason": "above_band",
+        "contentTags": [
+          "lineage",
+          "ingestion",
+          "performance",
+          "orchestration",
+          "streaming",
+          "quality"
+        ],
+        "recommendation": "Middle",
+        "assessmentStatus": "confirmed",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-bf6759fd-dfc7-4cc4-9f37-632e454f4ffc",
+      "track": "data-engineering",
+      "grade": "Middle",
+      "scenario": 1,
+      "answers": 10,
+      "result": {
+        "targetGrade": "Middle",
+        "specialization": "data-engineering",
+        "decision": "NOT_CONFIRMED",
+        "title": "MIDDLE ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Middle в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "ingestion",
+          "quality",
+          "orchestration",
+          "lineage",
+          "streaming",
+          "performance"
+        ],
+        "recommendation": "Junior",
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-a30259c3-5de6-4f48-9982-237a9127bbf8",
+      "track": "data-engineering",
+      "grade": "Senior",
+      "scenario": 2,
+      "answers": 11,
+      "result": {
+        "targetGrade": "Senior",
+        "specialization": "data-engineering",
+        "decision": "NOT_CONFIRMED",
+        "title": "SENIOR ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Senior в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "lineage",
+          "orchestration",
+          "ingestion",
+          "quality",
+          "streaming",
+          "performance"
+        ],
+        "recommendation": "Middle",
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-861401e0-4092-4fa1-823c-9bf86b6b71f0",
+      "track": "ml-engineer",
+      "grade": "Junior",
+      "scenario": 3,
+      "answers": 10,
+      "result": {
+        "targetGrade": "Junior",
+        "specialization": "ml-engineer",
+        "decision": "NOT_CONFIRMED",
+        "title": "JUNIOR ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Junior в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "evaluation",
+          "serving",
+          "deployment",
+          "monitoring",
+          "features",
+          "training"
+        ],
+        "recommendation": null,
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-a9d14cca-4c7d-4df2-99ab-ef30bb4032fa",
+      "track": "ml-engineer",
+      "grade": "Middle",
+      "scenario": 0,
+      "answers": 10,
+      "result": {
+        "targetGrade": "Middle",
+        "specialization": "ml-engineer",
+        "decision": "CONFIRMED",
+        "title": "MIDDLE CONFIRMED",
+        "reason": "Заявленный уровень Middle подтверждён инженерными сценариями.",
+        "stopReason": "above_band",
+        "contentTags": [
+          "serving",
+          "deployment",
+          "monitoring",
+          "training",
+          "features",
+          "evaluation"
+        ],
+        "recommendation": "Senior",
+        "assessmentStatus": "confirmed",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-c4d1a483-75a6-4a57-9696-48491efe2991",
+      "track": "ml-engineer",
+      "grade": "Senior",
+      "scenario": 1,
+      "answers": 11,
+      "result": {
+        "targetGrade": "Senior",
+        "specialization": "ml-engineer",
+        "decision": "NOT_CONFIRMED",
+        "title": "SENIOR ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Senior в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "serving",
+          "monitoring",
+          "deployment",
+          "training",
+          "features",
+          "evaluation"
+        ],
+        "recommendation": "Middle",
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-a2d4b971-7c0a-411f-b1f2-cc0ff2b54f95",
+      "track": "data-scientist",
+      "grade": "Junior",
+      "scenario": 2,
+      "answers": 9,
+      "result": {
+        "targetGrade": "Junior",
+        "specialization": "data-scientist",
+        "decision": "NOT_CONFIRMED",
+        "title": "JUNIOR ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Junior в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "metrics",
+          "statistics",
+          "experimentation",
+          "causality",
+          "sampling",
+          "validation"
+        ],
+        "recommendation": null,
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          }
+        ]
+      },
+      "priorVerifiedRun": true
+    },
+    {
+      "id": "adaptive-5ca8ec5f-b531-4d80-a3d4-f5f76db2694f",
+      "track": "data-scientist",
+      "grade": "Middle",
+      "scenario": 3,
+      "answers": 10,
+      "result": {
+        "targetGrade": "Middle",
+        "specialization": "data-scientist",
+        "decision": "NOT_CONFIRMED",
+        "title": "MIDDLE ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Middle в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "experimentation",
+          "validation",
+          "sampling",
+          "metrics",
+          "statistics",
+          "causality"
+        ],
+        "recommendation": "Junior",
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adaptive-43cdd972-b24c-4fe1-99e4-2a71648fab89",
+      "track": "data-scientist",
+      "grade": "Senior",
+      "scenario": 0,
+      "answers": 12,
+      "result": {
+        "targetGrade": "Senior",
+        "specialization": "data-scientist",
+        "decision": "CONFIRMED",
+        "title": "SENIOR CONFIRMED",
+        "reason": "Заявленный уровень Senior подтверждён инженерными сценариями.",
+        "stopReason": "above_band",
+        "contentTags": [
+          "experimentation",
+          "metrics",
+          "validation",
+          "sampling",
+          "statistics",
+          "causality"
+        ],
+        "recommendation": null,
+        "assessmentStatus": "confirmed",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adaptive-137fee45-5478-423c-82a2-aec6a8923f07",
+      "track": "mlops",
+      "grade": "Junior",
+      "scenario": 1,
+      "answers": 10,
+      "result": {
+        "targetGrade": "Junior",
+        "specialization": "mlops",
+        "decision": "NOT_CONFIRMED",
+        "title": "JUNIOR ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Junior в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "pipelines",
+          "deployment",
+          "registry",
+          "retraining",
+          "lineage",
+          "resources"
+        ],
+        "recommendation": null,
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adaptive-62912981-d41f-4eaf-8b54-fe4c2ca9d256",
+      "track": "mlops",
+      "grade": "Middle",
+      "scenario": 2,
+      "answers": 11,
+      "result": {
+        "targetGrade": "Middle",
+        "specialization": "mlops",
+        "decision": "NOT_CONFIRMED",
+        "title": "MIDDLE ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Middle в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "deployment",
+          "retraining",
+          "registry",
+          "pipelines",
+          "lineage",
+          "resources"
+        ],
+        "recommendation": "Junior",
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adaptive-b042a07b-6fca-48c9-8bd3-b471cb359d59",
+      "track": "mlops",
+      "grade": "Senior",
+      "scenario": 3,
+      "answers": 12,
+      "result": {
+        "targetGrade": "Senior",
+        "specialization": "mlops",
+        "decision": "NOT_CONFIRMED",
+        "title": "SENIOR ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Senior в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "registry",
+          "resources",
+          "deployment",
+          "lineage",
+          "pipelines",
+          "retraining"
+        ],
+        "recommendation": "Middle",
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adaptive-44b63df2-ec70-4559-b932-9a41ef2c73fe",
+      "track": "genai",
+      "grade": "Junior",
+      "scenario": 0,
+      "answers": 10,
+      "result": {
+        "targetGrade": "Junior",
+        "specialization": "genai",
+        "decision": "CONFIRMED",
+        "title": "JUNIOR CONFIRMED",
+        "reason": "Заявленный уровень Junior подтверждён инженерными сценариями.",
+        "stopReason": "above_band",
+        "contentTags": [
+          "grounding",
+          "tools",
+          "evaluation",
+          "safety",
+          "retrieval",
+          "budget"
+        ],
+        "recommendation": "Middle",
+        "assessmentStatus": "confirmed",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adaptive-14700790-43c1-4483-b4ad-786cd40c28c6",
+      "track": "genai",
+      "grade": "Middle",
+      "scenario": 1,
+      "answers": 11,
+      "result": {
+        "targetGrade": "Middle",
+        "specialization": "genai",
+        "decision": "NOT_CONFIRMED",
+        "title": "MIDDLE ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Middle в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "grounding",
+          "budget",
+          "evaluation",
+          "tools",
+          "retrieval",
+          "safety"
+        ],
+        "recommendation": "Junior",
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adaptive-5ac41351-f9d5-4098-876e-86128c0debc3",
+      "track": "genai",
+      "grade": "Senior",
+      "scenario": 2,
+      "answers": 13,
+      "result": {
+        "targetGrade": "Senior",
+        "specialization": "genai",
+        "decision": "NOT_CONFIRMED",
+        "title": "SENIOR ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Senior в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "tools",
+          "retrieval",
+          "safety",
+          "grounding",
+          "evaluation",
+          "budget"
+        ],
+        "recommendation": "Middle",
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adaptive-cff99112-9312-482e-8b52-c859f8a52e86",
+      "track": "android",
+      "grade": "Junior",
+      "scenario": 3,
+      "answers": 10,
+      "result": {
+        "targetGrade": "Junior",
+        "specialization": "android",
+        "decision": "NOT_CONFIRMED",
+        "title": "JUNIOR ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Junior в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "lifecycle",
+          "background",
+          "offline",
+          "performance",
+          "state",
+          "release"
+        ],
+        "recommendation": null,
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adaptive-407a66a5-29a0-49fd-858d-54a821f14416",
+      "track": "android",
+      "grade": "Middle",
+      "scenario": 0,
+      "answers": 11,
+      "result": {
+        "targetGrade": "Middle",
+        "specialization": "android",
+        "decision": "CONFIRMED",
+        "title": "MIDDLE CONFIRMED",
+        "reason": "Заявленный уровень Middle подтверждён инженерными сценариями.",
+        "stopReason": "above_band",
+        "contentTags": [
+          "state",
+          "background",
+          "performance",
+          "offline",
+          "lifecycle",
+          "release"
+        ],
+        "recommendation": "Senior",
+        "assessmentStatus": "confirmed",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adaptive-5a8c9c32-eff7-4b63-8513-30dcde091ca7",
+      "track": "android",
+      "grade": "Senior",
+      "scenario": 1,
+      "answers": 12,
+      "result": {
+        "targetGrade": "Senior",
+        "specialization": "android",
+        "decision": "NOT_CONFIRMED",
+        "title": "SENIOR ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Senior в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "offline",
+          "lifecycle",
+          "performance",
+          "state",
+          "background",
+          "release"
+        ],
+        "recommendation": "Middle",
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adaptive-507cd8b6-ddc0-47fb-8861-8e3a4476f1e6",
+      "track": "ios",
+      "grade": "Junior",
+      "scenario": 2,
+      "answers": 10,
+      "result": {
+        "targetGrade": "Junior",
+        "specialization": "ios",
+        "decision": "NOT_CONFIRMED",
+        "title": "JUNIOR ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Junior в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "concurrency",
+          "state",
+          "offline",
+          "release",
+          "lifecycle",
+          "performance"
+        ],
+        "recommendation": null,
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adaptive-849ed166-dd98-4685-b497-117827ce22a0",
+      "track": "ios",
+      "grade": "Middle",
+      "scenario": 3,
+      "answers": 11,
+      "result": {
+        "targetGrade": "Middle",
+        "specialization": "ios",
+        "decision": "NOT_CONFIRMED",
+        "title": "MIDDLE ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Middle в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "lifecycle",
+          "concurrency",
+          "offline",
+          "release",
+          "state",
+          "performance"
+        ],
+        "recommendation": "Junior",
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adaptive-dbd7271f-0bca-45ba-8b00-a888c998386b",
+      "track": "ios",
+      "grade": "Senior",
+      "scenario": 0,
+      "answers": 12,
+      "result": {
+        "targetGrade": "Senior",
+        "specialization": "ios",
+        "decision": "CONFIRMED",
+        "title": "SENIOR CONFIRMED",
+        "reason": "Заявленный уровень Senior подтверждён инженерными сценариями.",
+        "stopReason": "above_band",
+        "contentTags": [
+          "lifecycle",
+          "release",
+          "offline",
+          "state",
+          "concurrency",
+          "performance"
+        ],
+        "recommendation": null,
+        "assessmentStatus": "confirmed",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Сильная сторона",
+            "description": "Последовательно выбираете решения, поддержанные наблюдениями и ограничениями."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adaptive-64182d8e-b6cc-408e-8d12-529eb0a57484",
+      "track": "security-appsec",
+      "grade": "Junior",
+      "scenario": 1,
+      "answers": 10,
+      "result": {
+        "targetGrade": "Junior",
+        "specialization": "security-appsec",
+        "decision": "NOT_CONFIRMED",
+        "title": "JUNIOR ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Junior в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "assurance",
+          "session",
+          "input",
+          "authorization",
+          "threat",
+          "supply-chain"
+        ],
+        "recommendation": null,
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adaptive-e9d8bcce-4f3f-4937-afa2-d853bc912e8f",
+      "track": "security-appsec",
+      "grade": "Middle",
+      "scenario": 2,
+      "answers": 11,
+      "result": {
+        "targetGrade": "Middle",
+        "specialization": "security-appsec",
+        "decision": "NOT_CONFIRMED",
+        "title": "MIDDLE ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Middle в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "assurance",
+          "supply-chain",
+          "session",
+          "threat",
+          "authorization",
+          "input"
+        ],
+        "recommendation": "Junior",
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Недостаточно подтверждений",
+            "description": "Ответы не дали устойчивого подтверждения этой компетенции."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adaptive-4f6e99b9-07b2-42c3-b1b8-be56df4b9a32",
+      "track": "security-appsec",
+      "grade": "Senior",
+      "scenario": 3,
+      "answers": 13,
+      "result": {
+        "targetGrade": "Senior",
+        "specialization": "security-appsec",
+        "decision": "NOT_CONFIRMED",
+        "title": "SENIOR ПОКА НЕ ПОДТВЕРЖДЁН",
+        "reason": "Для устойчивого подтверждения Senior в этой попытке недостаточно свидетельств по диагностике и инженерным решениям и адаптации. Это не означает автоматического присвоения более низкого грейда.",
+        "stopReason": "competency_deficit",
+        "contentTags": [
+          "session",
+          "threat",
+          "assurance",
+          "input",
+          "authorization",
+          "supply-chain"
+        ],
+        "recommendation": "Middle",
+        "assessmentStatus": "below-standard",
+        "dimensions": [
+          {
+            "dimension": "diagnosis",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "correctness",
+            "label": "Соответствует",
+            "description": "Решения соответствуют требованиям проверенных сценариев."
+          },
+          {
+            "dimension": "engineering_judgment",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          },
+          {
+            "dimension": "adaptation",
+            "label": "Требуется дополнительная практика",
+            "description": "Рекомендуем практику на анализе последствий и проверке инженерных предположений."
+          }
+        ]
+      }
+    }
+  ]
+}

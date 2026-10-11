@@ -1,0 +1,23 @@
+# Use with compose.yml. Explicit release image; database/files remain on durable volumes.
+services:
+  app:
+    image: offerly:${OFFERLY_RELEASE:?Set OFFERLY_RELEASE}
+    logging:
+      driver: json-file
+      options: { max-size: '10m', max-file: '3' }
+  migrate:
+    image: offerly:${OFFERLY_RELEASE:?Set OFFERLY_RELEASE}
+  db:
+    logging:
+      driver: json-file
+      options: { max-size: '10m', max-file: '3' }
+  # Same immutable release and shared durable volumes; the edge balances requests.
+  app2:
+    extends:
+      file: compose.yml
+      service: app
+    image: offerly:${OFFERLY_RELEASE:?Set OFFERLY_RELEASE}
+    ports: !override ['127.0.0.1:3004:3000']
+    logging:
+      driver: json-file
+      options: { max-size: '10m', max-file: '3' }

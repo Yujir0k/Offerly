@@ -1,0 +1,944 @@
+{
+  "tracks": 12,
+  "grades": 3,
+  "cases": 108,
+  "steps": 830,
+  "rows": [
+    {
+      "track": "backend",
+      "grade": "Junior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "backend",
+      "grade": "Junior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "backend",
+      "grade": "Junior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9,
+        "total": 10,
+        "score": 25
+      }
+    },
+    {
+      "track": "backend",
+      "grade": "Middle",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "backend",
+      "grade": "Middle",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "backend",
+      "grade": "Middle",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10,
+        "total": 11,
+        "score": 18
+      }
+    },
+    {
+      "track": "backend",
+      "grade": "Senior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 12
+    },
+    {
+      "track": "backend",
+      "grade": "Senior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 12
+    },
+    {
+      "track": "backend",
+      "grade": "Senior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 11,
+        "total": 12,
+        "score": 11
+      }
+    },
+    {
+      "track": "frontend",
+      "grade": "Junior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "frontend",
+      "grade": "Junior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "frontend",
+      "grade": "Junior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9,
+        "total": 10,
+        "score": 25
+      }
+    },
+    {
+      "track": "frontend",
+      "grade": "Middle",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "frontend",
+      "grade": "Middle",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "frontend",
+      "grade": "Middle",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10,
+        "total": 11,
+        "score": 18
+      }
+    },
+    {
+      "track": "frontend",
+      "grade": "Senior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 12
+    },
+    {
+      "track": "frontend",
+      "grade": "Senior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 12
+    },
+    {
+      "track": "frontend",
+      "grade": "Senior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 11,
+        "total": 12,
+        "score": 11
+      }
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Junior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Junior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Junior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9,
+        "total": 10,
+        "score": 25
+      }
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Middle",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Middle",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Middle",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10,
+        "total": 11,
+        "score": 18
+      }
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Senior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 12
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Senior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 12
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Senior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 11,
+        "total": 12,
+        "score": 11
+      }
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Junior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Junior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Junior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9,
+        "total": 10,
+        "score": 25
+      }
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Middle",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Middle",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Middle",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10,
+        "total": 11,
+        "score": 18
+      }
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Senior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 13
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Senior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 13
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Senior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 12,
+        "total": 13,
+        "score": 11
+      }
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Junior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Junior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Junior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9,
+        "total": 10,
+        "score": 25
+      }
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Middle",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Middle",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Middle",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10,
+        "total": 11,
+        "score": 18
+      }
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Senior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 12
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Senior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 12
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Senior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 11,
+        "total": 12,
+        "score": 11
+      }
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Junior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Junior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Junior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9,
+        "total": 10,
+        "score": 25
+      }
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Middle",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Middle",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Middle",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10,
+        "total": 11,
+        "score": 18
+      }
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Senior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 12
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Senior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 12
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Senior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 11,
+        "total": 12,
+        "score": 11
+      }
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Junior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 9
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Junior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 9
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Junior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 8,
+        "total": 9,
+        "score": 25
+      }
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Middle",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Middle",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Middle",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9,
+        "total": 10,
+        "score": 18
+      }
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Senior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 12
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Senior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 12
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Senior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 11,
+        "total": 12,
+        "score": 11
+      }
+    },
+    {
+      "track": "mlops",
+      "grade": "Junior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "mlops",
+      "grade": "Junior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "mlops",
+      "grade": "Junior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9,
+        "total": 10,
+        "score": 25
+      }
+    },
+    {
+      "track": "mlops",
+      "grade": "Middle",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "mlops",
+      "grade": "Middle",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "mlops",
+      "grade": "Middle",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10,
+        "total": 11,
+        "score": 18
+      }
+    },
+    {
+      "track": "mlops",
+      "grade": "Senior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 12
+    },
+    {
+      "track": "mlops",
+      "grade": "Senior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 12
+    },
+    {
+      "track": "mlops",
+      "grade": "Senior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 11,
+        "total": 12,
+        "score": 11
+      }
+    },
+    {
+      "track": "genai",
+      "grade": "Junior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "genai",
+      "grade": "Junior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "genai",
+      "grade": "Junior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9,
+        "total": 10,
+        "score": 25
+      }
+    },
+    {
+      "track": "genai",
+      "grade": "Middle",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "genai",
+      "grade": "Middle",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "genai",
+      "grade": "Middle",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10,
+        "total": 11,
+        "score": 18
+      }
+    },
+    {
+      "track": "genai",
+      "grade": "Senior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 13
+    },
+    {
+      "track": "genai",
+      "grade": "Senior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 13
+    },
+    {
+      "track": "genai",
+      "grade": "Senior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 12,
+        "total": 13,
+        "score": 11
+      }
+    },
+    {
+      "track": "android",
+      "grade": "Junior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "android",
+      "grade": "Junior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "android",
+      "grade": "Junior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9,
+        "total": 10,
+        "score": 25
+      }
+    },
+    {
+      "track": "android",
+      "grade": "Middle",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "android",
+      "grade": "Middle",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "android",
+      "grade": "Middle",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10,
+        "total": 11,
+        "score": 18
+      }
+    },
+    {
+      "track": "android",
+      "grade": "Senior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 12
+    },
+    {
+      "track": "android",
+      "grade": "Senior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 12
+    },
+    {
+      "track": "android",
+      "grade": "Senior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 11,
+        "total": 12,
+        "score": 11
+      }
+    },
+    {
+      "track": "ios",
+      "grade": "Junior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "ios",
+      "grade": "Junior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "ios",
+      "grade": "Junior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9,
+        "total": 10,
+        "score": 25
+      }
+    },
+    {
+      "track": "ios",
+      "grade": "Middle",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "ios",
+      "grade": "Middle",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "ios",
+      "grade": "Middle",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10,
+        "total": 11,
+        "score": 18
+      }
+    },
+    {
+      "track": "ios",
+      "grade": "Senior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 12
+    },
+    {
+      "track": "ios",
+      "grade": "Senior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 12
+    },
+    {
+      "track": "ios",
+      "grade": "Senior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 11,
+        "total": 12,
+        "score": 11
+      }
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Junior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Junior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 10
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Junior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 9,
+        "total": 10,
+        "score": 25
+      }
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Middle",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Middle",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 11
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Middle",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 10,
+        "total": 11,
+        "score": 18
+      }
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Senior",
+      "case": "success",
+      "decision": "CONFIRMED",
+      "steps": 13
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Senior",
+      "case": "failure",
+      "decision": "NOT_CONFIRMED",
+      "steps": 13
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Senior",
+      "case": "timeout",
+      "summary": {
+        "policy": "unanswered-zero-v1",
+        "answered": 1,
+        "unanswered": 12,
+        "total": 13,
+        "score": 11
+      }
+    }
+  ]
+}

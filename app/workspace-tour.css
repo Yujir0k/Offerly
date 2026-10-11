@@ -1,0 +1,228 @@
+.workspace-tour {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  outline: none;
+}
+.tour-frost {
+  position: absolute;
+  background: #eef0f778;
+  animation: tour-enter 0.45s ease both;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.tour-spotlight {
+  position: absolute;
+  border: 2px solid #8f7bff;
+  border-radius: 15px;
+  box-shadow:
+    0 0 0 5px #402fff12,
+    0 0 32px #402fff38,
+    inset 0 0 0 1px #ffffff4d;
+  pointer-events: none;
+  animation: tour-glow 2.8s ease-in-out infinite;
+}
+.tour-spotlight.is-mobile {
+  background: #30264c;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  font-size: 15px;
+  font-weight: 700;
+}
+.tour-arrow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+.tour-arrow > path {
+  fill: none;
+  stroke: #402fff;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: tour-draw 0.75s 0.2s ease forwards;
+}
+.tour-note {
+  position: absolute;
+  overflow: auto;
+  padding: 30px;
+  border: 1px solid #e4ddf5;
+  border-radius: 24px;
+  background: #ffffffed;
+  color: #24222c;
+  box-shadow:
+    0 24px 90px #37256c1f,
+    0 4px 14px #37256c08;
+  animation: tour-note-enter 0.5s 0.12s both;
+}
+.tour-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  color: #81788f;
+  cursor: pointer;
+  border-radius: 8px;
+}
+.tour-close:hover {
+  background: #f1ecff;
+  color: #402fff;
+}
+.tour-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  letter-spacing: 0.045em;
+  color: #6e56c4;
+  padding-right: 12px;
+}
+.tour-title {
+  margin: 19px 0 12px;
+  font-size: 25px;
+  line-height: 1.25;
+  letter-spacing: -0.035em;
+  font-weight: 800;
+}
+.tour-description {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #71697e;
+  margin: 0;
+}
+.tour-note-footer {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+}
+.tour-note-footer small {
+  color: #948b9f;
+  font-size: 10px;
+  line-height: 1.6;
+  max-width: 145px;
+}
+.tour-ok {
+  min-width: 94px;
+  padding: 11px 17px;
+  font-size: 14px;
+}
+.tour-ok:focus-visible,
+.tour-close:focus-visible {
+  outline: 3px solid #b8a7ff;
+  outline-offset: 4px;
+}
+.workspace-tour.is-closing > * {
+  animation: tour-exit 0.24s ease forwards;
+}
+@keyframes tour-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes tour-exit {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes tour-note-enter {
+  from {
+    opacity: 0;
+    translate: 12px 8px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes tour-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes tour-glow {
+  50% {
+    box-shadow:
+      0 0 0 7px #402fff0b,
+      0 0 40px #402fff4d,
+      inset 0 0 0 1px #ffffff4d;
+  }
+}
+@media (max-width: 767px) {
+  .tour-note {
+    padding: 24px;
+    border-radius: 20px;
+  }
+  .tour-title {
+    font-size: 23px;
+  }
+  .tour-eyebrow {
+    font-size: 9px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .workspace-tour,
+  .tour-note,
+  .tour-spotlight,
+  .tour-arrow > path {
+    animation: none;
+  }
+  .tour-arrow > path {
+    stroke-dashoffset: 0;
+  }
+  .workspace-tour.is-closing > * {
+    opacity: 0;
+  }
+}
+
+.tour-note-footer {
+  gap: 10px;
+}
+.tour-dismiss-all,
+.tour-note-footer .tour-ok {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border-radius: 12px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.tour-dismiss-all {
+  flex: 1;
+  padding: 11px 12px;
+  border: 1px solid #d7cdff;
+  background: #f1edff;
+  color: #402fff;
+}
+.tour-dismiss-all:hover {
+  background: #e8e0ff;
+  border-color: #aa98ff;
+}
+.tour-note-footer .tour-ok {
+  min-width: 70px;
+  padding: 11px 14px;
+}
+.tour-dismiss-all:focus-visible {
+  outline: 3px solid #b8a7ff;
+  outline-offset: 4px;
+}
+.tour-dismiss-all:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}

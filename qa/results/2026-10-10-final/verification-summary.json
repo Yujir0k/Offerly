@@ -1,0 +1,30 @@
+{
+  "run": "2026-10-10/11",
+  "regression": {
+    "passed": 74,
+    "failed": 0
+  },
+  "assessmentMatrix": {
+    "tracks": 12,
+    "grades": 3,
+    "cases": 108,
+    "steps": 830
+  },
+  "navigationChecks": 1332,
+  "retakePolicyChecks": 18,
+  "retakeTransactionChecks": 12,
+  "upstreamTests": 44,
+  "fspDemoHttpChecks": 80,
+  "resumeHttpPassed": true,
+  "api": {
+    "paths": 41,
+    "resolvedReferences": 269,
+    "directRouteMethods": 44
+  },
+  "sourceTypecheckPassed": true,
+  "cleanProductionBuildPassed": true,
+  "gitSyncPerformed": false,
+  "backupRestorePerformed": false,
+  "externalDeploymentPerformed": false,
+  "sourceBackupVerified": true
+}

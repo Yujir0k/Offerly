@@ -1,0 +1,781 @@
+{
+  "version": "professional-competency-2.0.0",
+  "track": "devops-sre",
+  "name": "DevOps / SRE",
+  "roleScope": "надёжность сервиса через SLO, изменения и recovery",
+  "gradeStandards": {
+    "Junior": "Самостоятельно и корректно решает runbook и локальный telemetry/capacity check при понятных фактах и ограниченных последствиях.",
+    "Middle": "Самостоятельно интегрирует SLI, dependencies, incident containment и recovery evidence, строит причинную/аналитическую модель и проверяет действие при реальных constraints.",
+    "Senior": "Выбирает SLO/change/recovery policy, стоимость, reserve и blast radius среди допустимых решений с uncertainty, evolution, rollback и ответственностью за последствия."
+  },
+  "sources": [
+    "https://sfia-online.org/en/sfia-9/responsibilities",
+    "https://sre.google/sre-book/table-of-contents/",
+    "https://sre.google/workbook/implementing-slos/",
+    "https://dora.dev/guides/dora-metrics/"
+  ],
+  "knownLimitations": [
+    "18 capabilities охватывают scenario scope этого assessment, а не всю профессию.",
+    "Grade taxonomy — synthesis команды; стандарты не задают эти три grades или проценты confirmation.",
+    "Closed-world multiple choice и bounded execution не доказывают самостоятельную формулировку стратегии в открытой задаче.",
+    "Rubric и mapping требуют независимого expert review; человеческая calibration отсутствует."
+  ],
+  "capabilities": [
+    {
+      "id": "devops-sre.sli-population",
+      "domain": "slo",
+      "description": "Пользовательская популяция SLI",
+      "middleTier": "core",
+      "juniorExpectation": "Считает ошибки в заданном eligible traffic",
+      "middleExpectation": "Различает success, availability и исключённые запросы",
+      "seniorExpectation": "Выбирает SLI contract с последствиями для пользователей",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Исключает неудобные ошибки из denominator; не связывает это с границей ожидаемого результата: считает ошибки в заданном eligible traffic",
+          "borderline": "Может: считает ошибки в заданном eligible traffic, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: считает ошибки в заданном eligible traffic. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Исключает неудобные ошибки из denominator; не связывает это с границей ожидаемого результата: различает success, availability и исключённые запросы",
+          "borderline": "Может: различает success, availability и исключённые запросы, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает success, availability и исключённые запросы. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Исключает неудобные ошибки из denominator; не связывает это с границей ожидаемого результата: выбирает sli contract с последствиями для пользователей",
+          "borderline": "Может: выбирает sli contract с последствиями для пользователей, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает sli contract с последствиями для пользователей. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Считает ошибки в заданном eligible traffic — локальная проверка результата",
+        "Различает success, availability и исключённые запросы — независимое evidence и объяснение",
+        "Выбирает SLI contract с последствиями для пользователей — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Исключает неудобные ошибки из denominator",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://sre.google/sre-book/table-of-contents/",
+        "https://sre.google/workbook/implementing-slos/",
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "devops-sre.burn-evidence",
+      "domain": "slo",
+      "description": "Burn rate и alert evidence",
+      "middleTier": "core",
+      "juniorExpectation": "Вычисляет burn по заданному окну",
+      "middleExpectation": "Сопоставляет короткое и длинное окна с budget",
+      "seniorExpectation": "Выбирает alert policy с urgency и noise trade-off",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Пейджит по одному краткому spike; не связывает это с границей ожидаемого результата: вычисляет burn по заданному окну",
+          "borderline": "Может: вычисляет burn по заданному окну, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: вычисляет burn по заданному окну. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Пейджит по одному краткому spike; не связывает это с границей ожидаемого результата: сопоставляет короткое и длинное окна с budget",
+          "borderline": "Может: сопоставляет короткое и длинное окна с budget, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет короткое и длинное окна с budget. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Пейджит по одному краткому spike; не связывает это с границей ожидаемого результата: выбирает alert policy с urgency и noise trade-off",
+          "borderline": "Может: выбирает alert policy с urgency и noise trade-off, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает alert policy с urgency и noise trade-off. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Вычисляет burn по заданному окну — локальная проверка результата",
+        "Сопоставляет короткое и длинное окна с budget — независимое evidence и объяснение",
+        "Выбирает alert policy с urgency и noise trade-off — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Пейджит по одному краткому spike",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://sre.google/sre-book/table-of-contents/",
+        "https://sre.google/workbook/implementing-slos/",
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "devops-sre.budget-policy",
+      "domain": "slo",
+      "description": "Политика error budget",
+      "middleTier": "upper",
+      "juniorExpectation": "Применяет известное правило остановки change",
+      "middleExpectation": "Связывает расход budget с release и recovery",
+      "seniorExpectation": "Выбирает policy надёжности совместно с ценой изменений",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Требует нулевых ошибок любой ценой; не связывает это с границей ожидаемого результата: применяет известное правило остановки change",
+          "borderline": "Может: применяет известное правило остановки change, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: применяет известное правило остановки change. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Требует нулевых ошибок любой ценой; не связывает это с границей ожидаемого результата: связывает расход budget с release и recovery",
+          "borderline": "Может: связывает расход budget с release и recovery, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает расход budget с release и recovery. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Требует нулевых ошибок любой ценой; не связывает это с границей ожидаемого результата: выбирает policy надёжности совместно с ценой изменений",
+          "borderline": "Может: выбирает policy надёжности совместно с ценой изменений, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает policy надёжности совместно с ценой изменений. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Применяет известное правило остановки change — локальная проверка результата",
+        "Связывает расход budget с release и recovery — независимое evidence и объяснение",
+        "Выбирает policy надёжности совместно с ценой изменений — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Требует нулевых ошибок любой ценой",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://sre.google/sre-book/table-of-contents/",
+        "https://sre.google/workbook/implementing-slos/",
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "devops-sre.containment",
+      "domain": "incident",
+      "description": "Containment инцидента",
+      "middleTier": "core",
+      "juniorExpectation": "Изолирует подтверждённый локальный failure",
+      "middleExpectation": "Связывает routing, dependencies и деградацию пользователей",
+      "seniorExpectation": "Выбирает containment с blast radius и доступностью",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Переключает весь трафик без проверки capacity; не связывает это с границей ожидаемого результата: изолирует подтверждённый локальный failure",
+          "borderline": "Может: изолирует подтверждённый локальный failure, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: изолирует подтверждённый локальный failure. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Переключает весь трафик без проверки capacity; не связывает это с границей ожидаемого результата: связывает routing, dependencies и деградацию пользователей",
+          "borderline": "Может: связывает routing, dependencies и деградацию пользователей, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает routing, dependencies и деградацию пользователей. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Переключает весь трафик без проверки capacity; не связывает это с границей ожидаемого результата: выбирает containment с blast radius и доступностью",
+          "borderline": "Может: выбирает containment с blast radius и доступностью, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает containment с blast radius и доступностью. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Изолирует подтверждённый локальный failure — локальная проверка результата",
+        "Связывает routing, dependencies и деградацию пользователей — независимое evidence и объяснение",
+        "Выбирает containment с blast radius и доступностью — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Переключает весь трафик без проверки capacity",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://sre.google/sre-book/table-of-contents/",
+        "https://sre.google/workbook/implementing-slos/",
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "devops-sre.termination-safety",
+      "domain": "incident",
+      "description": "Безопасное завершение instance",
+      "middleTier": "core",
+      "juniorExpectation": "Дожидается завершения известных inflight requests",
+      "middleExpectation": "Согласует readiness, draining и termination budget",
+      "seniorExpectation": "Выбирает shutdown contract при mixed versions и workload",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает SIGTERM мгновенным безопасным stop; не связывает это с границей ожидаемого результата: дожидается завершения известных inflight requests",
+          "borderline": "Может: дожидается завершения известных inflight requests, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: дожидается завершения известных inflight requests. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает SIGTERM мгновенным безопасным stop; не связывает это с границей ожидаемого результата: согласует readiness, draining и termination budget",
+          "borderline": "Может: согласует readiness, draining и termination budget, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует readiness, draining и termination budget. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает SIGTERM мгновенным безопасным stop; не связывает это с границей ожидаемого результата: выбирает shutdown contract при mixed versions и workload",
+          "borderline": "Может: выбирает shutdown contract при mixed versions и workload, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает shutdown contract при mixed versions и workload. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Дожидается завершения известных inflight requests — локальная проверка результата",
+        "Согласует readiness, draining и termination budget — независимое evidence и объяснение",
+        "Выбирает shutdown contract при mixed versions и workload — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает SIGTERM мгновенным безопасным stop",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://sre.google/sre-book/table-of-contents/",
+        "https://sre.google/workbook/implementing-slos/",
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "devops-sre.incident-evidence",
+      "domain": "incident",
+      "description": "Причинное evidence инцидента",
+      "middleTier": "upper",
+      "juniorExpectation": "Отличает symptom от измеренного отказа",
+      "middleExpectation": "Строит timeline из telemetry, change и dependencies",
+      "seniorExpectation": "Выбирает действие под uncertainty и последующий learning",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Объявляет correlation root cause; не связывает это с границей ожидаемого результата: отличает symptom от измеренного отказа",
+          "borderline": "Может: отличает symptom от измеренного отказа, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: отличает symptom от измеренного отказа. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Объявляет correlation root cause; не связывает это с границей ожидаемого результата: строит timeline из telemetry, change и dependencies",
+          "borderline": "Может: строит timeline из telemetry, change и dependencies, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: строит timeline из telemetry, change и dependencies. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Объявляет correlation root cause; не связывает это с границей ожидаемого результата: выбирает действие под uncertainty и последующий learning",
+          "borderline": "Может: выбирает действие под uncertainty и последующий learning, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает действие под uncertainty и последующий learning. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Отличает symptom от измеренного отказа — локальная проверка результата",
+        "Строит timeline из telemetry, change и dependencies — независимое evidence и объяснение",
+        "Выбирает действие под uncertainty и последующий learning — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Объявляет correlation root cause",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://sre.google/sre-book/table-of-contents/",
+        "https://sre.google/workbook/implementing-slos/",
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "devops-sre.resource-demand",
+      "domain": "capacity",
+      "description": "Спрос и ограничение ресурсов",
+      "middleTier": "core",
+      "juniorExpectation": "Различает usage и resource limit",
+      "middleExpectation": "Связывает throttling, queues и реальный demand",
+      "seniorExpectation": "Выбирает capacity plan с резервом, стоимостью и отказами зон",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Лечит CPU throttling только replica count; не связывает это с границей ожидаемого результата: различает usage и resource limit",
+          "borderline": "Может: различает usage и resource limit, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает usage и resource limit. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Лечит CPU throttling только replica count; не связывает это с границей ожидаемого результата: связывает throttling, queues и реальный demand",
+          "borderline": "Может: связывает throttling, queues и реальный demand, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает throttling, queues и реальный demand. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Лечит CPU throttling только replica count; не связывает это с границей ожидаемого результата: выбирает capacity plan с резервом, стоимостью и отказами зон",
+          "borderline": "Может: выбирает capacity plan с резервом, стоимостью и отказами зон, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает capacity plan с резервом, стоимостью и отказами зон. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Различает usage и resource limit — локальная проверка результата",
+        "Связывает throttling, queues и реальный demand — независимое evidence и объяснение",
+        "Выбирает capacity plan с резервом, стоимостью и отказами зон — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Лечит CPU throttling только replica count",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://sre.google/sre-book/table-of-contents/",
+        "https://sre.google/workbook/implementing-slos/",
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "devops-sre.admission-capacity",
+      "domain": "capacity",
+      "description": "Admission и перегрузка",
+      "middleTier": "core",
+      "juniorExpectation": "Соблюдает заданный лимит concurrency",
+      "middleExpectation": "Согласует arrival rate, service time и queue budget",
+      "seniorExpectation": "Выбирает fairness и shedding при capacity deficit",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Допускает неограниченный backlog; не связывает это с границей ожидаемого результата: соблюдает заданный лимит concurrency",
+          "borderline": "Может: соблюдает заданный лимит concurrency, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: соблюдает заданный лимит concurrency. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Допускает неограниченный backlog; не связывает это с границей ожидаемого результата: согласует arrival rate, service time и queue budget",
+          "borderline": "Может: согласует arrival rate, service time и queue budget, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует arrival rate, service time и queue budget. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Допускает неограниченный backlog; не связывает это с границей ожидаемого результата: выбирает fairness и shedding при capacity deficit",
+          "borderline": "Может: выбирает fairness и shedding при capacity deficit, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает fairness и shedding при capacity deficit. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Соблюдает заданный лимит concurrency — локальная проверка результата",
+        "Согласует arrival rate, service time и queue budget — независимое evidence и объяснение",
+        "Выбирает fairness и shedding при capacity deficit — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Допускает неограниченный backlog",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://sre.google/sre-book/table-of-contents/",
+        "https://sre.google/workbook/implementing-slos/",
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "devops-sre.rolling-headroom",
+      "domain": "capacity",
+      "description": "Headroom во время rolling change",
+      "middleTier": "upper",
+      "juniorExpectation": "Считает доступные instance при заданном rollout",
+      "middleExpectation": "Проверяет surge, unavailable и reserve одновременно",
+      "seniorExpectation": "Выбирает rollout strategy под cost и recovery constraints",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Забывает capacity во время rollout; не связывает это с границей ожидаемого результата: считает доступные instance при заданном rollout",
+          "borderline": "Может: считает доступные instance при заданном rollout, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: считает доступные instance при заданном rollout. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Забывает capacity во время rollout; не связывает это с границей ожидаемого результата: проверяет surge, unavailable и reserve одновременно",
+          "borderline": "Может: проверяет surge, unavailable и reserve одновременно, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет surge, unavailable и reserve одновременно. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Забывает capacity во время rollout; не связывает это с границей ожидаемого результата: выбирает rollout strategy под cost и recovery constraints",
+          "borderline": "Может: выбирает rollout strategy под cost и recovery constraints, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает rollout strategy под cost и recovery constraints. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Считает доступные instance при заданном rollout — локальная проверка результата",
+        "Проверяет surge, unavailable и reserve одновременно — независимое evidence и объяснение",
+        "Выбирает rollout strategy под cost и recovery constraints — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Забывает capacity во время rollout",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://sre.google/sre-book/table-of-contents/",
+        "https://sre.google/workbook/implementing-slos/",
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "devops-sre.canary-signal",
+      "domain": "delivery",
+      "description": "Сигнал canary",
+      "middleTier": "core",
+      "juniorExpectation": "Сравнивает заданные health показатели",
+      "middleExpectation": "Отделяет cohort effect и общий инцидент",
+      "seniorExpectation": "Выбирает gates и rollback с задержкой и residual risk",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Промотирует по одному зелёному indicator; не связывает это с границей ожидаемого результата: сравнивает заданные health показатели",
+          "borderline": "Может: сравнивает заданные health показатели, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сравнивает заданные health показатели. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Промотирует по одному зелёному indicator; не связывает это с границей ожидаемого результата: отделяет cohort effect и общий инцидент",
+          "borderline": "Может: отделяет cohort effect и общий инцидент, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: отделяет cohort effect и общий инцидент. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Промотирует по одному зелёному indicator; не связывает это с границей ожидаемого результата: выбирает gates и rollback с задержкой и residual risk",
+          "borderline": "Может: выбирает gates и rollback с задержкой и residual risk, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает gates и rollback с задержкой и residual risk. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сравнивает заданные health показатели — локальная проверка результата",
+        "Отделяет cohort effect и общий инцидент — независимое evidence и объяснение",
+        "Выбирает gates и rollback с задержкой и residual risk — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Промотирует по одному зелёному indicator",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://sre.google/sre-book/table-of-contents/",
+        "https://sre.google/workbook/implementing-slos/",
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "devops-sre.config-drift",
+      "domain": "delivery",
+      "description": "Configuration drift",
+      "middleTier": "core",
+      "juniorExpectation": "Находит отклонение от заявленной конфигурации",
+      "middleExpectation": "Связывает desired state, apply и runtime revision",
+      "seniorExpectation": "Выбирает convergence и audit strategy при ручном emergency change",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Принимает successful apply за runtime consistency; не связывает это с границей ожидаемого результата: находит отклонение от заявленной конфигурации",
+          "borderline": "Может: находит отклонение от заявленной конфигурации, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: находит отклонение от заявленной конфигурации. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Принимает successful apply за runtime consistency; не связывает это с границей ожидаемого результата: связывает desired state, apply и runtime revision",
+          "borderline": "Может: связывает desired state, apply и runtime revision, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает desired state, apply и runtime revision. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Принимает successful apply за runtime consistency; не связывает это с границей ожидаемого результата: выбирает convergence и audit strategy при ручном emergency change",
+          "borderline": "Может: выбирает convergence и audit strategy при ручном emergency change, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает convergence и audit strategy при ручном emergency change. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Находит отклонение от заявленной конфигурации — локальная проверка результата",
+        "Связывает desired state, apply и runtime revision — независимое evidence и объяснение",
+        "Выбирает convergence и audit strategy при ручном emergency change — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Принимает successful apply за runtime consistency",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://sre.google/sre-book/table-of-contents/",
+        "https://sre.google/workbook/implementing-slos/",
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "devops-sre.change-risk",
+      "domain": "delivery",
+      "description": "Риск изменения",
+      "middleTier": "upper",
+      "juniorExpectation": "Выполняет ограниченный проверенный change",
+      "middleExpectation": "Согласует dependency order и условия остановки",
+      "seniorExpectation": "Выбирает скорость change по SLO и recovery capability",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает deployment frequency персональным grade; не связывает это с границей ожидаемого результата: выполняет ограниченный проверенный change",
+          "borderline": "Может: выполняет ограниченный проверенный change, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выполняет ограниченный проверенный change. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает deployment frequency персональным grade; не связывает это с границей ожидаемого результата: согласует dependency order и условия остановки",
+          "borderline": "Может: согласует dependency order и условия остановки, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует dependency order и условия остановки. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает deployment frequency персональным grade; не связывает это с границей ожидаемого результата: выбирает скорость change по slo и recovery capability",
+          "borderline": "Может: выбирает скорость change по slo и recovery capability, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает скорость change по slo и recovery capability. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Выполняет ограниченный проверенный change — локальная проверка результата",
+        "Согласует dependency order и условия остановки — независимое evidence и объяснение",
+        "Выбирает скорость change по SLO и recovery capability — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает deployment frequency персональным grade",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://sre.google/sre-book/table-of-contents/",
+        "https://sre.google/workbook/implementing-slos/",
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "devops-sre.restore-integrity",
+      "domain": "recovery",
+      "description": "Проверенная целостность restore",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет восстановленный snapshot",
+      "middleExpectation": "Согласует backup age, journal и зависимые данные",
+      "seniorExpectation": "Выбирает RPO/RTO и план restore с ценой гарантии",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает наличие backup доказанным recovery; не связывает это с границей ожидаемого результата: проверяет восстановленный snapshot",
+          "borderline": "Может: проверяет восстановленный snapshot, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет восстановленный snapshot. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает наличие backup доказанным recovery; не связывает это с границей ожидаемого результата: согласует backup age, journal и зависимые данные",
+          "borderline": "Может: согласует backup age, journal и зависимые данные, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует backup age, journal и зависимые данные. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает наличие backup доказанным recovery; не связывает это с границей ожидаемого результата: выбирает rpo/rto и план restore с ценой гарантии",
+          "borderline": "Может: выбирает rpo/rto и план restore с ценой гарантии, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает rpo/rto и план restore с ценой гарантии. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет восстановленный snapshot — локальная проверка результата",
+        "Согласует backup age, journal и зависимые данные — независимое evidence и объяснение",
+        "Выбирает RPO/RTO и план restore с ценой гарантии — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает наличие backup доказанным recovery",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://sre.google/sre-book/table-of-contents/",
+        "https://sre.google/workbook/implementing-slos/",
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "devops-sre.failover-proof",
+      "domain": "recovery",
+      "description": "Доказательство failover",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет один заданный failover path",
+      "middleExpectation": "Проверяет fencing, state и capacity резервной площадки",
+      "seniorExpectation": "Выбирает drill и fallback с риском split brain",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Переключает запись без fencing; не связывает это с границей ожидаемого результата: проверяет один заданный failover path",
+          "borderline": "Может: проверяет один заданный failover path, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет один заданный failover path. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Переключает запись без fencing; не связывает это с границей ожидаемого результата: проверяет fencing, state и capacity резервной площадки",
+          "borderline": "Может: проверяет fencing, state и capacity резервной площадки, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет fencing, state и capacity резервной площадки. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Переключает запись без fencing; не связывает это с границей ожидаемого результата: выбирает drill и fallback с риском split brain",
+          "borderline": "Может: выбирает drill и fallback с риском split brain, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает drill и fallback с риском split brain. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет один заданный failover path — локальная проверка результата",
+        "Проверяет fencing, state и capacity резервной площадки — независимое evidence и объяснение",
+        "Выбирает drill и fallback с риском split brain — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Переключает запись без fencing",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://sre.google/sre-book/table-of-contents/",
+        "https://sre.google/workbook/implementing-slos/",
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "devops-sre.recovery-ownership",
+      "domain": "recovery",
+      "description": "Владение recovery",
+      "middleTier": "upper",
+      "juniorExpectation": "Следует runbook с известной точкой восстановления",
+      "middleExpectation": "Согласует owners, validation и возврат трафика",
+      "seniorExpectation": "Выбирает recovery strategy при необратимой потере состояния",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Возвращает traffic до проверки данных; не связывает это с границей ожидаемого результата: следует runbook с известной точкой восстановления",
+          "borderline": "Может: следует runbook с известной точкой восстановления, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: следует runbook с известной точкой восстановления. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Возвращает traffic до проверки данных; не связывает это с границей ожидаемого результата: согласует owners, validation и возврат трафика",
+          "borderline": "Может: согласует owners, validation и возврат трафика, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует owners, validation и возврат трафика. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Возвращает traffic до проверки данных; не связывает это с границей ожидаемого результата: выбирает recovery strategy при необратимой потере состояния",
+          "borderline": "Может: выбирает recovery strategy при необратимой потере состояния, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает recovery strategy при необратимой потере состояния. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Следует runbook с известной точкой восстановления — локальная проверка результата",
+        "Согласует owners, validation и возврат трафика — независимое evidence и объяснение",
+        "Выбирает recovery strategy при необратимой потере состояния — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Возвращает traffic до проверки данных",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://sre.google/sre-book/table-of-contents/",
+        "https://sre.google/workbook/implementing-slos/",
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "devops-sre.sampling-signal",
+      "domain": "observability",
+      "description": "Сохранение диагностического сигнала",
+      "middleTier": "core",
+      "juniorExpectation": "Считывает trace и sampling факт",
+      "middleExpectation": "Учитывает bias sampling и связывает traces с metrics",
+      "seniorExpectation": "Выбирает sampling budget по диагностической ценности и privacy",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает отсутствующий trace отсутствием события; не связывает это с границей ожидаемого результата: считывает trace и sampling факт",
+          "borderline": "Может: считывает trace и sampling факт, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: считывает trace и sampling факт. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает отсутствующий trace отсутствием события; не связывает это с границей ожидаемого результата: учитывает bias sampling и связывает traces с metrics",
+          "borderline": "Может: учитывает bias sampling и связывает traces с metrics, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: учитывает bias sampling и связывает traces с metrics. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает отсутствующий trace отсутствием события; не связывает это с границей ожидаемого результата: выбирает sampling budget по диагностической ценности и privacy",
+          "borderline": "Может: выбирает sampling budget по диагностической ценности и privacy, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает sampling budget по диагностической ценности и privacy. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Считывает trace и sampling факт — локальная проверка результата",
+        "Учитывает bias sampling и связывает traces с metrics — независимое evidence и объяснение",
+        "Выбирает sampling budget по диагностической ценности и privacy — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает отсутствующий trace отсутствием события",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://sre.google/sre-book/table-of-contents/",
+        "https://sre.google/workbook/implementing-slos/",
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "devops-sre.postmortem-action",
+      "domain": "observability",
+      "description": "Проверяемое действие postmortem",
+      "middleTier": "core",
+      "juniorExpectation": "Формулирует проверку исправления",
+      "middleExpectation": "Связывает action с failure mechanism и владельцем",
+      "seniorExpectation": "Выбирает системные improvements и residual risk",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Заменяет prevention призывом быть внимательнее; не связывает это с границей ожидаемого результата: формулирует проверку исправления",
+          "borderline": "Может: формулирует проверку исправления, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: формулирует проверку исправления. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Заменяет prevention призывом быть внимательнее; не связывает это с границей ожидаемого результата: связывает action с failure mechanism и владельцем",
+          "borderline": "Может: связывает action с failure mechanism и владельцем, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает action с failure mechanism и владельцем. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Заменяет prevention призывом быть внимательнее; не связывает это с границей ожидаемого результата: выбирает системные improvements и residual risk",
+          "borderline": "Может: выбирает системные improvements и residual risk, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает системные improvements и residual risk. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Формулирует проверку исправления — локальная проверка результата",
+        "Связывает action с failure mechanism и владельцем — независимое evidence и объяснение",
+        "Выбирает системные improvements и residual risk — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Заменяет prevention призывом быть внимательнее",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://sre.google/sre-book/table-of-contents/",
+        "https://sre.google/workbook/implementing-slos/",
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "devops-sre.telemetry-contract",
+      "domain": "observability",
+      "description": "Контракт telemetry",
+      "middleTier": "upper",
+      "juniorExpectation": "Проверяет freshness локальной метрики",
+      "middleExpectation": "Согласует labels, aggregation и alert interpretation",
+      "seniorExpectation": "Выбирает observability architecture с cardinality и стоимостью",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает stale green metric здоровой системой; не связывает это с границей ожидаемого результата: проверяет freshness локальной метрики",
+          "borderline": "Может: проверяет freshness локальной метрики, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет freshness локальной метрики. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает stale green metric здоровой системой; не связывает это с границей ожидаемого результата: согласует labels, aggregation и alert interpretation",
+          "borderline": "Может: согласует labels, aggregation и alert interpretation, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует labels, aggregation и alert interpretation. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает stale green metric здоровой системой; не связывает это с границей ожидаемого результата: выбирает observability architecture с cardinality и стоимостью",
+          "borderline": "Может: выбирает observability architecture с cardinality и стоимостью, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает observability architecture с cardinality и стоимостью. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет freshness локальной метрики — локальная проверка результата",
+        "Согласует labels, aggregation и alert interpretation — независимое evidence и объяснение",
+        "Выбирает observability architecture с cardinality и стоимостью — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает stale green metric здоровой системой",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://sre.google/sre-book/table-of-contents/",
+        "https://sre.google/workbook/implementing-slos/",
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    }
+  ]
+}

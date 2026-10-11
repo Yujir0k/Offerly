@@ -1,0 +1,206 @@
+/* Shared email confirmation for candidates and companies. */
+.auth-refresh .code-send-button {
+  margin-top: 24px;
+}
+.code-delivery-note {
+  margin: 14px 0 0;
+  font-size: calc(14px * var(--auth-unit));
+  color: #c1bdcc;
+}
+.auth-refresh .code-form {
+  gap: 12px;
+}
+.auth-refresh .verification-code {
+  width: 100%;
+  opacity: 1;
+}
+.verification-code [data-slot="input-otp-group"] {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+  max-width: calc(410px * var(--auth-unit));
+}
+.auth-refresh .verification-code [data-slot="input-otp-slot"] {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border: 1px solid #524858;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #2b2833, #24242c);
+  color: #f7f4ff;
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: calc(26px * var(--auth-unit));
+  box-shadow: none;
+  transition:
+    border-color 160ms,
+    background-color 160ms;
+}
+.auth-refresh .verification-code [data-active="true"] {
+  border-color: #b39eff;
+  box-shadow: 0 0 0 3px #9b78ff20;
+}
+.auth-refresh .verification-code.is-error [data-slot="input-otp-slot"] {
+  border-color: #ff6c7c;
+  background: #3b1d29;
+  color: #ffadba;
+  box-shadow: none;
+}
+.auth-refresh .verification-code.is-success [data-slot="input-otp-slot"] {
+  border-color: #41d69b;
+  background: #133629;
+  color: #89f0bd;
+  box-shadow: none;
+}
+.auth-refresh .code-form input[data-slot="input-otp"] {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: inherit;
+}
+.code-status {
+  margin: 0;
+  min-height: 2.8em;
+  font-size: calc(13px * var(--auth-unit));
+  line-height: 1.5;
+  color: #aca1b8;
+}
+.code-status.error {
+  color: #ffadba;
+}
+.code-status.success {
+  color: #89f0bd;
+}
+.code-profile-link {
+  display: block;
+  margin-top: 24px;
+  text-align: left;
+  line-height: 1.5;
+}
+.local-inbox-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  color: #c7b8ff;
+  font-weight: 650;
+  font-size: calc(14px * var(--auth-unit));
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.local-mail-preview {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid #574669;
+  border-radius: 12px;
+  background: #262031;
+}
+.local-mail-preview .mono {
+  font-size: 11px;
+  color: #b5a5ff;
+}
+.local-mail-preview p {
+  margin: 8px 0;
+  font-size: 13px;
+}
+.local-mail-preview strong {
+  display: block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 26px;
+  letter-spacing: 0.2em;
+}
+.local-mail-preview small {
+  display: block;
+  margin-top: 8px;
+  color: #aca1b8;
+}
+.setup-return-code {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  font-size: 14px;
+  text-align: left;
+}
+@media (max-width: 480px) {
+  .verification-code [data-slot="input-otp-group"] {
+    gap: 6px;
+  }
+  .auth-refresh .verification-code [data-slot="input-otp-slot"] {
+    font-size: 22px;
+    border-radius: 9px;
+  }
+}
+.email-change-dialog {
+  position: fixed;
+  min-height: 0;
+  height: auto;
+  --auth-unit: var(--interface-scale, 1);
+  padding: 34px;
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  background: linear-gradient(145deg, #252031, #17181f 65%);
+}
+.email-change-dialog .auth-form {
+  margin-top: 2px;
+}
+.email-change-dialog [data-slot="dialog-title"] {
+  padding-right: 18px;
+}
+.email-change-steps {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding-right: 25px;
+  margin-bottom: 6px;
+  font-size: 10px;
+  color: #80768d;
+}
+.email-change-steps span.active {
+  color: #c6b5ef;
+}
+.email-change-steps i {
+  width: 15px;
+  height: 1px;
+  background: #574b65;
+}
+.email-change-current {
+  margin: 0;
+  color: #a99abd;
+  font-size: 13px;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.email-change-back {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  color: #b8adcc;
+  font-size: 13px;
+  margin-top: 4px;
+}
+.email-change-access-confirmed {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: #89f0bd;
+}
+.email-change-dialog .verification-code [data-slot="input-otp-group"] {
+  max-width: none;
+}
+@media (max-width: 480px) {
+  .email-change-dialog {
+    padding: 26px;
+  }
+  .email-change-steps {
+    font-size: 9px;
+    gap: 5px;
+  }
+}
+.auth-email .code-resend-button {justify-self:start; margin-top:4px; color:#c8b6f1; font-size:14px;}
+.auth-email .code-resend-button:disabled {opacity:.55;cursor:default;}

@@ -1,0 +1,40 @@
+{
+  "modelsByGrade": 455,
+  "artifacts": 2889,
+  "types": [
+    "accessibility_tree",
+    "architecture",
+    "browser_state",
+    "ci_log",
+    "code",
+    "code_diff",
+    "crash_report",
+    "dag",
+    "db",
+    "deployment",
+    "dom",
+    "experiment_table",
+    "feature_distribution",
+    "http_exchange",
+    "lifecycle",
+    "lineage",
+    "logs",
+    "metrics",
+    "model_metrics",
+    "model_registry",
+    "network",
+    "queue",
+    "retrieval_results",
+    "schema",
+    "security_policy",
+    "table",
+    "test_run",
+    "timeline",
+    "tool_trace",
+    "topology",
+    "trace"
+  ],
+  "controls": [
+    "select"
+  ]
+}

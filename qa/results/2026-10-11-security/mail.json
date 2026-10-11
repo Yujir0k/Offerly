@@ -1,0 +1,101 @@
+{
+  "mode": "private-tls-sink-no-external-mail",
+  "checks": 68,
+  "passed": [
+    "candidate registration sends mail",
+    "verify accepted by configured SMTP",
+    "verify text/HTML",
+    "verify signature template",
+    "verify HTML logo without images or attachments",
+    "verify sender",
+    "verify no local address",
+    "verify actual copyable OTP",
+    "candidate code works",
+    "candidate verified login sends no extra code",
+    "employer registration sends mail",
+    "verify accepted by configured SMTP",
+    "verify text/HTML",
+    "verify signature template",
+    "verify HTML logo without images or attachments",
+    "verify sender",
+    "verify no local address",
+    "verify actual copyable OTP",
+    "employer code works",
+    "employer verified login sends no extra code",
+    "change-old accepted by configured SMTP",
+    "change-old text/HTML",
+    "change-old signature template",
+    "change-old HTML logo without images or attachments",
+    "change-old sender",
+    "change-old no local address",
+    "change-old actual copyable OTP",
+    "change-new accepted by configured SMTP",
+    "change-new text/HTML",
+    "change-new signature template",
+    "change-new HTML logo without images or attachments",
+    "change-new sender",
+    "change-new no local address",
+    "change-new actual copyable OTP",
+    "both email change stages completed",
+    "change-new accepted by configured SMTP",
+    "change-new text/HTML",
+    "change-new signature template",
+    "change-new HTML logo without images or attachments",
+    "change-new sender",
+    "change-new no local address",
+    "change-new actual copyable OTP",
+    "password authorizes new-address-only flow",
+    "recovery accepted by configured SMTP",
+    "recovery text/HTML",
+    "recovery signature template",
+    "recovery HTML logo without images or attachments",
+    "recovery sender",
+    "recovery no local address",
+    "recovery actual copyable OTP",
+    "password-changed accepted by configured SMTP",
+    "password-changed text/HTML",
+    "password-changed signature template",
+    "password-changed HTML logo without images or attachments",
+    "password-changed sender",
+    "password-changed no local address",
+    "password changed through actual mail code",
+    "unknown recovery recipient gets no mail",
+    "invitation accepted by configured SMTP",
+    "invitation text/HTML",
+    "invitation signature template",
+    "invitation HTML logo without images or attachments",
+    "invitation sender",
+    "invitation no local address",
+    "invitation correct salary/company",
+    "invitation exact deep link",
+    "invitation no employer contact",
+    "edit sends no duplicate mail"
+  ],
+  "mails": [
+    {
+      "kind": "verify"
+    },
+    {
+      "kind": "verify"
+    },
+    {
+      "kind": "change-old"
+    },
+    {
+      "kind": "change-new"
+    },
+    {
+      "kind": "change-new"
+    },
+    {
+      "kind": "recovery"
+    },
+    {
+      "kind": "password-changed"
+    },
+    {
+      "kind": "invitation"
+    }
+  ],
+  "note": "SMTP acceptance/capture is not proof of inbox placement. Gmail display is confirmed by recipient."
+}

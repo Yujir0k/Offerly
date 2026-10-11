@@ -1,0 +1,762 @@
+{
+  "version": "professional-competency-2.0.0",
+  "track": "data-engineering",
+  "name": "Data Engineering",
+  "roleScope": "семантически корректное движение и потребление данных",
+  "gradeStandards": {
+    "Junior": "Самостоятельно и корректно решает partition, schema и локальные transform guarantees при понятных фактах и ограниченных последствиях.",
+    "Middle": "Самостоятельно интегрирует event time, ingestion, lineage и downstream completeness, строит причинную/аналитическую модель и проверяет действие при реальных constraints.",
+    "Senior": "Выбирает data contracts, corrections, freshness и стоимость recovery среди допустимых решений с uncertainty, evolution, rollback и ответственностью за последствия."
+  },
+  "sources": [
+    "https://sfia-online.org/en/sfia-9/responsibilities",
+    "https://beam.apache.org/documentation/programming-guide/",
+    "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+  ],
+  "knownLimitations": [
+    "18 capabilities охватывают scenario scope этого assessment, а не всю профессию.",
+    "Grade taxonomy — synthesis команды; стандарты не задают эти три grades или проценты confirmation.",
+    "Closed-world multiple choice и bounded execution не доказывают самостоятельную формулировку стратегии в открытой задаче.",
+    "Rubric и mapping требуют независимого expert review; человеческая calibration отсутствует."
+  ],
+  "capabilities": [
+    {
+      "id": "data-engineering.cdc-position",
+      "domain": "ingestion",
+      "description": "CDC position и effect",
+      "middleTier": "core",
+      "juniorExpectation": "Сохраняет offset после успешного локального apply",
+      "middleExpectation": "Согласует offset, commit и duplicate delivery",
+      "seniorExpectation": "Выбирает recovery guarantee при restart и schema changes",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Продвигает offset до durable apply; не связывает это с границей ожидаемого результата: сохраняет offset после успешного локального apply",
+          "borderline": "Может: сохраняет offset после успешного локального apply, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет offset после успешного локального apply. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Продвигает offset до durable apply; не связывает это с границей ожидаемого результата: согласует offset, commit и duplicate delivery",
+          "borderline": "Может: согласует offset, commit и duplicate delivery, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует offset, commit и duplicate delivery. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Продвигает offset до durable apply; не связывает это с границей ожидаемого результата: выбирает recovery guarantee при restart и schema changes",
+          "borderline": "Может: выбирает recovery guarantee при restart и schema changes, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает recovery guarantee при restart и schema changes. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет offset после успешного локального apply — локальная проверка результата",
+        "Согласует offset, commit и duplicate delivery — независимое evidence и объяснение",
+        "Выбирает recovery guarantee при restart и schema changes — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Продвигает offset до durable apply",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://beam.apache.org/documentation/programming-guide/",
+        "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-engineering.incremental-completeness",
+      "domain": "ingestion",
+      "description": "Полнота incremental load",
+      "middleTier": "core",
+      "juniorExpectation": "Выбирает заданный watermark без пропусков",
+      "middleExpectation": "Учитывает late updates, deletes и overlap window",
+      "seniorExpectation": "Выбирает backfill/reconciliation с freshness и стоимостью",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает max timestamp полной границей изменений; не связывает это с границей ожидаемого результата: выбирает заданный watermark без пропусков",
+          "borderline": "Может: выбирает заданный watermark без пропусков, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает заданный watermark без пропусков. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает max timestamp полной границей изменений; не связывает это с границей ожидаемого результата: учитывает late updates, deletes и overlap window",
+          "borderline": "Может: учитывает late updates, deletes и overlap window, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: учитывает late updates, deletes и overlap window. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает max timestamp полной границей изменений; не связывает это с границей ожидаемого результата: выбирает backfill/reconciliation с freshness и стоимостью",
+          "borderline": "Может: выбирает backfill/reconciliation с freshness и стоимостью, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает backfill/reconciliation с freshness и стоимостью. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Выбирает заданный watermark без пропусков — локальная проверка результата",
+        "Учитывает late updates, deletes и overlap window — независимое evidence и объяснение",
+        "Выбирает backfill/reconciliation с freshness и стоимостью — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает max timestamp полной границей изменений",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://beam.apache.org/documentation/programming-guide/",
+        "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-engineering.source-contract",
+      "domain": "ingestion",
+      "description": "Контракт источника данных",
+      "middleTier": "upper",
+      "juniorExpectation": "Проверяет тип и единицу входного значения",
+      "middleExpectation": "Связывает source evolution с downstream semantics",
+      "seniorExpectation": "Выбирает versioning и ответственность за breaking change",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Меняет смысл поля без изменения contract; не связывает это с границей ожидаемого результата: проверяет тип и единицу входного значения",
+          "borderline": "Может: проверяет тип и единицу входного значения, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет тип и единицу входного значения. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Меняет смысл поля без изменения contract; не связывает это с границей ожидаемого результата: связывает source evolution с downstream semantics",
+          "borderline": "Может: связывает source evolution с downstream semantics, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает source evolution с downstream semantics. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Меняет смысл поля без изменения contract; не связывает это с границей ожидаемого результата: выбирает versioning и ответственность за breaking change",
+          "borderline": "Может: выбирает versioning и ответственность за breaking change, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает versioning и ответственность за breaking change. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет тип и единицу входного значения — локальная проверка результата",
+        "Связывает source evolution с downstream semantics — независимое evidence и объяснение",
+        "Выбирает versioning и ответственность за breaking change — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Меняет смысл поля без изменения contract",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://beam.apache.org/documentation/programming-guide/",
+        "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-engineering.event-time",
+      "domain": "streaming",
+      "description": "Event time и late data",
+      "middleTier": "core",
+      "juniorExpectation": "Различает event и processing timestamps",
+      "middleExpectation": "Связывает watermark, lateness и completeness окна",
+      "seniorExpectation": "Выбирает latency/completeness policy с correction downstream",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает закрытое окно полным по wall clock; не связывает это с границей ожидаемого результата: различает event и processing timestamps",
+          "borderline": "Может: различает event и processing timestamps, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает event и processing timestamps. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает закрытое окно полным по wall clock; не связывает это с границей ожидаемого результата: связывает watermark, lateness и completeness окна",
+          "borderline": "Может: связывает watermark, lateness и completeness окна, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает watermark, lateness и completeness окна. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает закрытое окно полным по wall clock; не связывает это с границей ожидаемого результата: выбирает latency/completeness policy с correction downstream",
+          "borderline": "Может: выбирает latency/completeness policy с correction downstream, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает latency/completeness policy с correction downstream. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Различает event и processing timestamps — локальная проверка результата",
+        "Связывает watermark, lateness и completeness окна — независимое evidence и объяснение",
+        "Выбирает latency/completeness policy с correction downstream — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает закрытое окно полным по wall clock",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://beam.apache.org/documentation/programming-guide/",
+        "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-engineering.stream-join",
+      "domain": "streaming",
+      "description": "Временная семантика join",
+      "middleTier": "core",
+      "juniorExpectation": "Применяет заданный key и temporal boundary",
+      "middleExpectation": "Рассуждает о state retention, skew и late side",
+      "seniorExpectation": "Выбирает join guarantee и state budget при эволюции потока",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Соединяет событие с будущим состоянием; не связывает это с границей ожидаемого результата: применяет заданный key и temporal boundary",
+          "borderline": "Может: применяет заданный key и temporal boundary, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: применяет заданный key и temporal boundary. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Соединяет событие с будущим состоянием; не связывает это с границей ожидаемого результата: рассуждает о state retention, skew и late side",
+          "borderline": "Может: рассуждает о state retention, skew и late side, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: рассуждает о state retention, skew и late side. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Соединяет событие с будущим состоянием; не связывает это с границей ожидаемого результата: выбирает join guarantee и state budget при эволюции потока",
+          "borderline": "Может: выбирает join guarantee и state budget при эволюции потока, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает join guarantee и state budget при эволюции потока. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Применяет заданный key и temporal boundary — локальная проверка результата",
+        "Рассуждает о state retention, skew и late side — независимое evidence и объяснение",
+        "Выбирает join guarantee и state budget при эволюции потока — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Соединяет событие с будущим состоянием",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://beam.apache.org/documentation/programming-guide/",
+        "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-engineering.stream-state",
+      "domain": "streaming",
+      "description": "Корректность stateful recovery",
+      "middleTier": "upper",
+      "juniorExpectation": "Сохраняет ограниченный aggregate state",
+      "middleExpectation": "Согласует checkpoint, replay и внешнюю запись",
+      "seniorExpectation": "Выбирает end-to-end guarantee с sink limitations",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Приравнивает checkpoint к exactly-once любого sink; не связывает это с границей ожидаемого результата: сохраняет ограниченный aggregate state",
+          "borderline": "Может: сохраняет ограниченный aggregate state, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет ограниченный aggregate state. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Приравнивает checkpoint к exactly-once любого sink; не связывает это с границей ожидаемого результата: согласует checkpoint, replay и внешнюю запись",
+          "borderline": "Может: согласует checkpoint, replay и внешнюю запись, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует checkpoint, replay и внешнюю запись. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Приравнивает checkpoint к exactly-once любого sink; не связывает это с границей ожидаемого результата: выбирает end-to-end guarantee с sink limitations",
+          "borderline": "Может: выбирает end-to-end guarantee с sink limitations, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает end-to-end guarantee с sink limitations. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет ограниченный aggregate state — локальная проверка результата",
+        "Согласует checkpoint, replay и внешнюю запись — независимое evidence и объяснение",
+        "Выбирает end-to-end guarantee с sink limitations — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Приравнивает checkpoint к exactly-once любого sink",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://beam.apache.org/documentation/programming-guide/",
+        "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-engineering.quality-contract",
+      "domain": "quality",
+      "description": "Проверяемый data quality contract",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет null, range и единицы",
+      "middleExpectation": "Сопоставляет checks с бизнес-инвариантами и source evidence",
+      "seniorExpectation": "Выбирает quarantine и владельца residual quality risk",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает syntactically valid данные корректными; не связывает это с границей ожидаемого результата: проверяет null, range и единицы",
+          "borderline": "Может: проверяет null, range и единицы, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет null, range и единицы. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает syntactically valid данные корректными; не связывает это с границей ожидаемого результата: сопоставляет checks с бизнес-инвариантами и source evidence",
+          "borderline": "Может: сопоставляет checks с бизнес-инвариантами и source evidence, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет checks с бизнес-инвариантами и source evidence. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает syntactically valid данные корректными; не связывает это с границей ожидаемого результата: выбирает quarantine и владельца residual quality risk",
+          "borderline": "Может: выбирает quarantine и владельца residual quality risk, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает quarantine и владельца residual quality risk. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет null, range и единицы — локальная проверка результата",
+        "Сопоставляет checks с бизнес-инвариантами и source evidence — независимое evidence и объяснение",
+        "Выбирает quarantine и владельца residual quality risk — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает syntactically valid данные корректными",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://beam.apache.org/documentation/programming-guide/",
+        "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-engineering.schema-evolution",
+      "domain": "quality",
+      "description": "Эволюция data schema",
+      "middleTier": "core",
+      "juniorExpectation": "Принимает совместимое добавление поля",
+      "middleExpectation": "Проверяет readers, defaults и изменение semantics",
+      "seniorExpectation": "Выбирает migration contract с историческими partitions",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Меняет тип без проверки старых данных; не связывает это с границей ожидаемого результата: принимает совместимое добавление поля",
+          "borderline": "Может: принимает совместимое добавление поля, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: принимает совместимое добавление поля. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Меняет тип без проверки старых данных; не связывает это с границей ожидаемого результата: проверяет readers, defaults и изменение semantics",
+          "borderline": "Может: проверяет readers, defaults и изменение semantics, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет readers, defaults и изменение semantics. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Меняет тип без проверки старых данных; не связывает это с границей ожидаемого результата: выбирает migration contract с историческими partitions",
+          "borderline": "Может: выбирает migration contract с историческими partitions, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает migration contract с историческими partitions. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Принимает совместимое добавление поля — локальная проверка результата",
+        "Проверяет readers, defaults и изменение semantics — независимое evidence и объяснение",
+        "Выбирает migration contract с историческими partitions — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Меняет тип без проверки старых данных",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://beam.apache.org/documentation/programming-guide/",
+        "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-engineering.quality-recovery",
+      "domain": "quality",
+      "description": "Восстановление ошибочных данных",
+      "middleTier": "upper",
+      "juniorExpectation": "Изолирует известный плохой partition",
+      "middleExpectation": "Прослеживает downstream effects и повторную обработку",
+      "seniorExpectation": "Выбирает correction strategy с audit и consumer obligations",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Исправляет source без восстановления consumers; не связывает это с границей ожидаемого результата: изолирует известный плохой partition",
+          "borderline": "Может: изолирует известный плохой partition, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: изолирует известный плохой partition. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Исправляет source без восстановления consumers; не связывает это с границей ожидаемого результата: прослеживает downstream effects и повторную обработку",
+          "borderline": "Может: прослеживает downstream effects и повторную обработку, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: прослеживает downstream effects и повторную обработку. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Исправляет source без восстановления consumers; не связывает это с границей ожидаемого результата: выбирает correction strategy с audit и consumer obligations",
+          "borderline": "Может: выбирает correction strategy с audit и consumer obligations, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает correction strategy с audit и consumer obligations. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Изолирует известный плохой partition — локальная проверка результата",
+        "Прослеживает downstream effects и повторную обработку — независимое evidence и объяснение",
+        "Выбирает correction strategy с audit и consumer obligations — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Исправляет source без восстановления consumers",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://beam.apache.org/documentation/programming-guide/",
+        "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-engineering.dependency-readiness",
+      "domain": "orchestration",
+      "description": "Готовность зависимостей DAG",
+      "middleTier": "core",
+      "juniorExpectation": "Ждёт нужный partition",
+      "middleExpectation": "Различает successful task и completeness данных",
+      "seniorExpectation": "Выбирает dependency contract при late и partial sources",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Запускает downstream после success неполной загрузки; не связывает это с границей ожидаемого результата: ждёт нужный partition",
+          "borderline": "Может: ждёт нужный partition, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: ждёт нужный partition. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Запускает downstream после success неполной загрузки; не связывает это с границей ожидаемого результата: различает successful task и completeness данных",
+          "borderline": "Может: различает successful task и completeness данных, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает successful task и completeness данных. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Запускает downstream после success неполной загрузки; не связывает это с границей ожидаемого результата: выбирает dependency contract при late и partial sources",
+          "borderline": "Может: выбирает dependency contract при late и partial sources, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает dependency contract при late и partial sources. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Ждёт нужный partition — локальная проверка результата",
+        "Различает successful task и completeness данных — независимое evidence и объяснение",
+        "Выбирает dependency contract при late и partial sources — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Запускает downstream после success неполной загрузки",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://beam.apache.org/documentation/programming-guide/",
+        "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-engineering.backfill-idempotency",
+      "domain": "orchestration",
+      "description": "Идемпотентность backfill",
+      "middleTier": "core",
+      "juniorExpectation": "Перезапускает ограниченный partition без duplicate",
+      "middleExpectation": "Согласует backfill с live traffic и версией transform",
+      "seniorExpectation": "Выбирает cutover и rollback для больших исторических изменений",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Смешивает старую и новую логику в одном partition; не связывает это с границей ожидаемого результата: перезапускает ограниченный partition без duplicate",
+          "borderline": "Может: перезапускает ограниченный partition без duplicate, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: перезапускает ограниченный partition без duplicate. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Смешивает старую и новую логику в одном partition; не связывает это с границей ожидаемого результата: согласует backfill с live traffic и версией transform",
+          "borderline": "Может: согласует backfill с live traffic и версией transform, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует backfill с live traffic и версией transform. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Смешивает старую и новую логику в одном partition; не связывает это с границей ожидаемого результата: выбирает cutover и rollback для больших исторических изменений",
+          "borderline": "Может: выбирает cutover и rollback для больших исторических изменений, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает cutover и rollback для больших исторических изменений. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Перезапускает ограниченный partition без duplicate — локальная проверка результата",
+        "Согласует backfill с live traffic и версией transform — независимое evidence и объяснение",
+        "Выбирает cutover и rollback для больших исторических изменений — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Смешивает старую и новую логику в одном partition",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://beam.apache.org/documentation/programming-guide/",
+        "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-engineering.failure-repair",
+      "domain": "orchestration",
+      "description": "Восстановление pipeline",
+      "middleTier": "upper",
+      "juniorExpectation": "Находит локальный failed task",
+      "middleExpectation": "Отличает retryable failure и нарушение contract",
+      "seniorExpectation": "Выбирает repair/replay policy с freshness и стоимостью",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Повторяет deterministic bad input без изменения; не связывает это с границей ожидаемого результата: находит локальный failed task",
+          "borderline": "Может: находит локальный failed task, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: находит локальный failed task. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Повторяет deterministic bad input без изменения; не связывает это с границей ожидаемого результата: отличает retryable failure и нарушение contract",
+          "borderline": "Может: отличает retryable failure и нарушение contract, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: отличает retryable failure и нарушение contract. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Повторяет deterministic bad input без изменения; не связывает это с границей ожидаемого результата: выбирает repair/replay policy с freshness и стоимостью",
+          "borderline": "Может: выбирает repair/replay policy с freshness и стоимостью, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает repair/replay policy с freshness и стоимостью. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Находит локальный failed task — локальная проверка результата",
+        "Отличает retryable failure и нарушение contract — независимое evidence и объяснение",
+        "Выбирает repair/replay policy с freshness и стоимостью — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Повторяет deterministic bad input без изменения",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://beam.apache.org/documentation/programming-guide/",
+        "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-engineering.scan-evidence",
+      "domain": "performance",
+      "description": "Evidence стоимости scan",
+      "middleTier": "core",
+      "juniorExpectation": "Использует partition filter",
+      "middleExpectation": "Связывает query plan, pruning и физическое размещение",
+      "seniorExpectation": "Выбирает layout с workload evolution и storage cost",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Оптимизирует SQL без проверки bytes scanned; не связывает это с границей ожидаемого результата: использует partition filter",
+          "borderline": "Может: использует partition filter, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: использует partition filter. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Оптимизирует SQL без проверки bytes scanned; не связывает это с границей ожидаемого результата: связывает query plan, pruning и физическое размещение",
+          "borderline": "Может: связывает query plan, pruning и физическое размещение, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает query plan, pruning и физическое размещение. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Оптимизирует SQL без проверки bytes scanned; не связывает это с границей ожидаемого результата: выбирает layout с workload evolution и storage cost",
+          "borderline": "Может: выбирает layout с workload evolution и storage cost, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает layout с workload evolution и storage cost. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Использует partition filter — локальная проверка результата",
+        "Связывает query plan, pruning и физическое размещение — независимое evidence и объяснение",
+        "Выбирает layout с workload evolution и storage cost — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Оптимизирует SQL без проверки bytes scanned",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://beam.apache.org/documentation/programming-guide/",
+        "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-engineering.join-skew",
+      "domain": "performance",
+      "description": "Skew и cardinality join",
+      "middleTier": "core",
+      "juniorExpectation": "Находит тяжёлый key",
+      "middleExpectation": "Различает skew, fanout и неверную cardinality",
+      "seniorExpectation": "Выбирает repartition/salting strategy с correctness и cost",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает добавление workers решением любого skew; не связывает это с границей ожидаемого результата: находит тяжёлый key",
+          "borderline": "Может: находит тяжёлый key, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: находит тяжёлый key. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает добавление workers решением любого skew; не связывает это с границей ожидаемого результата: различает skew, fanout и неверную cardinality",
+          "borderline": "Может: различает skew, fanout и неверную cardinality, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает skew, fanout и неверную cardinality. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает добавление workers решением любого skew; не связывает это с границей ожидаемого результата: выбирает repartition/salting strategy с correctness и cost",
+          "borderline": "Может: выбирает repartition/salting strategy с correctness и cost, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает repartition/salting strategy с correctness и cost. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Находит тяжёлый key — локальная проверка результата",
+        "Различает skew, fanout и неверную cardinality — независимое evidence и объяснение",
+        "Выбирает repartition/salting strategy с correctness и cost — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает добавление workers решением любого skew",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://beam.apache.org/documentation/programming-guide/",
+        "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-engineering.capacity-budget",
+      "domain": "performance",
+      "description": "Бюджет pipeline",
+      "middleTier": "upper",
+      "juniorExpectation": "Соблюдает заданный resource limit",
+      "middleExpectation": "Связывает throughput, backlog и freshness",
+      "seniorExpectation": "Выбирает capacity policy для peak и backfill workload",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Игнорирует конкуренцию backfill с live pipeline; не связывает это с границей ожидаемого результата: соблюдает заданный resource limit",
+          "borderline": "Может: соблюдает заданный resource limit, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: соблюдает заданный resource limit. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Игнорирует конкуренцию backfill с live pipeline; не связывает это с границей ожидаемого результата: связывает throughput, backlog и freshness",
+          "borderline": "Может: связывает throughput, backlog и freshness, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает throughput, backlog и freshness. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Игнорирует конкуренцию backfill с live pipeline; не связывает это с границей ожидаемого результата: выбирает capacity policy для peak и backfill workload",
+          "borderline": "Может: выбирает capacity policy для peak и backfill workload, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает capacity policy для peak и backfill workload. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Соблюдает заданный resource limit — локальная проверка результата",
+        "Связывает throughput, backlog и freshness — независимое evidence и объяснение",
+        "Выбирает capacity policy для peak и backfill workload — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Игнорирует конкуренцию backfill с live pipeline",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://beam.apache.org/documentation/programming-guide/",
+        "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-engineering.transformation-lineage",
+      "domain": "lineage",
+      "description": "Lineage transformation",
+      "middleTier": "core",
+      "juniorExpectation": "Указывает source и transform версии",
+      "middleExpectation": "Прослеживает поле через несколько datasets",
+      "seniorExpectation": "Выбирает audit lineage с retention и migration obligations",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Приравнивает имя таблицы к происхождению данных; не связывает это с границей ожидаемого результата: указывает source и transform версии",
+          "borderline": "Может: указывает source и transform версии, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: указывает source и transform версии. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Приравнивает имя таблицы к происхождению данных; не связывает это с границей ожидаемого результата: прослеживает поле через несколько datasets",
+          "borderline": "Может: прослеживает поле через несколько datasets, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: прослеживает поле через несколько datasets. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Приравнивает имя таблицы к происхождению данных; не связывает это с границей ожидаемого результата: выбирает audit lineage с retention и migration obligations",
+          "borderline": "Может: выбирает audit lineage с retention и migration obligations, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает audit lineage с retention и migration obligations. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Указывает source и transform версии — локальная проверка результата",
+        "Прослеживает поле через несколько datasets — независимое evidence и объяснение",
+        "Выбирает audit lineage с retention и migration obligations — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Приравнивает имя таблицы к происхождению данных",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://beam.apache.org/documentation/programming-guide/",
+        "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-engineering.consumer-freshness",
+      "domain": "lineage",
+      "description": "Контракт freshness consumer",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет возраст текущего dataset",
+      "middleExpectation": "Различает arrival, processing и доступность consumer",
+      "seniorExpectation": "Выбирает freshness guarantee с degraded consumption",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает job completion обновлением всех consumers; не связывает это с границей ожидаемого результата: проверяет возраст текущего dataset",
+          "borderline": "Может: проверяет возраст текущего dataset, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет возраст текущего dataset. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает job completion обновлением всех consumers; не связывает это с границей ожидаемого результата: различает arrival, processing и доступность consumer",
+          "borderline": "Может: различает arrival, processing и доступность consumer, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает arrival, processing и доступность consumer. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает job completion обновлением всех consumers; не связывает это с границей ожидаемого результата: выбирает freshness guarantee с degraded consumption",
+          "borderline": "Может: выбирает freshness guarantee с degraded consumption, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает freshness guarantee с degraded consumption. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет возраст текущего dataset — локальная проверка результата",
+        "Различает arrival, processing и доступность consumer — независимое evidence и объяснение",
+        "Выбирает freshness guarantee с degraded consumption — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает job completion обновлением всех consumers",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://beam.apache.org/documentation/programming-guide/",
+        "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "data-engineering.impact-ownership",
+      "domain": "lineage",
+      "description": "Impact и владельцы данных",
+      "middleTier": "upper",
+      "juniorExpectation": "Находит владельца изменяемого dataset",
+      "middleExpectation": "Сопоставляет lineage с affected consumers",
+      "seniorExpectation": "Выбирает change protocol и residual impact ответственность",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Меняет upstream без уведомления зависимых consumers; не связывает это с границей ожидаемого результата: находит владельца изменяемого dataset",
+          "borderline": "Может: находит владельца изменяемого dataset, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: находит владельца изменяемого dataset. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Меняет upstream без уведомления зависимых consumers; не связывает это с границей ожидаемого результата: сопоставляет lineage с affected consumers",
+          "borderline": "Может: сопоставляет lineage с affected consumers, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет lineage с affected consumers. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Меняет upstream без уведомления зависимых consumers; не связывает это с границей ожидаемого результата: выбирает change protocol и residual impact ответственность",
+          "borderline": "Может: выбирает change protocol и residual impact ответственность, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает change protocol и residual impact ответственность. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Находит владельца изменяемого dataset — локальная проверка результата",
+        "Сопоставляет lineage с affected consumers — независимое evidence и объяснение",
+        "Выбирает change protocol и residual impact ответственность — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Меняет upstream без уведомления зависимых consumers",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://beam.apache.org/documentation/programming-guide/",
+        "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    }
+  ]
+}

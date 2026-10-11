@@ -1,0 +1,128 @@
+{
+  "at": "2026-10-11T08:46:48.431Z",
+  "base": "https://opherly.ru",
+  "stages": [
+    {
+      "virtualUsers": 50,
+      "thinkTimeMs": 1000,
+      "targetDurationSeconds": 20,
+      "requests": 880,
+      "peakInflight": 33,
+      "elapsedSeconds": 21.06,
+      "requestsPerSecond": 41.79,
+      "medianMs": 90,
+      "p95Ms": 317,
+      "maxMs": 1142,
+      "interrupted": false,
+      "errors": 0,
+      "statuses": {
+        "200": 880
+      },
+      "receivedMiB": 28.37,
+      "byRoute": {
+        "/api/catalog/candidates:employer": {
+          "requests": 381,
+          "p95Ms": 320
+        },
+        "/api/catalog/jobs:candidate": {
+          "requests": 127,
+          "p95Ms": 293
+        },
+        "/api/state:candidate": {
+          "requests": 122,
+          "p95Ms": 332
+        },
+        "/": {
+          "requests": 126,
+          "p95Ms": 225
+        },
+        "/api/state:employer": {
+          "requests": 124,
+          "p95Ms": 339
+        }
+      }
+    },
+    {
+      "virtualUsers": 100,
+      "thinkTimeMs": 1000,
+      "targetDurationSeconds": 20,
+      "requests": 1640,
+      "peakInflight": 47,
+      "elapsedSeconds": 21.13,
+      "requestsPerSecond": 77.6,
+      "medianMs": 145,
+      "p95Ms": 469,
+      "maxMs": 1039,
+      "interrupted": false,
+      "errors": 0,
+      "statuses": {
+        "200": 1640
+      },
+      "receivedMiB": 35.94,
+      "byRoute": {
+        "/api/catalog/candidates:employer": {
+          "requests": 711,
+          "p95Ms": 533
+        },
+        "/api/catalog/jobs:candidate": {
+          "requests": 229,
+          "p95Ms": 417
+        },
+        "/api/state:candidate": {
+          "requests": 234,
+          "p95Ms": 447
+        },
+        "/api/state:employer": {
+          "requests": 232,
+          "p95Ms": 499
+        },
+        "/": {
+          "requests": 234,
+          "p95Ms": 309
+        }
+      }
+    },
+    {
+      "virtualUsers": 200,
+      "thinkTimeMs": 1000,
+      "targetDurationSeconds": 20,
+      "requests": 2096,
+      "peakInflight": 127,
+      "elapsedSeconds": 21.5,
+      "requestsPerSecond": 97.48,
+      "medianMs": 775,
+      "p95Ms": 1742,
+      "maxMs": 2333,
+      "interrupted": false,
+      "errors": 0,
+      "statuses": {
+        "200": 2096
+      },
+      "receivedMiB": 35.91,
+      "byRoute": {
+        "/api/catalog/candidates:employer": {
+          "requests": 908,
+          "p95Ms": 1811
+        },
+        "/api/catalog/jobs:candidate": {
+          "requests": 296,
+          "p95Ms": 1328
+        },
+        "/api/state:employer": {
+          "requests": 295,
+          "p95Ms": 1822
+        },
+        "/": {
+          "requests": 295,
+          "p95Ms": 434
+        },
+        "/api/state:candidate": {
+          "requests": 302,
+          "p95Ms": 1767
+        }
+      }
+    }
+  ],
+  "stoppedEarly": false,
+  "scope": "Paced read-only HTTPS catalogue, candidate/employer state and landing requests using two own QA sessions. Not a write, PDF, email or assessment stress test; not a maximum-capacity or long soak benchmark."
+}

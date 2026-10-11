@@ -1,0 +1,63 @@
+PRIOR PASS backend Junior
+PRIOR PASS backend Middle
+PRIOR PASS backend Senior
+PRIOR PASS frontend Junior
+PRIOR PASS frontend Middle
+PRIOR PASS frontend Senior
+PRIOR PASS devops-sre Junior
+PRIOR PASS devops-sre Middle
+PRIOR PASS devops-sre Senior
+PRIOR PASS qa-automation Junior
+PRIOR PASS qa-automation Middle
+PRIOR PASS qa-automation Senior
+PRIOR PASS data-engineering Junior
+PRIOR PASS data-engineering Middle
+PRIOR PASS data-engineering Senior
+PRIOR PASS ml-engineer Junior
+PRIOR PASS ml-engineer Middle
+PRIOR PASS ml-engineer Senior
+PRIOR PASS data-scientist Junior
+PASS data-scientist Middle scenario 3 steps 10 NOT_CONFIRMED below-standard
+PASS data-scientist Senior scenario 0 steps 12 CONFIRMED confirmed
+PASS mlops Junior scenario 1 steps 10 NOT_CONFIRMED below-standard
+PASS mlops Middle scenario 2 steps 11 NOT_CONFIRMED below-standard
+PASS mlops Senior scenario 3 steps 12 NOT_CONFIRMED below-standard
+PASS genai Junior scenario 0 steps 10 CONFIRMED confirmed
+PASS genai Middle scenario 1 steps 11 NOT_CONFIRMED below-standard
+PASS genai Senior scenario 2 steps 13 NOT_CONFIRMED below-standard
+PASS android Junior scenario 3 steps 10 NOT_CONFIRMED below-standard
+PASS android Middle scenario 0 steps 11 CONFIRMED confirmed
+PASS android Senior scenario 1 steps 12 NOT_CONFIRMED below-standard
+PASS ios Junior scenario 2 steps 10 NOT_CONFIRMED below-standard
+PASS ios Middle scenario 3 steps 11 NOT_CONFIRMED below-standard
+PASS ios Senior scenario 0 steps 12 CONFIRMED confirmed
+PASS security-appsec Junior scenario 1 steps 10 NOT_CONFIRMED below-standard
+PASS security-appsec Middle scenario 2 steps 11 NOT_CONFIRMED below-standard
+PASS security-appsec Senior scenario 3 steps 13 NOT_CONFIRMED below-standard
+PASS {
+  checks: 752,
+  answers: 189,
+  evidence: 24,
+  replays: 1,
+  extra: 0,
+  plans: 177,
+  wrongForecasts: 52,
+  artifacts: [
+    'code',            'experiment_table',
+    'table',           'schema',
+    'lineage',         'timeline',
+    'model_metrics',   'feature_distribution',
+    'dag',             'logs',
+    'security_policy', 'model_registry',
+    'test_run',        'metrics',
+    'crash_report',    'deployment',
+    'ci_log',          'retrieval_results',
+    'tool_trace',      'http_exchange',
+    'lifecycle',       'dom',
+    'network',         'code_diff'
+  ],
+  controls: [ 'select' ],
+  decisions: [ 'CONFIRMED', 'NOT_CONFIRMED' ],
+  statuses: [ 'confirmed', 'below-standard' ],
+  sessions: 37
+}

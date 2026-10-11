@@ -1,0 +1,10 @@
+{
+  "accounts": 50,
+  "parallelUsers": 50,
+  "requests": 150,
+  "elapsedMs": 655,
+  "p50ms": 202,
+  "p95ms": 311,
+  "errors": [],
+  "environment": "local Next development + PostgreSQL16, empty user profiles, read /api/state; not production capacity"
+}

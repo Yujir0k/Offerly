@@ -1,0 +1,762 @@
+{
+  "version": "professional-competency-2.0.0",
+  "track": "genai",
+  "name": "GenAI / LLM Engineer",
+  "roleScope": "доказуемое качество и допустимые действия RAG/agent systems",
+  "gradeStandards": {
+    "Junior": "Самостоятельно и корректно решает ограниченный grounded answer или разрешённый tool action при понятных фактах и ограниченных последствиях.",
+    "Middle": "Самостоятельно интегрирует retrieval/eval attribution, trust, uncertainty и tool outcomes, строит причинную/аналитическую модель и проверяет действие при реальных constraints.",
+    "Senior": "Выбирает grounding/agency/evaluation policy с cost и consequential risk среди допустимых решений с uncertainty, evolution, rollback и ответственностью за последствия."
+  },
+  "sources": [
+    "https://sfia-online.org/en/sfia-9/responsibilities",
+    "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+    "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+  ],
+  "knownLimitations": [
+    "18 capabilities охватывают scenario scope этого assessment, а не всю профессию.",
+    "Grade taxonomy — synthesis команды; стандарты не задают эти три grades или проценты confirmation.",
+    "Closed-world multiple choice и bounded execution не доказывают самостоятельную формулировку стратегии в открытой задаче.",
+    "Rubric и mapping требуют независимого expert review; человеческая calibration отсутствует."
+  ],
+  "capabilities": [
+    {
+      "id": "genai.retrieval-recall",
+      "domain": "retrieval",
+      "description": "Retrieval relevant evidence",
+      "middleTier": "core",
+      "juniorExpectation": "Находит документ для заданного вопроса",
+      "middleExpectation": "Различает recall failure, ranking и access filtering",
+      "seniorExpectation": "Выбирает retrieval architecture по recall, cost и freshness",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Лечит отсутствие evidence изменением prompt; не связывает это с границей ожидаемого результата: находит документ для заданного вопроса",
+          "borderline": "Может: находит документ для заданного вопроса, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: находит документ для заданного вопроса. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Лечит отсутствие evidence изменением prompt; не связывает это с границей ожидаемого результата: различает recall failure, ranking и access filtering",
+          "borderline": "Может: различает recall failure, ranking и access filtering, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает recall failure, ranking и access filtering. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Лечит отсутствие evidence изменением prompt; не связывает это с границей ожидаемого результата: выбирает retrieval architecture по recall, cost и freshness",
+          "borderline": "Может: выбирает retrieval architecture по recall, cost и freshness, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает retrieval architecture по recall, cost и freshness. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Находит документ для заданного вопроса — локальная проверка результата",
+        "Различает recall failure, ranking и access filtering — независимое evidence и объяснение",
+        "Выбирает retrieval architecture по recall, cost и freshness — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Лечит отсутствие evidence изменением prompt",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+        "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "genai.context-chunk",
+      "domain": "retrieval",
+      "description": "Семантика chunk и context",
+      "middleTier": "core",
+      "juniorExpectation": "Сохраняет границу нужного факта",
+      "middleExpectation": "Связывает chunking, metadata и context budget",
+      "seniorExpectation": "Выбирает retrieval/context strategy при изменении corpus",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Разрывает факт и его qualification между chunks; не связывает это с границей ожидаемого результата: сохраняет границу нужного факта",
+          "borderline": "Может: сохраняет границу нужного факта, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет границу нужного факта. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Разрывает факт и его qualification между chunks; не связывает это с границей ожидаемого результата: связывает chunking, metadata и context budget",
+          "borderline": "Может: связывает chunking, metadata и context budget, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает chunking, metadata и context budget. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Разрывает факт и его qualification между chunks; не связывает это с границей ожидаемого результата: выбирает retrieval/context strategy при изменении corpus",
+          "borderline": "Может: выбирает retrieval/context strategy при изменении corpus, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает retrieval/context strategy при изменении corpus. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет границу нужного факта — локальная проверка результата",
+        "Связывает chunking, metadata и context budget — независимое evidence и объяснение",
+        "Выбирает retrieval/context strategy при изменении corpus — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Разрывает факт и его qualification между chunks",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+        "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "genai.retrieval-trust",
+      "domain": "retrieval",
+      "description": "Trust retrieval source",
+      "middleTier": "upper",
+      "juniorExpectation": "Проверяет происхождение документа",
+      "middleExpectation": "Согласует ACL, freshness и untrusted instructions",
+      "seniorExpectation": "Выбирает retrieval trust policy с residual exposure",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Доверяет любому retrieved тексту как instruction; не связывает это с границей ожидаемого результата: проверяет происхождение документа",
+          "borderline": "Может: проверяет происхождение документа, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет происхождение документа. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Доверяет любому retrieved тексту как instruction; не связывает это с границей ожидаемого результата: согласует acl, freshness и untrusted instructions",
+          "borderline": "Может: согласует acl, freshness и untrusted instructions, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует acl, freshness и untrusted instructions. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Доверяет любому retrieved тексту как instruction; не связывает это с границей ожидаемого результата: выбирает retrieval trust policy с residual exposure",
+          "borderline": "Может: выбирает retrieval trust policy с residual exposure, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает retrieval trust policy с residual exposure. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет происхождение документа — локальная проверка результата",
+        "Согласует ACL, freshness и untrusted instructions — независимое evidence и объяснение",
+        "Выбирает retrieval trust policy с residual exposure — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Доверяет любому retrieved тексту как instruction",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+        "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "genai.citation-entailment",
+      "domain": "grounding",
+      "description": "Entailment citation",
+      "middleTier": "core",
+      "juniorExpectation": "Подтверждает утверждение данным фрагментом",
+      "middleExpectation": "Различает релевантную ссылку и доказательство claim",
+      "seniorExpectation": "Выбирает grounding contract с audit и unsupported claims",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает наличие citation доказательством truth; не связывает это с границей ожидаемого результата: подтверждает утверждение данным фрагментом",
+          "borderline": "Может: подтверждает утверждение данным фрагментом, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: подтверждает утверждение данным фрагментом. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает наличие citation доказательством truth; не связывает это с границей ожидаемого результата: различает релевантную ссылку и доказательство claim",
+          "borderline": "Может: различает релевантную ссылку и доказательство claim, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает релевантную ссылку и доказательство claim. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает наличие citation доказательством truth; не связывает это с границей ожидаемого результата: выбирает grounding contract с audit и unsupported claims",
+          "borderline": "Может: выбирает grounding contract с audit и unsupported claims, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает grounding contract с audit и unsupported claims. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Подтверждает утверждение данным фрагментом — локальная проверка результата",
+        "Различает релевантную ссылку и доказательство claim — независимое evidence и объяснение",
+        "Выбирает grounding contract с audit и unsupported claims — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает наличие citation доказательством truth",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+        "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "genai.abstention",
+      "domain": "grounding",
+      "description": "Обоснованное abstention",
+      "middleTier": "core",
+      "juniorExpectation": "Отказывается при явном отсутствии facts",
+      "middleExpectation": "Сопоставляет конфликт, uncertainty и sufficiency evidence",
+      "seniorExpectation": "Выбирает answer/abstain policy под цену false claim",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Заполняет пробел plausible догадкой; не связывает это с границей ожидаемого результата: отказывается при явном отсутствии facts",
+          "borderline": "Может: отказывается при явном отсутствии facts, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: отказывается при явном отсутствии facts. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Заполняет пробел plausible догадкой; не связывает это с границей ожидаемого результата: сопоставляет конфликт, uncertainty и sufficiency evidence",
+          "borderline": "Может: сопоставляет конфликт, uncertainty и sufficiency evidence, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет конфликт, uncertainty и sufficiency evidence. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Заполняет пробел plausible догадкой; не связывает это с границей ожидаемого результата: выбирает answer/abstain policy под цену false claim",
+          "borderline": "Может: выбирает answer/abstain policy под цену false claim, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает answer/abstain policy под цену false claim. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Отказывается при явном отсутствии facts — локальная проверка результата",
+        "Сопоставляет конфликт, uncertainty и sufficiency evidence — независимое evidence и объяснение",
+        "Выбирает answer/abstain policy под цену false claim — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Заполняет пробел plausible догадкой",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+        "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "genai.claim-boundary",
+      "domain": "grounding",
+      "description": "Граница generated claim",
+      "middleTier": "upper",
+      "juniorExpectation": "Ограничивает ответ доступным контекстом",
+      "middleExpectation": "Различает source fact, inference и противоречие",
+      "seniorExpectation": "Выбирает provenance и uncertainty UX для consequential use",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Выдаёт inference за прямой source fact; не связывает это с границей ожидаемого результата: ограничивает ответ доступным контекстом",
+          "borderline": "Может: ограничивает ответ доступным контекстом, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: ограничивает ответ доступным контекстом. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Выдаёт inference за прямой source fact; не связывает это с границей ожидаемого результата: различает source fact, inference и противоречие",
+          "borderline": "Может: различает source fact, inference и противоречие, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает source fact, inference и противоречие. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Выдаёт inference за прямой source fact; не связывает это с границей ожидаемого результата: выбирает provenance и uncertainty ux для consequential use",
+          "borderline": "Может: выбирает provenance и uncertainty ux для consequential use, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает provenance и uncertainty ux для consequential use. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Ограничивает ответ доступным контекстом — локальная проверка результата",
+        "Различает source fact, inference и противоречие — независимое evidence и объяснение",
+        "Выбирает provenance и uncertainty UX для consequential use — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Выдаёт inference за прямой source fact",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+        "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "genai.eval-population",
+      "domain": "evaluation",
+      "description": "Репрезентативность eval",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет заданный test case",
+      "middleExpectation": "Строит slices по tasks, sources и failure mechanisms",
+      "seniorExpectation": "Выбирает eval portfolio под changing traffic и риски",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Оценивает систему только happy questions; не связывает это с границей ожидаемого результата: проверяет заданный test case",
+          "borderline": "Может: проверяет заданный test case, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет заданный test case. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Оценивает систему только happy questions; не связывает это с границей ожидаемого результата: строит slices по tasks, sources и failure mechanisms",
+          "borderline": "Может: строит slices по tasks, sources и failure mechanisms, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: строит slices по tasks, sources и failure mechanisms. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Оценивает систему только happy questions; не связывает это с границей ожидаемого результата: выбирает eval portfolio под changing traffic и риски",
+          "borderline": "Может: выбирает eval portfolio под changing traffic и риски, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает eval portfolio под changing traffic и риски. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет заданный test case — локальная проверка результата",
+        "Строит slices по tasks, sources и failure mechanisms — независимое evidence и объяснение",
+        "Выбирает eval portfolio под changing traffic и риски — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Оценивает систему только happy questions",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+        "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "genai.judge-validity",
+      "domain": "evaluation",
+      "description": "Валидность judge",
+      "middleTier": "core",
+      "juniorExpectation": "Сверяет judge с явным criterion",
+      "middleExpectation": "Проверяет bias, disagreement и человеческую выборку",
+      "seniorExpectation": "Выбирает judge contract и escalation с residual uncertainty",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Принимает score LLM judge за ground truth; не связывает это с границей ожидаемого результата: сверяет judge с явным criterion",
+          "borderline": "Может: сверяет judge с явным criterion, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сверяет judge с явным criterion. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Принимает score LLM judge за ground truth; не связывает это с границей ожидаемого результата: проверяет bias, disagreement и человеческую выборку",
+          "borderline": "Может: проверяет bias, disagreement и человеческую выборку, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет bias, disagreement и человеческую выборку. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Принимает score LLM judge за ground truth; не связывает это с границей ожидаемого результата: выбирает judge contract и escalation с residual uncertainty",
+          "borderline": "Может: выбирает judge contract и escalation с residual uncertainty, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает judge contract и escalation с residual uncertainty. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сверяет judge с явным criterion — локальная проверка результата",
+        "Проверяет bias, disagreement и человеческую выборку — независимое evidence и объяснение",
+        "Выбирает judge contract и escalation с residual uncertainty — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Принимает score LLM judge за ground truth",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+        "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "genai.component-attribution",
+      "domain": "evaluation",
+      "description": "Attribution failures RAG",
+      "middleTier": "upper",
+      "juniorExpectation": "Отличает retrieved evidence от generated answer",
+      "middleExpectation": "Разделяет retrieval, grounding и tool errors",
+      "seniorExpectation": "Выбирает evaluation gates и investments по error sources",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Оптимизирует end score не различая компоненты; не связывает это с границей ожидаемого результата: отличает retrieved evidence от generated answer",
+          "borderline": "Может: отличает retrieved evidence от generated answer, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: отличает retrieved evidence от generated answer. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Оптимизирует end score не различая компоненты; не связывает это с границей ожидаемого результата: разделяет retrieval, grounding и tool errors",
+          "borderline": "Может: разделяет retrieval, grounding и tool errors, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: разделяет retrieval, grounding и tool errors. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Оптимизирует end score не различая компоненты; не связывает это с границей ожидаемого результата: выбирает evaluation gates и investments по error sources",
+          "borderline": "Может: выбирает evaluation gates и investments по error sources, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает evaluation gates и investments по error sources. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Отличает retrieved evidence от generated answer — локальная проверка результата",
+        "Разделяет retrieval, grounding и tool errors — независимое evidence и объяснение",
+        "Выбирает evaluation gates и investments по error sources — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Оптимизирует end score не различая компоненты",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+        "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "genai.tool-contract",
+      "domain": "tools",
+      "description": "Контракт tool action",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет arguments и response schema",
+      "middleExpectation": "Различает intent, permission и внешний effect",
+      "seniorExpectation": "Выбирает tool authorization и idempotency policy",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает model intent разрешением на действие; не связывает это с границей ожидаемого результата: проверяет arguments и response schema",
+          "borderline": "Может: проверяет arguments и response schema, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет arguments и response schema. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает model intent разрешением на действие; не связывает это с границей ожидаемого результата: различает intent, permission и внешний effect",
+          "borderline": "Может: различает intent, permission и внешний effect, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает intent, permission и внешний effect. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает model intent разрешением на действие; не связывает это с границей ожидаемого результата: выбирает tool authorization и idempotency policy",
+          "borderline": "Может: выбирает tool authorization и idempotency policy, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает tool authorization и idempotency policy. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет arguments и response schema — локальная проверка результата",
+        "Различает intent, permission и внешний effect — независимое evidence и объяснение",
+        "Выбирает tool authorization и idempotency policy — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает model intent разрешением на действие",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+        "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "genai.agent-termination",
+      "domain": "tools",
+      "description": "Остановка agent loop",
+      "middleTier": "core",
+      "juniorExpectation": "Соблюдает локальный iteration limit",
+      "middleExpectation": "Связывает progress, budget и повторное действие",
+      "seniorExpectation": "Выбирает stop/escalate policy при uncertainty и cost",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Повторяет неуспешный tool бесконечно; не связывает это с границей ожидаемого результата: соблюдает локальный iteration limit",
+          "borderline": "Может: соблюдает локальный iteration limit, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: соблюдает локальный iteration limit. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Повторяет неуспешный tool бесконечно; не связывает это с границей ожидаемого результата: связывает progress, budget и повторное действие",
+          "borderline": "Может: связывает progress, budget и повторное действие, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает progress, budget и повторное действие. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Повторяет неуспешный tool бесконечно; не связывает это с границей ожидаемого результата: выбирает stop/escalate policy при uncertainty и cost",
+          "borderline": "Может: выбирает stop/escalate policy при uncertainty и cost, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает stop/escalate policy при uncertainty и cost. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Соблюдает локальный iteration limit — локальная проверка результата",
+        "Связывает progress, budget и повторное действие — независимое evidence и объяснение",
+        "Выбирает stop/escalate policy при uncertainty и cost — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Повторяет неуспешный tool бесконечно",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+        "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "genai.tool-outcome",
+      "domain": "tools",
+      "description": "Внешний исход tool",
+      "middleTier": "upper",
+      "juniorExpectation": "Проверяет подтверждённый tool result",
+      "middleExpectation": "Различает timeout и unknown external effect",
+      "seniorExpectation": "Выбирает reconciliation и human intervention по последствиям",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Повторяет effect после timeout без safe guarantee; не связывает это с границей ожидаемого результата: проверяет подтверждённый tool result",
+          "borderline": "Может: проверяет подтверждённый tool result, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет подтверждённый tool result. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Повторяет effect после timeout без safe guarantee; не связывает это с границей ожидаемого результата: различает timeout и unknown external effect",
+          "borderline": "Может: различает timeout и unknown external effect, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает timeout и unknown external effect. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Повторяет effect после timeout без safe guarantee; не связывает это с границей ожидаемого результата: выбирает reconciliation и human intervention по последствиям",
+          "borderline": "Может: выбирает reconciliation и human intervention по последствиям, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает reconciliation и human intervention по последствиям. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет подтверждённый tool result — локальная проверка результата",
+        "Различает timeout и unknown external effect — независимое evidence и объяснение",
+        "Выбирает reconciliation и human intervention по последствиям — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Повторяет effect после timeout без safe guarantee",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+        "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "genai.context-budget",
+      "domain": "budget",
+      "description": "Бюджет context",
+      "middleTier": "core",
+      "juniorExpectation": "Сохраняет заданные обязательные факты",
+      "middleExpectation": "Распределяет tokens между instructions, evidence и history",
+      "seniorExpectation": "Выбирает compression/retrieval policy с loss и cost",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Удаляет safety contract ради длинного history; не связывает это с границей ожидаемого результата: сохраняет заданные обязательные факты",
+          "borderline": "Может: сохраняет заданные обязательные факты, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет заданные обязательные факты. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Удаляет safety contract ради длинного history; не связывает это с границей ожидаемого результата: распределяет tokens между instructions, evidence и history",
+          "borderline": "Может: распределяет tokens между instructions, evidence и history, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: распределяет tokens между instructions, evidence и history. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Удаляет safety contract ради длинного history; не связывает это с границей ожидаемого результата: выбирает compression/retrieval policy с loss и cost",
+          "borderline": "Может: выбирает compression/retrieval policy с loss и cost, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает compression/retrieval policy с loss и cost. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет заданные обязательные факты — локальная проверка результата",
+        "Распределяет tokens между instructions, evidence и history — независимое evidence и объяснение",
+        "Выбирает compression/retrieval policy с loss и cost — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Удаляет safety contract ради длинного history",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+        "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "genai.cache-latency",
+      "domain": "budget",
+      "description": "Cache и latency",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет key и expiry локального cache",
+      "middleExpectation": "Связывает prompt, identity, sources и output freshness",
+      "seniorExpectation": "Выбирает caching policy с privacy и quality trade-off",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Разделяет cached answer между несовместимыми tenants; не связывает это с границей ожидаемого результата: проверяет key и expiry локального cache",
+          "borderline": "Может: проверяет key и expiry локального cache, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет key и expiry локального cache. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Разделяет cached answer между несовместимыми tenants; не связывает это с границей ожидаемого результата: связывает prompt, identity, sources и output freshness",
+          "borderline": "Может: связывает prompt, identity, sources и output freshness, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает prompt, identity, sources и output freshness. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Разделяет cached answer между несовместимыми tenants; не связывает это с границей ожидаемого результата: выбирает caching policy с privacy и quality trade-off",
+          "borderline": "Может: выбирает caching policy с privacy и quality trade-off, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает caching policy с privacy и quality trade-off. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет key и expiry локального cache — локальная проверка результата",
+        "Связывает prompt, identity, sources и output freshness — независимое evidence и объяснение",
+        "Выбирает caching policy с privacy и quality trade-off — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Разделяет cached answer между несовместимыми tenants",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+        "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "genai.quality-cost",
+      "domain": "budget",
+      "description": "Trade-off quality и cost",
+      "middleTier": "upper",
+      "juniorExpectation": "Соблюдает заданный token limit",
+      "middleExpectation": "Сравнивает стратегии по измеренной quality и latency",
+      "seniorExpectation": "Выбирает model/routing policy с uncertainty и расходы",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Предполагает дорогую model всегда лучшей; не связывает это с границей ожидаемого результата: соблюдает заданный token limit",
+          "borderline": "Может: соблюдает заданный token limit, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: соблюдает заданный token limit. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Предполагает дорогую model всегда лучшей; не связывает это с границей ожидаемого результата: сравнивает стратегии по измеренной quality и latency",
+          "borderline": "Может: сравнивает стратегии по измеренной quality и latency, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сравнивает стратегии по измеренной quality и latency. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Предполагает дорогую model всегда лучшей; не связывает это с границей ожидаемого результата: выбирает model/routing policy с uncertainty и расходы",
+          "borderline": "Может: выбирает model/routing policy с uncertainty и расходы, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает model/routing policy с uncertainty и расходы. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Соблюдает заданный token limit — локальная проверка результата",
+        "Сравнивает стратегии по измеренной quality и latency — независимое evidence и объяснение",
+        "Выбирает model/routing policy с uncertainty и расходы — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Предполагает дорогую model всегда лучшей",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+        "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "genai.instruction-boundary",
+      "domain": "safety",
+      "description": "Instruction trust boundary",
+      "middleTier": "core",
+      "juniorExpectation": "Не выполняет команды из untrusted content",
+      "middleExpectation": "Прослеживает injection через retrieval и tool output",
+      "seniorExpectation": "Выбирает layered defense с least privilege и residual risk",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает quoted instruction безопасной для исполнения; не связывает это с границей ожидаемого результата: не выполняет команды из untrusted content",
+          "borderline": "Может: не выполняет команды из untrusted content, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: не выполняет команды из untrusted content. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает quoted instruction безопасной для исполнения; не связывает это с границей ожидаемого результата: прослеживает injection через retrieval и tool output",
+          "borderline": "Может: прослеживает injection через retrieval и tool output, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: прослеживает injection через retrieval и tool output. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает quoted instruction безопасной для исполнения; не связывает это с границей ожидаемого результата: выбирает layered defense с least privilege и residual risk",
+          "borderline": "Может: выбирает layered defense с least privilege и residual risk, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает layered defense с least privilege и residual risk. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Не выполняет команды из untrusted content — локальная проверка результата",
+        "Прослеживает injection через retrieval и tool output — независимое evidence и объяснение",
+        "Выбирает layered defense с least privilege и residual risk — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает quoted instruction безопасной для исполнения",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+        "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "genai.access-enforcement",
+      "domain": "safety",
+      "description": "Enforcement доступа RAG",
+      "middleTier": "core",
+      "juniorExpectation": "Фильтрует document по разрешению identity",
+      "middleExpectation": "Согласует index, retrieval и citation access",
+      "seniorExpectation": "Выбирает ACL propagation и audit при corpus evolution",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Использует prompt запрет вместо access check; не связывает это с границей ожидаемого результата: фильтрует document по разрешению identity",
+          "borderline": "Может: фильтрует document по разрешению identity, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: фильтрует document по разрешению identity. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Использует prompt запрет вместо access check; не связывает это с границей ожидаемого результата: согласует index, retrieval и citation access",
+          "borderline": "Может: согласует index, retrieval и citation access, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует index, retrieval и citation access. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Использует prompt запрет вместо access check; не связывает это с границей ожидаемого результата: выбирает acl propagation и audit при corpus evolution",
+          "borderline": "Может: выбирает acl propagation и audit при corpus evolution, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает acl propagation и audit при corpus evolution. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Фильтрует document по разрешению identity — локальная проверка результата",
+        "Согласует index, retrieval и citation access — независимое evidence и объяснение",
+        "Выбирает ACL propagation и audit при corpus evolution — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Использует prompt запрет вместо access check",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+        "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "genai.agency-limits",
+      "domain": "safety",
+      "description": "Ограничение agency",
+      "middleTier": "upper",
+      "juniorExpectation": "Не выполняет неразрешённый effect",
+      "middleExpectation": "Связывает tool permission, validation и sensitive outcome",
+      "seniorExpectation": "Выбирает scope agency и approval contract по blast radius",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Даёт model полномочия шире задачи; не связывает это с границей ожидаемого результата: не выполняет неразрешённый effect",
+          "borderline": "Может: не выполняет неразрешённый effect, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: не выполняет неразрешённый effect. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Даёт model полномочия шире задачи; не связывает это с границей ожидаемого результата: связывает tool permission, validation и sensitive outcome",
+          "borderline": "Может: связывает tool permission, validation и sensitive outcome, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает tool permission, validation и sensitive outcome. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Даёт model полномочия шире задачи; не связывает это с границей ожидаемого результата: выбирает scope agency и approval contract по blast radius",
+          "borderline": "Может: выбирает scope agency и approval contract по blast radius, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает scope agency и approval contract по blast radius. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Не выполняет неразрешённый effect — локальная проверка результата",
+        "Связывает tool permission, validation и sensitive outcome — независимое evidence и объяснение",
+        "Выбирает scope agency и approval contract по blast radius — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Даёт model полномочия шире задачи",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/rag/rag-solution-design-and-evaluation-guide",
+        "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    }
+  ]
+}

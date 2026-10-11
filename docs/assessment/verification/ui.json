@@ -1,0 +1,128 @@
+{
+  "roles": [
+    {
+      "track": "backend",
+      "grade": "Junior",
+      "taskVisible": true,
+      "layout": {
+        "documentWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "track": "frontend",
+      "grade": "Middle",
+      "taskVisible": true,
+      "layout": {
+        "documentWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "track": "devops-sre",
+      "grade": "Senior",
+      "taskVisible": true,
+      "layout": {
+        "documentWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "track": "qa-automation",
+      "grade": "Junior",
+      "taskVisible": true,
+      "layout": {
+        "documentWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "track": "data-engineering",
+      "grade": "Middle",
+      "taskVisible": true,
+      "layout": {
+        "documentWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "track": "ml-engineer",
+      "grade": "Senior",
+      "taskVisible": true,
+      "layout": {
+        "documentWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "track": "data-scientist",
+      "grade": "Junior",
+      "taskVisible": true,
+      "layout": {
+        "documentWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "track": "mlops",
+      "grade": "Middle",
+      "taskVisible": true,
+      "layout": {
+        "documentWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "track": "genai",
+      "grade": "Senior",
+      "taskVisible": true,
+      "layout": {
+        "documentWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "track": "android",
+      "grade": "Junior",
+      "taskVisible": true,
+      "layout": {
+        "documentWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "track": "ios",
+      "grade": "Middle",
+      "taskVisible": true,
+      "layout": {
+        "documentWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "track": "security-appsec",
+      "grade": "Senior",
+      "taskVisible": true,
+      "layout": {
+        "documentWidth": 1280,
+        "width": 1280
+      }
+    }
+  ],
+  "fullFlows": [
+    "Backend Junior",
+    "Backend Middle",
+    "Frontend Senior"
+  ],
+  "draftReloadRestored": true,
+  "mobile": {
+    "documentWidth": 390,
+    "width": 390
+  },
+  "consoleErrors": [],
+  "mobile320": {
+    "width": 320,
+    "documentWidth": 320
+  },
+  "stylesheetReloadVerified": true
+}

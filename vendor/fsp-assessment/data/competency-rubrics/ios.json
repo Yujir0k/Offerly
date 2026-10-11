@@ -1,0 +1,781 @@
+{
+  "version": "professional-competency-2.0.0",
+  "track": "ios",
+  "name": "iOS",
+  "roleScope": "корректное приложение при scene lifecycle и Swift concurrency",
+  "gradeStandards": {
+    "Junior": "Самостоятельно и корректно решает локальное state, task или persistence изменение при понятных фактах и ограниченных последствиях.",
+    "Middle": "Самостоятельно интегрирует scene restoration, actor reentrancy, offline merge и performance, строит причинную/аналитическую модель и проверяет действие при реальных constraints.",
+    "Senior": "Выбирает ownership/isolation/release policy с system budgets и data recovery среди допустимых решений с uncertainty, evolution, rollback и ответственностью за последствия."
+  },
+  "sources": [
+    "https://sfia-online.org/en/sfia-9/responsibilities",
+    "https://developer.apple.com/videos/play/wwdc2023/10149/",
+    "https://developer.apple.com/videos/play/wwdc2021/10133/",
+    "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+  ],
+  "knownLimitations": [
+    "18 capabilities охватывают scenario scope этого assessment, а не всю профессию.",
+    "Grade taxonomy — synthesis команды; стандарты не задают эти три grades или проценты confirmation.",
+    "Closed-world multiple choice и bounded execution не доказывают самостоятельную формулировку стратегии в открытой задаче.",
+    "Rubric и mapping требуют независимого expert review; человеческая calibration отсутствует."
+  ],
+  "capabilities": [
+    {
+      "id": "ios.scene-restore",
+      "domain": "lifecycle",
+      "description": "Scene restoration",
+      "middleTier": "core",
+      "juniorExpectation": "Сохраняет identity текущего scene",
+      "middleExpectation": "Различает scene, process и durable state",
+      "seniorExpectation": "Выбирает restoration contract для multi-window и privacy",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает foreground state durable; не связывает это с границей ожидаемого результата: сохраняет identity текущего scene",
+          "borderline": "Может: сохраняет identity текущего scene, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет identity текущего scene. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает foreground state durable; не связывает это с границей ожидаемого результата: различает scene, process и durable state",
+          "borderline": "Может: различает scene, process и durable state, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает scene, process и durable state. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает foreground state durable; не связывает это с границей ожидаемого результата: выбирает restoration contract для multi-window и privacy",
+          "borderline": "Может: выбирает restoration contract для multi-window и privacy, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает restoration contract для multi-window и privacy. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет identity текущего scene — локальная проверка результата",
+        "Различает scene, process и durable state — независимое evidence и объяснение",
+        "Выбирает restoration contract для multi-window и privacy — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает foreground state durable",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.apple.com/videos/play/wwdc2023/10149/",
+        "https://developer.apple.com/videos/play/wwdc2021/10133/",
+        "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ios.background-completion",
+      "domain": "lifecycle",
+      "description": "Background completion",
+      "middleTier": "core",
+      "juniorExpectation": "Вызывает completion для ограниченной работы",
+      "middleExpectation": "Связывает expiration, cancellation и durable continuation",
+      "seniorExpectation": "Выбирает background policy под system budget и user outcome",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Обещает неограниченное background время; не связывает это с границей ожидаемого результата: вызывает completion для ограниченной работы",
+          "borderline": "Может: вызывает completion для ограниченной работы, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: вызывает completion для ограниченной работы. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Обещает неограниченное background время; не связывает это с границей ожидаемого результата: связывает expiration, cancellation и durable continuation",
+          "borderline": "Может: связывает expiration, cancellation и durable continuation, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает expiration, cancellation и durable continuation. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Обещает неограниченное background время; не связывает это с границей ожидаемого результата: выбирает background policy под system budget и user outcome",
+          "borderline": "Может: выбирает background policy под system budget и user outcome, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает background policy под system budget и user outcome. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Вызывает completion для ограниченной работы — локальная проверка результата",
+        "Связывает expiration, cancellation и durable continuation — независимое evidence и объяснение",
+        "Выбирает background policy под system budget и user outcome — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Обещает неограниченное background время",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.apple.com/videos/play/wwdc2023/10149/",
+        "https://developer.apple.com/videos/play/wwdc2021/10133/",
+        "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ios.lifecycle-ownership",
+      "domain": "lifecycle",
+      "description": "Ownership lifecycle effects",
+      "middleTier": "upper",
+      "juniorExpectation": "Освобождает принадлежащую view подписку",
+      "middleExpectation": "Согласует scene transitions и повтор effects",
+      "seniorExpectation": "Выбирает ownership shared resources между scenes",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Дублирует effect при каждом appearance; не связывает это с границей ожидаемого результата: освобождает принадлежащую view подписку",
+          "borderline": "Может: освобождает принадлежащую view подписку, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: освобождает принадлежащую view подписку. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Дублирует effect при каждом appearance; не связывает это с границей ожидаемого результата: согласует scene transitions и повтор effects",
+          "borderline": "Может: согласует scene transitions и повтор effects, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует scene transitions и повтор effects. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Дублирует effect при каждом appearance; не связывает это с границей ожидаемого результата: выбирает ownership shared resources между scenes",
+          "borderline": "Может: выбирает ownership shared resources между scenes, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает ownership shared resources между scenes. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Освобождает принадлежащую view подписку — локальная проверка результата",
+        "Согласует scene transitions и повтор effects — независимое evidence и объяснение",
+        "Выбирает ownership shared resources между scenes — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Дублирует effect при каждом appearance",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.apple.com/videos/play/wwdc2023/10149/",
+        "https://developer.apple.com/videos/play/wwdc2021/10133/",
+        "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ios.state-ownership",
+      "domain": "state",
+      "description": "Ownership наблюдаемого state",
+      "middleTier": "core",
+      "juniorExpectation": "Назначает владельца mutable state",
+      "middleExpectation": "Связывает view lifetime, model identity и bindings",
+      "seniorExpectation": "Выбирает state architecture при navigation evolution",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Создаёт новый model при каждом render; не связывает это с границей ожидаемого результата: назначает владельца mutable state",
+          "borderline": "Может: назначает владельца mutable state, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: назначает владельца mutable state. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Создаёт новый model при каждом render; не связывает это с границей ожидаемого результата: связывает view lifetime, model identity и bindings",
+          "borderline": "Может: связывает view lifetime, model identity и bindings, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает view lifetime, model identity и bindings. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Создаёт новый model при каждом render; не связывает это с границей ожидаемого результата: выбирает state architecture при navigation evolution",
+          "borderline": "Может: выбирает state architecture при navigation evolution, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает state architecture при navigation evolution. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Назначает владельца mutable state — локальная проверка результата",
+        "Связывает view lifetime, model identity и bindings — независимое evidence и объяснение",
+        "Выбирает state architecture при navigation evolution — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Создаёт новый model при каждом render",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.apple.com/videos/play/wwdc2023/10149/",
+        "https://developer.apple.com/videos/play/wwdc2021/10133/",
+        "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ios.observation-dependency",
+      "domain": "state",
+      "description": "Dependency observation",
+      "middleTier": "core",
+      "juniorExpectation": "Наблюдает реально используемое свойство",
+      "middleExpectation": "Различает mutation, dependency и update propagation",
+      "seniorExpectation": "Выбирает observation boundaries с correctness и performance",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Предполагает любое вложенное изменение обновлением UI; не связывает это с границей ожидаемого результата: наблюдает реально используемое свойство",
+          "borderline": "Может: наблюдает реально используемое свойство, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: наблюдает реально используемое свойство. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Предполагает любое вложенное изменение обновлением UI; не связывает это с границей ожидаемого результата: различает mutation, dependency и update propagation",
+          "borderline": "Может: различает mutation, dependency и update propagation, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает mutation, dependency и update propagation. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Предполагает любое вложенное изменение обновлением UI; не связывает это с границей ожидаемого результата: выбирает observation boundaries с correctness и performance",
+          "borderline": "Может: выбирает observation boundaries с correctness и performance, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает observation boundaries с correctness и performance. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Наблюдает реально используемое свойство — локальная проверка результата",
+        "Различает mutation, dependency и update propagation — независимое evidence и объяснение",
+        "Выбирает observation boundaries с correctness и performance — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Предполагает любое вложенное изменение обновлением UI",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.apple.com/videos/play/wwdc2023/10149/",
+        "https://developer.apple.com/videos/play/wwdc2021/10133/",
+        "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ios.state-invariant",
+      "domain": "state",
+      "description": "Согласованность application state",
+      "middleTier": "upper",
+      "juniorExpectation": "Сохраняет локальный state invariant",
+      "middleExpectation": "Согласует async responses и пользовательские edits",
+      "seniorExpectation": "Выбирает state transition contract для сложных scenes",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Применяет устаревший response к новому state; не связывает это с границей ожидаемого результата: сохраняет локальный state invariant",
+          "borderline": "Может: сохраняет локальный state invariant, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет локальный state invariant. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Применяет устаревший response к новому state; не связывает это с границей ожидаемого результата: согласует async responses и пользовательские edits",
+          "borderline": "Может: согласует async responses и пользовательские edits, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует async responses и пользовательские edits. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Применяет устаревший response к новому state; не связывает это с границей ожидаемого результата: выбирает state transition contract для сложных scenes",
+          "borderline": "Может: выбирает state transition contract для сложных scenes, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает state transition contract для сложных scenes. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет локальный state invariant — локальная проверка результата",
+        "Согласует async responses и пользовательские edits — независимое evidence и объяснение",
+        "Выбирает state transition contract для сложных scenes — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Применяет устаревший response к новому state",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.apple.com/videos/play/wwdc2023/10149/",
+        "https://developer.apple.com/videos/play/wwdc2021/10133/",
+        "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ios.actor-isolation",
+      "domain": "concurrency",
+      "description": "Actor isolation",
+      "middleTier": "core",
+      "juniorExpectation": "Изолирует известное mutable состояние",
+      "middleExpectation": "Рассуждает об actor boundaries и reentrancy после await",
+      "seniorExpectation": "Выбирает isolation policy с throughput и state invariants",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает actor method атомарным через await; не связывает это с границей ожидаемого результата: изолирует известное mutable состояние",
+          "borderline": "Может: изолирует известное mutable состояние, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: изолирует известное mutable состояние. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает actor method атомарным через await; не связывает это с границей ожидаемого результата: рассуждает об actor boundaries и reentrancy после await",
+          "borderline": "Может: рассуждает об actor boundaries и reentrancy после await, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: рассуждает об actor boundaries и reentrancy после await. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает actor method атомарным через await; не связывает это с границей ожидаемого результата: выбирает isolation policy с throughput и state invariants",
+          "borderline": "Может: выбирает isolation policy с throughput и state invariants, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает isolation policy с throughput и state invariants. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Изолирует известное mutable состояние — локальная проверка результата",
+        "Рассуждает об actor boundaries и reentrancy после await — независимое evidence и объяснение",
+        "Выбирает isolation policy с throughput и state invariants — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает actor method атомарным через await",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.apple.com/videos/play/wwdc2023/10149/",
+        "https://developer.apple.com/videos/play/wwdc2021/10133/",
+        "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ios.task-cancellation",
+      "domain": "concurrency",
+      "description": "Cancellation structured tasks",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет cancellation локальной task",
+      "middleExpectation": "Связывает task lifetime, child tasks и side effects",
+      "seniorExpectation": "Выбирает cancellation contract для workflow и recovery",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает cancel отменой уже выполненного effect; не связывает это с границей ожидаемого результата: проверяет cancellation локальной task",
+          "borderline": "Может: проверяет cancellation локальной task, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет cancellation локальной task. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает cancel отменой уже выполненного effect; не связывает это с границей ожидаемого результата: связывает task lifetime, child tasks и side effects",
+          "borderline": "Может: связывает task lifetime, child tasks и side effects, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает task lifetime, child tasks и side effects. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает cancel отменой уже выполненного effect; не связывает это с границей ожидаемого результата: выбирает cancellation contract для workflow и recovery",
+          "borderline": "Может: выбирает cancellation contract для workflow и recovery, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает cancellation contract для workflow и recovery. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет cancellation локальной task — локальная проверка результата",
+        "Связывает task lifetime, child tasks и side effects — независимое evidence и объяснение",
+        "Выбирает cancellation contract для workflow и recovery — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает cancel отменой уже выполненного effect",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.apple.com/videos/play/wwdc2023/10149/",
+        "https://developer.apple.com/videos/play/wwdc2021/10133/",
+        "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ios.sendable-boundary",
+      "domain": "concurrency",
+      "description": "Безопасный перенос данных",
+      "middleTier": "upper",
+      "juniorExpectation": "Передаёт immutable value через boundary",
+      "middleExpectation": "Различает shared reference и Sendable guarantee",
+      "seniorExpectation": "Выбирает concurrency design с performance и safety",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Помечает unsafe reference как Sendable без обоснования; не связывает это с границей ожидаемого результата: передаёт immutable value через boundary",
+          "borderline": "Может: передаёт immutable value через boundary, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: передаёт immutable value через boundary. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Помечает unsafe reference как Sendable без обоснования; не связывает это с границей ожидаемого результата: различает shared reference и sendable guarantee",
+          "borderline": "Может: различает shared reference и sendable guarantee, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает shared reference и sendable guarantee. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Помечает unsafe reference как Sendable без обоснования; не связывает это с границей ожидаемого результата: выбирает concurrency design с performance и safety",
+          "borderline": "Может: выбирает concurrency design с performance и safety, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает concurrency design с performance и safety. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Передаёт immutable value через boundary — локальная проверка результата",
+        "Различает shared reference и Sendable guarantee — независимое evidence и объяснение",
+        "Выбирает concurrency design с performance и safety — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Помечает unsafe reference как Sendable без обоснования",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.apple.com/videos/play/wwdc2023/10149/",
+        "https://developer.apple.com/videos/play/wwdc2021/10133/",
+        "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ios.persistence-integrity",
+      "domain": "offline",
+      "description": "Целостность persistence",
+      "middleTier": "core",
+      "juniorExpectation": "Сохраняет локальный атомарный update",
+      "middleExpectation": "Согласует context, identity и concurrent persistence",
+      "seniorExpectation": "Выбирает durability contract с migration и recovery",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Принимает memory mutation за durable save; не связывает это с границей ожидаемого результата: сохраняет локальный атомарный update",
+          "borderline": "Может: сохраняет локальный атомарный update, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет локальный атомарный update. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Принимает memory mutation за durable save; не связывает это с границей ожидаемого результата: согласует context, identity и concurrent persistence",
+          "borderline": "Может: согласует context, identity и concurrent persistence, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует context, identity и concurrent persistence. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Принимает memory mutation за durable save; не связывает это с границей ожидаемого результата: выбирает durability contract с migration и recovery",
+          "borderline": "Может: выбирает durability contract с migration и recovery, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает durability contract с migration и recovery. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет локальный атомарный update — локальная проверка результата",
+        "Согласует context, identity и concurrent persistence — независимое evidence и объяснение",
+        "Выбирает durability contract с migration и recovery — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Принимает memory mutation за durable save",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.apple.com/videos/play/wwdc2023/10149/",
+        "https://developer.apple.com/videos/play/wwdc2021/10133/",
+        "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ios.offline-merge",
+      "domain": "offline",
+      "description": "Merge offline изменений",
+      "middleTier": "core",
+      "juniorExpectation": "Распознаёт конфликт версий",
+      "middleExpectation": "Различает local edit, server revision и deleted state",
+      "seniorExpectation": "Выбирает merge UX и sync policy под data loss risk",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Всегда выбирает last writer wins; не связывает это с границей ожидаемого результата: распознаёт конфликт версий",
+          "borderline": "Может: распознаёт конфликт версий, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: распознаёт конфликт версий. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Всегда выбирает last writer wins; не связывает это с границей ожидаемого результата: различает local edit, server revision и deleted state",
+          "borderline": "Может: различает local edit, server revision и deleted state, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает local edit, server revision и deleted state. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Всегда выбирает last writer wins; не связывает это с границей ожидаемого результата: выбирает merge ux и sync policy под data loss risk",
+          "borderline": "Может: выбирает merge ux и sync policy под data loss risk, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает merge ux и sync policy под data loss risk. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Распознаёт конфликт версий — локальная проверка результата",
+        "Различает local edit, server revision и deleted state — независимое evidence и объяснение",
+        "Выбирает merge UX и sync policy под data loss risk — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Всегда выбирает last writer wins",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.apple.com/videos/play/wwdc2023/10149/",
+        "https://developer.apple.com/videos/play/wwdc2021/10133/",
+        "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ios.offline-effect",
+      "domain": "offline",
+      "description": "Offline external effect",
+      "middleTier": "upper",
+      "juniorExpectation": "Сохраняет pending action до подтверждения",
+      "middleExpectation": "Связывает retries, connectivity и duplicate effect",
+      "seniorExpectation": "Выбирает reconciliation и queue privacy lifecycle",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Повторяет действие с новой identity после reconnect; не связывает это с границей ожидаемого результата: сохраняет pending action до подтверждения",
+          "borderline": "Может: сохраняет pending action до подтверждения, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет pending action до подтверждения. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Повторяет действие с новой identity после reconnect; не связывает это с границей ожидаемого результата: связывает retries, connectivity и duplicate effect",
+          "borderline": "Может: связывает retries, connectivity и duplicate effect, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает retries, connectivity и duplicate effect. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Повторяет действие с новой identity после reconnect; не связывает это с границей ожидаемого результата: выбирает reconciliation и queue privacy lifecycle",
+          "borderline": "Может: выбирает reconciliation и queue privacy lifecycle, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает reconciliation и queue privacy lifecycle. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет pending action до подтверждения — локальная проверка результата",
+        "Связывает retries, connectivity и duplicate effect — независимое evidence и объяснение",
+        "Выбирает reconciliation и queue privacy lifecycle — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Повторяет действие с новой identity после reconnect",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.apple.com/videos/play/wwdc2023/10149/",
+        "https://developer.apple.com/videos/play/wwdc2021/10133/",
+        "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ios.responsiveness",
+      "domain": "performance",
+      "description": "Responsiveness main actor",
+      "middleTier": "core",
+      "juniorExpectation": "Убирает известную блокировку UI",
+      "middleExpectation": "Связывает instruments evidence с work на main actor",
+      "seniorExpectation": "Выбирает responsiveness budgets и scheduling policy",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает async функцию автоматически неблокирующей; не связывает это с границей ожидаемого результата: убирает известную блокировку ui",
+          "borderline": "Может: убирает известную блокировку ui, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: убирает известную блокировку ui. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает async функцию автоматически неблокирующей; не связывает это с границей ожидаемого результата: связывает instruments evidence с work на main actor",
+          "borderline": "Может: связывает instruments evidence с work на main actor, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает instruments evidence с work на main actor. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает async функцию автоматически неблокирующей; не связывает это с границей ожидаемого результата: выбирает responsiveness budgets и scheduling policy",
+          "borderline": "Может: выбирает responsiveness budgets и scheduling policy, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает responsiveness budgets и scheduling policy. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Убирает известную блокировку UI — локальная проверка результата",
+        "Связывает instruments evidence с work на main actor — независимое evidence и объяснение",
+        "Выбирает responsiveness budgets и scheduling policy — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает async функцию автоматически неблокирующей",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.apple.com/videos/play/wwdc2023/10149/",
+        "https://developer.apple.com/videos/play/wwdc2021/10133/",
+        "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ios.memory-images",
+      "domain": "performance",
+      "description": "Memory image pipeline",
+      "middleTier": "core",
+      "juniorExpectation": "Ограничивает размер decoded image",
+      "middleExpectation": "Связывает cache, reuse и retained object graph",
+      "seniorExpectation": "Выбирает image/cache strategy с memory и scrolling quality",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Хранит все full-resolution images постоянно; не связывает это с границей ожидаемого результата: ограничивает размер decoded image",
+          "borderline": "Может: ограничивает размер decoded image, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: ограничивает размер decoded image. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Хранит все full-resolution images постоянно; не связывает это с границей ожидаемого результата: связывает cache, reuse и retained object graph",
+          "borderline": "Может: связывает cache, reuse и retained object graph, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает cache, reuse и retained object graph. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Хранит все full-resolution images постоянно; не связывает это с границей ожидаемого результата: выбирает image/cache strategy с memory и scrolling quality",
+          "borderline": "Может: выбирает image/cache strategy с memory и scrolling quality, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает image/cache strategy с memory и scrolling quality. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Ограничивает размер decoded image — локальная проверка результата",
+        "Связывает cache, reuse и retained object graph — независимое evidence и объяснение",
+        "Выбирает image/cache strategy с memory и scrolling quality — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Хранит все full-resolution images постоянно",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.apple.com/videos/play/wwdc2023/10149/",
+        "https://developer.apple.com/videos/play/wwdc2021/10133/",
+        "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ios.performance-evidence",
+      "domain": "performance",
+      "description": "Проверка performance эффекта",
+      "middleTier": "upper",
+      "juniorExpectation": "Измеряет заданный workload",
+      "middleExpectation": "Различает cold/warm launch и device variation",
+      "seniorExpectation": "Выбирает release gate по field regressions и user impact",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Принимает simulator timing за device guarantee; не связывает это с границей ожидаемого результата: измеряет заданный workload",
+          "borderline": "Может: измеряет заданный workload, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: измеряет заданный workload. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Принимает simulator timing за device guarantee; не связывает это с границей ожидаемого результата: различает cold/warm launch и device variation",
+          "borderline": "Может: различает cold/warm launch и device variation, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает cold/warm launch и device variation. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Принимает simulator timing за device guarantee; не связывает это с границей ожидаемого результата: выбирает release gate по field regressions и user impact",
+          "borderline": "Может: выбирает release gate по field regressions и user impact, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает release gate по field regressions и user impact. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Измеряет заданный workload — локальная проверка результата",
+        "Различает cold/warm launch и device variation — независимое evidence и объяснение",
+        "Выбирает release gate по field regressions и user impact — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Принимает simulator timing за device guarantee",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.apple.com/videos/play/wwdc2023/10149/",
+        "https://developer.apple.com/videos/play/wwdc2021/10133/",
+        "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ios.store-evolution",
+      "domain": "release",
+      "description": "Эволюция persistent store",
+      "middleTier": "core",
+      "juniorExpectation": "Сохраняет данные заданной migration",
+      "middleExpectation": "Проверяет supported schema paths и historical records",
+      "seniorExpectation": "Выбирает migration/rollback policy с recovery obligations",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Удаляет store при несовместимости схемы; не связывает это с границей ожидаемого результата: сохраняет данные заданной migration",
+          "borderline": "Может: сохраняет данные заданной migration, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет данные заданной migration. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Удаляет store при несовместимости схемы; не связывает это с границей ожидаемого результата: проверяет supported schema paths и historical records",
+          "borderline": "Может: проверяет supported schema paths и historical records, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет supported schema paths и historical records. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Удаляет store при несовместимости схемы; не связывает это с границей ожидаемого результата: выбирает migration/rollback policy с recovery obligations",
+          "borderline": "Может: выбирает migration/rollback policy с recovery obligations, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает migration/rollback policy с recovery obligations. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет данные заданной migration — локальная проверка результата",
+        "Проверяет supported schema paths и historical records — независимое evidence и объяснение",
+        "Выбирает migration/rollback policy с recovery obligations — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Удаляет store при несовместимости схемы",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.apple.com/videos/play/wwdc2023/10149/",
+        "https://developer.apple.com/videos/play/wwdc2021/10133/",
+        "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ios.privacy-routing",
+      "domain": "release",
+      "description": "Privacy и routing boundary",
+      "middleTier": "core",
+      "juniorExpectation": "Валидирует URL arguments и identity",
+      "middleExpectation": "Связывает universal links, permissions и authorization",
+      "seniorExpectation": "Выбирает privacy contract при platform и product evolution",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Доверяет внешнему URL как внутреннему navigation; не связывает это с границей ожидаемого результата: валидирует url arguments и identity",
+          "borderline": "Может: валидирует url arguments и identity, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: валидирует url arguments и identity. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Доверяет внешнему URL как внутреннему navigation; не связывает это с границей ожидаемого результата: связывает universal links, permissions и authorization",
+          "borderline": "Может: связывает universal links, permissions и authorization, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает universal links, permissions и authorization. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Доверяет внешнему URL как внутреннему navigation; не связывает это с границей ожидаемого результата: выбирает privacy contract при platform и product evolution",
+          "borderline": "Может: выбирает privacy contract при platform и product evolution, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает privacy contract при platform и product evolution. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Валидирует URL arguments и identity — локальная проверка результата",
+        "Связывает universal links, permissions и authorization — независимое evidence и объяснение",
+        "Выбирает privacy contract при platform и product evolution — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Доверяет внешнему URL как внутреннему navigation",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.apple.com/videos/play/wwdc2023/10149/",
+        "https://developer.apple.com/videos/play/wwdc2021/10133/",
+        "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "ios.release-compatibility",
+      "domain": "release",
+      "description": "Release compatibility",
+      "middleTier": "upper",
+      "juniorExpectation": "Проверяет заданную OS/device конфигурацию",
+      "middleExpectation": "Сопоставляет API availability и app state migration",
+      "seniorExpectation": "Выбирает phased rollout и recovery по последствиям",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает build success совместимостью всех поддержанных OS; не связывает это с границей ожидаемого результата: проверяет заданную os/device конфигурацию",
+          "borderline": "Может: проверяет заданную os/device конфигурацию, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет заданную os/device конфигурацию. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает build success совместимостью всех поддержанных OS; не связывает это с границей ожидаемого результата: сопоставляет api availability и app state migration",
+          "borderline": "Может: сопоставляет api availability и app state migration, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет api availability и app state migration. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает build success совместимостью всех поддержанных OS; не связывает это с границей ожидаемого результата: выбирает phased rollout и recovery по последствиям",
+          "borderline": "Может: выбирает phased rollout и recovery по последствиям, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает phased rollout и recovery по последствиям. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет заданную OS/device конфигурацию — локальная проверка результата",
+        "Сопоставляет API availability и app state migration — независимое evidence и объяснение",
+        "Выбирает phased rollout и recovery по последствиям — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает build success совместимостью всех поддержанных OS",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.apple.com/videos/play/wwdc2023/10149/",
+        "https://developer.apple.com/videos/play/wwdc2021/10133/",
+        "https://developer.apple.com/documentation/xcode/improving-app-responsiveness"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+✔ full API flow: identity, owned assessments, privacy, needs and invitations (206.171833ms)
+✔ special cases remain experimental; templates produce owned variants without leaking answers (78.091666ms)
+✔ same seed reproduces substantive materials; oracle stays private (3.944458ms)
+✔ a high leaked metric does not certify a valid experiment (16.923083ms)
+✔ retrieval checks both known answers and abstentions (0.460583ms)
+✔ event processing remains correct under replay and reordered delivery (0.360833ms)
+✔ grade stays provisional and requires evidence in both stages (0.4225ms)
+✔ empty pilot does not invent calibration measures (0.151875ms)
+✔ technical validation spans all role contexts, levels and changed conditions (142.505333ms)
+✔ all 26 engineering families expose a genuinely faulty artifact and pass grounded baseline and edge tests (49.639625ms)
+✔ legacy benchmark confirms only the claim and never promotes or downgrades automatically (5.508166ms)
+✔ cache diagnostic traces distinguish access violations, stale versions and value mismatches (0.532166ms)
+✔ localization penalizes false positives and an earlier passing strategy never masks a later failing one (2.029ms)
+✔ AI maturity measures relevant diagnostic variety and repetition, never writing style or query length (5.356958ms)
+✔ session level uses the weakest mandatory case and company evidence never replaces a general level (2.558042ms)
+✔ engineering API allows edge tests before theory and audit, retains diagnostics, enforces completion and ownership (128.815666ms)
+✔ real LLM artifacts preserve verified faulty decisions and malformed output is rejected (3.808667ms)
+✔ express variants have two grade-specific questions, exactly four defect categories and bundled decisions (25.823959ms)
+✔ express generation rejects substantive repeats and replays the same seed deterministically (123.261ms)
+✔ every specialization retains locally valid express fixtures at each grade (71.08675ms)
+✔ Junior request validation and Senior failover are sensitive to invalid adaptation (12.6635ms)
+✔ the 70% boundary confirms only the claim and diagnostics never change points (4.290625ms)
+✔ one express case completes a session; a failure schedules only the same track and grade (2.850458ms)
+✔ FSP absence is neutral, modeled achievements boost matching by 20%, failed claims reduce ranking (0.408625ms)
+✔ express API is local even with live LLM enabled, preserves old sessions and enforces 30-day retry (94.84975ms)
+✔ SQLite retains users across closing and reopening (76.655916ms)
+✔ a general level requires both cases, while company sessions never assign a general level (117.556125ms)
+✔ production does not expose the local workspace bridge (5.53475ms)
+✔ signed workspace sessions isolate users and reject unsigned or production bridge access (71.137291ms)
+✔ employer priorities change ranking using accumulated competencies without certifying resume technologies (1.2705ms)
+✔ repeating the current level preserves the original level-change date (0.110167ms)
+✔ payment variants require different reasoning and the changed senior contract requires adaptation (166.943459ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1334.905459

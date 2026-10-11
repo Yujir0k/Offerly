@@ -1,0 +1,1 @@
+Manrope-Regular.ttf и Manrope-Bold.ttf — статические веса 400 и 700 из имеющегося Manrope.ttf. Нужны для встраивания кириллицы в PDF. Лицензия: Manrope-OFL.txt. Приложение не требует Python/fontTools: готовые TTF включены в public/fonts.

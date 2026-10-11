@@ -1,0 +1,762 @@
+{
+  "version": "professional-competency-2.0.0",
+  "track": "android",
+  "name": "Android",
+  "roleScope": "корректное мобильное состояние при lifecycle и platform limits",
+  "gradeStandards": {
+    "Junior": "Самостоятельно и корректно решает ограниченный screen, persistence или background task при понятных фактах и ограниченных последствиях.",
+    "Middle": "Самостоятельно интегрирует process restoration, offline sync, state и device performance, строит причинную/аналитическую модель и проверяет действие при реальных constraints.",
+    "Senior": "Выбирает state/sync/release contracts, battery, privacy и user data recovery среди допустимых решений с uncertainty, evolution, rollback и ответственностью за последствия."
+  },
+  "sources": [
+    "https://sfia-online.org/en/sfia-9/responsibilities",
+    "https://developer.android.com/topic/architecture",
+    "https://developer.android.com/topic/libraries/architecture/saving-states"
+  ],
+  "knownLimitations": [
+    "18 capabilities охватывают scenario scope этого assessment, а не всю профессию.",
+    "Grade taxonomy — synthesis команды; стандарты не задают эти три grades или проценты confirmation.",
+    "Closed-world multiple choice и bounded execution не доказывают самостоятельную формулировку стратегии в открытой задаче.",
+    "Rubric и mapping требуют независимого expert review; человеческая calibration отсутствует."
+  ],
+  "capabilities": [
+    {
+      "id": "android.configuration-ownership",
+      "domain": "lifecycle",
+      "description": "State при configuration change",
+      "middleTier": "core",
+      "juniorExpectation": "Сохраняет нужный screen state",
+      "middleExpectation": "Различает Activity, ViewModel и repository lifetime",
+      "seniorExpectation": "Выбирает ownership state при нескольких screens и resources",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Хранит business state только в Activity; не связывает это с границей ожидаемого результата: сохраняет нужный screen state",
+          "borderline": "Может: сохраняет нужный screen state, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет нужный screen state. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Хранит business state только в Activity; не связывает это с границей ожидаемого результата: различает activity, viewmodel и repository lifetime",
+          "borderline": "Может: различает activity, viewmodel и repository lifetime, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает activity, viewmodel и repository lifetime. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Хранит business state только в Activity; не связывает это с границей ожидаемого результата: выбирает ownership state при нескольких screens и resources",
+          "borderline": "Может: выбирает ownership state при нескольких screens и resources, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает ownership state при нескольких screens и resources. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет нужный screen state — локальная проверка результата",
+        "Различает Activity, ViewModel и repository lifetime — независимое evidence и объяснение",
+        "Выбирает ownership state при нескольких screens и resources — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Хранит business state только в Activity",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/saving-states"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "android.process-restoration",
+      "domain": "lifecycle",
+      "description": "Восстановление после process death",
+      "middleTier": "core",
+      "juniorExpectation": "Восстанавливает минимальный saveable state",
+      "middleExpectation": "Согласует saved identity, persistence и fresh data",
+      "seniorExpectation": "Выбирает restoration UX с consistency и privacy",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает ViewModel сохранённым после process death; не связывает это с границей ожидаемого результата: восстанавливает минимальный saveable state",
+          "borderline": "Может: восстанавливает минимальный saveable state, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: восстанавливает минимальный saveable state. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает ViewModel сохранённым после process death; не связывает это с границей ожидаемого результата: согласует saved identity, persistence и fresh data",
+          "borderline": "Может: согласует saved identity, persistence и fresh data, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует saved identity, persistence и fresh data. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает ViewModel сохранённым после process death; не связывает это с границей ожидаемого результата: выбирает restoration ux с consistency и privacy",
+          "borderline": "Может: выбирает restoration ux с consistency и privacy, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает restoration ux с consistency и privacy. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Восстанавливает минимальный saveable state — локальная проверка результата",
+        "Согласует saved identity, persistence и fresh data — независимое evidence и объяснение",
+        "Выбирает restoration UX с consistency и privacy — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает ViewModel сохранённым после process death",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/saving-states"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "android.lifecycle-effects",
+      "domain": "lifecycle",
+      "description": "Lifecycle effects",
+      "middleTier": "upper",
+      "juniorExpectation": "Освобождает локальную подписку",
+      "middleExpectation": "Согласует foreground/background и repeated lifecycle events",
+      "seniorExpectation": "Выбирает lifecycle protocol с resource и user consequences",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Оставляет listener после уничтожения owner; не связывает это с границей ожидаемого результата: освобождает локальную подписку",
+          "borderline": "Может: освобождает локальную подписку, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: освобождает локальную подписку. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Оставляет listener после уничтожения owner; не связывает это с границей ожидаемого результата: согласует foreground/background и repeated lifecycle events",
+          "borderline": "Может: согласует foreground/background и repeated lifecycle events, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует foreground/background и repeated lifecycle events. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Оставляет listener после уничтожения owner; не связывает это с границей ожидаемого результата: выбирает lifecycle protocol с resource и user consequences",
+          "borderline": "Может: выбирает lifecycle protocol с resource и user consequences, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает lifecycle protocol с resource и user consequences. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Освобождает локальную подписку — локальная проверка результата",
+        "Согласует foreground/background и repeated lifecycle events — независимое evidence и объяснение",
+        "Выбирает lifecycle protocol с resource и user consequences — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Оставляет listener после уничтожения owner",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/saving-states"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "android.flow-collection",
+      "domain": "state",
+      "description": "Lifecycle-aware collection",
+      "middleTier": "core",
+      "juniorExpectation": "Собирает flow в заданном active lifecycle",
+      "middleExpectation": "Связывает hot/cold flow, subscription и state replay",
+      "seniorExpectation": "Выбирает state delivery contract между экранами",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает launch постоянной безопасной collection; не связывает это с границей ожидаемого результата: собирает flow в заданном active lifecycle",
+          "borderline": "Может: собирает flow в заданном active lifecycle, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: собирает flow в заданном active lifecycle. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает launch постоянной безопасной collection; не связывает это с границей ожидаемого результата: связывает hot/cold flow, subscription и state replay",
+          "borderline": "Может: связывает hot/cold flow, subscription и state replay, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает hot/cold flow, subscription и state replay. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает launch постоянной безопасной collection; не связывает это с границей ожидаемого результата: выбирает state delivery contract между экранами",
+          "borderline": "Может: выбирает state delivery contract между экранами, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает state delivery contract между экранами. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Собирает flow в заданном active lifecycle — локальная проверка результата",
+        "Связывает hot/cold flow, subscription и state replay — независимое evidence и объяснение",
+        "Выбирает state delivery contract между экранами — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает launch постоянной безопасной collection",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/saving-states"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "android.compose-identity",
+      "domain": "state",
+      "description": "Identity Compose state",
+      "middleTier": "core",
+      "juniorExpectation": "Использует устойчивую entity identity",
+      "middleExpectation": "Связывает recomposition, remember и list reorder",
+      "seniorExpectation": "Выбирает state hoisting и ownership для сложного UI",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Привязывает state к индексу строки; не связывает это с границей ожидаемого результата: использует устойчивую entity identity",
+          "borderline": "Может: использует устойчивую entity identity, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: использует устойчивую entity identity. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Привязывает state к индексу строки; не связывает это с границей ожидаемого результата: связывает recomposition, remember и list reorder",
+          "borderline": "Может: связывает recomposition, remember и list reorder, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает recomposition, remember и list reorder. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Привязывает state к индексу строки; не связывает это с границей ожидаемого результата: выбирает state hoisting и ownership для сложного ui",
+          "borderline": "Может: выбирает state hoisting и ownership для сложного ui, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает state hoisting и ownership для сложного ui. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Использует устойчивую entity identity — локальная проверка результата",
+        "Связывает recomposition, remember и list reorder — независимое evidence и объяснение",
+        "Выбирает state hoisting и ownership для сложного UI — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Привязывает state к индексу строки",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/saving-states"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "android.state-consistency",
+      "domain": "state",
+      "description": "Согласованность UI state",
+      "middleTier": "upper",
+      "juniorExpectation": "Отображает заданное immutable состояние",
+      "middleExpectation": "Согласует source of truth, loading и concurrent actions",
+      "seniorExpectation": "Выбирает UDF contract при evolving navigation",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Поддерживает независимые конфликтующие copies state; не связывает это с границей ожидаемого результата: отображает заданное immutable состояние",
+          "borderline": "Может: отображает заданное immutable состояние, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: отображает заданное immutable состояние. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Поддерживает независимые конфликтующие copies state; не связывает это с границей ожидаемого результата: согласует source of truth, loading и concurrent actions",
+          "borderline": "Может: согласует source of truth, loading и concurrent actions, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует source of truth, loading и concurrent actions. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Поддерживает независимые конфликтующие copies state; не связывает это с границей ожидаемого результата: выбирает udf contract при evolving navigation",
+          "borderline": "Может: выбирает udf contract при evolving navigation, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает udf contract при evolving navigation. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Отображает заданное immutable состояние — локальная проверка результата",
+        "Согласует source of truth, loading и concurrent actions — независимое evidence и объяснение",
+        "Выбирает UDF contract при evolving navigation — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Поддерживает независимые конфликтующие copies state",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/saving-states"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "android.local-transaction",
+      "domain": "offline",
+      "description": "Локальное offline состояние",
+      "middleTier": "core",
+      "juniorExpectation": "Сохраняет связанный локальный update транзакционно",
+      "middleExpectation": "Согласует Room state и queued server effect",
+      "seniorExpectation": "Выбирает offline guarantee с sync и migration",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Меняет local row без записи pending effect; не связывает это с границей ожидаемого результата: сохраняет связанный локальный update транзакционно",
+          "borderline": "Может: сохраняет связанный локальный update транзакционно, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет связанный локальный update транзакционно. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Меняет local row без записи pending effect; не связывает это с границей ожидаемого результата: согласует room state и queued server effect",
+          "borderline": "Может: согласует room state и queued server effect, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует room state и queued server effect. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Меняет local row без записи pending effect; не связывает это с границей ожидаемого результата: выбирает offline guarantee с sync и migration",
+          "borderline": "Может: выбирает offline guarantee с sync и migration, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает offline guarantee с sync и migration. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет связанный локальный update транзакционно — локальная проверка результата",
+        "Согласует Room state и queued server effect — независимое evidence и объяснение",
+        "Выбирает offline guarantee с sync и migration — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Меняет local row без записи pending effect",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/saving-states"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "android.sync-conflict",
+      "domain": "offline",
+      "description": "Конфликт sync",
+      "middleTier": "core",
+      "juniorExpectation": "Распознаёт stale version локальной записи",
+      "middleExpectation": "Сопоставляет server revision, local edit и retry",
+      "seniorExpectation": "Выбирает merge/conflict UX под потерю данных",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Перезаписывает remote update последним local value; не связывает это с границей ожидаемого результата: распознаёт stale version локальной записи",
+          "borderline": "Может: распознаёт stale version локальной записи, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: распознаёт stale version локальной записи. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Перезаписывает remote update последним local value; не связывает это с границей ожидаемого результата: сопоставляет server revision, local edit и retry",
+          "borderline": "Может: сопоставляет server revision, local edit и retry, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет server revision, local edit и retry. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Перезаписывает remote update последним local value; не связывает это с границей ожидаемого результата: выбирает merge/conflict ux под потерю данных",
+          "borderline": "Может: выбирает merge/conflict ux под потерю данных, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает merge/conflict ux под потерю данных. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Распознаёт stale version локальной записи — локальная проверка результата",
+        "Сопоставляет server revision, local edit и retry — независимое evidence и объяснение",
+        "Выбирает merge/conflict UX под потерю данных — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Перезаписывает remote update последним local value",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/saving-states"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "android.sync-recovery",
+      "domain": "offline",
+      "description": "Recovery offline queue",
+      "middleTier": "upper",
+      "juniorExpectation": "Повторяет идемпотентное ограниченное действие",
+      "middleExpectation": "Согласует connectivity, duplicate и подтверждение effect",
+      "seniorExpectation": "Выбирает queue lifecycle с storage и privacy obligations",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Удаляет pending effect до подтверждения; не связывает это с границей ожидаемого результата: повторяет идемпотентное ограниченное действие",
+          "borderline": "Может: повторяет идемпотентное ограниченное действие, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: повторяет идемпотентное ограниченное действие. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Удаляет pending effect до подтверждения; не связывает это с границей ожидаемого результата: согласует connectivity, duplicate и подтверждение effect",
+          "borderline": "Может: согласует connectivity, duplicate и подтверждение effect, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует connectivity, duplicate и подтверждение effect. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Удаляет pending effect до подтверждения; не связывает это с границей ожидаемого результата: выбирает queue lifecycle с storage и privacy obligations",
+          "borderline": "Может: выбирает queue lifecycle с storage и privacy obligations, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает queue lifecycle с storage и privacy obligations. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Повторяет идемпотентное ограниченное действие — локальная проверка результата",
+        "Согласует connectivity, duplicate и подтверждение effect — независимое evidence и объяснение",
+        "Выбирает queue lifecycle с storage и privacy obligations — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Удаляет pending effect до подтверждения",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/saving-states"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "android.work-guarantee",
+      "domain": "background",
+      "description": "Гарантии background work",
+      "middleTier": "core",
+      "juniorExpectation": "Использует подходящий scheduled work API",
+      "middleExpectation": "Связывает constraints, retry и duplicate worker",
+      "seniorExpectation": "Выбирает eventual work contract с platform limits",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Обещает точное время WorkManager запуска; не связывает это с границей ожидаемого результата: использует подходящий scheduled work api",
+          "borderline": "Может: использует подходящий scheduled work api, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: использует подходящий scheduled work api. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Обещает точное время WorkManager запуска; не связывает это с границей ожидаемого результата: связывает constraints, retry и duplicate worker",
+          "borderline": "Может: связывает constraints, retry и duplicate worker, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает constraints, retry и duplicate worker. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Обещает точное время WorkManager запуска; не связывает это с границей ожидаемого результата: выбирает eventual work contract с platform limits",
+          "borderline": "Может: выбирает eventual work contract с platform limits, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает eventual work contract с platform limits. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Использует подходящий scheduled work API — локальная проверка результата",
+        "Связывает constraints, retry и duplicate worker — независимое evidence и объяснение",
+        "Выбирает eventual work contract с platform limits — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Обещает точное время WorkManager запуска",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/saving-states"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "android.permission-scope",
+      "domain": "background",
+      "description": "Разрешения background execution",
+      "middleTier": "core",
+      "juniorExpectation": "Запрашивает нужное permission в контексте",
+      "middleExpectation": "Различает permission, app state и platform restriction",
+      "seniorExpectation": "Выбирает UX fallback и минимальные permissions",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает granted permission гарантией запуска; не связывает это с границей ожидаемого результата: запрашивает нужное permission в контексте",
+          "borderline": "Может: запрашивает нужное permission в контексте, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: запрашивает нужное permission в контексте. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает granted permission гарантией запуска; не связывает это с границей ожидаемого результата: различает permission, app state и platform restriction",
+          "borderline": "Может: различает permission, app state и platform restriction, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает permission, app state и platform restriction. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает granted permission гарантией запуска; не связывает это с границей ожидаемого результата: выбирает ux fallback и минимальные permissions",
+          "borderline": "Может: выбирает ux fallback и минимальные permissions, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает ux fallback и минимальные permissions. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Запрашивает нужное permission в контексте — локальная проверка результата",
+        "Различает permission, app state и platform restriction — независимое evidence и объяснение",
+        "Выбирает UX fallback и минимальные permissions — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает granted permission гарантией запуска",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/saving-states"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "android.background-budget",
+      "domain": "background",
+      "description": "Бюджет фоновой работы",
+      "middleTier": "upper",
+      "juniorExpectation": "Завершает ограниченную работу и cleanup",
+      "middleExpectation": "Согласует батарею, timeout и durable continuation",
+      "seniorExpectation": "Выбирает фоновые guarantees и пользовательскую прозрачность",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Держит неограниченную background работу; не связывает это с границей ожидаемого результата: завершает ограниченную работу и cleanup",
+          "borderline": "Может: завершает ограниченную работу и cleanup, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: завершает ограниченную работу и cleanup. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Держит неограниченную background работу; не связывает это с границей ожидаемого результата: согласует батарею, timeout и durable continuation",
+          "borderline": "Может: согласует батарею, timeout и durable continuation, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует батарею, timeout и durable continuation. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Держит неограниченную background работу; не связывает это с границей ожидаемого результата: выбирает фоновые guarantees и пользовательскую прозрачность",
+          "borderline": "Может: выбирает фоновые guarantees и пользовательскую прозрачность, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает фоновые guarantees и пользовательскую прозрачность. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Завершает ограниченную работу и cleanup — локальная проверка результата",
+        "Согласует батарею, timeout и durable continuation — независимое evidence и объяснение",
+        "Выбирает фоновые guarantees и пользовательскую прозрачность — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Держит неограниченную background работу",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/saving-states"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "android.main-thread",
+      "domain": "performance",
+      "description": "Main-thread responsiveness",
+      "middleTier": "core",
+      "juniorExpectation": "Переносит известную блокирующую работу",
+      "middleExpectation": "Связывает frame trace, dispatchers и state updates",
+      "seniorExpectation": "Выбирает workload policy по устройствам и user experience",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Лечит jank только добавлением background threads; не связывает это с границей ожидаемого результата: переносит известную блокирующую работу",
+          "borderline": "Может: переносит известную блокирующую работу, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: переносит известную блокирующую работу. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Лечит jank только добавлением background threads; не связывает это с границей ожидаемого результата: связывает frame trace, dispatchers и state updates",
+          "borderline": "Может: связывает frame trace, dispatchers и state updates, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает frame trace, dispatchers и state updates. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Лечит jank только добавлением background threads; не связывает это с границей ожидаемого результата: выбирает workload policy по устройствам и user experience",
+          "borderline": "Может: выбирает workload policy по устройствам и user experience, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает workload policy по устройствам и user experience. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Переносит известную блокирующую работу — локальная проверка результата",
+        "Связывает frame trace, dispatchers и state updates — независимое evidence и объяснение",
+        "Выбирает workload policy по устройствам и user experience — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Лечит jank только добавлением background threads",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/saving-states"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "android.memory-startup",
+      "domain": "performance",
+      "description": "Memory и startup",
+      "middleTier": "core",
+      "juniorExpectation": "Освобождает известную retained reference",
+      "middleExpectation": "Различает leak, cache и initialization critical path",
+      "seniorExpectation": "Выбирает startup/cache strategy с memory и latency cost",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Уменьшает память удалением нужного state; не связывает это с границей ожидаемого результата: освобождает известную retained reference",
+          "borderline": "Может: освобождает известную retained reference, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: освобождает известную retained reference. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Уменьшает память удалением нужного state; не связывает это с границей ожидаемого результата: различает leak, cache и initialization critical path",
+          "borderline": "Может: различает leak, cache и initialization critical path, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает leak, cache и initialization critical path. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Уменьшает память удалением нужного state; не связывает это с границей ожидаемого результата: выбирает startup/cache strategy с memory и latency cost",
+          "borderline": "Может: выбирает startup/cache strategy с memory и latency cost, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает startup/cache strategy с memory и latency cost. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Освобождает известную retained reference — локальная проверка результата",
+        "Различает leak, cache и initialization critical path — независимое evidence и объяснение",
+        "Выбирает startup/cache strategy с memory и latency cost — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Уменьшает память удалением нужного state",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/saving-states"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "android.frame-evidence",
+      "domain": "performance",
+      "description": "Evidence frame budget",
+      "middleTier": "upper",
+      "juniorExpectation": "Находит длинный frame в trace",
+      "middleExpectation": "Сопоставляет composition, layout и draw workloads",
+      "seniorExpectation": "Выбирает performance budgets по devices и field data",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Обобщает emulator benchmark на все устройства; не связывает это с границей ожидаемого результата: находит длинный frame в trace",
+          "borderline": "Может: находит длинный frame в trace, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: находит длинный frame в trace. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Обобщает emulator benchmark на все устройства; не связывает это с границей ожидаемого результата: сопоставляет composition, layout и draw workloads",
+          "borderline": "Может: сопоставляет composition, layout и draw workloads, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет composition, layout и draw workloads. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Обобщает emulator benchmark на все устройства; не связывает это с границей ожидаемого результата: выбирает performance budgets по devices и field data",
+          "borderline": "Может: выбирает performance budgets по devices и field data, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает performance budgets по devices и field data. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Находит длинный frame в trace — локальная проверка результата",
+        "Сопоставляет composition, layout и draw workloads — независимое evidence и объяснение",
+        "Выбирает performance budgets по devices и field data — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Обобщает emulator benchmark на все устройства",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/saving-states"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "android.storage-migration",
+      "domain": "release",
+      "description": "Storage migration",
+      "middleTier": "core",
+      "juniorExpectation": "Сохраняет данные заданной schema migration",
+      "middleExpectation": "Проверяет supported upgrade paths и rollback limits",
+      "seniorExpectation": "Выбирает migration policy с recovery и user data ownership",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Использует destructive migration без product guarantee; не связывает это с границей ожидаемого результата: сохраняет данные заданной schema migration",
+          "borderline": "Может: сохраняет данные заданной schema migration, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет данные заданной schema migration. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Использует destructive migration без product guarantee; не связывает это с границей ожидаемого результата: проверяет supported upgrade paths и rollback limits",
+          "borderline": "Может: проверяет supported upgrade paths и rollback limits, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет supported upgrade paths и rollback limits. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Использует destructive migration без product guarantee; не связывает это с границей ожидаемого результата: выбирает migration policy с recovery и user data ownership",
+          "borderline": "Может: выбирает migration policy с recovery и user data ownership, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает migration policy с recovery и user data ownership. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет данные заданной schema migration — локальная проверка результата",
+        "Проверяет supported upgrade paths и rollback limits — независимое evidence и объяснение",
+        "Выбирает migration policy с recovery и user data ownership — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Использует destructive migration без product guarantee",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/saving-states"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "android.link-privacy-contract",
+      "domain": "release",
+      "description": "Deep link и privacy contract",
+      "middleTier": "core",
+      "juniorExpectation": "Валидирует локальные arguments link",
+      "middleExpectation": "Связывает navigation, identity и exported boundaries",
+      "seniorExpectation": "Выбирает release policy с privacy и backward links",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Доверяет intent без проверки authorization; не связывает это с границей ожидаемого результата: валидирует локальные arguments link",
+          "borderline": "Может: валидирует локальные arguments link, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: валидирует локальные arguments link. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Доверяет intent без проверки authorization; не связывает это с границей ожидаемого результата: связывает navigation, identity и exported boundaries",
+          "borderline": "Может: связывает navigation, identity и exported boundaries, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает navigation, identity и exported boundaries. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Доверяет intent без проверки authorization; не связывает это с границей ожидаемого результата: выбирает release policy с privacy и backward links",
+          "borderline": "Может: выбирает release policy с privacy и backward links, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает release policy с privacy и backward links. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Валидирует локальные arguments link — локальная проверка результата",
+        "Связывает navigation, identity и exported boundaries — независимое evidence и объяснение",
+        "Выбирает release policy с privacy и backward links — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Доверяет intent без проверки authorization",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/saving-states"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "android.release-assurance",
+      "domain": "release",
+      "description": "Assurance Android release",
+      "middleTier": "upper",
+      "juniorExpectation": "Проверяет заданный device path",
+      "middleExpectation": "Сопоставляет versions, platform behavior и regression evidence",
+      "seniorExpectation": "Выбирает staged rollout и recovery по user impact",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает успешную сборку гарантией совместимости устройств; не связывает это с границей ожидаемого результата: проверяет заданный device path",
+          "borderline": "Может: проверяет заданный device path, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет заданный device path. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает успешную сборку гарантией совместимости устройств; не связывает это с границей ожидаемого результата: сопоставляет versions, platform behavior и regression evidence",
+          "borderline": "Может: сопоставляет versions, platform behavior и regression evidence, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет versions, platform behavior и regression evidence. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает успешную сборку гарантией совместимости устройств; не связывает это с границей ожидаемого результата: выбирает staged rollout и recovery по user impact",
+          "borderline": "Может: выбирает staged rollout и recovery по user impact, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает staged rollout и recovery по user impact. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет заданный device path — локальная проверка результата",
+        "Сопоставляет versions, platform behavior и regression evidence — независимое evidence и объяснение",
+        "Выбирает staged rollout и recovery по user impact — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает успешную сборку гарантией совместимости устройств",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/saving-states"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    }
+  ]
+}

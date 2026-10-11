@@ -1,0 +1,762 @@
+{
+  "version": "professional-competency-2.0.0",
+  "track": "mlops",
+  "name": "MLOps / ML Platform Engineer",
+  "roleScope": "воспроизводимый и контролируемый ML lifecycle",
+  "gradeStandards": {
+    "Junior": "Самостоятельно и корректно решает run manifest, artifact и ограниченный pipeline task при понятных фактах и ограниченных последствиях.",
+    "Middle": "Самостоятельно интегрирует lineage, gates, registry, resource и rollback consistency, строит причинную/аналитическую модель и проверяет действие при реальных constraints.",
+    "Senior": "Выбирает continuous training/promotion policy, trust, cost и recovery ownership среди допустимых решений с uncertainty, evolution, rollback и ответственностью за последствия."
+  },
+  "sources": [
+    "https://sfia-online.org/en/sfia-9/responsibilities",
+    "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+    "https://mlflow.org/docs/latest/ml/model-registry/"
+  ],
+  "knownLimitations": [
+    "18 capabilities охватывают scenario scope этого assessment, а не всю профессию.",
+    "Grade taxonomy — synthesis команды; стандарты не задают эти три grades или проценты confirmation.",
+    "Closed-world multiple choice и bounded execution не доказывают самостоятельную формулировку стратегии в открытой задаче.",
+    "Rubric и mapping требуют независимого expert review; человеческая calibration отсутствует."
+  ],
+  "capabilities": [
+    {
+      "id": "mlops.run-manifest",
+      "domain": "lineage",
+      "description": "Manifest training run",
+      "middleTier": "core",
+      "juniorExpectation": "Фиксирует dataset, code и parameters",
+      "middleExpectation": "Связывает run, environment и artifact revisions",
+      "seniorExpectation": "Выбирает lineage guarantee и retention obligations",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Хранит только model filename; не связывает это с границей ожидаемого результата: фиксирует dataset, code и parameters",
+          "borderline": "Может: фиксирует dataset, code и parameters, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: фиксирует dataset, code и parameters. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Хранит только model filename; не связывает это с границей ожидаемого результата: связывает run, environment и artifact revisions",
+          "borderline": "Может: связывает run, environment и artifact revisions, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает run, environment и artifact revisions. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Хранит только model filename; не связывает это с границей ожидаемого результата: выбирает lineage guarantee и retention obligations",
+          "borderline": "Может: выбирает lineage guarantee и retention obligations, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает lineage guarantee и retention obligations. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Фиксирует dataset, code и parameters — локальная проверка результата",
+        "Связывает run, environment и artifact revisions — независимое evidence и объяснение",
+        "Выбирает lineage guarantee и retention obligations — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Хранит только model filename",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "https://mlflow.org/docs/latest/ml/model-registry/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "mlops.artifact-integrity",
+      "domain": "lineage",
+      "description": "Целостность artifact",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет checksum и происхождение файла",
+      "middleExpectation": "Связывает build, storage и serving identity",
+      "seniorExpectation": "Выбирает signed promotion и trust boundary policy",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает совпадение имени доказательством identity; не связывает это с границей ожидаемого результата: проверяет checksum и происхождение файла",
+          "borderline": "Может: проверяет checksum и происхождение файла, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет checksum и происхождение файла. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает совпадение имени доказательством identity; не связывает это с границей ожидаемого результата: связывает build, storage и serving identity",
+          "borderline": "Может: связывает build, storage и serving identity, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает build, storage и serving identity. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает совпадение имени доказательством identity; не связывает это с границей ожидаемого результата: выбирает signed promotion и trust boundary policy",
+          "borderline": "Может: выбирает signed promotion и trust boundary policy, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает signed promotion и trust boundary policy. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет checksum и происхождение файла — локальная проверка результата",
+        "Связывает build, storage и serving identity — независимое evidence и объяснение",
+        "Выбирает signed promotion и trust boundary policy — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает совпадение имени доказательством identity",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "https://mlflow.org/docs/latest/ml/model-registry/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "mlops.temporal-lineage",
+      "domain": "lineage",
+      "description": "Временная data lineage",
+      "middleTier": "upper",
+      "juniorExpectation": "Использует заданную доступную версию dataset",
+      "middleExpectation": "Проверяет point-in-time и transforms до training",
+      "seniorExpectation": "Выбирает reproducibility contract при backfill и corrections",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Переобучает прошлую model на будущих данных; не связывает это с границей ожидаемого результата: использует заданную доступную версию dataset",
+          "borderline": "Может: использует заданную доступную версию dataset, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: использует заданную доступную версию dataset. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Переобучает прошлую model на будущих данных; не связывает это с границей ожидаемого результата: проверяет point-in-time и transforms до training",
+          "borderline": "Может: проверяет point-in-time и transforms до training, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет point-in-time и transforms до training. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Переобучает прошлую model на будущих данных; не связывает это с границей ожидаемого результата: выбирает reproducibility contract при backfill и corrections",
+          "borderline": "Может: выбирает reproducibility contract при backfill и corrections, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает reproducibility contract при backfill и corrections. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Использует заданную доступную версию dataset — локальная проверка результата",
+        "Проверяет point-in-time и transforms до training — независимое evidence и объяснение",
+        "Выбирает reproducibility contract при backfill и corrections — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Переобучает прошлую model на будущих данных",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "https://mlflow.org/docs/latest/ml/model-registry/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "mlops.cache-validity",
+      "domain": "pipelines",
+      "description": "Валидность pipeline cache",
+      "middleTier": "core",
+      "juniorExpectation": "Инвалидирует cache при известном изменении input",
+      "middleExpectation": "Связывает code, data, environment и cache key",
+      "seniorExpectation": "Выбирает cache policy с cost и stale-result risk",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Использует cache только по имени task; не связывает это с границей ожидаемого результата: инвалидирует cache при известном изменении input",
+          "borderline": "Может: инвалидирует cache при известном изменении input, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: инвалидирует cache при известном изменении input. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Использует cache только по имени task; не связывает это с границей ожидаемого результата: связывает code, data, environment и cache key",
+          "borderline": "Может: связывает code, data, environment и cache key, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает code, data, environment и cache key. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Использует cache только по имени task; не связывает это с границей ожидаемого результата: выбирает cache policy с cost и stale-result risk",
+          "borderline": "Может: выбирает cache policy с cost и stale-result risk, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает cache policy с cost и stale-result risk. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Инвалидирует cache при известном изменении input — локальная проверка результата",
+        "Связывает code, data, environment и cache key — независимое evidence и объяснение",
+        "Выбирает cache policy с cost и stale-result risk — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Использует cache только по имени task",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "https://mlflow.org/docs/latest/ml/model-registry/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "mlops.pipeline-gate",
+      "domain": "pipelines",
+      "description": "Проверяемый pipeline gate",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет заданные artifact и data checks",
+      "middleExpectation": "Различает task success и contract validity",
+      "seniorExpectation": "Выбирает gates по downstream risk и independent evidence",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Промотирует после successful training process; не связывает это с границей ожидаемого результата: проверяет заданные artifact и data checks",
+          "borderline": "Может: проверяет заданные artifact и data checks, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет заданные artifact и data checks. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Промотирует после successful training process; не связывает это с границей ожидаемого результата: различает task success и contract validity",
+          "borderline": "Может: различает task success и contract validity, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает task success и contract validity. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Промотирует после successful training process; не связывает это с границей ожидаемого результата: выбирает gates по downstream risk и independent evidence",
+          "borderline": "Может: выбирает gates по downstream risk и independent evidence, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает gates по downstream risk и independent evidence. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет заданные artifact и data checks — локальная проверка результата",
+        "Различает task success и contract validity — независимое evidence и объяснение",
+        "Выбирает gates по downstream risk и independent evidence — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Промотирует после successful training process",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "https://mlflow.org/docs/latest/ml/model-registry/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "mlops.pipeline-repair",
+      "domain": "pipelines",
+      "description": "Recovery pipeline",
+      "middleTier": "upper",
+      "juniorExpectation": "Повторяет idempotent локальный task",
+      "middleExpectation": "Согласует partial artifacts, retries и lineage",
+      "seniorExpectation": "Выбирает repair/replay policy с audit и resource cost",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Смешивает artifacts разных попыток; не связывает это с границей ожидаемого результата: повторяет idempotent локальный task",
+          "borderline": "Может: повторяет idempotent локальный task, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: повторяет idempotent локальный task. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Смешивает artifacts разных попыток; не связывает это с границей ожидаемого результата: согласует partial artifacts, retries и lineage",
+          "borderline": "Может: согласует partial artifacts, retries и lineage, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует partial artifacts, retries и lineage. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Смешивает artifacts разных попыток; не связывает это с границей ожидаемого результата: выбирает repair/replay policy с audit и resource cost",
+          "borderline": "Может: выбирает repair/replay policy с audit и resource cost, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает repair/replay policy с audit и resource cost. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Повторяет idempotent локальный task — локальная проверка результата",
+        "Согласует partial artifacts, retries и lineage — независимое evidence и объяснение",
+        "Выбирает repair/replay policy с audit и resource cost — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Смешивает artifacts разных попыток",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "https://mlflow.org/docs/latest/ml/model-registry/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "mlops.promotion-lineage",
+      "domain": "registry",
+      "description": "Promotion registry",
+      "middleTier": "core",
+      "juniorExpectation": "Промотирует точную проверенную model version",
+      "middleExpectation": "Связывает aliases, approvals и immutable artifacts",
+      "seniorExpectation": "Выбирает promotion ownership и audit contract",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает mutable alias точной версией model; не связывает это с границей ожидаемого результата: промотирует точную проверенную model version",
+          "borderline": "Может: промотирует точную проверенную model version, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: промотирует точную проверенную model version. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает mutable alias точной версией model; не связывает это с границей ожидаемого результата: связывает aliases, approvals и immutable artifacts",
+          "borderline": "Может: связывает aliases, approvals и immutable artifacts, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает aliases, approvals и immutable artifacts. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает mutable alias точной версией model; не связывает это с границей ожидаемого результата: выбирает promotion ownership и audit contract",
+          "borderline": "Может: выбирает promotion ownership и audit contract, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает promotion ownership и audit contract. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Промотирует точную проверенную model version — локальная проверка результата",
+        "Связывает aliases, approvals и immutable artifacts — независимое evidence и объяснение",
+        "Выбирает promotion ownership и audit contract — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает mutable alias точной версией model",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "https://mlflow.org/docs/latest/ml/model-registry/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "mlops.compatibility-bundle",
+      "domain": "registry",
+      "description": "Совместимость registered bundle",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет declared input schema",
+      "middleExpectation": "Связывает model, features и serving dependencies",
+      "seniorExpectation": "Выбирает version contract и compatibility migration",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Промотирует weights без preprocessing; не связывает это с границей ожидаемого результата: проверяет declared input schema",
+          "borderline": "Может: проверяет declared input schema, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет declared input schema. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Промотирует weights без preprocessing; не связывает это с границей ожидаемого результата: связывает model, features и serving dependencies",
+          "borderline": "Может: связывает model, features и serving dependencies, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает model, features и serving dependencies. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Промотирует weights без preprocessing; не связывает это с границей ожидаемого результата: выбирает version contract и compatibility migration",
+          "borderline": "Может: выбирает version contract и compatibility migration, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает version contract и compatibility migration. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет declared input schema — локальная проверка результата",
+        "Связывает model, features и serving dependencies — независимое evidence и объяснение",
+        "Выбирает version contract и compatibility migration — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Промотирует weights без preprocessing",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "https://mlflow.org/docs/latest/ml/model-registry/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "mlops.registry-authority",
+      "domain": "registry",
+      "description": "Registry authority",
+      "middleTier": "upper",
+      "juniorExpectation": "Проверяет разрешение на локальную promotion",
+      "middleExpectation": "Различает producer, reviewer и serving identity",
+      "seniorExpectation": "Выбирает separation of duties и emergency recovery",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Позволяет training job самому утвердить release; не связывает это с границей ожидаемого результата: проверяет разрешение на локальную promotion",
+          "borderline": "Может: проверяет разрешение на локальную promotion, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет разрешение на локальную promotion. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Позволяет training job самому утвердить release; не связывает это с границей ожидаемого результата: различает producer, reviewer и serving identity",
+          "borderline": "Может: различает producer, reviewer и serving identity, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает producer, reviewer и serving identity. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Позволяет training job самому утвердить release; не связывает это с границей ожидаемого результата: выбирает separation of duties и emergency recovery",
+          "borderline": "Может: выбирает separation of duties и emergency recovery, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает separation of duties и emergency recovery. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет разрешение на локальную promotion — локальная проверка результата",
+        "Различает producer, reviewer и serving identity — независимое evidence и объяснение",
+        "Выбирает separation of duties и emergency recovery — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Позволяет training job самому утвердить release",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "https://mlflow.org/docs/latest/ml/model-registry/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "mlops.atomic-bundle",
+      "domain": "deployment",
+      "description": "Атомарный deployment bundle",
+      "middleTier": "core",
+      "juniorExpectation": "Развёртывает согласованные локальные artifacts",
+      "middleExpectation": "Согласует model, config и feature dependencies",
+      "seniorExpectation": "Выбирает rollout contract при mixed serving versions",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Выпускает model отдельно от несовместимых transforms; не связывает это с границей ожидаемого результата: развёртывает согласованные локальные artifacts",
+          "borderline": "Может: развёртывает согласованные локальные artifacts, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: развёртывает согласованные локальные artifacts. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Выпускает model отдельно от несовместимых transforms; не связывает это с границей ожидаемого результата: согласует model, config и feature dependencies",
+          "borderline": "Может: согласует model, config и feature dependencies, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует model, config и feature dependencies. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Выпускает model отдельно от несовместимых transforms; не связывает это с границей ожидаемого результата: выбирает rollout contract при mixed serving versions",
+          "borderline": "Может: выбирает rollout contract при mixed serving versions, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает rollout contract при mixed serving versions. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Развёртывает согласованные локальные artifacts — локальная проверка результата",
+        "Согласует model, config и feature dependencies — независимое evidence и объяснение",
+        "Выбирает rollout contract при mixed serving versions — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Выпускает model отдельно от несовместимых transforms",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "https://mlflow.org/docs/latest/ml/model-registry/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "mlops.rollback-state",
+      "domain": "deployment",
+      "description": "Полнота rollback",
+      "middleTier": "core",
+      "juniorExpectation": "Восстанавливает известный previous bundle",
+      "middleExpectation": "Проверяет schema, cache и persisted state после rollback",
+      "seniorExpectation": "Выбирает rollback/rollforward policy с необратимыми effects",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Откатывает binary, сохраняя несовместимый state; не связывает это с границей ожидаемого результата: восстанавливает известный previous bundle",
+          "borderline": "Может: восстанавливает известный previous bundle, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: восстанавливает известный previous bundle. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Откатывает binary, сохраняя несовместимый state; не связывает это с границей ожидаемого результата: проверяет schema, cache и persisted state после rollback",
+          "borderline": "Может: проверяет schema, cache и persisted state после rollback, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет schema, cache и persisted state после rollback. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Откатывает binary, сохраняя несовместимый state; не связывает это с границей ожидаемого результата: выбирает rollback/rollforward policy с необратимыми effects",
+          "borderline": "Может: выбирает rollback/rollforward policy с необратимыми effects, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает rollback/rollforward policy с необратимыми effects. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Восстанавливает известный previous bundle — локальная проверка результата",
+        "Проверяет schema, cache и persisted state после rollback — независимое evidence и объяснение",
+        "Выбирает rollback/rollforward policy с необратимыми effects — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Откатывает binary, сохраняя несовместимый state",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "https://mlflow.org/docs/latest/ml/model-registry/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "mlops.canary-interpretation",
+      "domain": "deployment",
+      "description": "Интерпретация canary ML",
+      "middleTier": "upper",
+      "juniorExpectation": "Сравнивает заданные health indicators",
+      "middleExpectation": "Связывает online quality, latency и delayed truth",
+      "seniorExpectation": "Выбирает canary gates под uncertainty и blast radius",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Промотирует по latency без quality evidence; не связывает это с границей ожидаемого результата: сравнивает заданные health indicators",
+          "borderline": "Может: сравнивает заданные health indicators, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сравнивает заданные health indicators. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Промотирует по latency без quality evidence; не связывает это с границей ожидаемого результата: связывает online quality, latency и delayed truth",
+          "borderline": "Может: связывает online quality, latency и delayed truth, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает online quality, latency и delayed truth. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Промотирует по latency без quality evidence; не связывает это с границей ожидаемого результата: выбирает canary gates под uncertainty и blast radius",
+          "borderline": "Может: выбирает canary gates под uncertainty и blast radius, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает canary gates под uncertainty и blast radius. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сравнивает заданные health indicators — локальная проверка результата",
+        "Связывает online quality, latency и delayed truth — независимое evidence и объяснение",
+        "Выбирает canary gates под uncertainty и blast radius — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Промотирует по latency без quality evidence",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "https://mlflow.org/docs/latest/ml/model-registry/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "mlops.gpu-scheduling",
+      "domain": "resources",
+      "description": "Планирование accelerator",
+      "middleTier": "core",
+      "juniorExpectation": "Указывает нужный GPU resource request",
+      "middleExpectation": "Связывает topology, quota и competing workload",
+      "seniorExpectation": "Выбирает scheduling strategy с fairness и utilisation",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает memory capacity достаточной для любой job; не связывает это с границей ожидаемого результата: указывает нужный gpu resource request",
+          "borderline": "Может: указывает нужный gpu resource request, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: указывает нужный gpu resource request. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает memory capacity достаточной для любой job; не связывает это с границей ожидаемого результата: связывает topology, quota и competing workload",
+          "borderline": "Может: связывает topology, quota и competing workload, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает topology, quota и competing workload. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает memory capacity достаточной для любой job; не связывает это с границей ожидаемого результата: выбирает scheduling strategy с fairness и utilisation",
+          "borderline": "Может: выбирает scheduling strategy с fairness и utilisation, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает scheduling strategy с fairness и utilisation. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Указывает нужный GPU resource request — локальная проверка результата",
+        "Связывает topology, quota и competing workload — независимое evidence и объяснение",
+        "Выбирает scheduling strategy с fairness и utilisation — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает memory capacity достаточной для любой job",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "https://mlflow.org/docs/latest/ml/model-registry/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "mlops.training-cost",
+      "domain": "resources",
+      "description": "Training cost evidence",
+      "middleTier": "core",
+      "juniorExpectation": "Считает заданные compute затраты",
+      "middleExpectation": "Связывает idle, retries и pipeline critical path",
+      "seniorExpectation": "Выбирает cost/performance policy с quality constraints",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Снижает cost удалением обязательной validation; не связывает это с границей ожидаемого результата: считает заданные compute затраты",
+          "borderline": "Может: считает заданные compute затраты, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: считает заданные compute затраты. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Снижает cost удалением обязательной validation; не связывает это с границей ожидаемого результата: связывает idle, retries и pipeline critical path",
+          "borderline": "Может: связывает idle, retries и pipeline critical path, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: связывает idle, retries и pipeline critical path. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Снижает cost удалением обязательной validation; не связывает это с границей ожидаемого результата: выбирает cost/performance policy с quality constraints",
+          "borderline": "Может: выбирает cost/performance policy с quality constraints, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает cost/performance policy с quality constraints. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Считает заданные compute затраты — локальная проверка результата",
+        "Связывает idle, retries и pipeline critical path — независимое evidence и объяснение",
+        "Выбирает cost/performance policy с quality constraints — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Снижает cost удалением обязательной validation",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "https://mlflow.org/docs/latest/ml/model-registry/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "mlops.resource-recovery",
+      "domain": "resources",
+      "description": "Recovery ресурсоёмкой job",
+      "middleTier": "upper",
+      "juniorExpectation": "Сохраняет ограниченный checkpoint",
+      "middleExpectation": "Согласует preemption, storage и resume guarantees",
+      "seniorExpectation": "Выбирает spot/reserved mix с deadline и recovery cost",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Принимает restart за эквивалент resume; не связывает это с границей ожидаемого результата: сохраняет ограниченный checkpoint",
+          "borderline": "Может: сохраняет ограниченный checkpoint, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сохраняет ограниченный checkpoint. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Принимает restart за эквивалент resume; не связывает это с границей ожидаемого результата: согласует preemption, storage и resume guarantees",
+          "borderline": "Может: согласует preemption, storage и resume guarantees, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: согласует preemption, storage и resume guarantees. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Принимает restart за эквивалент resume; не связывает это с границей ожидаемого результата: выбирает spot/reserved mix с deadline и recovery cost",
+          "borderline": "Может: выбирает spot/reserved mix с deadline и recovery cost, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает spot/reserved mix с deadline и recovery cost. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Сохраняет ограниченный checkpoint — локальная проверка результата",
+        "Согласует preemption, storage и resume guarantees — независимое evidence и объяснение",
+        "Выбирает spot/reserved mix с deadline и recovery cost — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Принимает restart за эквивалент resume",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "https://mlflow.org/docs/latest/ml/model-registry/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "mlops.trigger-validity",
+      "domain": "retraining",
+      "description": "Валидность retrain trigger",
+      "middleTier": "core",
+      "juniorExpectation": "Проверяет заданный trigger condition",
+      "middleExpectation": "Различает data bug, drift и evidence качества",
+      "seniorExpectation": "Выбирает retraining policy с labels, cost и safety gates",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Автоматически retrains при любом drift; не связывает это с границей ожидаемого результата: проверяет заданный trigger condition",
+          "borderline": "Может: проверяет заданный trigger condition, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет заданный trigger condition. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Автоматически retrains при любом drift; не связывает это с границей ожидаемого результата: различает data bug, drift и evidence качества",
+          "borderline": "Может: различает data bug, drift и evidence качества, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: различает data bug, drift и evidence качества. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Автоматически retrains при любом drift; не связывает это с границей ожидаемого результата: выбирает retraining policy с labels, cost и safety gates",
+          "borderline": "Может: выбирает retraining policy с labels, cost и safety gates, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает retraining policy с labels, cost и safety gates. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет заданный trigger condition — локальная проверка результата",
+        "Различает data bug, drift и evidence качества — независимое evidence и объяснение",
+        "Выбирает retraining policy с labels, cost и safety gates — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Автоматически retrains при любом drift",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "https://mlflow.org/docs/latest/ml/model-registry/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "mlops.feedback-lineage",
+      "domain": "retraining",
+      "description": "Lineage feedback",
+      "middleTier": "core",
+      "juniorExpectation": "Привязывает label к prediction identity",
+      "middleExpectation": "Учитывает delayed labels и selection effects",
+      "seniorExpectation": "Выбирает feedback collection и reproducible retraining",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Смешивает labels разных model policies; не связывает это с границей ожидаемого результата: привязывает label к prediction identity",
+          "borderline": "Может: привязывает label к prediction identity, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: привязывает label к prediction identity. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Смешивает labels разных model policies; не связывает это с границей ожидаемого результата: учитывает delayed labels и selection effects",
+          "borderline": "Может: учитывает delayed labels и selection effects, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: учитывает delayed labels и selection effects. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Смешивает labels разных model policies; не связывает это с границей ожидаемого результата: выбирает feedback collection и reproducible retraining",
+          "borderline": "Может: выбирает feedback collection и reproducible retraining, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает feedback collection и reproducible retraining. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Привязывает label к prediction identity — локальная проверка результата",
+        "Учитывает delayed labels и selection effects — независимое evidence и объяснение",
+        "Выбирает feedback collection и reproducible retraining — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Смешивает labels разных model policies",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "https://mlflow.org/docs/latest/ml/model-registry/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    },
+    {
+      "id": "mlops.continuous-assurance",
+      "domain": "retraining",
+      "description": "Assurance continuous training",
+      "middleTier": "upper",
+      "juniorExpectation": "Проверяет один candidate gate",
+      "middleExpectation": "Сопоставляет freshness, quality и promotion evidence",
+      "seniorExpectation": "Выбирает CT policy с human review и rollback obligations",
+      "behaviouralAnchors": {
+        "Junior": {
+          "weak": "Считает автоматизацию заменой validation; не связывает это с границей ожидаемого результата: проверяет один candidate gate",
+          "borderline": "Может: проверяет один candidate gate, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: проверяет один candidate gate. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Middle": {
+          "weak": "Считает автоматизацию заменой validation; не связывает это с границей ожидаемого результата: сопоставляет freshness, quality и promotion evidence",
+          "borderline": "Может: сопоставляет freshness, quality и promotion evidence, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: сопоставляет freshness, quality и promotion evidence. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        },
+        "Senior": {
+          "weak": "Считает автоматизацию заменой validation; не связывает это с границей ожидаемого результата: выбирает ct policy с human review и rollback obligations",
+          "borderline": "Может: выбирает ct policy с human review и rollback obligations, но нестабильно проверяет противоречащее evidence или новый constraint; объяснение не всегда согласуется с действием.",
+          "clear": "Устойчиво: выбирает ct policy с human review и rollback obligations. Показывает trace/расчёт/проверку инварианта, объясняет предел гарантии и пересматривает действие при противоречии."
+        }
+      },
+      "evidenceOfCompetence": [
+        "Проверяет один candidate gate — локальная проверка результата",
+        "Сопоставляет freshness, quality и promotion evidence — независимое evidence и объяснение",
+        "Выбирает CT policy с human review и rollback obligations — сравнение допустимых вариантов и условий пересмотра"
+      ],
+      "commonFailureModes": [
+        "Считает автоматизацию заменой validation",
+        "Игнорирует новое evidence/constraint в этой capability"
+      ],
+      "sourceBasis": [
+        "https://sfia-online.org/en/sfia-9/responsibilities",
+        "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+        "https://mlflow.org/docs/latest/ml/model-registry/"
+      ],
+      "sourceInterpretation": "Авторская synthesis: ссылки обосновывают professional scope; не утверждают точную grade taxonomy или error probabilities."
+    }
+  ]
+}
