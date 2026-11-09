@@ -539,7 +539,7 @@ docs/                     методика, контракты и техниче
  Нужны Git, работающий Docker Engine / Docker Desktop и Compose v2. Для Docker Desktop сначала выполните docker desktop start. Затем выполните в PowerShell или Bash:
 
 ```sh
-git clone https://gitverse.ru/Yujir0k/redsite.git offerly
+git clone https://github.com/Yujir0k/Offerly.git offerly
 cd offerly
 docker run --rm -v "${PWD}:/workspace" -w /workspace node:22-bookworm-slim node scripts/setup-docker.mjs
 docker compose --env-file .env.docker up --build -d
