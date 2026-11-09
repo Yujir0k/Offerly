@@ -1,3 +1,13 @@
+## ▶️ Демонстрация
+
+[Смотреть полное видео проекта (8:54)](offerly-demo.mp4)
+
+## Лидеры цифровой трансформации 2026 · кейс ФСП
+
+**Офферли** — командный проект R² negative: сервис проверки квалификации и подбора IT-специалистов. Решение разработано для кейса Федерации спортивного программирования на хакатоне «Лидеры цифровой трансформации».
+
+---
+
 <div align="center">
 
 <img src="public/brand/original.svg" width="88" alt="Знак Офферли">
@@ -632,3 +642,33 @@ npm run test:expert-demo
 Приложены оригиналы пяти статей: [1–4] — **CC BY 4.0**, [5] — **CC BY-ND 4.0**. Обе лицензии допускают коммерческое распространение с атрибуцией; CC BY-ND требует сохранять оригинал без изменений. [Условия CC BY](https://creativecommons.org/licenses/by/4.0/), [CC BY-ND](https://creativecommons.org/licenses/by-nd/4.0/) и [полная библиография с оригинальными PDF](docs/readme/research/README.md). В README добавлены 20 снимков демонстрационных кабинетов в компьютерной версии.
 
 [Сопроводительная документация в PDF](docs/readme/offerly-documentation.pdf) · [Текст документации](docs/readme/offerly-documentation.md) · [Все технические материалы](docs/README.md)
+
+## Презентация
+
+[Открыть презентацию в PDF](docs/hackathon-presentation/presentation.pdf)
+
+<details>
+<summary>Листать презентацию прямо в README</summary>
+
+<p align="center">
+  <img src="docs/hackathon-presentation/slide-01.jpg" alt="Презентация Офферли, слайд 1" width="90%" />
+  <img src="docs/hackathon-presentation/slide-02.jpg" alt="Презентация Офферли, слайд 2" width="90%" />
+  <img src="docs/hackathon-presentation/slide-03.jpg" alt="Презентация Офферли, слайд 3" width="90%" />
+  <img src="docs/hackathon-presentation/slide-04.jpg" alt="Презентация Офферли, слайд 4" width="90%" />
+  <img src="docs/hackathon-presentation/slide-05.jpg" alt="Презентация Офферли, слайд 5" width="90%" />
+  <img src="docs/hackathon-presentation/slide-06.jpg" alt="Презентация Офферли, слайд 6" width="90%" />
+  <img src="docs/hackathon-presentation/slide-07.jpg" alt="Презентация Офферли, слайд 7" width="90%" />
+  <img src="docs/hackathon-presentation/slide-08.jpg" alt="Презентация Офферли, слайд 8" width="90%" />
+  <img src="docs/hackathon-presentation/slide-09.jpg" alt="Презентация Офферли, слайд 9" width="90%" />
+  <img src="docs/hackathon-presentation/slide-10.jpg" alt="Презентация Офферли, слайд 10" width="90%" />
+  <img src="docs/hackathon-presentation/slide-11.jpg" alt="Презентация Офферли, слайд 11" width="90%" />
+  <img src="docs/hackathon-presentation/slide-12.jpg" alt="Презентация Офферли, слайд 12" width="90%" />
+  <img src="docs/hackathon-presentation/slide-13.jpg" alt="Презентация Офферли, слайд 13" width="90%" />
+  <img src="docs/hackathon-presentation/slide-14.jpg" alt="Презентация Офферли, слайд 14" width="90%" />
+  <img src="docs/hackathon-presentation/slide-16.jpg" alt="Презентация Офферли, слайд 16" width="90%" />
+  <img src="docs/hackathon-presentation/slide-17.jpg" alt="Презентация Офферли, слайд 17" width="90%" />
+</p>
+
+</details>
+
+---
